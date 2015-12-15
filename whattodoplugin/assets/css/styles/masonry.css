@@ -1,0 +1,10 @@
+#wtd_parent_menu{
+    width: 100%;
+    float: left;
+}
+
+.masonry-entry {
+    width: 25%;
+    float: left;
+}
+.item.w2 { width: 50%; }
