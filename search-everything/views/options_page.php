@@ -1,4 +1,4 @@
-	<div class="wrap">
+<div class="wrap">
 	<h2><?php _e('Search Everything', 'SearchEverything'); ?> <?php _e('options','SearchEverything');?> (<?php _e('current version','SearchEverything') ?> <?php echo SE_VERSION; ?>)</h2>
 	<div id="se-description" class="widefat">
 		<p><span class="se-name"><?php _e('Search Everything', 'SearchEverything'); ?> </span><?php _e('is the most reliable and efficient search plugin for WordPress.
@@ -296,6 +296,7 @@ The <span class="se-name">Search Everything</span> writing helper enables you to
 					<li><a href="#">Silver Ghost (RU)</a></li>
 					<li><a href="http://mishkin.se" target="blank">Mikael Jorhult (RU)</a></li>
 					<li><a href="#">Baris Unver (TR)</a></li>
+					<li><a href="#">René Kostka (CZ)</a></li>
 				</ul>
 			</td>
 		</tr>

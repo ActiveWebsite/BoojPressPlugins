@@ -1,4 +1,5 @@
 <?php
+
 global $se_options, $se_meta, $se_global_notice_pages;
 $se_options = false;
 $se_meta = false;
@@ -107,6 +108,13 @@ function se_upgrade() {
 		}
 	}
 }
+
+function se_migrate_8_1_3() {
+	$se_meta = get_option('se_meta', false);
+	$se_meta['version'] = '8.1.4';
+	update_option('se_meta', $se_meta);
+}
+
 
 function se_migrate_8_1_2() {
 	$se_meta = get_option('se_meta', false);
