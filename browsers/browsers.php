@@ -1,9 +1,10 @@
 <?php
+
 /* 
 Plugin Name: Conditional Stylesheets and Body Classes
 Plugin URI: http://qstudio.us/plugins/
 Description: Add conditional browser stylesheets and body class declarations
-Version: 0.4.3
+Version: 0.4.5
 Author: Q Studio
 Author URI: http://qstudio.us/
 License: GPL2
@@ -16,7 +17,7 @@ Instance: $q_browsers
 defined( 'ABSPATH' ) OR exit;
 
 // define constants ##
-define( 'Q_BROWSERS_VERSION', '0.4.3' ); // version ##
+define( 'Q_BROWSERS_VERSION', '0.4.5' ); // version ##
 define( 'Q_BROWSERS_PATH', dirname(__FILE__) );
 
 if ( !class_exists( "Q_Browsers" ) ) {

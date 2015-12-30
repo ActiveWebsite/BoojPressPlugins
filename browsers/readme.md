@@ -1,14 +1,14 @@
-=== Conditional Stylesheets and Body Classes ===
-Contributors: qlstudio
-Tags: css, browsers, clients, stylesheets, conditional, ie, explorer, hacks
-Requires at least: 3.2
-Tested up to: 4.0.0
-Stable tag: 0.4.5
-License: GPLv2
+# Conditional Stylesheets and Body Classes #
+**Contributors:** qlstudio  
+**Tags:** css, browsers, clients, stylesheets, conditional, ie, explorer, hacks  
+**Requires at least:** 3.2  
+**Tested up to:** 4.0.0  
+**Stable tag:** 0.4.5  
+**License:** GPLv2  
 
 Add conditional browser stylesheets and body class declarations
 
-== Description ==
+## Description ##
 
 Easily include browser specific stylesheets in templates or select browser and version specific classes in CSS.
 
@@ -20,7 +20,7 @@ For feature request and bug reports, [please use the WP Support Website](http://
 
 Please do not use the Wordpress.org forum to report bugs, as we no longer monitor or respond to questions there.
 
-= Features =
+### Features ###
 
 * Checks for and adds browser and version specific stylesheets - such as "browsers-windows-firefox.css".
 * Add browser and version specific body classes to all pages - such as body.browsers-msie-10
@@ -30,7 +30,7 @@ Please do not use the Wordpress.org forum to report bugs, as we no longer monito
 
 For feature request and bug reports, [please use the forums](http://wordpress.org/tags/browsers).
 
-== Installation ==
+## Installation ##
 
 For an automatic installation through WordPress:
 
@@ -47,9 +47,9 @@ To upload the plugin through WordPress, instead of FTP:
 
 1. Upload the downloaded zip file on the 'Add New' plugins screen (see the 'Upload' tab) in your WordPress admin area and activate.
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions ##
 
-= How do I add and access browser specirfic stylesheets? =
+### How do I add and access browser specirfic stylesheets? ###
 
 To add extra stylesheets, create a new CSS file and upload it to the root of your active theme or in the directory THEME/library/css/ - you can include a mixture of 3 values:
 
@@ -63,7 +63,7 @@ The plugin then looks for a matching CSS file in the root of the active theme or
 - browsers-msie-10.css
 - browsers-windows-msie.css
 
-= How do I select browser specific classes in my CSS files? =
+### How do I select browser specific classes in my CSS files? ###
 
 The Browsers plugin adds a collection of extra browser and operating system specific classes to the HTML &lt;body&gt; tag of all front-end pages of the current active theme.
 
@@ -71,47 +71,47 @@ The best way to find out what classes are added is to use a source code inspecto
 
 You can then use these new classes to select HTML elements in the following way ( again using IE 10 as an example ):
 
-~~ style.css ~~
+style.css
 
-body.browsers-msie-10 {
+`body.browsers-msie-10 {
 	background-color: red;
-}
+}`
 
-~~~~~~~~~~~~
+--------------
 
-== Screenshots ==
+## Screenshots ##
 
-== Changelog ==
+## Changelog ##
 
-= 0.4.5 =
+### 0.4.5 ###
 * WP 4.0 Testing
 
-= 0.4.4 =
+### 0.4.4 ###
 * 3.9.1 Testing
 
-= 0.4.3 =
+### 0.4.3 ###
 * 3.8.1 Testing
 * Forum link
 
-= 0.4.1 =
+### 0.4.1 ###
 * Name change
 
-= 0.4.0 =
+### 0.4.0 ###
 * Readyness for Q Theme Framework integration
 
-= 0.3.4 =
+### 0.3.4 ###
 * Readme corrections
 
-= 0.3.1 =
+### 0.3.1 ###
 * Correction to stylesheet location function
 
-= 0.3 =
+### 0.3 ###
 * Body tags and CSS file names homogenized
 
-= 0.2 =
+### 0.2 ###
 * First public release.
 
-== Upgrade Notice ==
+## Upgrade Notice ##
 
-= 0.2 =
+### 0.2 ###
 First release.
