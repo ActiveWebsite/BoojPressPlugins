@@ -3,12 +3,12 @@
 Plugin Name: Instagram Feed
 Plugin URI: http://smashballoon.com/instagram-feed
 Description: Display beautifully clean, customizable, and responsive Instagram feeds
-Version: 1.3.7
+Version: 1.3.11
 Author: Smash Balloon
 Author URI: http://smashballoon.com/
 License: GPLv2 or later
 
-Copyright 2014  Smash Balloon LLC (email : hey@smashballoon.com)
+Copyright 2015  Smash Balloon LLC (email : hey@smashballoon.com)
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation; either version 2 of the License, or
@@ -22,7 +22,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-define( 'SBIVER', '1.3.7' );
+define( 'SBIVER', '1.3.11' );
 
 //Include admin
 include dirname( __FILE__ ) .'/instagram-feed-admin.php';
@@ -145,7 +145,7 @@ function display_instagram($atts, $content = null) {
     $sb_instagram_content = '<div id="sb_instagram" class="sbi' . $sbi_class . $sb_instagram_disable_mobile;
     if ( !empty($sb_instagram_height) ) $sb_instagram_content .= ' sbi_fixed_height ';
     $sb_instagram_content .= ' sbi_col_' . trim($sb_instagram_cols);
-    $sb_instagram_content .= '" '.$sb_instagram_styles .' data-id="' . $sb_instagram_user_id . '" data-num="' . trim($atts['num']) . '" data-res="' . trim($atts['imageres']) . '" data-cols="' . trim($sb_instagram_cols) . '" data-options=\'{&quot;sortby&quot;: &quot;'.$atts['sortby'].'&quot;, &quot;headercolor&quot;: &quot;'.$sb_instagram_header_color.'&quot;}\'>';
+    $sb_instagram_content .= '" '.$sb_instagram_styles .' data-id="' . $sb_instagram_user_id . '" data-num="' . trim($atts['num']) . '" data-res="' . trim($atts['imageres']) . '" data-cols="' . trim($sb_instagram_cols) . '" data-options=\'{&quot;sortby&quot;: &quot;'.$atts['sortby'].'&quot;, &quot;headercolor&quot;: &quot;'.$sb_instagram_header_color.'&quot;, &quot;imagepadding&quot;: &quot;'.$sb_instagram_image_padding.'&quot;}\'>';
 
     //Header
     if( $sb_instagram_show_header ) $sb_instagram_content .= '<div class="sb_instagram_header" style="padding: '.(2*intval($sb_instagram_image_padding)) . $sb_instagram_image_padding_unit .'; padding-bottom: 0;"></div>';
@@ -209,11 +209,15 @@ function sb_instagram_scripts_enqueue() {
 
     //Options to pass to JS file
     $sb_instagram_settings = get_option('sb_instagram_settings');
+
+    //Access token
+    isset($sb_instagram_settings[ 'sb_instagram_at' ]) ? $sb_instagram_at = trim($sb_instagram_settings['sb_instagram_at']) : $sb_instagram_at = '';
+
     $data = array(
-        'sb_instagram_at' => trim($sb_instagram_settings['sb_instagram_at'])
+        'sb_instagram_at' => $sb_instagram_at
     );
 
-    $sb_instagram_ajax_theme = $sb_instagram_settings[ 'sb_instagram_ajax_theme' ];
+    isset($sb_instagram_settings[ 'sb_instagram_ajax_theme' ]) ? $sb_instagram_ajax_theme = trim($sb_instagram_settings['sb_instagram_ajax_theme']) : $sb_instagram_ajax_theme = '';
     ( $sb_instagram_ajax_theme == 'on' || $sb_instagram_ajax_theme == 'true' || $sb_instagram_ajax_theme == true ) ? $sb_instagram_ajax_theme = true : $sb_instagram_ajax_theme = false;
 
     //Enqueue it to load it onto the page
@@ -227,7 +231,8 @@ function sb_instagram_scripts_enqueue() {
 add_action( 'wp_head', 'sb_instagram_custom_css' );
 function sb_instagram_custom_css() {
     $options = get_option('sb_instagram_settings');
-    $sb_instagram_custom_css = $options[ 'sb_instagram_custom_css' ];
+    
+    isset($options[ 'sb_instagram_custom_css' ]) ? $sb_instagram_custom_css = trim($options['sb_instagram_custom_css']) : $sb_instagram_custom_css = '';
 
     //Show CSS if an admin (so can see Hide Photos link), if including Custom CSS or if hiding some photos
     ( current_user_can( 'manage_options' ) || !empty($sb_instagram_custom_css) ) ? $sbi_show_css = true : $sbi_show_css = false;
@@ -256,7 +261,7 @@ function sb_instagram_custom_css() {
 add_action( 'wp_footer', 'sb_instagram_custom_js' );
 function sb_instagram_custom_js() {
     $options = get_option('sb_instagram_settings');
-    $sb_instagram_custom_js = $options[ 'sb_instagram_custom_js' ];
+    isset($options[ 'sb_instagram_custom_js' ]) ? $sb_instagram_custom_js = trim($options['sb_instagram_custom_js']) : $sb_instagram_custom_js = '';
 
     if( !empty($sb_instagram_custom_js) ) echo '<!-- Instagram Feed JS -->';
     if( !empty($sb_instagram_custom_js) ) echo "\r\n";
@@ -273,9 +278,7 @@ function sb_instagram_custom_js() {
     if( !empty($sb_instagram_custom_js) ) echo "});";
     if( !empty($sb_instagram_custom_js) ) echo "\r\n";
     if( !empty($sb_instagram_custom_js) ) echo '</script>';
-    if( !empty($sb_instagram_custom_js) ) echo "\r\n";
-
-    
+    if( !empty($sb_instagram_custom_js) ) echo "\r\n";    
 }
 
 //Run function on plugin activate

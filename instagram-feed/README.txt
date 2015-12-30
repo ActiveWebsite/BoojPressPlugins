@@ -2,8 +2,8 @@
 Contributors: smashballoon
 Tags: Instagram, Instagram feed, Instagram photos, Instagram plugin, Instagram stream, Custom Instagram Feed, responsive Instagram, mobile Instagram, Instagram posts, Instagram wall, Instagram account
 Requires at least: 3.0
-Tested up to: 4.1
-Stable tag: 1.3.7
+Tested up to: 4.4
+Stable tag: 1.3.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -186,6 +186,22 @@ For more FAQs related to the Instagram Feed plugin please visit the [FAQ section
 7. The Instagram Feed plugin Settings pages
 
 == Changelog ==
+= 1.3.11 =
+* Fix: Fixed a bug which was causing the height of the photos to be shorter than they should have been in some themes
+* Fix: Fixed an issue where when a feed was initially hidden (in a tab, for example) then the photo resolution was defaulting to 'thumbnail'
+
+= 1.3.10 =
+* Fix: Fixed an issue which was setting the visibility of some photos to be hidden in certain browsers
+* Fix: The new square photo cropping is no longer being applied to feeds displaying images at less than 150px wide as the images from Instagram at this size are already square cropped
+* Fix: Fixed a JavaScript error in Internet Explorer 8 caused by the 'addEventListener' function not being supported
+
+= 1.3.9 =
+* Fix: Fixed an issue where photos wouldn't appear in the Instagram feed if it was initially being hidden inside of a tab or some other element
+* Fix: Fixed an issue where the new image cropping fuction was failing to run on some sites and causing the images to appear as blank
+
+= 1.3.8 =
+* Fix: If you have uploaded a photo in portrait or landscape then the plugin will now display the square cropped version of the photo in your feed
+
 = 1.3.7 =
 * Fix: Fixed an issue with double quotes in photo captions (used in the photo alt tags) which caused a formatting issue
 
@@ -282,7 +298,7 @@ For more FAQs related to the Instagram Feed plugin please visit the [FAQ section
 * New: Added a full list of all available shortcode options to help you if customizing multiple Instagram feeds
 
 = 1.0.2 =
-* Fix: Fixed an issue with the Instagram login URL on the Settings page
+* Fix: Fixed an issue with the Instagram login URL on the plugin's Settings page
 
 = 1.0.1 =
 * Fix: Fixed an issue with the Instagram Feed 'Load More' button opening an empty browser window in Firefox
