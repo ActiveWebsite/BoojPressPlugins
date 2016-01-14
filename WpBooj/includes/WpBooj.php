@@ -29,8 +29,16 @@ class WpBooj {
     add_action( 'rss2_item', array( $this, 'feed_featured_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    
-
+    
+    add_action('init', array( $this, 'init_rss_most_popular') );
+    
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
+  }
+
+  public static function init_rss_most_popular(){
+    add_feed('most_popular', 'rss_most_popular' );
+    global $wp_rewrite;
+    $wp_rewrite->flush_rules();
   }
 
   /**********
@@ -630,6 +638,80 @@ class WpBooj {
       $content = $post->post_content;
     }
     return $content;
+  }
+
+  function rss_most_popular(){
+    global $wpdb;
+    $sql = "SELECT p.ID
+      FROM {$wpdb->prefix}posts p
+      JOIN {$wpdb->prefix}postmeta pm
+      WHERE 
+        pm.meta_key = 'views' 
+        AND
+        p.post_status = 'publish'
+        AND
+        p.post_type = 'post'
+        AND
+        p.post_date > '2015-05-09'
+      ORDER BY pm.meta_value  DESC, p.post_date DESC
+      limit 10;";
+    $popular = $wpdb->get_results( $sql  );
+    $post_ids = array();
+    foreach( $popular as $p){
+      $post_ids[] = $p->ID;
+    }
+    $args = array( 'post_in' => $post_ids );
+    $posts  = get_posts( $args );
+    $p_description = trim( strip_tags( $post->post_content ) );
+    header('Content-Type: '.feed_content_type('rss-http').'; charset='.get_option('blog_charset'), true);
+    echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
+    ?>
+      <rss version="2.0"
+        xmlns:content="http://purl.org/rss/1.0/modules/content/"
+        xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:atom="http://www.w3.org/2005/Atom"
+        xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+        xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+        <?php do_action('rss2_ns'); ?>>
+      <channel>
+        <title><?php bloginfo_rss('name'); ?> - Feed</title>
+        <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
+        <link><?php bloginfo_rss('url') ?></link>
+        <description><?php bloginfo_rss('description') ?></description>
+        <lastBuildDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_lastpostmodified('GMT'), false); ?></lastBuildDate>
+        <language><?php echo get_option('rss_language'); ?></language>
+        <sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
+        <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
+        <?php do_action('rss2_head'); ?>
+        <?php foreach( $posts as $post){ ?>
+          <?php // print_r($post); ?>
+          <item>
+            <title><?php echo $post->post_title; ?>aa</title>
+            <link><?php echo $post->guid; ?></link>
+            <pubDate><?php echo $post->post_date; ?></pubDate>
+            <dc:creator><?php echo get_the_author_meta('display_name', $post->post_author); ?></dc:creator>
+            <guid isPermaLink="false"><?php echo $post->guid; ?></guid>
+            <description><![CDATA[<?php echo $p_description; ?>]]></description>
+            <content:encoded><![CDATA[<?php echo $p_description; ?>]]></content:encoded>
+            <?php rss_enclosure($post); ?>
+            <?php
+              $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'thumbnail' );
+              $thumbnail_id   = get_post_thumbnail_id( $post->ID );
+              $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'full' );          
+              printf( 
+                '<enclosure name="featured_image" url="%s" length="%s" type="%s" />',
+                $thumbnail[0], 
+                filesize( path_join( $upload_dir['basedir'], $thumbnail['path'] ) ), 
+                get_post_mime_type( $thumbnail_id ) 
+            );
+            ?>
+            <enclosure name="featured_image" url="%s" length="%s" type="%s" />
+          </item>
+        <?php } ?>
+      </channel>
+      </rss>
+    <?php    
   }
 
 }
