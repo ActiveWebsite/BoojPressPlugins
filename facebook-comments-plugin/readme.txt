@@ -4,8 +4,8 @@ Donate link:  http://peadig.com/go/facebook-comments-paypal/
 License: GPLv3
 Tags: comments, facebook, facebook comments, commenting, widgets, posts, post, pages, page, wordpress
 Requires at least: 3.1
-Tested up to: 4.1.1
-Stable tag: 2.3.1
+Tested up to: 4.2.2
+Stable tag: 2.3.3
 
 The Facebook Comments WordPress plugin makes it easier for you to setup, administer and customise Facebook comments from your WordPress site.
 
@@ -33,6 +33,14 @@ This section describes how to install the plugin and get it working.
 4. Go through the steps and hit update!
 
 == Changelog ==
+
+= 2.3.3 =
+
+* Removed old SDK option
+
+= 2.3.2 =
+
+* Removed duplicate shortcode example
 
 = 2.3.1 =
 
