@@ -4,9 +4,9 @@
 Plugin Name: Conditional Stylesheets and Body Classes
 Plugin URI: http://qstudio.us/plugins/
 Description: Add conditional browser stylesheets and body class declarations
-Version: 0.4.5
+Version: 0.4.7
 Author: Q Studio
-Author URI: http://qstudio.us/
+Author URI: https://qstudio.us/
 License: GPL2
 Text Domain: q-browsers
 Class: Q_Browsers
@@ -17,7 +17,7 @@ Instance: $q_browsers
 defined( 'ABSPATH' ) OR exit;
 
 // define constants ##
-define( 'Q_BROWSERS_VERSION', '0.4.5' ); // version ##
+define( 'Q_BROWSERS_VERSION', '0.4.7' ); // version ##
 define( 'Q_BROWSERS_PATH', dirname(__FILE__) );
 
 if ( !class_exists( "Q_Browsers" ) ) {
@@ -33,23 +33,23 @@ if ( !class_exists( "Q_Browsers" ) ) {
         
         
         /**
-     * Creates a new instance.
-     *
-     * @wp-hook init
-     * @see    __construct()
-     * @return void
-     */
+        * Creates a new instance.
+        *
+        * @wp-hook init
+        * @see    __construct()
+        * @return void
+        */
         public static function init() {
             new self;
         }
     
         
         /**
-	 * Class contructor
-	 *
-	 * @since   0.2
-	 **/
-	public function __construct() {
+        * Class contructor
+	    *
+	    * @since   0.2
+	    **/
+	    public function __construct() {
             
             // activation ##
             register_activation_hook( __FILE__, array ( $this, 'register_activation_hook' ) );

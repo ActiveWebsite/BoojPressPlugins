@@ -3,7 +3,7 @@
 **Tags:** css, browsers, clients, stylesheets, conditional, ie, explorer, hacks  
 **Requires at least:** 3.2  
 **Tested up to:** 4.0.0  
-**Stable tag:** 0.4.5  
+**Stable tag:** 0.4.7  
 **License:** GPLv2  
 
 Add conditional browser stylesheets and body class declarations
@@ -16,7 +16,7 @@ Conditional browser stylesheets are added after the main theme style.css allowin
 
 This plugin uses up-to-date WordPress top level functions, sanitizes all input data and is fully internationalized.
 
-For feature request and bug reports, [please use the WP Support Website](http://www.wp-support.co/view/categories/conditional-stylesheets-and-body-classes).
+For feature request and bug reports, [please use the Q Support Website](https://qstudio.us/support/categories/conditional-stylesheets-and-body-classes).
 
 Please do not use the Wordpress.org forum to report bugs, as we no longer monitor or respond to questions there.
 
@@ -27,8 +27,6 @@ Please do not use the Wordpress.org forum to report bugs, as we no longer monito
 * Includes the Mobile Detect class and adds mobile & touch body classes.
 * Adds a post type body class, for example: "posttype-page".
 * Inserts handy HTML comments in the HTML footer of template files to tell you which CSS files could be used and which were found.
-
-For feature request and bug reports, [please use the forums](http://wordpress.org/tags/browsers).
 
 ## Installation ##
 
@@ -82,6 +80,12 @@ style.css
 ## Screenshots ##
 
 ## Changelog ##
+
+### 0.4.7 ###
+* readme update
+
+### 0.4.6 ###
+* WP 4.4.1 Testing
 
 ### 0.4.5 ###
 * WP 4.0 Testing
