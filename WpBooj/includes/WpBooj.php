@@ -36,7 +36,7 @@ class WpBooj {
   }
 
   public static function init_rss_most_popular(){
-    add_feed('most_popular', 'rss_most_popular' );
+    add_feed('most_popular',  'rss_most_popular' );
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
   }
@@ -640,6 +640,9 @@ class WpBooj {
     return $content;
   }
 
+}
+
+
   function rss_most_popular(){
     global $wpdb;
     $sql = "SELECT p.ID
@@ -652,9 +655,10 @@ class WpBooj {
         AND
         p.post_type = 'post'
         AND
-        p.post_date > '2015-05-09'
+        p.post_date > '2015-07-01'
       ORDER BY pm.meta_value  DESC, p.post_date DESC
       limit 10;";
+    //print_r( $sql ); die();
     $popular = $wpdb->get_results( $sql  );
     $post_ids = array();
     foreach( $popular as $p){
@@ -698,15 +702,16 @@ class WpBooj {
             <?php
               $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'thumbnail' );
               $thumbnail_id   = get_post_thumbnail_id( $post->ID );
-              $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'full' );          
-              printf( 
-                '<enclosure name="featured_image" url="%s" length="%s" type="%s" />',
-                $thumbnail[0], 
-                filesize( path_join( $upload_dir['basedir'], $thumbnail['path'] ) ), 
-                get_post_mime_type( $thumbnail_id ) 
-            );
+              $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+	      if( $thumbnail_id ){
+		printf( 
+                  '<enclosure name="featured_image" url="%s" length="%s" type="%s" />',
+                  $thumbnail[0], 
+                  filesize( path_join( $upload_dir['basedir'], $thumbnail['path'] ) ), 
+                  get_post_mime_type( $thumbnail_id ) 
+               );
+	      }
             ?>
-            <enclosure name="featured_image" url="%s" length="%s" type="%s" />
           </item>
         <?php } ?>
       </channel>
@@ -714,6 +719,7 @@ class WpBooj {
     <?php    
   }
 
-}
+
+
 
 /* ENDFILE: includes/WpBooj.php */
