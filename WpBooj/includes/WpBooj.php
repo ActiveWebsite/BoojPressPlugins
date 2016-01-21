@@ -660,7 +660,6 @@ class WpBooj {
         p.post_date > '".date('Y-m-d', $date_back)."'
       ORDER BY pm.meta_value  DESC, p.post_date DESC
       limit 10;";
-    print_r( $sql ); die();
     $popular = $wpdb->get_results( $sql  );
     $post_ids = array();
     foreach( $popular as $p){
