@@ -645,9 +645,11 @@ class WpBooj {
 
   function rss_most_popular(){
     global $wpdb;
+    $date_back = time() - 16070400; # posts from last 6 months
     $sql = "SELECT p.ID
       FROM {$wpdb->prefix}posts p
       JOIN {$wpdb->prefix}postmeta pm
+      ON p.ID=pm.post_id
       WHERE 
         pm.meta_key = 'views' 
         AND
@@ -655,10 +657,10 @@ class WpBooj {
         AND
         p.post_type = 'post'
         AND
-        p.post_date > '2015-07-01'
+        p.post_date > '".date('Y-m-d', $date_back)."'
       ORDER BY pm.meta_value  DESC, p.post_date DESC
       limit 10;";
-    //print_r( $sql ); die();
+    print_r( $sql ); die();
     $popular = $wpdb->get_results( $sql  );
     $post_ids = array();
     foreach( $popular as $p){
@@ -691,13 +693,13 @@ class WpBooj {
         <?php foreach( $posts as $post){ ?>
           <?php // print_r($post); ?>
           <item>
-            <title><?php echo $post->post_title; ?>aa</title>
+            <title><?php echo $post->post_title; ?></title>
             <link><?php echo $post->guid; ?></link>
             <pubDate><?php echo $post->post_date; ?></pubDate>
             <dc:creator><?php echo get_the_author_meta('display_name', $post->post_author); ?></dc:creator>
             <guid isPermaLink="false"><?php echo $post->guid; ?></guid>
-            <description><![CDATA[<?php echo $p_description; ?>]]></description>
-            <content:encoded><![CDATA[<?php echo $p_description; ?>]]></content:encoded>
+            <description><![CDATA[<?php echo $post->post_content; ?>]]></description>
+	    <content:encoded><![CDATA[<?php echo $post->post_content; ?>]]></content:encoded>
             <?php rss_enclosure($post); ?>
             <?php
               $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'thumbnail' );
