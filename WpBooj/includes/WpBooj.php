@@ -28,8 +28,7 @@ class WpBooj {
     // Actions for feed modifications
     add_action( 'rss2_item', array( $this, 'feed_featured_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
-    add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    
-    
+    add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    \
     add_action('init', array( $this, 'init_rss_most_popular') );
     
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
@@ -134,10 +133,10 @@ class WpBooj {
     }
   }
 
-  /***                                                                                                                                                             
-    This takes the HTTP_X_FORWARDED_FOR var and replaces the REMOTE_ADDR                                                                                           
-    We do this to help our security plugins find the remote user through the proxy,                                                                                
-    and not the app server that directed them there.                                                                                                               
+  /***
+    This takes the HTTP_X_FORWARDED_FOR var and replaces the REMOTE_ADDR
+    We do this to help our security plugins find the remote user through the proxy,
+    and not the app server that directed them there.
   */
   public function x_forwarded(){
     global $_SERVER;
@@ -154,7 +153,7 @@ class WpBooj {
   }
 
 
-  /***********************************************************                                                              
+  /***********************************************************
      _____             _            _____         _           _   
     |  _  |___ ___ _ _| |___ ___   |     |___ ___| |_ ___ ___| |_ 
     |   __| . | . | | | | .'|  _|  |   --| . |   |  _| -_|   |  _|
@@ -225,17 +224,17 @@ class WpBooj {
         $where_append = '';
       }
       global $wpdb;
-      $sql = "SELECT                                                                                                                                                                                                                           
-          posts.ID,                                                                                                                                                                                                                            
-          meta.meta_value,                                                                                                                                                                                                                     
-          posts.post_title,                                                                                                                                                                                                                    
-          posts.post_name,                                                                                                                                                                                                                     
-          posts.post_date                                                                                                                                                                                                                      
-        FROM `{$wpdb->prefix}postmeta` as meta                                                                                                                                                                                                 
-        INNER JOIN `{$wpdb->prefix}posts` as posts                                                                                                                                                                                             
-        ON `meta`.`post_id`  = posts.ID                                                                                                                                                                                                        
-        WHERE `meta`.`meta_key` = 'views' ". $where_append ."                                                                                                                                                                                  
-        ORDER BY CAST( `meta_value` AS DECIMAL ) DESC                                                                                                                                                                                          
+      $sql = "SELECT
+          posts.ID,
+          meta.meta_value,
+          posts.post_title,
+          posts.post_name,
+          posts.post_date
+        FROM `{$wpdb->prefix}postmeta` as meta
+        INNER JOIN `{$wpdb->prefix}posts` as posts
+        ON `meta`.`post_id`  = posts.ID
+        WHERE `meta`.`meta_key` = 'views' ". $where_append ."
+        ORDER BY CAST( `meta_value` AS DECIMAL ) DESC
         LIMIT " . $count;
       $posts = $wpdb->get_results( $sql  );
       $popular = array();
@@ -642,85 +641,79 @@ class WpBooj {
 
 }
 
-
-  function rss_most_popular(){
-    global $wpdb;
-    $date_back = time() - 16070400; # posts from last 6 months
-    $sql = "SELECT p.ID
-      FROM {$wpdb->prefix}posts p
-      JOIN {$wpdb->prefix}postmeta pm
-      ON p.ID=pm.post_id
-      WHERE 
-        pm.meta_key = 'views' 
-        AND
-        p.post_status = 'publish'
-        AND
-        p.post_type = 'post'
-        AND
-        p.post_date > '".date('Y-m-d', $date_back)."'
-      ORDER BY pm.meta_value  DESC, p.post_date DESC
-      limit 10;";
-    $popular = $wpdb->get_results( $sql  );
-    $post_ids = array();
-    foreach( $popular as $p){
-      $post_ids[] = $p->ID;
-    }
-    $args = array( 'post_in' => $post_ids );
-    $posts  = get_posts( $args );
-    $p_description = trim( strip_tags( $post->post_content ) );
-    header('Content-Type: '.feed_content_type('rss-http').'; charset='.get_option('blog_charset'), true);
-    echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
-    ?>
-      <rss version="2.0"
-        xmlns:content="http://purl.org/rss/1.0/modules/content/"
-        xmlns:wfw="http://wellformedweb.org/CommentAPI/"
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:atom="http://www.w3.org/2005/Atom"
-        xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
-        xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-        <?php do_action('rss2_ns'); ?>>
-      <channel>
-        <title><?php bloginfo_rss('name'); ?> - Feed</title>
-        <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
-        <link><?php bloginfo_rss('url') ?></link>
-        <description><?php bloginfo_rss('description') ?></description>
-        <lastBuildDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_lastpostmodified('GMT'), false); ?></lastBuildDate>
-        <language><?php echo get_option('rss_language'); ?></language>
-        <sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
-        <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
-        <?php do_action('rss2_head'); ?>
-        <?php foreach( $posts as $post){ ?>
-          <?php // print_r($post); ?>
-          <item>
-            <title><?php echo $post->post_title; ?></title>
-            <link><?php echo $post->guid; ?></link>
-            <pubDate><?php echo $post->post_date; ?></pubDate>
-            <dc:creator><?php echo get_the_author_meta('display_name', $post->post_author); ?></dc:creator>
-            <guid isPermaLink="false"><?php echo $post->guid; ?></guid>
-            <description><![CDATA[<?php echo $post->post_content; ?>]]></description>
-	    <content:encoded><![CDATA[<?php echo $post->post_content; ?>]]></content:encoded>
-            <?php rss_enclosure($post); ?>
-            <?php
-              $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'thumbnail' );
-              $thumbnail_id   = get_post_thumbnail_id( $post->ID );
-              $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'full' );
-	      if( $thumbnail_id ){
-		printf( 
-                  '<enclosure name="featured_image" url="%s" length="%s" type="%s" />',
-                  $thumbnail[0], 
-                  filesize( path_join( $upload_dir['basedir'], $thumbnail['path'] ) ), 
-                  get_post_mime_type( $thumbnail_id ) 
-               );
-	      }
-            ?>
-          </item>
-        <?php } ?>
-      </channel>
-      </rss>
-    <?php    
+function rss_most_popular(){
+  global $wpdb;
+  $date_back = time() - 16070400; # posts from last 6 months
+  $sql = "SELECT p.ID
+    FROM {$wpdb->prefix}posts p
+    JOIN {$wpdb->prefix}postmeta pm
+    ON p.ID=pm.post_id
+    WHERE 
+      pm.meta_key = 'views' 
+      AND
+      p.post_status = 'publish'
+      AND
+      p.post_type = 'post'
+      AND
+      p.post_date > '".date('Y-m-d', $date_back)."'
+    ORDER BY pm.meta_value  DESC, p.post_date DESC
+    LIMIT 10;";
+  $popular = $wpdb->get_results( $sql  );
+  $post_ids = array();
+  foreach( $popular as $p){
+    $post_ids[] = $p->ID;
   }
-
-
-
+  $args = array( 'post_in' => $post_ids );
+  $posts  = get_posts( $args );
+  header('Content-Type: '.feed_content_type('rss-http').'; charset='.get_option('blog_charset'), true);
+  echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
+  ?>
+    <rss version="2.0"
+      xmlns:content="http://purl.org/rss/1.0/modules/content/"
+      xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+      xmlns:dc="http://purl.org/dc/elements/1.1/"
+      xmlns:atom="http://www.w3.org/2005/Atom"
+      xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+      xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+      <?php do_action('rss2_ns'); ?>>
+    <channel>
+      <title><?php bloginfo_rss('name'); ?> - Feed</title>
+      <atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
+      <link><?php bloginfo_rss('url') ?></link>
+      <description><?php bloginfo_rss('description') ?></description>
+      <lastBuildDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_lastpostmodified('GMT'), false); ?></lastBuildDate>
+      <language><?php echo get_option('rss_language'); ?></language>
+      <sy:updatePeriod><?php echo apply_filters( 'rss_update_period', 'hourly' ); ?></sy:updatePeriod>
+      <sy:updateFrequency><?php echo apply_filters( 'rss_update_frequency', '1' ); ?></sy:updateFrequency>
+      <?php do_action('rss2_head'); ?>
+      <?php foreach( $posts as $post){ ?>
+        <item>
+          <title><?php echo $post->post_title; ?></title>
+          <link><?php echo $post->guid; ?></link>
+          <pubDate><?php echo $post->post_date; ?></pubDate>
+          <dc:creator><?php echo get_the_author_meta('display_name', $post->post_author); ?></dc:creator>
+          <guid isPermaLink="false"><?php echo $post->guid; ?></guid>
+          <description><![CDATA[<?php echo trim( strip_tags( $post->post_content )); ?>]]></description>
+          <content:encoded><![CDATA[<?php trim( strip_tags( $post->post_content )); ?>]]></content:encoded>
+          <?php rss_enclosure($post); ?>
+          <?php
+            $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'thumbnail' );
+            $thumbnail_id   = get_post_thumbnail_id( $post->ID );
+            $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+            if( $thumbnail_id ){
+              printf( 
+                '<enclosure name="featured_image" url="%s" length="%s" type="%s" />',
+                $thumbnail[0], 
+                filesize( path_join( $upload_dir['basedir'], $thumbnail['path'] ) ), 
+                get_post_mime_type( $thumbnail_id ) 
+              );
+            }
+          ?>
+        </item>
+      <?php } ?>
+    </channel>
+    </rss>
+  <?php    
+}
 
 /* ENDFILE: includes/WpBooj.php */
