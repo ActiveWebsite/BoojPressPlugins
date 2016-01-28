@@ -659,12 +659,10 @@ function rss_most_popular(){
     ORDER BY pm.meta_value  DESC, p.post_date DESC
     LIMIT 10;";
   $popular = $wpdb->get_results( $sql  );
-  $post_ids = array();
+  $posts = array();
   foreach( $popular as $p){
-    $post_ids[] = $p->ID;
+    $posts[] = get_post($p->ID);
   }
-  $args = array( 'post_in' => $post_ids );
-  $posts  = get_posts( $args );
   header('Content-Type: '.feed_content_type('rss-http').'; charset='.get_option('blog_charset'), true);
   echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
   ?>
