@@ -62,10 +62,19 @@ class WpBooj {
 
   public function relative_urls(){
     add_action( 'wp_head',    array( $this, 'set_global_urls' ) );
+<<<<<<< HEAD
+    add_action( 'init',       array( $this, 'x_forwarded' ) );      
+    add_action( 'wp_head',    array( $this, 'set_canonical' ) );    
+  }
+
+
+
+=======
     add_action( 'init',       array( $this, 'x_forwarded' ) );
     add_action( 'wp_head',    array( $this, 'remove_canonical' ) );
   }
 
+>>>>>>> 2f3f8fed2d1e360aaf79bf412d16e5554b236eae
   public function set_global_urls(){
     /***
       This allows for a single blog to properly resolve to multiple domains,
@@ -159,7 +168,10 @@ class WpBooj {
   public function remove_canonical(){
     remove_action( 'wp_head', 'rel_canonical' );    
   }
+<<<<<<< HEAD
+=======
 
+>>>>>>> 2f3f8fed2d1e360aaf79bf412d16e5554b236eae
 
   /***********************************************************
      _____             _            _____         _           _   
