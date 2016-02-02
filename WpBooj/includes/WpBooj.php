@@ -18,9 +18,7 @@ class WpBooj {
     
     // Actions for front end url fixes
     add_action( 'wp_head',    array( $this, 'redirect_activeclients' ) );
-    add_action( 'wp_head',    array( $this, 'relative_urls' ) );
-    add_action( 'init',       array( $this, 'x_forwarded' ) );
-
+    add_action( 'init',       array( $this, 'relative_urls' ) );
     // Actions for random post 
     add_action( 'init', array( $this, 'random_post' ) );
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
@@ -63,6 +61,12 @@ class WpBooj {
   */
 
   public function relative_urls(){
+    add_action( 'wp_head',    array( $this, 'set_global_urls' ) );
+    add_action( 'init',       array( $this, 'x_forwarded' ) );
+    add_action( 'wp_head',    array( $this, 'remove_canonical' ) );
+  }
+
+  public function set_global_urls(){
     /***
       This allows for a single blog to properly resolve to multiple domains,
       while still supporting the apache proxy from Enterprise app servers.
@@ -79,7 +83,7 @@ class WpBooj {
     }
   }
 
-  public function get_dynamic_url(){
+  public static function get_dynamic_url(){
     /***
       This does most of the work for Relative Urls ( relative_urls )
       Looks for proxy and a differing X-Forwarded-Host then the Wordpress
@@ -150,6 +154,10 @@ class WpBooj {
       }
       $_SERVER['REMOTE_ADDR'] = $new_remote_addr;
     }
+  }
+
+  public function remove_canonical(){
+    remove_action( 'wp_head', 'rel_canonical' );    
   }
 
 
