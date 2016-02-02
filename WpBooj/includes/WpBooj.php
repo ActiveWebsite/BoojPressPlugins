@@ -63,7 +63,6 @@ class WpBooj {
   public function relative_urls(){
     add_action( 'wp_head',    array( $this, 'set_global_urls' ) );
     add_action( 'init',       array( $this, 'x_forwarded' ) );
-    add_action( 'wp_head',    array( $this, 'remove_canonical' ) );
   }
 
   public function set_global_urls(){
@@ -155,11 +154,6 @@ class WpBooj {
       $_SERVER['REMOTE_ADDR'] = $new_remote_addr;
     }
   }
-
-  public function remove_canonical(){
-    remove_action( 'wp_head', 'rel_canonical' );    
-  }
-
 
   /***********************************************************
      _____             _            _____         _           _   
