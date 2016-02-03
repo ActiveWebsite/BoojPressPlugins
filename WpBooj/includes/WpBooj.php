@@ -24,6 +24,7 @@ class WpBooj {
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
     
     // Actions for feed modifications
+    add_action( 'rss2_item', array( $this, 'feed_featured_video' ) );    
     add_action( 'rss2_item', array( $this, 'feed_featured_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    \
@@ -336,6 +337,14 @@ class WpBooj {
     Grabs images for feed enclosures when needed.
 
   */
+  function feed_featured_video() {
+      $custom_fields = get_post_custom();
+      //print_r( $custom_fields ); die();                                                                                                                                                                                                      
+      if ( array_key_exists( 'featured_video', $custom_fields) != false ){
+        echo '<featured_video>'.$custom_fields['featured_video'][0].'</featured_video>';
+      }
+  }
+
   function feed_featured_image_enclosure() {
     if ( ! has_post_thumbnail() )
       return;
