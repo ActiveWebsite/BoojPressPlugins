@@ -36,6 +36,8 @@ $WpBooj_options = get_option( 'wp-booj' );
 new WpBooj();
 new WpBoojCache();
 
+error_reporting(E_ERROR | E_PARSE);
+
 // Listen for the plugin activate/deactivate event
 register_activation_hook(   __FILE__,   'WpBooj_activate' );
 register_deactivation_hook( __FILE__,   'WpBooj_deactivate'  );
