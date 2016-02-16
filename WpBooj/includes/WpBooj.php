@@ -19,6 +19,8 @@ class WpBooj {
     // Actions for front end url fixes
     add_action( 'wp_head',    array( $this, 'redirect_activeclients' ) );
     add_action( 'init',       array( $this, 'relative_urls' ) );
+    add_action( 'init',       array( $this, 'handle_error_reporting' ))
+
     // Actions for random post 
     add_action( 'init', array( $this, 'random_post' ) );
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
@@ -28,7 +30,6 @@ class WpBooj {
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    \
     add_action('init', array( $this, 'init_rss_most_popular') );
-    
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
   }
 
@@ -49,6 +50,15 @@ class WpBooj {
     return $allcaps;
   }
 
+  /*********
+    Remove Warnings from displaying
+    This is mainly to suppress the "Warning: call_user_func_array()"
+    */
+  public function handle_error_reporting(){
+    if( $options['WpBoojEnableUATracking'] == 'on' ){
+      error_reporting(E_ERROR | E_PARSE);
+    }
+  }
 
   /***********************************************************
      _____  
