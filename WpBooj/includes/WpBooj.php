@@ -19,6 +19,7 @@ class WpBooj {
     // Actions for front end url fixes
     add_action( 'wp_head',    array( $this, 'redirect_activeclients' ) );
     add_action( 'init',       array( $this, 'relative_urls' ) );
+    add_action( 'init',       array( $this, 'handle_error_reporting' ) );
     // Actions for random post 
     add_action( 'init', array( $this, 'random_post' ) );
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
@@ -47,6 +48,12 @@ class WpBooj {
     $Contributor = get_role('contributor');
     $Contributor->add_cap( 'upload_files');
     return $allcaps;
+  }
+
+  public function handle_error_reporting(){
+    if( $options['WpBoojEnableUATracking'] == 'on' ){
+      error_reporting(E_ERROR | E_PARSE);
+    }
   }
 
 
