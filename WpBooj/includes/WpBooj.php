@@ -51,6 +51,7 @@ class WpBooj {
   }
 
   public function handle_error_reporting(){
+    global $WpBooj_options;
     if( $options['WpBoojEnableUATracking'] == 'on' ){
       error_reporting(E_ERROR | E_PARSE);
     }
