@@ -22,7 +22,7 @@ class WpBooj {
     add_action( 'init',       array( $this, 'handle_error_reporting' ))
 
     // Actions for random post 
-    add_action( 'init', array( $this, 'random_post' ) );
+    // add_action( 'init', array( $this, 'random_post' ) );
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
     
     // Actions for feed modifications
