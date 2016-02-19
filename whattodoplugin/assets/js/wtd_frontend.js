@@ -1,22 +1,19 @@
-jQuery(document).ready(function(){
+function thumbnavClick(url){
+	var idx = images.indexOf(url);
+	image_idx = idx;
+	jQuery('#wtd_gallery_big img').attr('src', url);
+}
 
-    jQuery(document).on('click','#wtd_gallery_nav a',function(event){
-        event.preventDefault();
-        var src = jQuery(this).attr('data-img');
-        jQuery('#wtd_gallery_big img').attr('src',src);
-        jQuery('#wtd_gallery_nav a').removeClass('current_image');
-        jQuery(this).addClass('current_image');
-    });
+function galleryNext(){
+	image_idx++;
+	if(image_idx >= images.length)
+		image_idx = 0;
+	jQuery('#wtd_gallery_big img').attr('src', images[image_idx]);
+}
 
-    jQuery(document).on('click','#wtd_gallery_next',function(event){
-        event.preventDefault();
-        var current_image = jQuery('#wtd_gallery_nav a.current_image');
-        current_image.next('#wtd_gallery_nav a').click();
-    });
-    jQuery(document).on('click','#wtd_gallery_prev',function(event){
-        event.preventDefault();
-        var current_image = jQuery('#wtd_gallery_nav a.current_image');
-        current_image.prev('#wtd_gallery_nav a').click();
-    });
-
-});
+function galleryPrevious(){
+	image_idx--;
+	if(image_idx < 1)
+		image_idx = images.length - 1;
+	jQuery('#wtd_gallery_big img').attr('src', images[image_idx]);
+}

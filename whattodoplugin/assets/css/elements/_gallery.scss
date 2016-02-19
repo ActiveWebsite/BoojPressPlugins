@@ -1,0 +1,18 @@
+#wtd_gallery_big {
+  height: 400px;
+  margin: 15px auto !important;
+  display: inline-block;
+  width: 100%;
+
+  img {
+    max-height: 400px;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    width: auto !important;
+  }
+}
+
+#wtd_gallery_nav img{
+  max-height: 50px;
+}
