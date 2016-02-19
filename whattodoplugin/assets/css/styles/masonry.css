@@ -3,8 +3,33 @@
     float: left;
 }
 
-.masonry-entry {
-    width: 25%;
-    float: left;
+/* 3 columns by default */
+.masonry-column-width {
+	width: 31%;
 }
-.item.w2 { width: 50%; }
+
+.masonry-entry {
+	width: 31%;
+	margin-bottom: 10px;
+	cursor: pointer;
+	padding: 8px;
+}
+
+.masonry-entry:hover{
+	border: 2px rgba(0, 0, 0, .2) solid;
+}
+
+.masonry-entry .header{
+	font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+	/* 1 column for smaller screens */
+	.masonry-column-width {
+		width: 100%;
+	}
+
+	.masonry-entry{
+		width: 100%;
+	}
+}
