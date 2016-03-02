@@ -90,12 +90,12 @@ div.aioseop_tip_icon {
 	width: 1em;
 	text-align: center;
 	padding: 0px 4px;
-	border-radius: 12px;
-	box-shadow: 1px 1px 1px #888;
 	-webkit-border-radius: 12px;
 	-moz-border-radius: 12px;
 	-webkit-box-shadow: 1px 1px 1px #888;
 	-moz-box-shadow: 1px 1px 1px #888;
+	box-shadow: 1px 1px 1px #888;
+	border-radius: 12px;	
 }
 div.aioseop_tip_icon:before {
 	content: '?';
@@ -265,10 +265,10 @@ div.aioseop_tip_icon:before {
 }
 */
 #wincher21 {
-	background-image: url(images/banner21.jpg);
+	background-image: url(../../modules/images/banner21.jpg);
 }
 #wincher22 {
-	background-image: url(images/banner22.jpg);
+	background-image: url(../../modules/images/banner22.jpg);
 }
 }
 
@@ -342,6 +342,10 @@ div.aioseop_tip_icon:before {
 .aioseop_metabox_feature {
 	margin-top: 20px;
 }
+
+.aioseop_metabox_feature img {
+}
+
 .aioseop_option_label {
 	float: left;
 	margin: 0px;
@@ -389,6 +393,10 @@ div.aioseop_tip_icon:before {
 }
 
 body.all-in-one-seo_page_all-in-one-seo-pack-aioseop_feature_manager .aioseop_settings_left {
+	margin-top: 20px;
+}
+
+body.all-in-one-seo_page_all-in-one-seo-pack-pro-aioseop_feature_manager .aioseop_settings_left {
 	margin-top: 20px;
 }
 
@@ -495,52 +503,58 @@ div.aioseop_feature .aioseop_featured_image {
 	width: 133px;
 }
 div.aioseop_feature .aioseop_featured_image {
-	background-image: url(images/Default-BW-Standard.png);
+	background-image: url(../../modules/images/Default-BW-Standard.png);
 }
 div.aioseop_feature .aioseop_featured_image.active {
-	background-image: url(images/Default-Color-Standard.png);
+	background-image: url(../../modules/images/Default-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_sitemap .aioseop_featured_image {
-	background-image: url(images/XMLSitemaps-BW-Standard.png);
+	background-image: url(../../modules/images/XMLSitemaps-BW-Standard.png);
 }
 div.aioseop_feature#aioseop_sitemap .aioseop_featured_image.active {
-	background-image: url(images/XMLSitemaps-Color-Standard.png);
+	background-image: url(../../modules/images/XMLSitemaps-Color-Standard.png);
+}
+div.aioseop_feature#aioseop_video_sitemap .aioseop_featured_image {
+	background-image: url(../../modules/images/VideoSitemap-BW-Standard.png);
+}
+div.aioseop_feature#aioseop_video_sitemap .aioseop_featured_image.active {
+	background-image: url(../../modules/images/VideoSitemap-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_opengraph .aioseop_featured_image {
-	background-image: url(images/SocialMeta-BW-Standard.png);
+	background-image: url(../../modules/images/SocialMeta-BW-Standard.png);
 }
 div.aioseop_feature#aioseop_opengraph .aioseop_featured_image.active {
-	background-image: url(images/SocialMeta-Color-Standard.png);
+	background-image: url(../../modules/images/SocialMeta-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_robots .aioseop_featured_image, div.aioseop_feature#aioseop_bad_robots .aioseop_featured_image {
-	background-image: url(images/Robots-BW-Standard.png);
+	background-image: url(../../modules/images/Robots-BW-Standard.png);
 }
 div.aioseop_feature#aioseop_robots .aioseop_featured_image.active, div.aioseop_feature#aioseop_bad_robots .aioseop_featured_image.active {
-	background-image: url(images/Robots-Color-Standard.png);
+	background-image: url(../../modules/images/Robots-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_file_editor .aioseop_featured_image {
-	background-image: url(images/FileEditor-BW-Standard.png);
+	background-image: url(../../modules/images/FileEditor-BW-Standard.png);
 }
 div.aioseop_feature#aioseop_file_editor .aioseop_featured_image.active {
-	background-image: url(images/FileEditor-Color-Standard.png);
+	background-image: url(../../modules/images/FileEditor-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_importer_exporter .aioseop_featured_image {
-	background-image: url(images/ImporterExporter-BW-Standard.png);
+	background-image: url(../../modules/images/ImporterExporter-BW-Standard.png);
 }
 div.aioseop_feature#aioseop_importer_exporter .aioseop_featured_image.active {
-	background-image: url(images/ImporterExporter-Color-Standard.png);
+	background-image: url(../../modules/images/ImporterExporter-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_performance .aioseop_featured_image {
-	background-image: url(images/Performance-BW-Standard.png);
+	background-image: url(../../modules/images/Performance-BW-Standard.png);
 }
 div.aioseop_feature#aioseop_performance .aioseop_featured_image.active {
-	background-image: url(images/Performance-Color-Standard.png);
+	background-image: url(../../modules/images/Performance-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_coming_soon .aioseop_featured_image {
-	background-image: url(images/Default-Color-Standard.png);
+	background-image: url(../../modules/images/Default-Color-Standard.png);
 }
 div.aioseop_feature#aioseop_coming_soon2 .aioseop_featured_image {
-	background-image: url(images/Default-Color-Standard.png);
+	background-image: url(../../modules/images/Default-Color-Standard.png);
 }
 .All_in_One_SEO_Pack_Sitemap > form > .wrap > .form-table,
 .All_in_One_SEO_Pack_Video_Sitemap > form > .wrap > .form-table {
@@ -553,13 +567,13 @@ div.aioseop_feature#aioseop_coming_soon2 .aioseop_featured_image {
 	display: inline-block;
 	width: 100px;
 	background-size: auto 50px !important;
-	margin-right: 5px;
+	margin-right: 0px;
 }
 .aioseop_facebook_follow {
-	background-image: url(images/facebook-follow-standard.png);
+	background-image: url(../../modules/images/facebook-follow-standard.png);
 }
 .aioseop_twitter_follow {
-	background-image: url(images/twitter-follow-standard.png);
+	background-image: url(../../modules/images/twitter-follow-standard.png);
 }
 @media
 only screen and (-webkit-min-device-pixel-ratio: 1.5),
@@ -571,58 +585,64 @@ only screen and (                min-resolution: 1.5dppx) {
         background-size: auto 100px !important;
 	}
 	div.aioseop_feature .aioseop_featured_image.active {
-		background-image: url(images/Default-Color-Retina.png);
+		background-image: url(../../modules/images/Default-Color-Retina.png);
 	}
 	div.aioseop_feature .aioseop_featured_image {
-		background-image: url(images/Default-BW-Retina.png);
+		background-image: url(../../modules/images/Default-BW-Retina.png);
 	}
 	div.aioseop_feature#aioseop_sitemap .aioseop_featured_image {
-		background-image: url(images/XMLSitemaps-BW-Retina.png);
+		background-image: url(../../modules/images/XMLSitemaps-BW-Retina.png);
 	}
 	div.aioseop_feature#aioseop_sitemap .aioseop_featured_image.active {
-		background-image: url(images/XMLSitemaps-Color-Retina.png);
+		background-image: url(../../modules/images/XMLSitemaps-Color-Retina.png);
+	}
+	div.aioseop_feature#aioseop_video_sitemap .aioseop_featured_image {
+		background-image: url(../../modules/images/VideoSitemap-BW-Retina.png);
+	}
+	div.aioseop_feature#aioseop_video_sitemap .aioseop_featured_image.active {
+		background-image: url(../../modules/images/VideoSitemap-Color-Retina.png);
 	}
 	div.aioseop_feature#aioseop_opengraph .aioseop_featured_image {
-		background-image: url(images/SocialMeta-BW-Retina.png);
+		background-image: url(../../modules/images/SocialMeta-BW-Retina.png);
 	}
 	div.aioseop_feature#aioseop_opengraph .aioseop_featured_image.active {
-		background-image: url(images/SocialMeta-Color-Retina.png);
+		background-image: url(../../modules/images/SocialMeta-Color-Retina.png);
 	}
-	div.aioseop_feature#aioseop_robots .aioseop_featured_image {
-		background-image: url(images/Robots-BW-Retina.png);
+	div.aioseop_feature#aioseop_robots .aioseop_featured_image, div.aioseop_feature#aioseop_bad_robots .aioseop_featured_image {
+		background-image: url(../../modules/images/Robots-BW-Retina.png);
 	}
-	div.aioseop_feature#aioseop_robots .aioseop_featured_image.active {
-		background-image: url(images/Robots-Color-Retina.png);
+	div.aioseop_feature#aioseop_robots .aioseop_featured_image.active, div.aioseop_feature#aioseop_bad_robots .aioseop_featured_image.active {
+		background-image: url(../../modules/images/Robots-Color-Retina.png);
 	}
 	div.aioseop_feature#aioseop_file_editor .aioseop_featured_image {
-		background-image: url(images/FileEditor-BW-Retina.png);
+		background-image: url(../../modules/images/FileEditor-BW-Retina.png);
 	}
 	div.aioseop_feature#aioseop_file_editor .aioseop_featured_image.active {
-		background-image: url(images/FileEditor-Color-Retina.png);
+		background-image: url(../../modules/images/FileEditor-Color-Retina.png);
 	}
 	div.aioseop_feature#aioseop_importer_exporter .aioseop_featured_image {
-		background-image: url(images/ImporterExporter-BW-Retina.png);
+		background-image: url(../../modules/images/ImporterExporter-BW-Retina.png);
 	}
 	div.aioseop_feature#aioseop_importer_exporter .aioseop_featured_image.active {
-		background-image: url(images/ImporterExporter-Color-Retina.png);
+		background-image: url(../../modules/images/ImporterExporter-Color-Retina.png);
 	}
 	div.aioseop_feature#aioseop_performance .aioseop_featured_image {
-		background-image: url(images/Performance-BW-Retina.png);
+		background-image: url(../../modules/images/Performance-BW-Retina.png);
 	}
 	div.aioseop_feature#aioseop_performance .aioseop_featured_image.active {
-		background-image: url(images/Performance-Color-Retina.png);
+		background-image: url(../../modules/images/Performance-Color-Retina.png);
 	}
 	div.aioseop_feature#aioseop_coming_soon .aioseop_featured_image {
-		background-image: url(images/Default-BW-Retina.png);
+		background-image: url(../../modules/images/Default-BW-Retina.png);
 	}
 	div.aioseop_feature#aioseop_coming_soon2 .aioseop_featured_image {
-		background-image: url(images/Default-BW-Retina.png);
+		background-image: url(../../modules/images/Default-BW-Retina.png);
 	}
 	.aioseop_facebook_follow {
-		background-image: url(images/facebook-follow-retina.png);	
+		background-image: url(../../modules/images/facebook-follow-retina.png);	
 	}
 	.aioseop_twitter_follow {
-		background-image: url(images/twitter-follow-retina.png);	
+		background-image: url(../../modules/images/twitter-follow-retina.png);	
 	}
 }
 
@@ -685,26 +705,31 @@ div#aioseop_snippet > div > span {
     padding: 0px;
     border: 0px;
 }
-#aiosp_sitemap_addl_pages {
+#aiosp_sitemap_addl_pages,
+#aiosp_video_sitemap_addl_pages {
 	clear: left;
 	margin-left: 20px;
 	max-width: 1072px;
 }
-#aiosp_sitemap_addl_pages_metabox .aioseop_wrapper {
+#aiosp_sitemap_addl_pages_metabox .aioseop_wrapper,
+#aiosp_video_sitemap_addl_pages_metabox .aioseop_wrapper {
 	width: 23%;
 	min-width: 165px;
 	display: inline-block;
 	max-width: 265px;
 }
-#aiosp_sitemap_addl_pages_metabox .aioseop_help_text_div {
+#aiosp_sitemap_addl_pages_metabox .aioseop_help_text_div,
+#aiosp_video_sitemap_addl_pages_metabox .aioseop_help_text_div {
 	position: absolute;
 	margin: 5px 0px 10px 0px;
 }
-#aiosp_sitemap_addl_pages_metabox .aioseop_option_input {
+#aiosp_sitemap_addl_pages_metabox .aioseop_option_input,
+#aiosp_video_sitemap_addl_pages_metabox .aioseop_option_input {
 	width: 94%;
 	min-width: 94%;
 }
-#aiosp_sitemap_addl_pages_metabox table.aioseop_table {
+#aiosp_sitemap_addl_pages_metabox table.aioseop_table,
+#aiosp_video_sitemap_addl_pages_metabox table.aioseop_table {
 	width: 96%;
 	border: 1px solid #CCC;
 	margin: 5px 0px 10px 0px;
@@ -747,6 +772,7 @@ table.aioseop_table td {
 	border-bottom-color: #dfdfdf;
 	text-shadow: #fff 0 1px 0;
 	-webkit-box-shadow: 0 1px 0 #fff;
+	-moz-box-shadow: 0 1px 0 #fff;
 	box-shadow: 0 1px 0 #fff;
 }
 .All_in_One_SEO_Pack_Opengraph table.aioseop_table td {
@@ -764,7 +790,8 @@ table.aioseop_table td {
 #aioseop_opengraph_settings_facebook_debug_result li.aioseop_opengraph_settings_facebook_debug_item:nth-child(odd) {
   width: 70%;
 }
-#aiosp_sitemap_addl_pages_metabox table.aioseop_table td {
+#aiosp_sitemap_addl_pages_metabox table.aioseop_table td,
+#aiosp_video_sitemap_addl_pages_metabox table.aioseop_table td {
 	width: 25%;
 	padding-left: 5%;
 }	
@@ -984,7 +1011,7 @@ div.aioseop_notice a.aioseop_dismiss_link {
 	padding-left: 5px;
 }
 .aioseop_loading {
-	background-image: url('images/activity.gif');
+	background-image: url('../../images/activity.gif');
 	display: inline-block;
 	width: 24px;
 	height: 24px;
@@ -993,7 +1020,7 @@ div.aioseop_notice a.aioseop_dismiss_link {
 	vertical-align: bottom;
 }
 .aiosp_delete_url {
-	background-image: url('images/delete.png');
+	background-image: url('../../images/delete.png');
 	display: inline-block;
 	width: 16px;
 	height: 16px;

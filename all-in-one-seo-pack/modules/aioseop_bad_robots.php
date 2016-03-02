@@ -14,8 +14,8 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			parent::__construct();
 			
 			$help_text = Array(
-				'block_bots' =>   __( 'Block requests from user agents that are known to misbehave.', 'all-in-one-seo-pack' ),
-				'block_refer' =>  __( 'Block referral spam.', 'all-in-one-seo-pack' ),
+				'block_bots' =>   __( 'Block requests from user agents that are known to misbehave with 503.', 'all-in-one-seo-pack' ),
+				'block_refer' =>  __( 'Block Referral Spam using HTTP.', 'all-in-one-seo-pack' ),
 				'track_blocks'=>  __( 'Log and show recent requests from blocked bots.', 'all-in-one-seo-pack' ),
 				'htaccess_rules'=>__( 'Block bad robots via Apaache .htaccess rules. Warning: this will change your web server configuration, make sure you are able to edit this file manually as well.', 'all-in-one-seo-pack' ),
 				'edit_blocks' =>  __( 'Check this to edit the list of disallowed user agents for blocking bad bots.', 'all-in-one-seo-pack' ),
@@ -25,11 +25,11 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 			);
 			
 			$this->default_options = array(
-				'block_bots' => Array( 'name' =>   __( 'Block Bad Bots', 'all-in-one-seo-pack' ) ),
-				'block_refer'  => Array( 'name' => __( 'Block Referral Spam', 'all-in-one-seo-pack' ) ),
+				'block_bots' => Array( 'name' =>   __( 'Block Bad Bots using HTTP', 'all-in-one-seo-pack' ) ),
+				'block_refer'  => Array( 'name' => __( 'Block Referral Spam using HTTP', 'all-in-one-seo-pack' ) ),
 				'track_blocks' => Array( 'name' => __( 'Track Blocked Bots', 'all-in-one-seo-pack' ) ),
-				'htaccess_rules' => Array( 'name' => __( 'Add rules to .htaccess', 'all-in-one-seo-pack' ) ),
-				'edit_blocks'  => Array( 'name' => __( 'Edit Blocklists', 'all-in-one-seo-pack' ) ),
+				'htaccess_rules' => Array( 'name' => __( 'Block Bad Bots using .htaccess', 'all-in-one-seo-pack' ) ),
+				'edit_blocks'  => Array( 'name' => __( 'Use Custom Blocklists', 'all-in-one-seo-pack' ) ),
 				'blocklist'	   => Array( 'name' => __( 'User Agent Blocklist', 'all-in-one-seo-pack' ), 'type' => 'textarea', 'rows' => 5, 'cols' => 120, 'condshow' => Array( "{$this->prefix}edit_blocks" => 'on' ), 'default' => join( "\n", $this->default_bad_bots() ) ),
 				'referlist'	   => Array( 'name' => __( 'Referer Blocklist', 'all-in-one-seo-pack' ), 'type' => 'textarea', 'rows' => 5, 'cols' => 120, 'condshow' => Array( "{$this->prefix}edit_blocks" => 'on', "{$this->prefix}block_refer" => 'on',  ), 'default' => join( "\n", $this->default_bad_referers() )  ),
 				'blocked_log'  => Array( 'name' => __( 'Log Of Blocked Bots', 'all-in-one-seo-pack' ), 'default' => __( 'No requests yet.', 'all-in-one-seo-pack' ), 'type' => 'html', 'disabled' => 'disabled', 'save' => false, 'label' => 'top', 'rows' => 5, 'cols' => 120, 'style' => 'min-width:950px', 'condshow' => Array( "{$this->prefix}track_blocks" => 'on' ) )
@@ -76,7 +76,18 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		}
 		
 		function generate_htaccess_blocklist() {
-			if ( !$this->option_isset( 'htaccess_rules' ) ) return;
+			if ( !$this->option_isset( 'htaccess_rules' ) ) {
+
+				if ( insert_with_markers( get_home_path() . '.htaccess', $this->name, '' ) ) {
+					aioseop_output_notice( __( "Updated .htaccess rules.", 'all-in-one-seo-pack' ) );
+				} else {
+					aioseop_output_notice( __( "Failed to update .htaccess rules!", 'all-in-one-seo-pack' ), "", "error" );
+				}
+				
+				return;
+				
+			}
+
 			if ( function_exists( 'apache_get_modules' ) ) {
 				$modules = apache_get_modules();
 				foreach( Array( 'mod_authz_host', 'mod_setenvif' ) as $m ) {

@@ -3,7 +3,7 @@ Contributors: ithemes, chrisjean, aaroncampbell, gerroald, mattdanner
 Tags: security, malware, secure, multi-site, network, mu, login, lockdown, htaccess, hack, header, cleanup, ban, restrict, access, protect, protection, disable, images, image, hotlink, admin, username, database, prefix, wp-content, rename, directory, directories, secure, SSL, iThemes, BackupBuddy, Exchange, iThemes Exchange
 Requires at least: 4.1
 Tested up to: 4.4.2
-Stable tag: 5.3.0
+Stable tag: 5.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -188,6 +188,21 @@ Free support may be available with the help of the community in the <a href="htt
 5. Easy-to-navigate Security dashboard
 
 == Changelog ==
+
+= 5.3.2 =
+* Bug Fix: Updated code that generates the backups and logs directories to ensure that it attempts to create the parent directory if it does not exist yet.
+* Bug Fix: Removed warnings that could be generated if the logs directory could not be created.
+* Bug Fix: Database backup files sent via email no longer have a name without an extension if zipping up the file fails.
+
+= 5.3.1 =
+* Security Fix: Hardened the created backups and logs directories. Thanks to Nicolas Chatelain (SYSDREAM IT Security Services) for notifying us of this issue.
+* Security Fix: More secure backup and log file names. Thanks to Nicolas Chatelain (SYSDREAM IT Security Services) for notifying us of this issue.
+* Bug Fix: The "NGINX Conf File" setting is now properly respected, causing the generated NGINX configuration file to be stored in that location.
+* Enhancement: Generated database backup file names now contain a human-readable timestamp in the format of YYYYMMDD-HHMMSS.
+* Enhancement: Zipped database backup files no longer contain a deeply nested directory structure. Instead, they only contain the sql file.
+* Enhancement: When the "Force Unique Nickname" feature is enabled, the generated display name now uses an improved randomization function.
+* Enhancement: Improved tabbing of rules in generated nginx.conf files.
+* Enhancement: Removed the "See what's new button" as it has fulfilled its purpose.
 
 = 5.3.0 =
 * New Feature: Added support for IPv6 addresses. This includes support for IPv6 in lockouts, ban hosts, and white lists.

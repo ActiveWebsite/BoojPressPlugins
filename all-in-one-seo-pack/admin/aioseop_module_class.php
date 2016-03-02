@@ -138,7 +138,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			
 			if ( $charset == 'UTF-8' ) {
 				global $UTF8_TABLES;
-				include_once( 'aioseop_utility.php' );
+				include_once( AIOSEOP_PLUGIN_DIR . 'inc/aioseop_UTF8.php' );
 				if ( is_array( $UTF8_TABLES ) ) {
 					if ( $mode == 'upper' ) return strtr( $str, $UTF8_TABLES['strtoupper'] );
 					if ( $mode == 'lower' ) return strtr( $str, $UTF8_TABLES['strtolower'] );
@@ -568,7 +568,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			);
 			return $referlist;
 		}
-		
+
 		function is_bad_referer() {
 			$referlist = $this->default_bad_referers();
 			$referlist = apply_filters( $this->prefix . "badreferlist", $referlist );
@@ -589,7 +589,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				$allow_bot = false;
 			return apply_filters( $this->prefix . "allow_bot", $allow_bot );
 		}
-				
+
 		/**
 		 * Displays tabs for tabbed locations on a settings page.
 		 */
@@ -1267,9 +1267,9 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 		function enqueue_styles( ) {
 			wp_enqueue_style( 'thickbox' );
 			if ( !empty( $this->pointers ) ) wp_enqueue_style( 'wp-pointer' );
-			wp_enqueue_style(  'aioseop-module-style',  $this->plugin_path['url'] . 'aioseop_module.css' );
+			wp_enqueue_style(  'aioseop-module-style',  AIOSEOP_PLUGIN_URL . 'css/modules/aioseop_module.css' );
 			if ( function_exists( 'is_rtl' ) && is_rtl() )
-				wp_enqueue_style(  'aioseop-module-style-rtl',  $this->plugin_path['url'] . 'aioseop_module-rtl.css', array('aioseop-module-style') );
+				wp_enqueue_style(  'aioseop-module-style-rtl',  AIOSEOP_PLUGIN_URL . 'css/modules/aioseop_module-rtl.css', array('aioseop-module-style') );
 		}
 		
 		/**
@@ -1286,7 +1286,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			if ( !empty( $this->pointers ) ) {
 				wp_enqueue_script( 'wp-pointer', false, array( 'jquery' ) );
 			}
-			wp_enqueue_script( 'aioseop-module-script', $this->plugin_path['url'] . 'aioseop_module.js', Array(), AIOSEOP_VERSION );
+			wp_enqueue_script( 'aioseop-module-script', AIOSEOP_PLUGIN_URL . 'js/modules/aioseop_module.js', Array(), AIOSEOP_VERSION );
 			if ( !empty( $this->script_data ) ) {
 				aioseop_localize_script_data();
 			}
@@ -1401,7 +1401,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			else
 				$name = $this->name;
 			if ( $this->locations === null ) {
-				$hookname = add_submenu_page( $parent_slug, $name, $name, 'manage_options', plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
+				$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
 				add_action( "load-{$hookname}", Array( $this, 'add_page_hooks' ) );
 				return true;
 			}
@@ -1412,13 +1412,13 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 							$name = $this->menu_name;
 						else
 							$name = $this->name;
-						$hookname = add_submenu_page( $parent_slug, $name, $name, 'manage_options', plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
+						$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), plugin_basename( $this->file ), Array( $this, 'display_settings_page' ) );
 					} else {
 						if ( !empty( $v['menu_name'] ) )
 							$name = $v['menu_name'];
 						else
 							$name = $v['name'];
-						$hookname = add_submenu_page( $parent_slug, $name, $name, 'manage_options', $this->get_prefix( $k ) . $k, Array( $this, "display_settings_page_$k" ) );
+						$hookname = add_submenu_page( $parent_slug, $name, $name, apply_filters( 'manage_aiosp', 'aiosp_manage_seo' ), $this->get_prefix( $k ) . $k, Array( $this, "display_settings_page_$k" ) );
 					}
 					add_action( "load-{$hookname}", Array( $this, 'add_page_hooks' ) );
 				} elseif ( $v['type'] === 'metabox' ) {
@@ -1942,7 +1942,14 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 				if ( $post == null ) {
 					global $post;
 				}
-				if ( isset( $post ) ) {
+				
+				if ( ( isset( $_GET['taxonomy'] ) && isset( $_GET['tag_ID'] ) ) || is_category() || is_tag() || is_tax() ) {
+
+					if ( AIOSEOPPRO ) {
+						$get_opts = AIO_ProGeneral::getprotax( $get_opts );
+					}
+					
+				} elseif ( isset( $post ) ) {
 					$get_opts = get_post_meta( $post->ID, '_' . $prefix . $location, true );
 				}
 			}

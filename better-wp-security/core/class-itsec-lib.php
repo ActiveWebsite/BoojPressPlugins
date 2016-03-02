@@ -400,41 +400,6 @@ final class ITSEC_Lib {
 	}
 
 	/**
-	 * Returns a psuedo-random string of requested length.
-	 *
-	 * Builds a random string similar to the WordPress password functions.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @param int  $length        how long the string should be (max 62)
-	 * @param bool $base32        true if use only base32 characters to generate
-	 * @param bool $special_chars whether to include special characters in generation
-	 *
-	 * @return string
-	 */
-	public static function get_random( $length, $base32 = false, $special_chars = false ) {
-
-		if ( true === $base32 ) {
-
-			$string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
-
-		} else {
-
-			$string = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-
-			if ( true === $special_chars ) {
-
-				$string .= '_)(*&^%$#@!~`:;<>,.?/{}[]|';
-
-			}
-
-		}
-
-		return substr( str_shuffle( $string ), mt_rand( 0, strlen( $string ) - $length ), $length );
-
-	}
-
-	/**
 	 * Returns the server type of the plugin user.
 	 *
 	 * Attempts to figure out what http server the visiting user is running.
@@ -444,35 +409,9 @@ final class ITSEC_Lib {
 	 * @return string|bool server type the user is using of false if undetectable.
 	 */
 	public static function get_server() {
-
-		// @codeCoverageIgnoreStart
-		//Allows to override server authentication for testing or other reasons.
-		if ( defined( 'ITSEC_SERVER_OVERRIDE' ) ) {
-			return ITSEC_SERVER_OVERRIDE;
-		}
-		// @codeCoverageIgnoreEnd
-
-		$server_raw = strtolower( filter_var( $_SERVER['SERVER_SOFTWARE'], FILTER_SANITIZE_STRING ) );
-
-		//figure out what server they're using
-		if ( false !== strpos( $server_raw, 'apache' ) ) {
-
-			return 'apache';
-
-		} elseif ( false !== strpos( $server_raw, 'nginx' ) ) {
-
-			return 'nginx';
-
-		} elseif ( false !== strpos( $server_raw, 'litespeed' ) ) {
-
-			return 'litespeed';
-
-		} else { //unsupported server
-
-			return false;
-
-		}
-
+		require_once( trailingslashit( $GLOBALS['itsec_globals']['plugin_dir'] ) . 'core/lib/class-itsec-lib-utility.php' );
+		
+		return ITSEC_Lib_Utility::get_web_server();
 	}
 
 	/**

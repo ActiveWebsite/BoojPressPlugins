@@ -37,7 +37,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Robots' ) ) {
 					'robotgen'	=> Array( 'name'	  => __( 'Generate Robots.txt',  'all-in-one-seo-pack'),
 										  'save' => false,
 										  'default'	  => '', 'type' => 'textarea', 'cols' => 57, 'rows' => 20, 'label' => 'none', 'readonly' => 'readonly' ),
-					'Submit_Preview' => Array( 'type' => 'submit', 'class' => 'button-primary', 'name' => __( 'Add Rule', 'all-in-one-seo-pack' ) . ' &raquo;', 'nowrap' => 1, 'style' => 'margin-left: 20px;' ),
+					'Submit_Preview' => Array( 'type' => 'submit', 'class' => 'button-primary MRL', 'name' => __( 'Add Rule', 'all-in-one-seo-pack' ) . ' &raquo;', 'nowrap' => 1 ),
 					'Submit_Update' => Array( 'type' => 'submit', 'class' => 'button-primary', 'name'  => __( 'Save Robots.txt File', 'all-in-one-seo-pack' ) . ' &raquo;', 'nowrap' => 1 ),
 					'Submit_Delete' => Array( 'type' => 'submit', 'class' => 'button-primary', 'name'  => __( 'Delete Robots.txt File', 'all-in-one-seo-pack' ) . ' &raquo;', 'nowrap' => 1 ),
 					'optusage'		=> Array( 'type' => 'html', 'label' => 'none',

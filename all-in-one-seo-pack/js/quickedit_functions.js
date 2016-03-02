@@ -56,4 +56,4 @@ function handle_post_meta( p, t, m, n ) {
 		jQuery("div#aioseop_"+m+"_"+p).attr( "class", "aioseop_mpc_admin_meta_options" );
 		
 	})
-};
+}
