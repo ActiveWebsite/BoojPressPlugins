@@ -1125,7 +1125,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			//unset( $plugin_url['scheme'] );
 			$plugin_path = $this->unparse_url( $plugin_url );
 			
-			$xml_header = '<?xml-stylesheet type="text/xsl" href="' . $plugin_path . 'sitemap.xsl"?>' . "\r\n"
+			$xml_header = '<?xml-stylesheet type="text/xsl" href="' . AIOSEOP_PLUGIN_URL . 'sitemap.xsl"?>' . "\r\n"
 						. '<urlset ';
 			$namespaces = apply_filters( $this->prefix . 'xml_namespace', Array( 'xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9' ) );
 			if ( !empty( $namespaces ) ) {
@@ -1181,7 +1181,7 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( !is_array( $urls ) ) return null;
 			echo '<?xml version="1.0" encoding="UTF-8"?>' . "\r\n\r\n";
 			echo "<!-- " . sprintf( $this->comment_string, $comment, AIOSEOP_VERSION, date('D, d M Y H:i:s e') ) . " -->\r\n";
-			echo '<?xml-stylesheet type="text/xsl" href="' . $this->plugin_path['url'] . 'sitemap.xsl"?>' . "\r\n";
+			echo '<?xml-stylesheet type="text/xsl" href="' . AIOSEOP_PLUGIN_URL . 'sitemap.xsl"?>' . "\r\n";
 			echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\r\n";
 			$count = 0;
 			foreach ( $urls as $url ) {
@@ -1739,15 +1739,6 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 			}
 			
-			global $wp_version;
-			/*** Disable for now - this appears to be slower. -- pdb ***/
-			/*
-			if ( version_compare( $wp_version, '3.5', '>=' ) ) {
-				$args['meta_query'] = Array(
-					Array( 'key' => '_aioseop_sitemap_exclude', 'value' => '', 'compare' => 'NOT EXISTS' )
-				);
-			} else {
-			*/
 				$ex_args = $args;
 				$ex_args['meta_key'] = '_aioseop_sitemap_exclude';
 				$ex_args['meta_value'] = 'on';

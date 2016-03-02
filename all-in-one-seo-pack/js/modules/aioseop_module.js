@@ -185,14 +185,14 @@ jQuery(document).ready(function(){
     // listen for drag drop of metaboxes , bind mousedown to .hndle so it only fires when starting to drag
     jQuery('.hndle').mousedown(function(){                                                               
         // set live event listener for mouse up on the content .wrap and wait a tick to give the dragged div time to settle before firing the reclick function
-        jQuery('.wrap').mouseup(function(){store_radio(); setTimeout('reclick_radio();',50);});
+        jQuery('.wrap').mouseup(function(){aiosp_store_radio(); setTimeout('aiosp_reclick_radio();',50);});
     })
 });
 /**
 * stores object of all radio buttons that are checked for entire form
 */
-if(typeof store_radio != 'function') {
-	function store_radio(){
+
+	function aiosp_store_radio(){
 	    var radioshack = {};
 	    jQuery('input[type="radio"]').each(function(){
 	        if(jQuery(this).is(':checked')){
@@ -201,12 +201,12 @@ if(typeof store_radio != 'function') {
 	        jQuery(document).data('radioshack',radioshack);
 	    });
 	}
-}
+
 /**
 * detect mouseup and restore all radio buttons that were checked
 */
-if(typeof reclick_radio != 'function') {
-	function reclick_radio(){
+
+	function aiosp_reclick_radio(){
 	    // get object of checked radio button names and values
 	    var radios = jQuery(document).data('radioshack');
 	    //step thru each object element and trigger a click on it's corresponding radio button
@@ -216,7 +216,7 @@ if(typeof reclick_radio != 'function') {
 	    // unbind the event listener on .wrap  (prevents clicks on inputs from triggering function)
 	    jQuery('.wrap').unbind('mouseup');
 	}
-}
+
 
 function aioseop_handle_ajax_call( action, settings, options, success) {
 	var aioseop_sack = new sack(ajaxurl);
@@ -229,6 +229,7 @@ function aioseop_handle_ajax_call( action, settings, options, success) {
 		aioseop_sack.onCompletion = success;
 	}
 	aioseop_sack.setVar( "nonce-aioseop", jQuery('input[name="nonce-aioseop"]').val() );
+	aioseop_sack.setVar( "nonce-aioseop-edit", jQuery('input[name="nonce-aioseop-edit"]').val() );
 	
 	aioseop_sack.onError = function() {alert('Ajax error on saving.'); };
 	aioseop_sack.runAJAX();
@@ -285,12 +286,6 @@ jQuery(document).ready(function() {
 			}
 		});
 	}
-	/*
-	jQuery("#aiosp_settings_form").delegate("input[name='Submit']", "click", function() {
-		aioseop_handle_post_url('aioseop_ajax_save_settings', 'ajax_settings_message', jQuery('form#aiosp_settings_form').serialize() );
-		return false;
-	});
-	*/
 	jQuery(".all-in-one-seo_page_all-in-one-seo-pack-pro-aioseop_feature_manager #aiosp_settings_form .aioseop_settings_left").delegate("input[name='Submit']", "click", function(e) {
 		e.preventDefault();
 		return false;
@@ -306,20 +301,12 @@ jQuery(document).ready(function() {
 		return false;
 	});
 	var selectors = "div.aioseop_multicheckbox_type div.aioseop_option_div, #aiosp_sitemap_debug div.aioseop_option_div, #aiosp_performance_status div.aioseop_option_div";
-	/*
-	jQuery(selectors).each(function() {
-		aioseop_overflow_border(this);
-	});
-	var resizeTimer;
-	jQuery(window).resize(function() {
-		clearTimeout(resizeTimer);
-		resizeTimer = setTimeout(jQuery(selectors).each(function() {
-			aioseop_overflow_border(this);
-		}), 250);
-	});
-	*/
 	jQuery("div#aiosp_sitemap_addl_pages_metabox").delegate("input[name='Submit']", "click", function() {
 		aioseop_handle_post_url('aioseop_ajax_save_url', 'sitemap_addl_pages', jQuery('div#aiosp_sitemap_addl_pages_metabox input, div#aiosp_sitemap_addl_pages_metabox select').serialize() );
+		return false;
+	});
+	jQuery("div#aiosp_video_sitemap_addl_pages_metabox").delegate("input[name='Submit']", "click", function() {
+		aioseop_handle_post_url('aioseop_ajax_save_url', 'video_sitemap_addl_pages', jQuery('div#aiosp_video_sitemap_addl_pages_metabox input, div#aiosp_video_sitemap_addl_pages_metabox select').serialize() );
 		return false;
 	});
 	jQuery("div#aiosp_sitemap_addl_pages_metabox").delegate("a.aiosp_delete_url", "click", function(e) {
@@ -327,17 +314,22 @@ jQuery(document).ready(function() {
 		aioseop_handle_post_url('aioseop_ajax_delete_url', 'sitemap_addl_pages', jQuery(this).attr("title") );
 		return false;
 	});
+	jQuery("div#aiosp_video_sitemap_addl_pages_metabox").delegate("a.aiosp_delete_url", "click", function(e) {
+		e.preventDefault();
+		aioseop_handle_post_url('aioseop_ajax_delete_url', 'video_sitemap_addl_pages', jQuery(this).attr("title") );
+		return false;
+	});
 	jQuery("div#aiosp_opengraph_scan_header").delegate("input[name='aiosp_opengraph_scan_header']", "click", function(e) {
 		e.preventDefault();
 		aioseop_handle_post_url('aioseop_ajax_scan_header', 'opengraph_scan_header', jQuery('div#aiosp_opengraph_scan_header').serialize() );
 		return false;
 	});
-	jQuery( 'input[name="aiosp_sitemap_posttypes[]"][value="all"], input[name="aiosp_sitemap_taxonomies[]"][value="all"]' ).click(function () {
-		jQuery(this).parents('div:eq(0)').find(':checkbox').attr('checked', this.checked);
+	jQuery( 'input[name="aiosp_sitemap_posttypes[]"][value="all"], input[name="aiosp_video_sitemap_posttypes[]"][value="all"], input[name="aiosp_sitemap_taxonomies[]"][value="all"], input[name="aiosp_video_sitemap_taxonomies[]"][value="all"]' ).click(function () {
+		jQuery(this).parents('div:eq(0)').find(':checkbox').prop('checked', this.checked);
     });
-	jQuery( 'input[name="aiosp_sitemap_posttypes[]"][value!="all"], input[name="aiosp_sitemap_taxonomies[]"][value!="all"]' ).click(function () {
+	jQuery( 'input[name="aiosp_sitemap_posttypes[]"][value!="all"], input[name="aiosp_video_sitemap_posttypes[]"][value!="all"], input[name="aiosp_sitemap_taxonomies[]"][value!="all"], input[name="aiosp_video_sitemap_taxonomies[]"][value!="all"]' ).click(function () {
 		if ( !this.checked )
-			jQuery(this).parents('div:eq(0)').find('input[value="all"]:checkbox').attr('checked', this.checked);
+			jQuery(this).parents('div:eq(0)').find('input[value="all"]:checkbox').prop('checked', this.checked);
     });
 
 	jQuery(".aioseop_tab:not(:first)").hide();
