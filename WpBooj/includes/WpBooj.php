@@ -17,7 +17,7 @@ class WpBooj {
     add_filter( 'user_has_cap', array( $this, 'capability_filter'), 10, 3 );
     
     // Actions for front end url fixes
-    add_action( 'wp_head',    array( $this, 'redirect_to_www' ) );
+    add_action( 'init',    array( $this, 'redirect_to_www' ) );
     add_action( 'init',       array( $this, 'relative_urls' ) );
     add_action( 'init',       array( $this, 'handle_error_reporting' ) );
     // Actions for random post 
