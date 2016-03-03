@@ -17,7 +17,7 @@ class WpBooj {
     add_filter( 'user_has_cap', array( $this, 'capability_filter'), 10, 3 );
     
     // Actions for front end url fixes
-    add_action( 'wp_head',    array( $this, 'redirect_activeclients' ) );
+    add_action( 'init',    array( $this, 'redirect_to_www' ) );
     add_action( 'init',       array( $this, 'relative_urls' ) );
     add_action( 'init',       array( $this, 'handle_error_reporting' ) );
     // Actions for random post 
@@ -25,6 +25,7 @@ class WpBooj {
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
     
     // Actions for feed modifications
+    add_action( 'rss2_item', array( $this, 'feed_featured_video' ) );    
     add_action( 'rss2_item', array( $this, 'feed_featured_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    \
@@ -130,20 +131,22 @@ class WpBooj {
     return array( $blog_url, False );
    }
 
-  public function redirect_activeclients(){
+  public function redirect_to_www(){
     /***
-      Stops users and bots from accessing the active-clients.com location
+      Redirects users to www version of site
       @todo : this could create a potential redirect loop, should update.
     */
     global $WpBooj_options;
-    if( 
-      $WpBooj_options['proxy_admin_urls'] == 'on' && 
-      ! isset( $_SERVER['HTTP_X_FORWARDED_HOST'] ) &&
-      $WpBooj_options['relative_urls'] != 'on'
-      )
-    {
-      header( 'Location: ' . get_site_url() . '/' );   
+    if(
+         $WpBooj_options['proxy_admin_urls'] == 'on' and
+         isset( $_SERVER['HTTP_X_FORWARDED_HOST']) and
+         substr($_SERVER['HTTP_X_FORWARDED_HOST'], 0, 4) != 'www.'){
+      $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .'/blog' .$_SERVER['REQUEST_URI'];
+      header('HTTP/1,1 301 Moved Permanently');
+      header('Location: ' . $redirect);
+      exit();
     }
+
   }
 
   /***
@@ -346,6 +349,14 @@ class WpBooj {
     Grabs images for feed enclosures when needed.
 
   */
+  function feed_featured_video() {
+      $custom_fields = get_post_custom();
+      //print_r( $custom_fields ); die();                                                                                                                                                                                                      
+      if ( array_key_exists( 'featured_video', $custom_fields) != false ){
+        echo '<featured_video>'.$custom_fields['featured_video'][0].'</featured_video>';
+      }
+  }
+
   function feed_featured_image_enclosure() {
     if ( ! has_post_thumbnail() )
       return;
