@@ -35,6 +35,8 @@ class WpBooj {
 
   public static function init_rss_most_popular(){
     add_feed('most_popular',  'rss_most_popular' );
+    add_feed('most_popular',  'rss_most_popular_lux' );
+    // add_feed('most_popular',  'rss_most_popular_lux' );
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
   }
@@ -651,6 +653,38 @@ class WpBooj {
 
 }
 
+function rss_most_popular_luxury(){
+  rss_most_popular_category('luxury-residential');
+}
+
+function rss_most_popular_category($category_slug){
+  global $wpdb;
+  $date_back = time() - 16070400; # posts from last 6 months
+  $sql = "SELECT p.ID
+    FROM wp_posts p 
+    JOIN wp_term_relationships r 
+      ON p.id=r.object_id 
+    JOIN wp_term_taxonomy tt 
+      ON tt.term_taxonomy_id = r.term_taxonomy_id 
+    JOIN wp_terms t 
+      ON tt.term_id = t.term_id 
+    JOIN wp_postmeta pm 
+      ON p.ID=pm.post_id 
+    WHERE 
+      t.slug='".$category_slug."' AND 
+      pm.meta_key='views' AND 
+      p.post_date > '".$date_back."' 
+    ORDER BY CAST(pm.meta_value AS SIGNED) DESC 
+    LIMIT 10;
+    ";
+  $popular = $wpdb->get_results( $sql  );
+  $posts = array();
+  foreach( $popular as $p){
+    $posts[] = get_post($p->ID);
+  }
+  draw_feed($posts);  
+}
+
 function rss_most_popular(){
   global $wpdb;
   $date_back = time() - 16070400; # posts from last 6 months
@@ -673,6 +707,10 @@ function rss_most_popular(){
   foreach( $popular as $p){
     $posts[] = get_post($p->ID);
   }
+  draw_feed($posts);
+}
+
+function draw_feed($posts){
   header('Content-Type: '.feed_content_type('rss-http').'; charset='.get_option('blog_charset'), true);
   echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
   ?>
@@ -723,5 +761,4 @@ function rss_most_popular(){
     </rss>
   <?php    
 }
-
 /* ENDFILE: includes/WpBooj.php */
