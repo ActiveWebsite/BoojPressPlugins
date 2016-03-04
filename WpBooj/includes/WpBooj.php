@@ -18,8 +18,8 @@ class WpBooj {
     
     // Actions for front end url fixes
     add_action( 'init',    array( $this, 'redirect_to_www' ) );
-    add_action( 'init',       array( $this, 'relative_urls' ) );
-    add_action( 'init',       array( $this, 'handle_error_reporting' ) );
+    add_action( 'init',    array( $this, 'relative_urls' ) );
+    add_action( 'init',    array( $this, 'handle_error_reporting' ) );
     // Actions for random post 
     add_action( 'init', array( $this, 'random_post' ) );
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
@@ -28,16 +28,17 @@ class WpBooj {
     add_action( 'rss2_item', array( $this, 'feed_featured_video' ) );    
     add_action( 'rss2_item', array( $this, 'feed_featured_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
-    add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    \
+    add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );
     add_action('init', array( $this, 'init_rss_most_popular') );
     
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
   }
 
   public static function init_rss_most_popular(){
-    add_feed('most_popular',  'rss_most_popular' );
-    add_feed('most_popular',  'rss_most_popular_lux' );
-    // add_feed('most_popular',  'rss_most_popular_lux' );
+    add_feed('most_popular', 'rss_most_popular' );
+    add_feed('most_popular_luxury', 'rss_most_popular_luxury' );
+    add_feed('most_popular_timberland', 'rss_most_popular_timberland' );
+    add_feed('most_popular_consulting', 'rss_most_popular_consulting' );
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
   }
@@ -665,7 +666,15 @@ class WpBooj {
 }
 
 function rss_most_popular_luxury(){
-  rss_most_popular_category('luxury-residential');
+  rss_most_popular_category('luxury-residential');  
+}
+
+function rss_most_popular_timberland(){
+  rss_most_popular_category('timberland');
+}
+
+function rss_most_popular_consulting(){
+  rss_most_popular_category();
 }
 
 function rss_most_popular_category($category_slug){
