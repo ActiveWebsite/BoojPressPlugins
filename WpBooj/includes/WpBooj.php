@@ -674,7 +674,7 @@ function rss_most_popular_timberland(){
 }
 
 function rss_most_popular_consulting(){
-  rss_most_popular_category();
+  rss_most_popular_category('consulting');
 }
 
 function rss_most_popular_category($category_slug){
