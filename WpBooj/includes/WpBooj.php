@@ -18,8 +18,8 @@ class WpBooj {
     
     // Actions for front end url fixes
     add_action( 'init',    array( $this, 'redirect_to_www' ) );
-    add_action( 'init',       array( $this, 'relative_urls' ) );
-    add_action( 'init',       array( $this, 'handle_error_reporting' ) );
+    add_action( 'init',    array( $this, 'relative_urls' ) );
+    add_action( 'init',    array( $this, 'handle_error_reporting' ) );
     // Actions for random post 
     add_action( 'init', array( $this, 'random_post' ) );
     add_action( 'template_redirect', array( $this, 'random_template' ) );  
@@ -28,14 +28,17 @@ class WpBooj {
     add_action( 'rss2_item', array( $this, 'feed_featured_video' ) );    
     add_action( 'rss2_item', array( $this, 'feed_featured_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
-    add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );    \
+    add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );
     add_action('init', array( $this, 'init_rss_most_popular') );
     
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
   }
 
   public static function init_rss_most_popular(){
-    add_feed('most_popular',  'rss_most_popular' );
+    add_feed('most_popular', 'rss_most_popular' );
+    add_feed('most_popular_luxury', 'rss_most_popular_luxury' );
+    add_feed('most_popular_timberland', 'rss_most_popular_timberland' );
+    add_feed('most_popular_consulting', 'rss_most_popular_consulting' );
     global $wp_rewrite;
     $wp_rewrite->flush_rules();
   }
@@ -662,6 +665,46 @@ class WpBooj {
 
 }
 
+function rss_most_popular_luxury(){
+  rss_most_popular_category('luxury-residential');  
+}
+
+function rss_most_popular_timberland(){
+  rss_most_popular_category('timberland');
+}
+
+function rss_most_popular_consulting(){
+  rss_most_popular_category('consulting');
+}
+
+function rss_most_popular_category($category_slug){
+  global $wpdb;
+  $date_back = time() - 16070400; # posts from last 6 months
+  $sql = "SELECT p.ID
+    FROM wp_posts p 
+    JOIN wp_term_relationships r 
+      ON p.id=r.object_id 
+    JOIN wp_term_taxonomy tt 
+      ON tt.term_taxonomy_id = r.term_taxonomy_id 
+    JOIN wp_terms t 
+      ON tt.term_id = t.term_id 
+    JOIN wp_postmeta pm 
+      ON p.ID=pm.post_id 
+    WHERE 
+      t.slug='".$category_slug."' AND 
+      pm.meta_key='views' AND 
+      p.post_date > '".$date_back."' 
+    ORDER BY CAST(pm.meta_value AS SIGNED) DESC 
+    LIMIT 10;
+    ";
+  $popular = $wpdb->get_results( $sql  );
+  $posts = array();
+  foreach( $popular as $p){
+    $posts[] = get_post($p->ID);
+  }
+  draw_feed($posts);  
+}
+
 function rss_most_popular(){
   global $wpdb;
   $date_back = time() - 16070400; # posts from last 6 months
@@ -684,6 +727,10 @@ function rss_most_popular(){
   foreach( $popular as $p){
     $posts[] = get_post($p->ID);
   }
+  draw_feed($posts);
+}
+
+function draw_feed($posts){
   header('Content-Type: '.feed_content_type('rss-http').'; charset='.get_option('blog_charset'), true);
   echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
   ?>
@@ -734,5 +781,4 @@ function rss_most_popular(){
     </rss>
   <?php    
 }
-
 /* ENDFILE: includes/WpBooj.php */
