@@ -135,19 +135,20 @@ class WpBooj {
   public function redirect_to_www(){
     /***
       Redirects users to www version of site
-      @todo : this could create a potential redirect loop, should update.
+      @todo : this could create a potential redirect loop, should update.              
     */
     global $WpBooj_options;
     if(
          $WpBooj_options['proxy_admin_urls'] == 'on' and
          isset( $_SERVER['HTTP_X_FORWARDED_HOST']) and
-         substr($_SERVER['HTTP_X_FORWARDED_HOST'], 0, 4) != 'www.'){
-      $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .'/blog' .$_SERVER['REQUEST_URI'];
-      header('HTTP/1,1 301 Moved Permanently');
-      header('Location: ' . $redirect);
-      exit();
-    }
-
+         substr($_SERVER['HTTP_X_FORWARDED_HOST'], 0, 4) != 'www.' and
+         ! is_admin() and
+         $GLOBALS['pagenow'] != 'wp-login.php'){
+        $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .'/blog' .$_SERVER['REQUEST_URI'];
+        header('HTTP/1,1 301 Moved Permanently');
+        header('Location: ' . $redirect);
+        exit();
+      }
   }
 
   /***
