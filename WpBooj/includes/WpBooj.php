@@ -32,6 +32,9 @@ class WpBooj {
     add_action('init', array( $this, 'init_rss_most_popular') );
     
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
+
+    add_action('init', array($this, 'email_us'));
+    add_action( 'template_redirect', array( $this, 'email_template' ) );     
   }
 
   public static function init_rss_most_popular(){
@@ -662,6 +665,25 @@ class WpBooj {
       $content = $post->post_content;
     }
     return $content;
+  }
+  
+  public static function email_us(){
+    global $wp;
+    $wp->add_query_var('email_us');
+    add_rewrite_rule('email_us/?$', 'index.php?random=1', 'top');
+  }  
+
+  public static function email_template() {
+    if (get_query_var('email_us') == 1) {
+      $redirect = get_site_url() . '/' . $GLOBALS['pagenow'].'?email_sent=1';
+      $message = $_POST['first_name'] . ' ' . $_POST['last_name'] . ' has sent a message via the Willis Allen blog';
+      $message = $message . "\n" . $_POST['message'];
+      $emails = array( 'alix@booj.com');
+      $subject = 'New Message from the Willis Allen Blog';
+      wp_mail( $emails, $subject, $message );
+      wp_redirect( $redirect, 307 );
+      exit;
+    }
   }
 
 }
