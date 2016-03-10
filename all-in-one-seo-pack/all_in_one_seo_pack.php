@@ -3,7 +3,7 @@
 Plugin Name: All In One SEO Pack
 Plugin URI: http://semperfiwebdesign.com
 Description: Out-of-the-box SEO for your WordPress blog. Features like XML Sitemaps, SEO for custom post types, SEO for blogs or business sites, SEO for ecommerce sites, and much more. Almost 30 million downloads since 2007.
-Version: 2.3.2
+Version: 2.3.2.3
 Author: Michael Torbert
 Author URI: http://michaeltorbert.com
 Text Domain: all-in-one-seo-pack
@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package All-in-One-SEO-Pack
- * @version 2.3.1
+ * @version 2.3.2.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) return;
@@ -39,7 +39,7 @@ define('AIOSEOPPRO', false);
 global $aioseop_plugin_name;
 $aioseop_plugin_name = 'All in One SEO Pack';
 if ( ! defined( 'AIOSEOP_PLUGIN_NAME' ) ) define( 'AIOSEOP_PLUGIN_NAME', $aioseop_plugin_name );
-if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.1' );
+if ( ! defined( 'AIOSEOP_VERSION' ) ) define( 'AIOSEOP_VERSION', '2.3.2.3' );
 
 //register_activation_hook(__FILE__,'aioseop_activate_pl');
 
@@ -313,7 +313,8 @@ if ( is_admin() ) {
 	}
 	add_action( 'wp_ajax_aioseop_ajax_save_settings', 'aioseop_ajax_save_settings');
 	add_action( 'wp_ajax_aioseop_ajax_get_menu_links', 'aioseop_ajax_get_menu_links');
-	add_action( 'wp_ajax_aioseo_dismiss_visibility_notice' , 'aioseop_update_user_visibilitynotice') ; 
+	add_action( 'wp_ajax_aioseo_dismiss_visibility_notice' , 'aioseop_update_user_visibilitynotice'); 
+	add_action( 'wp_ajax_aioseo_dismiss_woo_upgrade_notice' , 'aioseop_woo_upgrade_notice_dismissed'); 
 	if(AIOSEOPPRO){
 		add_action( 'wp_ajax_aioseop_ajax_update_oembed',	'aioseop_ajax_update_oembed' );
 	}
@@ -329,7 +330,8 @@ if ( !function_exists( 'aioseop_scan_post_header' ) ) {
 	}
 }
 
-require_once( 'init.php' );
+require_once( AIOSEOP_PLUGIN_DIR . 'aioseop_init.php' );
+
 
 register_activation_hook( __FILE__, 'aiosp_install' );
 
