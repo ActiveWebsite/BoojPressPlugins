@@ -498,6 +498,18 @@ final class ITSEC_Lib {
 			$white_ips[] = ITSEC_Lib::get_ip(); //add current user ip to whitelist to check automatically
 		}
 
+		// Check to see if we have a temporarily white listed IP
+		$temp = get_site_option( 'itsec_temp_whitelist_ip' );
+		if ( false !== $temp ) {
+			// If the temporary white list is expired, delete the option we store it in
+			if ( $temp['exp'] < current_time( 'timestamp' ) ) {
+				delete_site_option( 'itsec_temp_whitelist_ip' );
+			} else {
+				// If the temporary white list is still valid, add the IP to our list of white IPs
+				$white_ips[] = $temp['ip'];
+			}
+		}
+
 		foreach ( $white_ips as $white_ip ) {
 			if ( ITSEC_Lib_IP_Tools::intersect( $ip_to_check, ITSEC_Lib_IP_Tools::ip_wild_to_ip_cidr( $white_ip ) ) ) {
 				return true;
