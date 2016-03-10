@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtor
 Tags: seo, SEO, all in one seo, widget, Post, plugin, admin, posts, shortcode, sidebar, google, twitter, page, images, comments, image, social, search engine optimization, sitemap, WordPress SEO, meta, meta description, xml sitemap, xml sitemaps, google sitemap, sitemaps, robots meta, rss, rss footer, yahoo, bing, news sitemaps, XML News Sitemaps, multisite, canonical, nofollow, noindex, keywords, meta keywords, description, webmaster tools, google webmaster tools, google analytics, seo pack
 Requires at least: 3.3
 Tested up to: 4.4
-Stable tag: 2.3.2
+Stable tag: 2.3.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

@@ -352,3 +352,5 @@
 	Bug Fix: Updated code that generates the backups and logs directories to ensure that it attempts to create the parent directory if it does not exist yet.
 	Bug Fix: Removed warnings that could be generated if the logs directory could not be created.
 	Bug Fix: Database backup files sent via email no longer have a name without an extension if zipping up the file fails.
+2.2.5 - 2016-03-03 - Chris Jean & Aaron D. Campbell
+	Bug Fix: Fixed temporary whitelisting by preventing a temporarily whitelisted IP from being locked out.

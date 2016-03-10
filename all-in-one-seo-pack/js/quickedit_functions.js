@@ -1,9 +1,20 @@
-jQuery(document).on( 'click', '.aioseop-notice .notice-dismiss', function() {
+jQuery(document).on( 'click', '.visibility-notice', function() {
 
     jQuery.ajax({
         url: ajaxurl,
         data: {
             action: 'aioseo_dismiss_visibility_notice'
+        }
+    })
+
+})
+
+jQuery(document).on( 'click', '.woo-upgrade-notice', function() {
+
+    jQuery.ajax({
+        url: ajaxurl,
+        data: {
+            action: 'aioseo_dismiss_woo_upgrade_notice'
         }
     })
 

@@ -45,8 +45,8 @@ if ( !class_exists( 'All_in_One_SEO_Pack_Feature_Manager' ) ) {
 
 					}else{
 
-					$this->module_info['coming_soon'] = Array( 'name'			=> __( 'Coming Soon...', 'all-in-one-seo-pack' ),
-					'description'	=> __( 'Video Sitemap', 'all-in-one-seo-pack' ),
+					$this->module_info['coming_soon'] = Array( 'name'			=> __( 'Video Sitemap', 'all-in-one-seo-pack' ),
+					'description'	=> __( 'Pro Version Only', 'all-in-one-seo-pack' ),
 					'save'		=> false ) ;
 
 				}

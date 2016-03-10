@@ -780,3 +780,9 @@ function aioseop_update_user_visibilitynotice(){
 	update_user_meta( get_current_user_id(), 'aioseop_visibility_notice_dismissed', true );
 
 	}
+	
+function aioseop_woo_upgrade_notice_dismissed(){
+
+	update_user_meta( get_current_user_id(), 'aioseop_woo_upgrade_notice_dismissed', true );
+
+	}
