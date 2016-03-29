@@ -142,15 +142,16 @@ class WpBooj {
     */
     global $WpBooj_options;
     if(
-         $WpBooj_options['proxy_admin_urls'] == 'on' and
-         isset( $_SERVER['HTTP_X_FORWARDED_HOST']) and
-         substr($_SERVER['HTTP_X_FORWARDED_HOST'], 0, 4) != 'www.' and
-         ! is_admin() and
-         $GLOBALS['pagenow'] != 'wp-login.php'){
-        $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .'/blog' .$_SERVER['REQUEST_URI'];
-        header('HTTP/1,1 301 Moved Permanently');
-        header('Location: ' . $redirect);
-        exit();
+        $WpBooj_options['proxy_admin_urls'] == 'on' and
+        isset( $_SERVER['HTTP_X_FORWARDED_HOST']) and
+        substr($_SERVER['HTTP_X_FORWARDED_HOST'], 0, 4) != 'www.' and
+        ! is_admin() and
+        $GLOBALS['pagenow'] != 'wp-login.php') and
+        ! isset($_GET['preview']) ){
+          $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .'/blog' .$_SERVER['REQUEST_URI'];
+          header('HTTP/1,1 301 Moved Permanently');
+          header('Location: ' . $redirect);
+          exit();
       }
   }
 
