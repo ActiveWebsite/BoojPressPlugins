@@ -156,9 +156,17 @@ class WpBooj {
     if($modified && (strpos($redirect, '/blog/blog') !== false)){
         $redirect = str_replace("blog/blog", "blog/", $redirect);
     } elseif( isset($_SERVER['HTTP_X_FORWARDED_SERVER']) && (strpos($_SERVER['REQUEST_URI'], '/blog') !== false) ){
-      $modified = True;
+        $modified = True;
         $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .$_SERVER['REQUEST_URI'];
         $redirect = str_replace("blog/blog", "blog/", $redirect);
+    }
+    if(
+       $WpBooj_options['proxy_admin_urls'] == 'on' and
+       isset($_SERVER['HTTP_X_FORWARDED_HOST']) and
+       strpos($_SERVER['HTTP_X_FORWARDED_HOST'], '.active-clients.com') !== false
+      ){
+        $modified = True;
+        $redirect = get_home_url() .$_SERVER['REQUEST_URI'];
     }
     if($modified){
       header('HTTP/1,1 301 Moved Permanently');
