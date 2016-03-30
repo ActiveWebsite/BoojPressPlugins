@@ -141,18 +141,30 @@ class WpBooj {
       @todo : this could create a potential redirect loop, should update.              
     */
     global $WpBooj_options;
+    $modified = False;
     if(
         $WpBooj_options['proxy_admin_urls'] == 'on' and
         isset( $_SERVER['HTTP_X_FORWARDED_HOST']) and
         substr($_SERVER['HTTP_X_FORWARDED_HOST'], 0, 4) != 'www.' and
         ! is_admin() and
         $GLOBALS['pagenow'] != 'wp-login.php' and
-        ! isset($_GET['preview']) ){
-          $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .'/blog' .$_SERVER['REQUEST_URI'];
-          header('HTTP/1,1 301 Moved Permanently');
-          header('Location: ' . $redirect);
-          exit();
-      }
+        ! isset($_GET['preview'])
+       ){
+      $modified = True;
+      $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .'/blog' .$_SERVER['REQUEST_URI'];
+    }
+    if($modified && (strpos($redirect, '/blog/blog') !== false)){
+        $redirect = str_replace("blog/blog", "blog/", $redirect);
+    } elseif( isset($_SERVER['HTTP_X_FORWARDED_SERVER']) && (strpos($_SERVER['REQUEST_URI'], '/blog') !== false) ){
+      $modified = True;
+        $redirect = 'http://www.'.$_SERVER['HTTP_X_FORWARDED_SERVER'] .$_SERVER['REQUEST_URI'];
+        $redirect = str_replace("blog/blog", "blog/", $redirect);
+    }
+    if($modified){
+      header('HTTP/1,1 301 Moved Permanently');
+      header('Location: ' . $redirect);
+      exit();
+    }
   }
 
   /***
