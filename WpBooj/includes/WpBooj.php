@@ -388,7 +388,7 @@ class WpBooj {
       return;
     $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'thumbnail' );
     $thumbnail_id   = get_post_thumbnail_id( get_the_ID() );
-    $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+    $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'large' );
     // @todo: Get the proper file size for the "length" attribute 
     if ( empty( $thumbnail ) )
       return;
@@ -799,7 +799,7 @@ function draw_feed($posts){
       <?php foreach( $posts as $post){ ?>
         <item>
           <title><?php echo $post->post_title; ?></title>
-          <link><?php echo $post->guid; ?></link>
+          <link><?php echo get_post_permalink($post->ID); ?></link>
           <pubDate><?php echo $post->post_date; ?></pubDate>
           <dc:creator><?php echo get_the_author_meta('display_name', $post->post_author); ?></dc:creator>
           <guid isPermaLink="false"><?php echo $post->guid; ?></guid>
@@ -807,9 +807,9 @@ function draw_feed($posts){
           <content:encoded><![CDATA[<?php trim( strip_tags( $post->post_content )); ?>]]></content:encoded>
           <?php rss_enclosure($post); ?>
           <?php
-            $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'thumbnail' );
+            $thumbnail_size = apply_filters( 'rss_enclosure_image_size', 'large' );
             $thumbnail_id   = get_post_thumbnail_id( $post->ID );
-            $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'full' );
+            $thumbnail      = wp_get_attachment_image_src( $thumbnail_id, 'large' );
             if( $thumbnail_id ){
               printf( 
                 '<enclosure name="featured_image" url="%s" length="%s" type="%s" />',
