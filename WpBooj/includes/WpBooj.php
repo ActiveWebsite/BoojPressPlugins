@@ -799,7 +799,11 @@ function draw_feed($posts){
       <?php foreach( $posts as $post){ ?>
         <item>
           <title><?php echo $post->post_title; ?></title>
-          <link><?php echo get_post_permalink($post->ID); ?></link>
+          <?php
+            $datetime = new DateTime($post->post_date);
+            $permalink = site_url() . $datetime->format('/Y/m/') . $post->post_name;
+          ?>
+          <link><?php echo $permalink; ?></link>
           <pubDate><?php echo $post->post_date; ?></pubDate>
           <dc:creator><?php echo get_the_author_meta('display_name', $post->post_author); ?></dc:creator>
           <guid isPermaLink="false"><?php echo $post->guid; ?></guid>
