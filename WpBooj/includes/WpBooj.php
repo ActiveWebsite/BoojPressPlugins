@@ -34,7 +34,9 @@ class WpBooj {
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
 
     add_action('init', array($this, 'email_us'));
-    add_action( 'template_redirect', array( $this, 'email_template' ) );     
+    add_action( 'template_redirect', array( $this, 'email_template' ) );
+
+    remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
   }
 
   public static function init_rss_most_popular(){
