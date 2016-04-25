@@ -441,7 +441,7 @@ class WpBoojAdmin {
         <style type="text/css">
           #menu-links, #menu-plugins, #menu-settings, 
           #menu-tools, #menu-appearance, #toplevel_page_itsec,
-          .toplevel_page_amazon-web-services 
+          .toplevel_page_amazon-web-services, #wp-version-message 
           { display: none;}          
         </style>
         <?php
