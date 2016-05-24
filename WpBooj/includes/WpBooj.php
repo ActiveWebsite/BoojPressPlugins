@@ -401,6 +401,7 @@ class WpBooj {
      filesize( path_join( $upload_dir['basedir'], $thumbnail['path'] ) ), 
      get_post_mime_type( $thumbnail_id ) 
     );
+    printf('<media:content url="%s" medium="image">',$thumbnail[0]);    
   }
 
   function feed_realtor_image_enclosure() {
