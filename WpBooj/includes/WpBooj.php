@@ -29,6 +29,7 @@ class WpBooj {
     add_action( 'rss2_item', array( $this, 'feed_featured_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_realtor_image_enclosure' ) );
     add_action( 'rss2_item', array( $this, 'feed_post_id_append' ) );
+    add_action( 'rss2_ns', array( $this, 'add_media_namespace' ) );
     add_action('init', array( $this, 'init_rss_most_popular') );
     
     add_action( 'wp_footer', array( $this, 'google_analyitics' ) );    
@@ -377,6 +378,10 @@ class WpBooj {
     Grabs images for feed enclosures when needed.
 
   */
+  function add_media_namespace() {
+    echo 'xmlns:media="http://search.yahoo.com/mrss/"';
+  }
+
   function feed_featured_video() {
       $custom_fields = get_post_custom();
       //print_r( $custom_fields ); die();                                                                                                                                                                                                      
@@ -396,12 +401,12 @@ class WpBooj {
       return;
     $upload_dir = wp_upload_dir();
     printf( 
-     '<enclosure name="featured_image" url="%s" length="%s" type="%s" />',
+     '<media:content name="featured_image" medium="image" url="%s" length="%s" type="%s" />',
      $thumbnail[0], 
      filesize( path_join( $upload_dir['basedir'], $thumbnail['path'] ) ), 
      get_post_mime_type( $thumbnail_id ) 
     );
-    printf('<media:content url="%s" medium="image">',$thumbnail[0]);    
+    //printf('\n<media:content url="%s" medium="image">',$thumbnail[0]);
   }
 
   function feed_realtor_image_enclosure() {
