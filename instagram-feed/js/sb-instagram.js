@@ -91,7 +91,7 @@ if(!sbi_js_exists){
                     if( data.data.bio.length ) $header += '<p class="sbi_bio" '+headerStyles+'>'+data.data.bio+'</p>';
                     $header += '</div>';
                     $header += '<div class="sbi_header_img">';
-                    $header += '<div class="sbi_header_img_hover"><i class="fa fa-instagram"></i></div>';
+                    $header += '<div class="sbi_header_img_hover"><i></i></div>';
                     $header += '<img src="'+data.data.profile_picture+'" alt="'+data.data.full_name+'" width="50" height="50">';
                     $header += '</div>';
                     $header += '</a>';
@@ -118,9 +118,9 @@ if(!sbi_js_exists){
                             time = date.getTime();
                         image.created_time_raw = time;
 
-                        //Replace double quotes in the captions with the HTML symbol
+                        //Remove all special chars in caption so doesn't cause issue in alt tag
                         //Always check to make sure it exists
-                        if(image.caption != null) image.caption.text = image.caption.text.replace(/"/g, "&quot;");
+                        if(image.caption != null) image.caption.text = image.caption.text.replace(/[^a-zA-Z ]/g, "");
 
                         return true;
                     },
