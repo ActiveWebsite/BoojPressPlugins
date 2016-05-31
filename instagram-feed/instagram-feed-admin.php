@@ -1144,11 +1144,8 @@ while (list($key, $val) = each($sbi_options)) {
 
 function sb_instagram_admin_style() {
         wp_register_style( 'sb_instagram_admin_css', plugins_url('css/sb-instagram-admin.css', __FILE__), array(), SBIVER );
-<<<<<<< HEAD
         wp_enqueue_style( 'sb_instagram_font_awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css' );
-=======
-        wp_enqueue_style( 'sb_instagram_font_awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css' );
->>>>>>> master
+
         wp_enqueue_style( 'sb_instagram_admin_css' );
         wp_enqueue_style( 'wp-color-picker' );
 }
