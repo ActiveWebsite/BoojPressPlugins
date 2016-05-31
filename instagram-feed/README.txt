@@ -554,6 +554,7 @@ Relationship of the Parties: Notwithstanding any provision hereof, for all purpo
 Invalidity of Specific Terms: If any provision of the Instagram API Terms is found by a court of competent jurisdiction to be invalid, the parties nevertheless agree that the court should endeavor to give effect to the parties' intentions as reflected in the provision and that the other provisions remain in full force and effect.
 No Waiver of Rights by Instagram: Instagram's failure to exercise or enforce any right or provision of the Instagram API Terms shall not constitute a waiver of such right or provision.
 
+<<<<<<< HEAD
 == Changelog ==
 
 = 1.4.5 =
@@ -567,10 +568,23 @@ No Waiver of Rights by Instagram: Instagram's failure to exercise or enforce any
 * Fix: Fixed an issue caused by a specific type of emoji which would cause the feed to break when used in a post
 * Tweak: Added links to our other **free** plugins to the bottom of the admin pages: [The Custom Facebook Feed](https://wordpress.org/plugins/custom-facebook-feed/) and [Custom Twitter Feeds](https://wordpress.org/plugins/custom-twitter-feeds/)
 
+=======
+== Upgrade Notice ==
+
+= 1.4.3 =
+**Important:** Due to the upcoming Instagram API changes, in order for the Instagram Feed plugin to continue working after **June 1st** you must update the plugin and obtain a new Access Token on the plugin's Settings page.
+
+== Changelog ==
+
+>>>>>>> master
 = 1.4.3 =
 * Fix: Important notice added in the last update is now only visible to admins
 
 = 1.4.2 =
+<<<<<<< HEAD
+=======
+* **IMPORTANT: Due to the upcoming Instagram API changes, in order for the Instagram Feed plugin to continue working after June 1st you must obtain a new Access Token by using the Instagram button on the plugin's Settings page.**
+>>>>>>> master
 * New: Compatible with Instagram's new API changes effective June 1st
 * New: Added video icons to Instagram posts in the feed which contain videos
 * New: Added a setting to allow you to use a fixed pixel width for the feed on desktop but switch to a 100% width responsive layout on mobile

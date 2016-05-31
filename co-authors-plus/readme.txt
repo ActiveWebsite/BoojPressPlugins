@@ -4,6 +4,7 @@ Tags: authors, users, multiple authors, coauthors, multi-author, publishing
 Tested up to: 4.5.2
 Requires at least: 4.1
 Stable tag: 3.2.1
+=======
 
 Assign multiple bylines to posts, pages, and custom post types via a search-as-you-type input box
 
@@ -66,6 +67,8 @@ Various minor bug and security fixes
 = 3.1.2 (Aug. 31, 2015) =
 * Minor bug fixes and coding standards changes.
 * The author's display name is now filtered through the_author in coauthors_posts_links_single()
+
+= ??? (??? ?? ????) =
 * New Russian and Ukrainian translations, courtesy of [Jurko Chervony](http://skinik.name/).
 
 = 3.1.1 (Mar. 20, 2014) =
