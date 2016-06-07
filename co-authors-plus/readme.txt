@@ -3,7 +3,8 @@ Contributors: batmoo, danielbachhuber, automattic
 Tags: authors, users, multiple authors, coauthors, multi-author, publishing
 Tested up to: 4.5.2
 Requires at least: 4.1
-Stable tag: 3.2
+Stable tag: 3.2.1
+=======
 
 Assign multiple bylines to posts, pages, and custom post types via a search-as-you-type input box
 
@@ -57,7 +58,10 @@ Bug fixes and minor enhancements
 
 == Changelog ==
 
-= 3.2 =
+= 3.2.1 (May 16, 2016) =
+* Hotfix for broken Guest Author bio metabox (props JS Morisset)
+
+= 3.2 (May 12, 2016) =
 Various minor bug and security fixes
 
 = 3.1.2 (Aug. 31, 2015) =
