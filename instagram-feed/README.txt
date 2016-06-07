@@ -3,7 +3,7 @@ Contributors: smashballoon
 Tags: Instagram, Instagram feed, Instagram photos, Instagram plugin, Instagram stream, Custom Instagram Feed, responsive Instagram, mobile Instagram, Instagram posts, Instagram wall, Instagram account, Instagram gallery, Instagram photo, Instagram post, Instagram share, Instagram customized, Instagrams, Instagram feeds, Instagram plugins, Instagram responsive, Instagram mobile feed, Instagram accounts, public Instagram feed, Instagram photography, Instagram galleries, multiple Instagram, Instagram widget, Instagram clean, beautiful Instagram, custom Instagram design
 Requires at least: 3.0
 Tested up to: 4.5.2
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,6 +14,7 @@ Display beautifully clean, customizable, and responsive feeds from multiple Inst
 Display Instagram photos from any non-private Instagram accounts, either in the same single feed or in multiple different ones.
 
 = Features =
+* **Compatible with the June 1st Instagram API changes**
 * Super **simple to set up**
 * Display photos from **multiple Instagram accounts** in the same feed or in separate feeds
 * Completely **responsive** and mobile ready - layout looks great on any screen size and in any container width
@@ -554,8 +555,15 @@ Relationship of the Parties: Notwithstanding any provision hereof, for all purpo
 Invalidity of Specific Terms: If any provision of the Instagram API Terms is found by a court of competent jurisdiction to be invalid, the parties nevertheless agree that the court should endeavor to give effect to the parties' intentions as reflected in the provision and that the other provisions remain in full force and effect.
 No Waiver of Rights by Instagram: Instagram's failure to exercise or enforce any right or provision of the Instagram API Terms shall not constitute a waiver of such right or provision.
 
-<<<<<<< HEAD
+== Upgrade Notice ==
+
+= 1.4.6 =
+**Important:** Due to the recent Instagram API changes, in order for the Instagram Feed plugin to continue working after **June 1st** you must update the plugin and obtain a new Access Token on the plugin's Settings page.
+
 == Changelog ==
+
+= 1.4.6 =
+* **IMPORTANT: Due to the recent Instagram API changes, in order for the Instagram Feed plugin to continue working after June 1st you must obtain a new Access Token by using the Instagram button on the plugin's Settings page.** This is true even if you recently already obtained a new token. Apologies for any inconvenience.
 
 = 1.4.5 =
 * New: When you click on the name of a setting on the plugin’s Settings pages it now displays the shortcode option for that setting, making it easier to find the option that you need
@@ -568,23 +576,10 @@ No Waiver of Rights by Instagram: Instagram's failure to exercise or enforce any
 * Fix: Fixed an issue caused by a specific type of emoji which would cause the feed to break when used in a post
 * Tweak: Added links to our other **free** plugins to the bottom of the admin pages: [The Custom Facebook Feed](https://wordpress.org/plugins/custom-facebook-feed/) and [Custom Twitter Feeds](https://wordpress.org/plugins/custom-twitter-feeds/)
 
-=======
-== Upgrade Notice ==
-
-= 1.4.3 =
-**Important:** Due to the upcoming Instagram API changes, in order for the Instagram Feed plugin to continue working after **June 1st** you must update the plugin and obtain a new Access Token on the plugin's Settings page.
-
-== Changelog ==
-
->>>>>>> master
 = 1.4.3 =
 * Fix: Important notice added in the last update is now only visible to admins
 
 = 1.4.2 =
-<<<<<<< HEAD
-=======
-* **IMPORTANT: Due to the upcoming Instagram API changes, in order for the Instagram Feed plugin to continue working after June 1st you must obtain a new Access Token by using the Instagram button on the plugin's Settings page.**
->>>>>>> master
 * New: Compatible with Instagram's new API changes effective June 1st
 * New: Added video icons to Instagram posts in the feed which contain videos
 * New: Added a setting to allow you to use a fixed pixel width for the feed on desktop but switch to a 100% width responsive layout on mobile

@@ -3,11 +3,7 @@
 Plugin Name: Instagram Feed
 Plugin URI: http://smashballoon.com/instagram-feed
 Description: Display beautifully clean, customizable, and responsive Instagram feeds
-<<<<<<< HEAD
-Version: 1.4.5
-=======
-Version: 1.4.3
->>>>>>> master
+Version: 1.4.6
 Author: Smash Balloon
 Author URI: http://smashballoon.com/
 License: GPLv2 or later
@@ -27,11 +23,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-<<<<<<< HEAD
-define( 'SBIVER', '1.4.5' );
-=======
-define( 'SBIVER', '1.4.3' );
->>>>>>> master
+define( 'SBIVER', '1.4.6' );
 
 //Include admin
 include dirname( __FILE__ ) .'/instagram-feed-admin.php';
@@ -220,16 +212,12 @@ add_action( 'wp_enqueue_scripts', 'sb_instagram_styles_enqueue' );
 function sb_instagram_styles_enqueue() {
     wp_register_style( 'sb_instagram_styles', plugins_url('css/sb-instagram.min.css', __FILE__), array(), SBIVER );
     wp_enqueue_style( 'sb_instagram_styles' );
-<<<<<<< HEAD
 
     $options = get_option('sb_instagram_settings');
     if(isset($options['sb_instagram_disable_awesome'])){
         if( !$options['sb_instagram_disable_awesome'] || !isset($options['sb_instagram_disable_awesome']) ) wp_enqueue_style( 'sb_instagram_icons', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), '4.6.3' );
     }
     
-=======
-    wp_enqueue_style( 'sb_instagram_icons', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', array(), '4.2.0' );
->>>>>>> master
 }
 
 //Enqueue scripts
