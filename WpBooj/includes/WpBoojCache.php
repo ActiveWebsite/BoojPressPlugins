@@ -23,6 +23,7 @@ class WpBoojCache {
 		@params
 	*/	
 	public static function check( $post_id, $cache_type ){
+		return False; //temporary removal of caching
 		global $WpBooj_options;
 		if( ! isset( $WpBooj_options['use_WpBoojCache'] ) || $WpBooj_options['use_WpBoojCache'] != 'on' ){
 			return False;
@@ -75,7 +76,7 @@ class WpBoojCache {
 				( `cache_type`,`post_id`,`data` ) 
 				VALUES( '$cache_type', '$post_id', '$data' );";
 		}
-		$wpdb->query( $sql );
+		// $wpdb->query( $sql );
 	}
 
 	public static function clear_cache( $post_id = None, $type_id = None ){
@@ -96,7 +97,7 @@ class WpBoojCache {
 		$results = $wpdb->get_results( $sql );
 		if ( $results[0]->c > 100000){
 			$sql = "TRUNCATE table {$wpdb->prefix}WpBoojCache;";
-			$wpdb->query( $sql );
+			// $wpdb->query( $sql );
 		}
 	}
 	
