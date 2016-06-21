@@ -53,11 +53,11 @@ function show_fbcomments_options() {
 
 function fbcomments_fetch_rss_feed() {
     include_once(ABSPATH . WPINC . '/feed.php');
-	$rss = fetch_feed("http://peadig.com/feed");	
-	if ( is_wp_error($rss) ) { return false; }	
+	$rss = fetch_feed("http://peadig.com/feed");
+	if ( is_wp_error($rss) ) { return false; }
 	$rss_items = $rss->get_items(0, 3);
     return $rss_items;
-}   
+}
 
 function fbcomments_admin_notice(){
 $options = get_option('fbcomments');
@@ -107,7 +107,7 @@ $domain = str_replace('www.', '', $domain);
 
 		<form method="post" action="options.php" id="options">
 			<?php settings_fields('fbcomments_options'); ?>
-			<?php $options = get_option('fbcomments'); 
+			<?php $options = get_option('fbcomments');
 				if (!isset($options['fbml'])) {$options['fbml'] = "";}
 				if (!isset($options['fbns'])) {$options['fbns'] = "";}
 				if (!isset($options['opengraph'])) {$options['opengraph'] = "";}
