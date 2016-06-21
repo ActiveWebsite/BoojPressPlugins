@@ -62,11 +62,17 @@ if ( ! class_exists( 'AIOSEOP_Opengraph_Public' ) ) {
 		 *
 		 * @return mixed
 		 * @since 2.3.5
+		 * @since 2.3.5.1 Bail if < WordPress 4.4 for now.
 		 */
 		public static function twitter_url_to_user( $twitter_profile ) {
 
+			// If they're below 4.4 (no wp_parse_url) bail. We can improve this for <4.4 later or just hold out until we drop 4.4 support.
+			if ( ! function_exists( 'wp_parse_url' ) ) {
+				return $twitter_profile;
+			}
+
 			//extract the twitter username from the url
-			
+
 			$parsed_twitter_profile = wp_parse_url( $twitter_profile );
 
 			$path            = $parsed_twitter_profile['path'];
