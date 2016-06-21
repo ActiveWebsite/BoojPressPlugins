@@ -3,7 +3,7 @@
 Plugin Name:  Facebook Comments Plugin
 Plugin URI:   http://peadig.com/wordpress-plugins/facebook-comments/?utm_source=WordPress&utm_medium=Admin&utm_campaign=Facebook%2BComments
 Description:  Facebook comments can be annoying to set up. This plugin makes it simple to add the Facebook comments system to your WordPress site without any hassle. You can also insert the comment box as a shortcode into any post, page or template and use your own settings for each time you do it!
-Version:      2.3.3
+Version:      2.3.4
 Author: Alex Moss
 Author URI: http://peadig.com/people/alex-moss/
 License: GPL v3
