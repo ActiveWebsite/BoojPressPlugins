@@ -27,7 +27,7 @@ class SocialEmbedTest extends \PHPUnit_Framework_TestCase
                 ->withSource('http://foo.com');
 
         $expected =
-            '<figure class="op-social">'.
+            '<figure class="op-interactive">'.
                 '<iframe src="http://foo.com"></iframe>'.
             '</figure>';
 
@@ -46,7 +46,7 @@ class SocialEmbedTest extends \PHPUnit_Framework_TestCase
                 );
 
         $expected =
-            '<figure class="op-social">'.
+            '<figure class="op-interactive">'.
                 '<iframe src="http://foo.com"></iframe>'.
                 '<figcaption>Some caption to the embed</figcaption>'.
             '</figure>';
@@ -59,20 +59,17 @@ class SocialEmbedTest extends \PHPUnit_Framework_TestCase
     {
         $inline =
             '<h1>Some custom code</h1>'.
-            '<script>alert("test");</script>';
-        $document = new \DOMDocument();
-        $fragment = $document->createDocumentFragment();
-        $fragment->appendXML($inline);
+            '<script>alert("test & more test");</script>';
 
         $social_embed =
             SocialEmbed::create()
-                ->withHTML($fragment);
+                ->withHTML($inline);
 
         $expected =
-            '<figure class="op-social">'.
+            '<figure class="op-interactive">'.
                 '<iframe>'.
                     '<h1>Some custom code</h1>'.
-                    '<script>alert("test");</script>'.
+                    '<script>alert("test & more test");</script>'.
                 '</iframe>'.
             '</figure>';
 
@@ -89,7 +86,7 @@ class SocialEmbedTest extends \PHPUnit_Framework_TestCase
                 ->withHeight(480);
 
         $expected =
-            '<figure class="op-social">'.
+            '<figure class="op-interactive">'.
                 '<iframe src="http://foo.com" width="640" height="480"></iframe>'.
             '</figure>';
 

@@ -11,7 +11,11 @@ namespace Facebook\InstantArticles\Transformer\Rules;
 use Facebook\InstantArticles\Elements\SocialEmbed;
 use Facebook\InstantArticles\Elements\InstantArticle;
 use Facebook\InstantArticles\Transformer\Warnings\InvalidSelector;
+use Facebook\InstantArticles\Transformer\Warnings\DeprecatedRuleWarning;
 
+/**
+ * @deprecated
+ */
 class SocialEmbedRule extends ConfigurationSelectorRule
 {
     const PROPERTY_IFRAME = 'socialembed.iframe';
@@ -87,6 +91,15 @@ class SocialEmbedRule extends ConfigurationSelectorRule
         $transformer->suppress_warnings = true;
         $transformer->transform($social_embed, $node);
         $transformer->suppress_warnings = $suppress_warnings;
+
+        $transformer->addWarning(
+            new DeprecatedRuleWarning(
+                'The rule SocialEmbedRule is deprecated. Use InteractiveRule instead.',
+                $instant_article,
+                $node,
+                $this
+            )
+        );
 
         return $instant_article;
     }

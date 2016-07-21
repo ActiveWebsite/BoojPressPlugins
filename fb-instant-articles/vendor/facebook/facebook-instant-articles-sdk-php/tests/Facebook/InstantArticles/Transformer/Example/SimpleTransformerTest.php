@@ -51,7 +51,7 @@ class SimpleTransformerTest extends \PHPUnit_Framework_TestCase
         $instant_article->addMetaProperty('op:generator:version', '1.0.0');
         $instant_article->addMetaProperty('op:generator:transformer:version', '1.0.0');
         $result = $instant_article->render('', true)."\n";
-        $expected = file_get_contents(__DIR__ . '/simple-ia.xml');
+        $expected = file_get_contents(__DIR__ . '/simple-ia.html');
 
         //var_dump($result);
         // print_r($warnings);

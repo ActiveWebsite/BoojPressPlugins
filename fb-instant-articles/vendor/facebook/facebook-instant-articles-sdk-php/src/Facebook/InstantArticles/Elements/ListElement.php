@@ -32,14 +32,14 @@ class ListElement extends Element implements Container
     /**
      * @var boolean Checks if it is ordered or unordered
      */
-    private $isOrdered;
+    private $isOrdered = false;
 
     /**
      * @var ListItem[] Items of the list
      */
     private $items = [];
 
-    private function __construct()
+    protected function __construct()
     {
     }
 
@@ -97,6 +97,7 @@ class ListElement extends Element implements Container
     public function withItems($new_items)
     {
         Type::enforceArrayOf($new_items, [ListItem::getClassName(), Type::STRING]);
+        $this->items = [];
         foreach ($new_items as $new_item) {
             $this->addItem($new_item);
         }

@@ -54,9 +54,6 @@ trait PseudoRandomStringGeneratorTrait
      */
     public function binToHex($binaryData, $length)
     {
-        if (true !== extension_loaded('mbstring')) {
-            throw new \RuntimeException('Multibyte support required');
-        }
-        return \mb_substr(\bin2hex($binaryData), 0, $length);
+        return \substr(\bin2hex($binaryData), 0, $length);
     }
 }

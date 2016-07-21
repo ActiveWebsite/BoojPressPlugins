@@ -77,6 +77,17 @@
                 "selector" : "li"
             },
             {
+                "class": "SponsorRule",
+                "selector" : "ul.op-sponsors",
+                "properties" : {
+                    "sponsor.page_url" : {
+                        "type" : "string",
+                        "selector" : "a",
+                        "attribute": "href"
+                    }
+                }
+            },
+            {
                 "class": "ListElementRule",
                 "selector" : "ul"
             },
@@ -508,21 +519,6 @@
                 }
             },
             {
-                "class": "SocialEmbedRule",
-                "selector" : "figure.op-social",
-                "properties" : {
-                    "socialembed.url" : {
-                        "type" : "string",
-                        "selector" : "iframe",
-                        "attribute": "src"
-                    },
-                    "socialembed.iframe" : {
-                        "type" : "children",
-                        "selector" : "iframe"
-                    }
-                }
-            },
-            {
                 "class": "InteractiveRule",
                 "selector" : "figure.op-interactive",
                 "properties" : {
@@ -543,6 +539,11 @@
                         "type" : "int",
                         "selector" : "iframe",
                         "attribute": "height"
+                    },
+                    "interactive.width": {
+                        "type": "int",
+                        "selector": "iframe",
+                        "attribute": "width"
                     },
                     "interactive.iframe" : {
                         "type" : "children",

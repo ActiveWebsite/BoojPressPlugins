@@ -42,6 +42,11 @@ class Transformer
     private static $allClassTypes = [];
 
     /**
+     * @var InstantArticle the initial context.
+     */
+    private $instantArticle;
+
+    /**
      * Gets all types a given class is, including itself, parent classes and interfaces.
      *
      * @param string $className - the name of the className
@@ -108,6 +113,14 @@ class Transformer
     }
 
     /**
+     * @return InstantArticle the initial context of this Transformer
+     */
+    public function getInstantArticle()
+    {
+        return $this->instantArticle;
+    }
+
+    /**
      * @param InstantArticle $context
      * @param \DOMNode $node
      *
@@ -118,6 +131,7 @@ class Transformer
         if (Type::is($context, InstantArticle::getClassName())) {
             $context->addMetaProperty('op:generator:transformer', 'facebook-instant-articles-sdk-php');
             $context->addMetaProperty('op:generator:transformer:version', InstantArticle::CURRENT_VERSION);
+            $this->instantArticle = $context;
         }
 
         $log = \Logger::getLogger('facebook-instantarticles-transformer');
@@ -135,6 +149,7 @@ class Transformer
             foreach ($node->childNodes as $child) {
                 $matched = false;
                 $log->debug("===========================");
+                $log->debug($child->ownerDocument->saveHtml($child));
 
                 // Get all classes and interfaces this context extends/implements
                 $contextClassNames = self::getAllClassTypes($context->getClassName());
@@ -184,13 +199,6 @@ class Transformer
 
                     $this->addWarning(new UnrecognizedElement($current_context, $child));
                 }
-            }
-        }
-
-        if (Type::is($context, InstantArticle::getClassName())) {
-            $ia_warnings = InstantArticleValidator::check($context);
-            foreach ($ia_warnings as $ia_warning) {
-                $this->addWarning($ia_warning);
             }
         }
 

@@ -10,6 +10,7 @@ namespace Facebook\InstantArticles\Validators;
 
 use Facebook\InstantArticles\Elements\InstantArticle;
 use Facebook\InstantArticles\Elements\Container;
+use Facebook\InstantArticles\Elements\Paragraph;
 use Facebook\InstantArticles\Transformer\Warnings\ValidatorWarning;
 
 /**
@@ -42,7 +43,7 @@ class InstantArticleValidator
     public static function getReport($elements, &$warnings)
     {
         foreach ($elements as $element) {
-            if (!$element->isValid()) {
+            if (!$element->isValid() && $element->isEmptyValidationEnabled()) {
                 // Adds a warning to the result report.
                 $warnings[] = new ValidatorWarning($element);
             }

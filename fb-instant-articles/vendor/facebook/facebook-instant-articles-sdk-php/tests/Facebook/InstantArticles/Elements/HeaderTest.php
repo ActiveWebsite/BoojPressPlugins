@@ -24,10 +24,7 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
         date_default_timezone_set('UTC');
 
         $inline =
-            '<script>alert("test");</script>';
-        $document = new \DOMDocument();
-        $fragment = $document->createDocumentFragment();
-        $fragment->appendXML($inline);
+            '<script>alert("test & more test");</script>';
 
         $header =
             Header::create()
@@ -87,7 +84,7 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
                         ->withWidth(300)
                         ->withHeight(250)
                         ->enableDefaultForReuse()
-                        ->withHTML($fragment)
+                        ->withHTML($inline)
                 );
 
         $expected =
@@ -118,7 +115,7 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
                     '</figure>'.
                     '<figure class="op-ad">'.
                         '<iframe width="300" height="250">'.
-                            '<script>alert("test");</script>'.
+                            '<script>alert("test & more test");</script>'.
                         '</iframe>'.
                     '</figure>'.
                 '</section>'.
@@ -208,6 +205,96 @@ class HeaderTest extends \PHPUnit_Framework_TestCase
                 '<h1>Big Top Title <b>in Bold</b></h1>'.
                 '<h2>Smaller SubTitle <b>in Bold</b></h2>'.
                 '<h3 class="op-kicker">Kicker <b>in Bold</b></h3>'.
+            '</header>';
+
+        $rendered = $header->render();
+
+        $this->assertEquals($expected, $rendered);
+    }
+
+    public function testHeaderWithSlideshow()
+    {
+        $header =
+            Header::create()
+                ->withTitle(
+                    H1::create()
+                        ->appendText('Big Top Title ')
+                        ->appendText(Bold::create()->appendText('in Bold'))
+                )
+                ->withSubTitle(
+                    H2::create()
+                        ->appendText('Smaller SubTitle ')
+                        ->appendText(Bold::create()->appendText('in Bold'))
+                )
+                ->withKicker(
+                    H3::create()
+                        ->appendText('Kicker ')
+                        ->appendText(Bold::create()->appendText('in Bold'))
+                )
+                ->withCover(
+                    SlideShow::create()
+                        ->addImage(Image::create()->withURL('https://jpeg.org/images/jpegls-home.jpg'))
+                        ->addImage(Image::create()->withURL('https://jpeg.org/images/jpegls-home2.jpg'))
+                        ->addImage(Image::create()->withURL('https://jpeg.org/images/jpegls-home3.jpg'))
+                );
+
+        $expected =
+            '<header>'.
+                '<figure class="op-slideshow">'.
+                    '<figure>'.
+                        '<img src="https://jpeg.org/images/jpegls-home.jpg"/>'.
+                    '</figure>'.
+                    '<figure>'.
+                        '<img src="https://jpeg.org/images/jpegls-home2.jpg"/>'.
+                    '</figure>'.
+                    '<figure>'.
+                        '<img src="https://jpeg.org/images/jpegls-home3.jpg"/>'.
+                    '</figure>'.
+                '</figure>'.
+                '<h1>Big Top Title <b>in Bold</b></h1>'.
+                '<h2>Smaller SubTitle <b>in Bold</b></h2>'.
+                '<h3 class="op-kicker">Kicker <b>in Bold</b></h3>'.
+            '</header>';
+
+        $rendered = $header->render();
+
+        $this->assertEquals($expected, $rendered);
+    }
+
+    public function testHeaderWithSponsor()
+    {
+        $header =
+            Header::create()
+                ->withTitle(
+                    H1::create()
+                        ->appendText('Big Top Title ')
+                        ->appendText(Bold::create()->appendText('in Bold'))
+                )
+                ->withSubTitle(
+                    H2::create()
+                        ->appendText('Smaller SubTitle ')
+                        ->appendText(Bold::create()->appendText('in Bold'))
+                )
+                ->withKicker(
+                    H3::create()
+                        ->appendText('Kicker ')
+                        ->appendText(Bold::create()->appendText('in Bold'))
+                )
+                ->withSponsor(
+                    Sponsor::create()
+                        ->withPageUrl('http://facebook.com/my-sponsor')
+                );
+
+        $expected =
+            '<header>'.
+                '<h1>Big Top Title <b>in Bold</b></h1>'.
+                '<h2>Smaller SubTitle <b>in Bold</b></h2>'.
+                '<h3 class="op-kicker">Kicker <b>in Bold</b></h3>'.
+                '<ul class="op-sponsors">'.
+                  '<li>'.
+                    '<a href="http://facebook.com/my-sponsor" rel="facebook"></a>'.
+                  '</li>'.
+                '</ul>'.
             '</header>';
 
         $rendered = $header->render();

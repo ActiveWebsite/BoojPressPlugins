@@ -38,9 +38,10 @@ use Facebook\InstantArticles\Validators\Type;
 class Header extends Element implements Container
 {
     /**
-     * @var Image|Video|null for the image or video on the header.
+     * @var Image|Video|Slideshow|null for the image or video on the header.
      *
      * @see Image
+     * @see Slideshow
      * @see Video
      */
     private $cover;
@@ -81,6 +82,11 @@ class Header extends Element implements Container
      */
     private $ads = [];
 
+    /**
+     * @var Sponsor The sponsor for this article. See Branded Content.
+     */
+    private $sponsor;
+
     private function __construct()
     {
     }
@@ -96,13 +102,20 @@ class Header extends Element implements Container
     /**
      * Sets the cover of InstantArticle with Image or Video
      *
-     * @param Image|Video $cover The cover for the header of the InstantArticle
+     * @param Image|Video|Slideshow $cover The cover for the header of the InstantArticle
      *
      * @return $this
      */
     public function withCover($cover)
     {
-        Type::enforce($cover, [Image::getClassName(), Video::getClassName()]);
+        Type::enforce(
+            $cover,
+            [
+                Image::getClassName(),
+                Slideshow::getClassName(),
+                Video::getClassName()
+            ]
+        );
         $this->cover = $cover;
 
         return $this;
@@ -276,7 +289,22 @@ class Header extends Element implements Container
     }
 
     /**
-     * @return Image|Video The cover for the header of the InstantArticle
+     * Sets the sponsor for this Article.
+     *
+     * @param Sponsor $sponsor The sponsor of article to be set.
+     *
+     * @return $this
+     */
+    public function withSponsor($sponsor)
+    {
+        Type::enforce($sponsor, Sponsor::getClassName());
+        $this->sponsor = $sponsor;
+
+        return $this;
+    }
+
+    /**
+     * @return Image|Slideshow|Video The cover for the header of the InstantArticle
      */
     public function getCover()
     {
@@ -337,6 +365,14 @@ class Header extends Element implements Container
     public function getAds()
     {
         return $this->ads;
+    }
+
+    /**
+     * @return Sponsor the sponsor of this Article.
+     */
+    public function getSponsor()
+    {
+        return $this->sponsor;
     }
 
     /**
@@ -424,6 +460,10 @@ class Header extends Element implements Container
             }
         }
 
+        if ($this->sponsor && $this->sponsor->isValid()) {
+            $element->appendChild($this->sponsor->toDOMElement($document));
+        }
+
         return $element;
     }
 
@@ -494,6 +534,10 @@ class Header extends Element implements Container
             foreach ($this->ads as $ad) {
                 $children[] = $ad;
             }
+        }
+
+        if ($this->sponsor) {
+            $children[] = $this->sponsor;
         }
 
         return $children;

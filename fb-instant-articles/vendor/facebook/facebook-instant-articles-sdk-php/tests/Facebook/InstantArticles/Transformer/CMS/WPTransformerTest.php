@@ -71,6 +71,7 @@ class WPTest extends \PHPUnit_Framework_TestCase
         $expected = file_get_contents(__DIR__ . '/wp-ia.xml');
 
         $this->assertEquals($expected, $result);
-        $this->assertEquals(0, count($transformer->getWarnings()));
+        // there must be 3 warnings related to <img> inside <li> that is not supported by IA
+        $this->assertEquals(3, count($transformer->getWarnings()));
     }
 }

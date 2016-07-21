@@ -10,8 +10,12 @@ namespace Facebook\InstantArticles\Transformer;
 
 use Facebook\InstantArticles\Elements\InstantArticle;
 
-use Facebook\InstantArticles\Transformer\Rules\ParagraphRule;
+use Facebook\InstantArticles\Elements\Header;
+use Facebook\InstantArticles\Transformer\Rules\BoldRule;
+use Facebook\InstantArticles\Transformer\Rules\H1Rule;
 use Facebook\InstantArticles\Transformer\Rules\ItalicRule;
+use Facebook\InstantArticles\Transformer\Rules\ParagraphRule;
+use Facebook\InstantArticles\Transformer\Rules\TextNodeRule;
 
 class TransformerTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +41,7 @@ class TransformerTest extends \PHPUnit_Framework_TestCase
 
     public function testSelfTransformerContent()
     {
-        $json_file = file_get_contents(__DIR__ . '/instant-article-example-rules.json');
+        $json_file = file_get_contents('src/Facebook/InstantArticles/Parser/instant-articles-rules.json');
 
         $instant_article = InstantArticle::create();
         $transformer = new Transformer();
@@ -47,7 +51,7 @@ class TransformerTest extends \PHPUnit_Framework_TestCase
 
         libxml_use_internal_errors(true);
         $document = new \DOMDocument();
-        $document->loadXML($html_file);
+        $document->loadHTML($html_file);
         libxml_use_internal_errors(false);
 
         $transformer->transform($instant_article, $document);
@@ -88,5 +92,24 @@ class TransformerTest extends \PHPUnit_Framework_TestCase
         $transformer->addRule($rule2);
         $transformer->resetRules();
         $this->assertEquals([], $transformer->getRules());
+    }
+
+    public function testTitleTransformedWithBold()
+    {
+        $transformer = new Transformer();
+        $json_file = file_get_contents(__DIR__ . '/wp-rules.json');
+        $transformer->loadRules($json_file);
+
+        $title_html_string = '<?xml encoding="utf-8" ?><h1>Title <b>in bold</b></h1>';
+
+        libxml_use_internal_errors(true);
+        $document = new \DOMDocument();
+        $document->loadHtml($title_html_string);
+        libxml_use_internal_errors(false);
+
+        $header = Header::create();
+        $transformer->transform($header, $document);
+
+        $this->assertEquals('<h1>Title <b>in bold</b></h1>', $header->getTitle()->render());
     }
 }

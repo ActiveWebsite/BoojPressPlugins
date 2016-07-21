@@ -67,16 +67,33 @@ class CiteTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $rendered);
     }
 
+    public function testRenderWithVerticalAlign()
+    {
+        $cite =
+          Cite::create()
+            ->appendText('Citation simple text.')
+            ->withVerticalAlignment(Caption::VERTICAL_TOP);
+
+        $expected =
+          '<cite class="op-vertical-top">' .
+          'Citation simple text.' .
+          '</cite>';
+
+        $rendered = $cite->render();
+        $this->assertEquals($expected, $rendered);
+    }
+
     public function testRenderWithPositionAndAlignment()
     {
         $cite =
             Cite::create()
                 ->appendText('Citation simple text.')
                 ->withPosition(Caption::POSITION_ABOVE)
-                ->withTextAlignment(Caption::ALIGN_LEFT);
+                ->withTextAlignment(Caption::ALIGN_LEFT)
+                ->withVerticalAlignment(Caption::VERTICAL_TOP);
 
         $expected =
-            '<cite class="op-vertical-above op-left">'.
+            '<cite class="op-vertical-above op-left op-vertical-top">'.
                 'Citation simple text.'.
             '</cite>';
 

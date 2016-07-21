@@ -21,7 +21,7 @@ use Facebook\InstantArticles\Validators\Type;
  *
  * @see {link:https://developers.intern.facebook.com/docs/instant-articles/reference/interactive}
  */
-class Interactive extends Element implements Container
+class Interactive extends ElementWithHTML implements Container
 {
     const NO_MARGIN = 'no-margin';
     const COLUMN_WIDTH = 'column-width';
@@ -30,6 +30,11 @@ class Interactive extends Element implements Container
      * @var Caption Descriptive text for your social embed.
      */
     private $caption;
+
+    /**
+     * @var int The width of your interactive graphic.
+     */
+    private $width;
 
     /**
      * @var int The height of your interactive graphic.
@@ -46,12 +51,7 @@ class Interactive extends Element implements Container
      * @see Interactive::NO_MARGIN
      * @see Interactive::COLUMN_WIDTH
      */
-    private $width;
-
-    /**
-     * @var \DOMNode The HTML of the content.
-     */
-    private $html;
+    private $margin;
 
     private function __construct()
     {
@@ -73,6 +73,21 @@ class Interactive extends Element implements Container
     {
         Type::enforce($caption, Caption::getClassName());
         $this->caption = $caption;
+
+        return $this;
+    }
+
+    /**
+     * Sets the width of your interactive graphic.
+     *
+     * @param int $width The height of your interactive graphic.
+     *
+     * @return $this
+     */
+    public function withWidth($width)
+    {
+        Type::enforce($width, Type::INTEGER);
+        $this->width = $width;
 
         return $this;
     }
@@ -108,40 +123,25 @@ class Interactive extends Element implements Container
     }
 
     /**
-     * Sets the width setting of your interactive graphic.
+     * Sets the margin setting of your interactive graphic.
      *
-     * @param string $width The width setting of your interactive graphic.
+     * @param string $margin The margin setting of your interactive graphic.
      *
      * @see Interactive::NO_MARGIN
      * @see Interactive::COLUMN_WIDTH
      *
      * @return $this
      */
-    public function withWidth($width)
+    public function withMargin($margin)
     {
         Type::enforceWithin(
-            $width,
+            $margin,
             [
                 Interactive::NO_MARGIN,
                 Interactive::COLUMN_WIDTH
             ]
         );
-        $this->width = $width;
-
-        return $this;
-    }
-
-    /**
-     * Sets the unescaped HTML of your interactive graphic.
-     *
-     * @param \DOMNode $html The unescaped HTML of your interactive graphic.
-     *
-     * @return $this
-     */
-    public function withHTML($html)
-    {
-        Type::enforce($html, 'DOMNode');
-        $this->html = $html;
+        $this->margin = $margin;
 
         return $this;
     }
@@ -152,6 +152,14 @@ class Interactive extends Element implements Container
     public function getCaption()
     {
         return $this->caption;
+    }
+
+    /**
+     * @return int the width
+     */
+    public function getWidth()
+    {
+        return $this->width;
     }
 
     /**
@@ -171,19 +179,11 @@ class Interactive extends Element implements Container
     }
 
     /**
-     * @return int the width
+     * @return string the margin
      */
-    public function getWidth()
+    public function getMargin()
     {
-        return $this->width;
-    }
-
-    /**
-     * @return \DOMNode unescaped html
-     */
-    public function getHtml()
-    {
-        return $this->html;
+        return $this->margin;
     }
 
     /**
@@ -218,8 +218,12 @@ class Interactive extends Element implements Container
             $iframe->setAttribute('src', $this->source);
         }
 
+        if ($this->margin) {
+            $iframe->setAttribute('class', $this->margin);
+        }
+
         if ($this->width) {
-            $iframe->setAttribute('class', $this->width);
+            $iframe->setAttribute('width', $this->width);
         }
 
         if ($this->height) {

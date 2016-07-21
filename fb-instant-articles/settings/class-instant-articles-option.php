@@ -176,11 +176,11 @@ class Instant_Articles_Option {
 				array(
 					'a' => array(
 						'href' => array(),
-						'target' => array()
+						'target' => array(),
 					),
 					'em' => array(),
 					'p' => array(),
-					'strong' => array()
+					'strong' => array(),
 				)
 			)
 			: '';
@@ -189,7 +189,7 @@ class Instant_Articles_Option {
 			$this->key,
 			esc_html( $title ),
 			function () use ( $description ) {
-				echo $description;
+				echo wp_kses_post( $description );
 			},
 			$this->key
 		);
@@ -291,10 +291,10 @@ class Instant_Articles_Option {
 				array(
 					'a' => array(
 						'href' => array(),
-						'target' => array()
+						'target' => array(),
 					),
 					'em' => array(),
-					'strong' => array()
+					'strong' => array(),
 				)
 			)
 			: '';
@@ -314,7 +314,7 @@ class Instant_Articles_Option {
 				/>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses_post( $field_description ); ?>
 					</p>
 				<?php endif; ?>
 				<?php
@@ -336,7 +336,7 @@ class Instant_Articles_Option {
 				</label>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses_post( $field_description ); ?>
 					</p>
 				<?php endif; ?>
 				<?php
@@ -366,7 +366,7 @@ class Instant_Articles_Option {
 				</select>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses_post( $field_description ); ?>
 					</p>
 				<?php endif; ?>
 				<?php
@@ -383,10 +383,10 @@ class Instant_Articles_Option {
 					<?php echo esc_attr( $attr_disabled ); ?>
 					class="large-text code"
 					rows="8"
-				><?php echo esc_html( $option_value ); ?></textarea>
+				><?php echo $args[ 'double_encode' ] ? htmlspecialchars( $option_value ) : esc_html( $option_value ); ?></textarea>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses_post( $field_description); ?>
 					</p>
 				<?php endif; ?>
 				<?php
@@ -409,7 +409,7 @@ class Instant_Articles_Option {
 				/>
 				<?php if ( $field_description ) : ?>
 					<p class="description">
-						<?php echo $field_description; ?>
+						<?php echo wp_kses_post( $field_description ); ?>
 					</p>
 				<?php endif; ?>
 				<?php

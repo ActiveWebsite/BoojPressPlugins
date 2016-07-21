@@ -19,6 +19,7 @@ class InteractiveRule extends ConfigurationSelectorRule
     const PROPERTY_WIDTH_NO_MARGIN = Interactive::NO_MARGIN;
     const PROPERTY_WIDTH_COLUMN_WIDTH = Interactive::COLUMN_WIDTH;
     const PROPERTY_HEIGHT = 'interactive.height';
+    const PROPERTY_WIDTH = 'interactive.width';
 
     public function getContextClass()
     {
@@ -41,6 +42,7 @@ class InteractiveRule extends ConfigurationSelectorRule
                 self::PROPERTY_URL,
                 self::PROPERTY_WIDTH_NO_MARGIN,
                 self::PROPERTY_WIDTH_COLUMN_WIDTH,
+                self::PROPERTY_WIDTH,
                 self::PROPERTY_HEIGHT
             ],
             $configuration
@@ -76,9 +78,14 @@ class InteractiveRule extends ConfigurationSelectorRule
         }
 
         if ($this->getProperty(self::PROPERTY_WIDTH_COLUMN_WIDTH, $node)) {
-            $interactive->withWidth(Interactive::COLUMN_WIDTH);
+            $interactive->withMargin(Interactive::COLUMN_WIDTH);
         } else {
-            $interactive->withWidth(Interactive::NO_MARGIN);
+            $interactive->withMargin(Interactive::NO_MARGIN);
+        }
+
+        $width = $this->getProperty(self::PROPERTY_WIDTH, $node);
+        if ($width) {
+            $interactive->withWidth($width);
         }
 
         $height = $this->getProperty(self::PROPERTY_HEIGHT, $node);

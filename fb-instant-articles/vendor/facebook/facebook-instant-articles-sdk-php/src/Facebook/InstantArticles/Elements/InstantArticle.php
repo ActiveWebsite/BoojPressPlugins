@@ -31,9 +31,10 @@ use Facebook\InstantArticles\Validators\Type;
   *    </html>
   *
 */
-class InstantArticle extends Element implements Container
+
+class InstantArticle extends Element implements Container, InstantArticleInterface
 {
-    const CURRENT_VERSION = '1.1.0';
+    const CURRENT_VERSION = '1.3.0';
 
     /**
      * The meta properties that are used on <head>

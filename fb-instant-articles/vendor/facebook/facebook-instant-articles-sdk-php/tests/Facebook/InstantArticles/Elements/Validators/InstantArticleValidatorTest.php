@@ -90,7 +90,7 @@ class InstantArticleValidatorTest extends \PHPUnit_Framework_TestCase
                     '<link rel="canonical" href=""/>'.
                     '<meta charset="utf-8"/>'.
                     '<meta property="op:generator" content="facebook-instant-articles-sdk-php"/>'.
-                    '<meta property="op:generator:version" content="1.0.6"/>'.
+                    '<meta property="op:generator:version" content="'.InstantArticle::CURRENT_VERSION.'"/>'.
                     '<meta property="op:markup_version" content="v1.0"/>'.
                 '</head>'.
                 '<body>'.

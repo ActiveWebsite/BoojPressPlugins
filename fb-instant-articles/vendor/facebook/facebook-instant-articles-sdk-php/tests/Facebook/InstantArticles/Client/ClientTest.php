@@ -38,30 +38,74 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     public function testImportArticle()
     {
+        $expectedSubmissionStatusID = 1;
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with('id')
+            ->willReturn($expectedSubmissionStatusID);
+
         $this->facebook
             ->expects($this->once())
             ->method('post')
             ->with('PAGE_ID' . Client::EDGE_NAME, [
                 'html_source' => $this->article->render(),
-                'take_live' => false,
+                'published' => false,
                 'development_mode' => false,
-            ]);
+            ])
+            ->willReturn($serverResponseMock);
 
-        $this->client->importArticle($this->article);
+        $resultSubmissionStatusID = $this->client->importArticle($this->article);
+        $this->assertEquals($expectedSubmissionStatusID, $resultSubmissionStatusID);
     }
 
-    public function testImportArticleTakeLive()
+    public function testImportArticlePublished()
     {
+        $expectedSubmissionStatusID = 1;
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with('id')
+            ->willReturn($expectedSubmissionStatusID);
+
         $this->facebook
             ->expects($this->once())
             ->method('post')
             ->with('PAGE_ID' . Client::EDGE_NAME, [
                 'html_source' => $this->article->render(),
-                'take_live' => true,
+                'published' => true,
                 'development_mode' => false,
-            ]);
+            ])
+            ->willReturn($serverResponseMock);
 
-        $this->client->importArticle($this->article, true);
+        $resultSubmissionStatusID = $this->client->importArticle($this->article, true);
+        $this->assertEquals($expectedSubmissionStatusID, $resultSubmissionStatusID);
     }
 
     /**
@@ -104,35 +148,81 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             "PAGE_ID",
             true // developmentMode
         );
+
+        $expectedSubmissionStatusID = 1;
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with('id')
+            ->willReturn($expectedSubmissionStatusID);
+
         $this->facebook
             ->expects($this->once())
             ->method('post')
             ->with('PAGE_ID' . Client::EDGE_NAME, [
                 'html_source' => $this->article->render(),
-                'take_live' => false,
+                'published' => false,
                 'development_mode' => true,
-            ]);
+            ])
+            ->willReturn($serverResponseMock);
 
-        $this->client->importArticle($this->article);
+        $resultSubmissionStatusID = $this->client->importArticle($this->article);
+        $this->assertEquals($expectedSubmissionStatusID, $resultSubmissionStatusID);
     }
 
-    public function testImportArticleDevelopmentModeTakeLive()
+    public function testImportArticleDevelopmentModePublished()
     {
         $this->client = new Client(
             $this->facebook,
             "PAGE_ID",
             true // developmentMode
         );
+
+        $expectedSubmissionStatusID = 1;
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with('id')
+            ->willReturn($expectedSubmissionStatusID);
+
         $this->facebook
             ->expects($this->once())
             ->method('post')
             ->with('PAGE_ID' . Client::EDGE_NAME, [
                 'html_source' => $this->article->render(),
-                'take_live' => false,
+                'published' => false,
                 'development_mode' => true,
-            ]);
+            ])
+            ->willReturn($serverResponseMock);
 
-        $this->client->importArticle($this->article, true);
+        $resultSubmissionStatusID = $this->client->importArticle($this->article, true);
+        $this->assertEquals($expectedSubmissionStatusID, $resultSubmissionStatusID);
     }
 
     public function testGetArticleIDFromCanonicalURL()
@@ -207,6 +297,97 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             ->method('get')
             ->with($this->equalTo('?id='.$canonicalURL.'&fields=instant_article'))
             ->willReturn($serverResponseMock);
+
+        $articleID = $this->client->getArticleIDFromCanonicalURL($canonicalURL);
+        $this->assertEquals($expectedArticleID, $articleID);
+    }
+
+    public function testDevelopmentModeGetArticleIDFromCanonicalURL()
+    {
+        $canonicalURL = "http://facebook.com";
+
+        $expectedArticleID = 123;
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $instantArticleMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $instantArticleMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with($this->equalTo('id'))
+            ->willReturn($expectedArticleID);
+        $graphNodeMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with($this->equalTo('development_instant_article'))
+            ->willReturn($instantArticleMock);
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $this->facebook
+            ->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('?id='.$canonicalURL.'&fields=development_instant_article'))
+            ->willReturn($serverResponseMock);
+
+        // Set up new client in development mode
+        $this->client = new Client(
+            $this->facebook,
+            "PAGE_ID",
+            true // developmentMode
+        );
+
+        $articleID = $this->client->getArticleIDFromCanonicalURL($canonicalURL);
+        $this->assertEquals($expectedArticleID, $articleID);
+    }
+
+    public function testDevelopmentModeGetArticleIDFromNotFoundCanonicalURL()
+    {
+        $canonicalURL = "http://facebook.com";
+
+        $expectedArticleID = null;
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $graphNodeMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with($this->equalTo('development_instant_article'))
+            ->willReturn(null);
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $this->facebook
+            ->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo('?id='.$canonicalURL.'&fields=development_instant_article'))
+            ->willReturn($serverResponseMock);
+
+        // Set up new client in development mode
+        $this->client = new Client(
+            $this->facebook,
+            "PAGE_ID",
+            true // developmentMode
+        );
 
         $articleID = $this->client->getArticleIDFromCanonicalURL($canonicalURL);
         $this->assertEquals($expectedArticleID, $articleID);
@@ -295,5 +476,158 @@ class ClientTest extends \PHPUnit_Framework_TestCase
             'Test info',
             $status->getMessages()[3]->getMessage()
         );
+    }
+
+    public function testGetSubmissionStatus()
+    {
+        $submissionStatusID = '456';
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $graphNodeMock
+            ->expects($this->exactly(2))
+            ->method('getField')
+            ->withConsecutive(
+                [$this->equalTo('errors')],
+                [$this->equalTo('status')]
+            )
+            ->will($this->onConsecutiveCalls(
+                [
+                    [
+                        "level" => "warning",
+                        "message" => "Test warning"
+                    ],
+                    [
+                        "level" => "fatal",
+                        "message" => "Test fatal"
+                    ],
+                    [
+                        "level" => "error",
+                        "message" => "Test error"
+                    ],
+                    [
+                        "level" => "info",
+                        "message" => "Test info"
+                    ]
+                ],
+                'success'
+            ));
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $this->facebook
+            ->expects($this->once())
+            ->method('get')
+            ->with($this->equalTo($submissionStatusID . '?fields=status,errors'))
+            ->willReturn($serverResponseMock);
+
+        $status = $this->client->getSubmissionStatus($submissionStatusID);
+        $this->assertEquals(InstantArticleStatus::SUCCESS, $status->getStatus());
+        $this->assertEquals(
+            ServerMessage::WARNING,
+            $status->getMessages()[0]->getLevel()
+        );
+        $this->assertEquals(
+            'Test warning',
+            $status->getMessages()[0]->getMessage()
+        );
+        $this->assertEquals(
+            $status->getMessages()[1]->getLevel(),
+            ServerMessage::FATAL
+        );
+        $this->assertEquals(
+            'Test fatal',
+            $status->getMessages()[1]->getMessage()
+        );
+        $this->assertEquals(
+            ServerMessage::ERROR,
+            $status->getMessages()[2]->getLevel()
+        );
+        $this->assertEquals(
+            'Test error',
+            $status->getMessages()[2]->getMessage()
+        );
+        $this->assertEquals(
+            ServerMessage::INFO,
+            $status->getMessages()[3]->getLevel()
+        );
+        $this->assertEquals(
+            'Test info',
+            $status->getMessages()[3]->getMessage()
+        );
+    }
+
+    public function testGetReviewSubmissionStatus()
+    {
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $graphNodeMock
+            ->expects($this->once())
+            ->method('getField')
+            ->with($this->equalTo('instant_articles_review_status'))
+            ->willReturn('NOT_SUBMITTED');
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+
+        $this->facebook
+            ->expects($this->once())
+            ->method('get')
+            ->with('me?fields=instant_articles_review_status')
+            ->willReturn($serverResponseMock);
+
+        $result = $this->client->getReviewSubmissionStatus();
+        $this->assertEquals('NOT_SUBMITTED', $result);
+    }
+
+    public function testGetArticlesURLs()
+    {
+        $mockedMap = array(
+            array('canonical_url'=>'http://url.com/1'),
+            array('canonical_url'=>'http://url.com/2'),
+            array('canonical_url'=>'http://url.com/3')
+        );
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphEdge')
+            ->willReturn($mockedMap);
+
+        $this->facebook
+            ->expects($this->once())
+            ->method('get')
+            ->with('me/instant_articles?fields=canonical_url&development_mode=false&limit=10')
+            ->willReturn($serverResponseMock);
+
+
+        $expected = array(
+            'http://url.com/1',
+            'http://url.com/2',
+            'http://url.com/3'
+        );
+
+        $result = $this->client->getArticlesURLs();
+        $this->assertEquals($expected, $result);
     }
 }
