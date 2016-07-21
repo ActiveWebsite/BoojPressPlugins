@@ -1137,7 +1137,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 						'title'			=> 'twitter:title',
 						'description'	=> 'twitter:description',
 						'thumbnail'		=> 'twitter:image'
-						
+
 					)
 			);
 			*/

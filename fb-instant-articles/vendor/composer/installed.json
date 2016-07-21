@@ -33,22 +33,21 @@
     },
     {
         "name": "facebook/php-sdk-v4",
-        "version": "5.1.4",
-        "version_normalized": "5.1.4.0",
+        "version": "5.2.0",
+        "version_normalized": "5.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/facebook/facebook-php-sdk-v4.git",
-            "reference": "38fd7187a6704d3ab14ded2f3a534ac4ee6f3481"
+            "reference": "c60fba1fe1de62db1e0776d32fc2fb778189459c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/38fd7187a6704d3ab14ded2f3a534ac4ee6f3481",
-            "reference": "38fd7187a6704d3ab14ded2f3a534ac4ee6f3481",
+            "url": "https://api.github.com/repos/facebook/facebook-php-sdk-v4/zipball/c60fba1fe1de62db1e0776d32fc2fb778189459c",
+            "reference": "c60fba1fe1de62db1e0776d32fc2fb778189459c",
             "shasum": ""
         },
         "require": {
-            "ext-mbstring": "*",
-            "php": ">=5.4.0"
+            "php": "^5.4|^7.0"
         },
         "require-dev": {
             "guzzlehttp/guzzle": "~5.0",
@@ -58,7 +57,7 @@
         "suggest": {
             "guzzlehttp/guzzle": "Allows for implementation of the Guzzle HTTP client"
         },
-        "time": "2016-05-13 17:28:30",
+        "time": "2016-05-18 22:04:36",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -69,7 +68,10 @@
         "autoload": {
             "psr-4": {
                 "Facebook\\": "src/Facebook/"
-            }
+            },
+            "files": [
+                "src/Facebook/polyfills.php"
+            ]
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -90,23 +92,23 @@
     },
     {
         "name": "symfony/css-selector",
-        "version": "v2.8.6",
-        "version_normalized": "2.8.6.0",
+        "version": "v2.8.8",
+        "version_normalized": "2.8.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/css-selector.git",
-            "reference": "07b7ced3ae0c12918477c095453ea8595000810e"
+            "reference": "9da4c615ba303850986e0480cc472bf704cfdb64"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/css-selector/zipball/07b7ced3ae0c12918477c095453ea8595000810e",
-            "reference": "07b7ced3ae0c12918477c095453ea8595000810e",
+            "url": "https://api.github.com/repos/symfony/css-selector/zipball/9da4c615ba303850986e0480cc472bf704cfdb64",
+            "reference": "9da4c615ba303850986e0480cc472bf704cfdb64",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.9"
         },
-        "time": "2016-03-04 07:54:35",
+        "time": "2016-06-29 05:31:50",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -145,17 +147,17 @@
     },
     {
         "name": "facebook/facebook-instant-articles-sdk-php",
-        "version": "v1.1.0",
-        "version_normalized": "1.1.0.0",
+        "version": "v1.3.0",
+        "version_normalized": "1.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/facebook/facebook-instant-articles-sdk-php.git",
-            "reference": "989a4d887dcd01b7480bbb685b9a6bf94c45b827"
+            "reference": "4b74463f347c49f9592ab35b70129bb15b4b1e6d"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/989a4d887dcd01b7480bbb685b9a6bf94c45b827",
-            "reference": "989a4d887dcd01b7480bbb685b9a6bf94c45b827",
+            "url": "https://api.github.com/repos/facebook/facebook-instant-articles-sdk-php/zipball/4b74463f347c49f9592ab35b70129bb15b4b1e6d",
+            "reference": "4b74463f347c49f9592ab35b70129bb15b4b1e6d",
             "shasum": ""
         },
         "require": {
@@ -169,7 +171,7 @@
             "phpunit/phpunit": "^4.8",
             "squizlabs/php_codesniffer": "^2.6.0"
         },
-        "time": "2016-05-17 13:59:18",
+        "time": "2016-07-12 00:57:23",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

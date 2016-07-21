@@ -71,9 +71,9 @@ class ValidatorWarning
         $simple_class_name = substr(strrchr($this->element->getClassName(), '\\'), 1);
 
         if (!isset($this->configuration['warning_messages'][$simple_class_name])) {
-            $message = 'Invalid content on the object: '.$object;
+            $message = 'Invalid content on the object.';
         } else {
-            $message = $this->configuration['warning_messages'][$simple_class_name] . 'Element content: '.$object;
+            $message = $this->configuration['warning_messages'][$simple_class_name];
         }
         return $message;
     }

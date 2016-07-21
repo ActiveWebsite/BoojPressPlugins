@@ -98,6 +98,16 @@
                         "selector" : "div.image-caption"
                     }
                 }
+            },
+            {
+                "class": "SocialEmbedRule",
+                "selector" : "div.embed",
+                "properties" : {
+                    "socialembed.iframe" : {
+                        "type" : "children",
+                        "selector" : "*"
+                    }
+                }
             }
         ]
 }

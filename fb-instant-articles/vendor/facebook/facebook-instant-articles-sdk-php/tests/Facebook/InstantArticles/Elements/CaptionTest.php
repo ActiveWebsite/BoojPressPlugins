@@ -117,6 +117,22 @@ class CaptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $rendered);
     }
 
+    public function testRenderWithVerticalAlignment()
+    {
+        $caption =
+          Caption::create()
+            ->appendText('Caption Title')
+            ->withVerticalAlignment(Caption::VERTICAL_BOTTOM);
+
+        $expected =
+          '<figcaption class="op-vertical-bottom">' .
+          'Caption Title' .
+          '</figcaption>';
+
+        $rendered = $caption->render();
+        $this->assertEquals($expected, $rendered);
+    }
+
     public function testRenderWithAllFormating()
     {
         $caption =
@@ -124,10 +140,11 @@ class CaptionTest extends \PHPUnit_Framework_TestCase
                 ->appendText('Caption Title')
                 ->withFontsize(Caption::SIZE_LARGE)
                 ->withPosition(Caption::POSITION_BELOW)
-                ->withTextAlignment(Caption::ALIGN_LEFT);
+                ->withTextAlignment(Caption::ALIGN_LEFT)
+                ->withVerticalAlignment(Caption::VERTICAL_BOTTOM);
 
         $expected =
-            '<figcaption class="op-left op-large op-vertical-below">'.
+            '<figcaption class="op-left op-vertical-bottom op-large op-vertical-below">'.
                 'Caption Title'.
             '</figcaption>';
 

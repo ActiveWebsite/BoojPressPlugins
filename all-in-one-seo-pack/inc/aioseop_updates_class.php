@@ -6,16 +6,15 @@
  * Handles detection of new plugin version updates, migration of old settings,
  * new WP core feature support, etc.
  * AIOSEOP Updates class.
- * @author Michael Torbert.
- * @author Semper Fi Web Design.
- * @copyright http://semperplugins.com
+ * 
  * @package All-in-One-SEO-Pack.
  * @version 1.0.0
  */
-class aioseop_updates {
+class AIOSEOP_Updates {
 
 	/**
 	 * Constructor
+	 *
 	 * @since 1.0.0
 	 */
 	function __construct() {
@@ -23,6 +22,7 @@ class aioseop_updates {
 
 	/**
 	 * Updates version.
+	 *
 	 * @since 1.0.0
 	 * @global $aiosp , $aioseop_options.
 	 * @return null
@@ -32,25 +32,28 @@ class aioseop_updates {
 		if ( empty( $aioseop_options ) ) {
 			$aioseop_options = get_option( $aioseop_options );
 			if ( empty( $aioseop_options ) ) {
-				// something's wrong. bail.
+				// Something's wrong. bail.
 				return;
 			}
 		}
 
-		// Last known running plugin version
-		$last_active_version = isset( $aioseop_options['last_active_version'] )
-			? $aioseop_options['last_active_version'] : '0.0';
+		// Last known running plugin version.
+		$last_active_version = '0.0';
+		if ( isset( $aioseop_options['last_active_version'] ) ) {
+			$last_active_version = $aioseop_options['last_active_version'];
+		}
 
 		// Compares version to see which one is the newer.
 		if ( version_compare( $last_active_version, AIOSEOP_VERSION, '<' ) ) {
 
-			// Upgrades based on previous version
+			// Upgrades based on previous version.
+			do_action( 'before_doing_aioseop_updates' );
 			$this->do_version_updates( $last_active_version );
-
+			do_action( 'after_doing_aioseop_updates' );
 			// If we're running Pro, let the Pro updater set the version.
 			if ( ! AIOSEOPPRO ) {
 
-				// Save the current plugin version as the new last_active_version
+				// Save the current plugin version as the new last_active_version.
 				$aioseop_options['last_active_version'] = AIOSEOP_VERSION;
 				$aiosp->update_class_option( $aioseop_options );
 			}
@@ -66,7 +69,9 @@ class aioseop_updates {
 
 	/**
 	 * Updates version.
+	 *
 	 * TODO: the compare here should be extracted into a function
+	 *
 	 * @since 1.0.0
 	 * @global $aioseop_options .
 	 *
@@ -93,18 +98,19 @@ class aioseop_updates {
 	/**
 	 * Removes overzealous 'DOC' entry which is causing false-positive bad
 	 * bot blocking.
+
 	 * @since 2.3.3
 	 * @global $aiosp , $aioseop_options.
 	 */
 	function bad_bots_201603() {
 		global $aiosp, $aioseop_options;
 
-		// Remove 'DOC' from bad bots list to avoid false positives
+		// Remove 'DOC' from bad bots list to avoid false positives.
 		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
 			$list                                                                                 = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
 			$list                                                                                 = str_replace( array(
 				"DOC\r\n",
-				"DOC\n"
+				"DOC\n",
 			), '', $list );
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -126,34 +132,32 @@ class aioseop_updates {
 				$aiosp_reset_htaccess->generate_htaccess_blocklist();
 			}
 			if ( ! isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_htaccess_rules'] )
-			     && extract_from_markers(
-				     get_home_path() . '.htaccess',
-				     'Bad Bot Blocker' )
+			     && extract_from_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker' )
 			) {
-				insert_with_markers(
-					get_home_path() . '.htaccess',
-					'Bad Bot Blocker',
-					''
-				);
+				insert_with_markers( get_home_path() . '.htaccess', 'Bad Bot Blocker', '' );
 			}
 		}
 	}
 
-	// Functions for specific version milestones
+	/*
+	 * Functions for specific version milestones.
+	 */
 
 	/**
 	 * Remove 'yandex' entry. This is a major Russian search engine, and no longer needs to be blocked.
+	 *
 	 * @since 2.3.4.1
 	 * @global $aiosp , $aioseop_options.
 	 */
 	function bad_bots_remove_yandex_201604() {
 		global $aiosp, $aioseop_options;
-		// Remove 'yandex' from bad bots list to avoid false positives
+
+		// Remove 'yandex' from bad bots list to avoid false positives.
 		if ( isset( $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] ) ) {
 			$list                                                                                 = $aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'];
 			$list                                                                                 = str_replace( array(
 				"yandex\r\n",
-				"yandex\n"
+				"yandex\n",
 			), '', $list );
 			$aioseop_options['modules']['aiosp_bad_robots_options']['aiosp_bad_robots_blocklist'] = $list;
 			update_option( 'aioseop_options', $aioseop_options );
@@ -178,8 +182,13 @@ class aioseop_updates {
 
 	/**
 	 * Updates features.
+
 	 * @since 1.0.0
 	 * @return null
+	 *
+	 * if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) &&
+	 * $aioseop_options['version_feature_flags']['FEATURE_NAME'] === 'yes' ) ) {
+	 * $this->some_feature_update_method(); // sets flag to 'yes' on completion.
 	 */
 	public function do_feature_updates() {
 		global $aioseop_options;
@@ -199,15 +208,5 @@ class aioseop_updates {
 				apply_filters( 'aioseop_update_check_time', 3600 * 6 )
 			);
 		}
-
-
-		/*
-		if ( ! ( isset( $aioseop_options['version_feature_flags']['FEATURE_NAME'] ) &&
-		 $aioseop_options['version_feature_flags']['FEATURE_NAME'] === 'yes' ) ) {
-	   		$this->some_feature_update_method(); // sets flag to 'yes' on completion.
-		}
-		*/
 	}
-
-
 }

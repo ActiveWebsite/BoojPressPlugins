@@ -10,7 +10,7 @@ We accept contributions via pull requests on [GitHub](https://github.com/faceboo
 
 - **Add tests** - If you've added code that can be tested, add tests.
 
-- **Document any change in behaviour** - Make sure the README and the [documentation](https://github.com/facebook/facebook-instant-articles-sdk-php/tree/master/docs) are kept up-to-date.
+- **Document any change in behaviour** - Make sure the README file is updated in your PR. Include any notes for documentation items which needs to be updated on the main [docs on Facebook's Developer site](https://developers.facebook.com/docs/instant-articles/sdk/).
 
 - **Consider our release cycle** - We try to follow [SemVer](http://semver.org/). Randomly breaking public APIs is not an option.
 

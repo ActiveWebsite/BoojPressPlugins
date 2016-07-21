@@ -424,6 +424,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			);
 			$botlist = apply_filters( $this->prefix . 'botlist', $botlist );
 			if ( ! empty( $botlist ) ) {
+				if( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+					return false;
+				}
 				$ua  = $_SERVER['HTTP_USER_AGENT'];
 				$uas = $this->quote_list_for_regex( $botlist );
 				if ( preg_match( '/' . $uas . '/i', $ua ) ) {
@@ -596,6 +599,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 			$botlist = $this->default_bad_bots();
 			$botlist = apply_filters( $this->prefix . 'badbotlist', $botlist );
 			if ( ! empty( $botlist ) ) {
+				if( ! isset( $_SERVER['HTTP_USER_AGENT'] ) ) {
+					return false;
+				}
 				$ua  = $_SERVER['HTTP_USER_AGENT'];
 				$uas = $this->quote_list_for_regex( $botlist );
 				if ( preg_match( '/' . $uas . '/i', $ua ) ) {
@@ -1889,6 +1895,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Module' ) ) {
 					break;
 				case 'html':
 					$buf .= $value;
+					break;
+				case 'esc_html':
+					$buf .= "<pre>" . esc_html( $value ) . "</pre>\n";
 					break;
 				default:
 					$buf .= "<input name='$name' type='{$options['type']}' $attr value='$value'>\n";

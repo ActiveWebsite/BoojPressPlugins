@@ -20,10 +20,7 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
 
         $inline =
             '<h1>Some custom code</h1>'.
-            '<script>alert("test");</script>';
-        $document = new \DOMDocument();
-        $fragment = $document->createDocumentFragment();
-        $fragment->appendXML($inline);
+            '<script>alert("test & more test");</script>';
 
         $this->article =
             InstantArticle::create()
@@ -133,7 +130,7 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
                 // Analytics
                 ->addChild(
                     Analytics::create()
-                        ->withHTML($fragment)
+                        ->withHTML($inline)
                 )
 
                 // Footer
@@ -199,7 +196,7 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
                     '<figure class="op-tracker">'.
                         '<iframe>'.
                             '<h1>Some custom code</h1>'.
-                            '<script>alert("test");</script>'.
+                            '<script>alert("test & more test");</script>'.
                         '</iframe>'.
                     '</figure>'.
                     '<footer>'.
@@ -270,7 +267,7 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
                     '<figure class="op-tracker">'.
                         '<iframe>'.
                             '<h1>Some custom code</h1>'.
-                            '<script>alert("test");</script>'.
+                            '<script>alert("test & more test");</script>'.
                         '</iframe>'.
                     '</figure>'.
                     '<footer>'.
@@ -360,7 +357,7 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
                     '<link rel="canonical" href=""/>'.
                     '<meta charset="utf-8"/>'.
                     '<meta property="op:generator" content="facebook-instant-articles-sdk-php"/>'.
-                    '<meta property="op:generator:version" content="1.0.6"/>'.
+                    '<meta property="op:generator:version" content="'.InstantArticle::CURRENT_VERSION.'"/>'.
                     '<meta property="op:markup_version" content="v1.0"/>'.
                 '</head>'.
                 '<body>'.
@@ -411,5 +408,10 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
                         ->appendText(' Man kind.')
                 );
         $this->assertTrue($ia->isValid());
+    }
+
+    public function testImplementsInterface()
+    {
+        $this->assertInstanceOf('Facebook\InstantArticles\Elements\InstantArticleInterface', $this->article);
     }
 }

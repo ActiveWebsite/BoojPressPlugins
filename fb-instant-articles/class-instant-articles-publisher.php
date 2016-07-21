@@ -18,6 +18,11 @@ use Facebook\Facebook;
 class Instant_Articles_Publisher {
 
 	/**
+	 * Key to store the submission status ID on meta data
+	 */
+	 const SUBMISSION_ID_KEY = 'instant_articles_submission_id';
+
+	/**
 	 * Inits publisher.
 	 */
 	public static function init() {
@@ -42,6 +47,12 @@ class Instant_Articles_Publisher {
 			return;
 		}
 
+		// Only process posts
+		$post_types = apply_filters( 'instant_articles_post_types', array( 'post' ) );
+		if ( ! in_array( $post->post_type, $post_types ) ) {
+			return;
+		}
+
 		// Transform the post to an Instant Article.
 		$adapter = new Instant_Articles_Post( $post );
 
@@ -51,7 +62,7 @@ class Instant_Articles_Publisher {
 		// This is important because the save_post action is also triggered by bulk updates, but in this case
 		// WordPress does not load the content field from DB for performance reasons. In this case, articles
 		// will be empty here, despite of them actually having content.
-		if ( count($article->getChildren()) === 0 || ! $article->getHeader() || ! $article->getHeader()->getTitle() ) {
+		if ( count( $article->getChildren() ) === 0 || ! $article->getHeader() || ! $article->getHeader()->getTitle() ) {
 			return;
 		}
 
@@ -87,10 +98,12 @@ class Instant_Articles_Publisher {
 
 				try {
 					// Import the article.
-					$client->importArticle( $article, $take_live );
+					$submission_id = $client->importArticle( $article, $take_live );
+					update_post_meta( $post_id, self::SUBMISSION_ID_KEY, $submission_id );
 				} catch ( Exception $e ) {
 					// Try without taking live for pages not yet reviewed.
-					$client->importArticle( $article, false );
+					$submission_id = $client->importArticle( $article, false );
+					update_post_meta( $post_id, self::SUBMISSION_ID_KEY, $submission_id );
 				}
 			}
 		} catch ( Exception $e ) {

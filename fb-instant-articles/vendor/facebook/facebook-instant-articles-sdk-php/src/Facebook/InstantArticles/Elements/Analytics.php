@@ -28,17 +28,12 @@ use Facebook\InstantArticles\Validators\Type;
  *
  * @see {link:https://developers.intern.facebook.com/docs/instant-articles/reference/analytics}
  */
-class Analytics extends Element
+class Analytics extends ElementWithHTML
 {
     /**
      * @var string The source of the content for your analytics code.
      */
     private $source;
-
-    /**
-     * @var \DOMNode The HTML of the content.
-     */
-    private $html;
 
     private function __construct()
     {
@@ -65,21 +60,6 @@ class Analytics extends Element
     }
 
     /**
-     * Sets the unescaped HTML of your ad.
-     *
-     * @param \DOMNode $html The unescaped HTML of your ad.
-     *
-     * @return $this
-     */
-    public function withHTML($html)
-    {
-        Type::enforce($html, 'DOMNode');
-        $this->html = $html;
-
-        return $this;
-    }
-
-    /**
      * Gets the source for the analytics.
      *
      * @return string The source of the content for your analytics.
@@ -87,16 +67,6 @@ class Analytics extends Element
     public function getSource()
     {
         return $this->source;
-    }
-
-    /**
-     * Gets the unescaped HTML of your analytics.
-     *
-     * @return \DOMNode The unescaped HTML of your analytics.
-     */
-    public function getHtml()
-    {
-        return $this->html;
     }
 
     /**

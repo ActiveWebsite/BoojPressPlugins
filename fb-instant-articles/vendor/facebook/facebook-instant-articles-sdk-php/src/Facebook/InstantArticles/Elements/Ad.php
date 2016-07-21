@@ -22,7 +22,7 @@ use Facebook\InstantArticles\Validators\Type;
  *
  * @see {link:https://developers.intern.facebook.com/docs/instant-articles/reference/ad}
  */
-class Ad extends Element
+class Ad extends ElementWithHTML
 {
     /**
      * @var int The height of your ad.
@@ -38,11 +38,6 @@ class Ad extends Element
      * @var int The width of your ad.
      */
     private $width;
-
-    /**
-     * @var \DOMNode The HTML of the content.
-     */
-    private $html;
 
     private function __construct()
     {
@@ -122,21 +117,6 @@ class Ad extends Element
     }
 
     /**
-     * Sets the unescaped HTML of your ad.
-     *
-     * @param \DOMNode $html The unescaped HTML of your ad.
-     *
-     * @return $this
-     */
-    public function withHTML($html)
-    {
-        Type::enforce($html, 'DOMNode');
-        $this->html = $html;
-
-        return $this;
-    }
-
-    /**
      * @return bool True if Ad has been set to reusable.
      */
     public function getIsDefaultForReuse()
@@ -172,16 +152,6 @@ class Ad extends Element
     public function getWidth()
     {
         return $this->width;
-    }
-
-    /**
-     * Gets the unescaped HTML of your ad.
-     *
-     * @return \DOMNode The unescaped HTML of your ad.
-     */
-    public function getHtml()
-    {
-        return $this->html;
     }
 
     /**
