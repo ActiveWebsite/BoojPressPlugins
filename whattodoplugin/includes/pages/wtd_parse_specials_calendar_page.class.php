@@ -1,11 +1,13 @@
 <?php
+require_once WTD_PLUGIN_PATH.'/includes/pages/class_parse_page.php';
+
 if(!class_exists('wtd_parse_specials_calendar_page')){
-	class wtd_parse_specials_calendar_page{
+	class wtd_parse_specials_calendar_page extends wtd_parse_page{
 
 		public function __construct(){
-		    $wtd_plugin = get_option('wtd_plugin');
+            parent::__construct();
 		    //Page Content
-			if(!empty($wtd_plugin['specials-page']))
+			if(!empty($this->wtd_plugin['specials-page']))
                 add_action('the_content', array($this, 'page_content'), 99);
             //Ajax calls
 			add_action('wp_ajax_nopriv_get_specials_date_dialog', array($this, 'build_date_dialog'));
@@ -28,36 +30,12 @@ if(!class_exists('wtd_parse_specials_calendar_page')){
 			$query = new \Parse\ParseQuery('special');
 			$query->equalTo('specialDate', $date);
 		    $query->matchesQuery('resortObjectId', $resort_query);
-		    $results = $query->find();?>
-		    <md-dialog style="margin-top: -100px;min-width:400px;">
-			    <md-dialog-content >
-                    <div layout="row" layout-align="space-between start">
-						<span style="font-weight: bold;">Specials on <?php echo $date->format('F j, Y'); ?></span>
-                        <a href="javascript:hideDialog();">Close</a>
-                    </div>
-				    <div layout="column" layout-align="start start" style="max-height: 400px;"><?php
-					    for($i = 0; $i < count($results); $i++){
-							$special = $results[$i];?>
-						    <div layout="row" style="max-height: 400px;min-height: 100px;" layout-padding>
-								<a href="<?php echo '/' . $wtd_plugin['url_prefix'] . '/special/' . $special->getObjectId() . '/' . sanitize_title($special->name) . '/'; ?>">
-									<img src="<?php echo $special->logoUrl; ?>" style="max-width: 50px; max-height: 50px; margin-right:10px;"/>
-                                </a><?php
-                                    if($special->startTime == '23:59:59')
-                                        $datestring = " - tbd";
-									elseif($special->startTime == '00:00:00' || empty($special->startTime))
-                                         $datestring = "";
-									else{
-                                    	$start = new DateTime(date('Y-m-d '.$special->startTime));
-                                    	$datestring = " - ".$start->format('g:i a');
-									}?>
-						        <a href="<?php echo '/'.$wtd_plugin['url_prefix'].'/special/'.$special->getObjectId().'/'.sanitize_title($special->name).'/';?>"><?php
-							        echo $special->name.$datestring;?>
-						        </a>
-						    </div><?php
-					    }?>
-				    </div>
-			    </md-dialog-content>
-		    </md-dialog><?php
+		    $results = $query->find();
+            echo $this->twig->render('md_dialog.twig', array(
+                'date' => $date->format('F j, Y'),
+                'events' => $results,
+                'url_prefix' => site_url().'/'.$wtd_plugin['url_prefix'].'/special/'
+            ));
 		    die();
 	    }
 
@@ -162,14 +140,14 @@ if(!class_exists('wtd_parse_specials_calendar_page')){
                 $temp_time += $step;
             }
             ob_start(); ?>
-            <div layout="column">
-                <div layout="row" layout-sm="column" flex><?php
+            <div class="month">
+                <div class="week"><?php
                 $i = 0;
                 $type = $wtd_plugin['calendar_type'];
-                    foreach($month_days as $date => $specials){
+                foreach($month_days as $date => $specials){
                     $date_timestamp = strtotime($date);
                     if($i % 7 == 0 && $i != 0)
-                        echo '</div><div layout="row" layout-sm="column" flex>';
+                        echo '</div><div class="week">';
                         $results = $specials;
                     switch($type){
                         case 1:
@@ -213,7 +191,7 @@ if(!class_exists('wtd_parse_specials_calendar_page')){
                                 $images = '<div class="small-events" layout="column">';
                                 $k = 0;
                                 foreach($results as $key => $row){
-                                    $special_url = '/'.$wtd_plugin['url_prefix'].'/special/'.$row->id.'/'.sanitize_title($row->name).'/';
+                                    $special_url = site_url().'/'.$wtd_plugin['url_prefix'].'/special/'.$row->id.'/'.sanitize_title($row->name).'/';
                                     if($k == 3)
                                         break;
                                     $images .= '<a href="'.$special_url.'">&middot; '.$row->name.'</a>';
@@ -237,18 +215,18 @@ if(!class_exists('wtd_parse_specials_calendar_page')){
                         if($count > 0){?>
                         	<div layout="column" title="See more specials" class="day-list" onclick="showDateDialog(event, <?php echo $date_timestamp; ?>)"><?php
                         }else{?>
-                                <div layout="column" title="No specials" class="day-list"><?php
+                            <div layout="column" title="No specials" class="day-list"><?php
                         }?>
-                            <span><em> <?php echo date('M jS', $date_timestamp); ?></em></span><?php
+                           <span><em> <?php echo date('M jS', $date_timestamp); ?></em></span><?php
                             echo $images;?>
                         </div><?php
-							if($count > 0){?>
-                        		<div flex hide-sm class="cal-day-footer" onclick="showDateDialog(event, <?php echo $date_timestamp; ?>)">
-                                <span class="date-dialog-link"><?php echo $specials_text; ?></span><?php
-                            }else{?>
-                        		<div flex hide-sm class="cal-day-footer" >
-                                <span class="date-dialog-link"><?php echo $specials_text; ?></span><?php
-                            }?>
+                        if($count > 0){?>
+                            <div flex hide-sm class="cal-day-footer" onclick="showDateDialog(event, <?php echo $date_timestamp; ?>)">
+                            <span class="date-dialog-link"><?php echo $specials_text; ?></span><?php
+                        }else{?>
+                            <div flex hide-sm class="cal-day-footer" >
+                            <span class="date-dialog-link"><?php echo $specials_text; ?></span><?php
+                        }?>
                         </div>
                     </div><?php
                     $i ++;

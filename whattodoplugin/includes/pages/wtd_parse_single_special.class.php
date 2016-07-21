@@ -37,7 +37,7 @@ if(!class_exists('wtd_parse_single_special')){
 						AND pm.meta_value = 'specials_page'
 						AND	p.post_type = 'page'";
 	        $specials_page = $wpdb->get_var($query);
-	        $specials_page = '/'.$wtd_plugin['url_prefix'].'/'.$specials_page.'/';
+	        $specials_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$specials_page.'/';
 
             if($post->post_type == 'wtd_special'){
                 remove_filter('the_content', 'theme_formatter', 99);

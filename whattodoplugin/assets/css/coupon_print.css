@@ -8,10 +8,10 @@ footer,
 .coupon-header,
 #sidebar,
 header {
-  display: none;
-}
+  display: none; }
 
 .coupon-logo {
   width: 100px;
-  max-width: 100px;
-}
+  max-width: 100px; }
+
+/*# sourceMappingURL=coupon_print.css.map */

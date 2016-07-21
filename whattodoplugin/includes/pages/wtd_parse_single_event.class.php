@@ -40,7 +40,7 @@ if(!class_exists('wtd_parse_single_event')){
 						AND pm.meta_value = 'calendar_page'
 						AND	p.post_type = 'page'";
 	            $calendar_page = $wpdb->get_var($query);
-	            $calendar_page = '/'.$wtd_plugin['url_prefix'].'/'.$calendar_page.'/';
+	            $calendar_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$calendar_page.'/';
                 remove_filter('the_content', 'theme_formatter', 99);
                 remove_filter('the_content', 'wpautop', 99);
                 ob_start();?>

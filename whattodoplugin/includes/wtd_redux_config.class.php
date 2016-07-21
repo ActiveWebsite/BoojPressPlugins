@@ -27,6 +27,9 @@ if(!class_exists('wtd_redux_config')){
 		public function __construct(){
 			try{
 				ParseClient::initialize('uq0vJ1MzPcmMwbLuhxSNFF9tvx3WXHerQO7kKgu3', 'K9Oz5R2I3bWcz1bei7DJ1pLADNNjDX6D9annyOWu',''); // production
+				//ParseClient::initialize( 'myAppId', 'restKey', 'mymasterkey' );
+				// Users of Parse Server will need to point ParseClient at their remote URL:
+				//ParseClient::setServerURL('http://localhost:1337/parse');
 			}catch(ParseException $ex){
 				var_dump($ex);
 			}
@@ -347,12 +350,17 @@ if(!class_exists('wtd_redux_config')){
 			$query->equalTo('token', get_option('wtd_api_token'));
 			$results = $query->find();
 			$object = $results[0];
+			ob_start();
 			if(!empty($object)){
-				$relation = $object->getRelation('resortRelation');
-				$this->paid_resorts = $relation->getQuery()->find();
+				try{
+					$relation = $object->getRelation('resortRelation', 'resort');
+					$this->paid_resorts = $relation->getQuery()->find();
+				}catch(ParseException $ex){
+					var_dump($ex);
+				}
 			}else
 				$this->paid_resorts = array();
-			ob_start();
+
 			if(!empty($this->paid_resorts)){?>
 				<div layout="column">
 					<span>Paid Resorts</span><?php
@@ -879,7 +887,7 @@ if(!class_exists('wtd_redux_config')){
 						Paid Resorts
 					</th>
 					<td><?php
-						$relation = $site->getRelation('resortRelation');
+						$relation = $site->getRelation('resortRelation', 'resort');
 						$paid_resorts = $relation->getQuery()->find();
 						for($i = 0; $i < count($paid_resorts); $i++){
 							$resort = $paid_resorts[$i];
@@ -1881,7 +1889,7 @@ function wtd_bus_options($field, $value){
 		$query->equalTo('token', get_option('wtd_api_token'));
 		$site_results = $query->find();
 		$site = $site_results[0];
-		$relation = $site->getRelation('resortRelation');
+		$relation = $site->getRelation('resortRelation', 'resort');
 		$resorts = $relation->getQuery()->find();
 		$query = new ParseQuery('resortParentCategories');
 		$query->equalTo('deleted', false);
@@ -1972,6 +1980,19 @@ function wtd_bus_options($field, $value){
 		</div>
 	</div><?php
 }
+
+//function wtd_setup_page($field, $value){
+//	$query = new ParseQuery('resort');
+//	try{
+//		$query->equalTo('state', 'CO');
+//
+//		$site_results = $query->find();
+//	}catch(ParseException $ex){
+//		var_dump($ex);
+//	}
+//
+//	var_dump($site_results);
+//}
 
 function wtd_setup_page($field, $value){
 	wp_enqueue_media();

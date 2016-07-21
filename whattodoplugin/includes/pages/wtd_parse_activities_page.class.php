@@ -1,17 +1,19 @@
 <?php
+require_once WTD_PLUGIN_PATH.'/includes/pages/class_parse_page.php';
+
 use Parse\ParseQuery;
 use Parse\ParseException;
 
 if(!class_exists('wtd_parse_activities_page')){
 
-    class wtd_parse_activities_page{
+    class wtd_parse_activities_page extends wtd_parse_page{
 
         private $wtd_categories;
 
         function __construct(){
-            $wtd_plugin = get_option('wtd_plugin');
+			parent::__construct();
             //Page Content
-            if(!empty($wtd_plugin['activities-page']))
+            if(!empty($this->wtd_plugin['activities-page']))
                 add_action('the_content', array($this, 'page_content'), 99);
             //Ajax calls
             add_action('wp_ajax_wtd_build_activities_list', array($this, 'build_list'));
@@ -78,7 +80,7 @@ if(!class_exists('wtd_parse_activities_page')){
 	            <div class="masonry-column-width"></div><?php
                 for($i = 0; $i < count($parent_cats); $i++){
 	                $parent_cat = $parent_cats[$i];
-	                $url = '/'.$post->post_name.'/whattodo/'.strtolower($parent_cat->get('name')).'/'.$parent_cat->getObjectId().'/';
+	                $url = site_url().'/'.$post->post_name.'/whattodo/'.strtolower($parent_cat->get('name')).'/'.$parent_cat->getObjectId().'/';
                     //if($image):?>
                         <div class="masonry-entry">
 	                        <div class="masonry-thumbnail">
@@ -149,7 +151,7 @@ if(!class_exists('wtd_parse_activities_page')){
 	        }?>
             <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_activities_page.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
 	        <div ng-app="activitiesApp" ng-controller="activitiesCtrl">
-	            <div layout="row" layout-sm="column" layout-padding><?php
+	            <div layout="row" layout-padding><?php
 	                if($wtd_plugin['act_page_type'] == 3):?>
 	                    <ul layout="column"><?php
 		                    for($i = 0; $i < count($categories); $i++):
@@ -161,7 +163,7 @@ if(!class_exists('wtd_parse_activities_page')){
 			                    $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 			                    $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 			                    $subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-			                    $url = '/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
+			                    $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
 		                        <li class="wtd_subcategory_menu_item <?php echo ($category->getObjectId() == $wp_query->query['wtds']) ? 'active' : '';?>">
 		                            <a href="<?php echo $url;?>"><?php echo $category->get('name');?></a>
 		                        </li><?php
@@ -184,7 +186,7 @@ if(!class_exists('wtd_parse_activities_page')){
 			                    $category_url_name = strtolower($parent_cat->get('name'));
 			                    $category_url_name = str_replace(' ', '-', $category_url_name);
 			                    //http://realty.home/vail-valley-activities/whattodo/spa-&-fitness/ZUNm0C89zy/fitness-centers/QoljJWroB8/
-			                    $url = '/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
+			                    $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
 			                    <span class="wtd_bread_separator">&gt;</span>
 			                    <a id="parent_<?php echo $parent_cat->getObjectId();?>_header" class="wtd_pull_left" href="<?php echo $url;?>"><?php
 			                        echo $parent_cat->get('name');?>
@@ -206,7 +208,7 @@ if(!class_exists('wtd_parse_activities_page')){
 				                        $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 				                        $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 										$subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-				                        $url = '/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
+				                        $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
 				                        echo '<option value="'.$url.'" '.$selected.'>'.$category->get('name').'</option>';
 			                        }?>
 		                        </select><?php
@@ -244,7 +246,7 @@ if(!class_exists('wtd_parse_activities_page')){
             $wtd_excluded_cats = get_option('wtd_excluded_cats');
 	        if(!empty($wtd_excluded_cats))
                 $wtd_base_request['excluded_categories'] = json_decode($wtd_excluded_cats);?>
-            <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+            <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
             <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
             <script>
                 var wtd_categories = <?php echo json_encode($this->wtd_categories);?>;
@@ -264,92 +266,20 @@ if(!class_exists('wtd_parse_activities_page')){
             ob_start();
             if(!empty($data)):
                 $activities = $data;
-                foreach($activities as $key => $activity):
-                    if(!empty($activity->addresses))
-                        $addresses = $activity->addresses;
-                    if(!empty($activity->vendor))
-                        $vendor = $activity->vendor;
-                    $activity_url = '/'.$wtd_plugin['url_prefix'].'/activity/'.$activity->id.'/'.sanitize_title($activity->title).'/';?>
-                    <div class="wtd_listing_container wtd_parse_result md-whiteframe-z2" layout="column"><?php
-                        $title = '<span class="wtd_listing_title">'.$activity->title.'</span>';
-                        if(!empty($title) && !empty($vendor) && !substr_count($title, $vendor))
-                            $title .= ' - <span class="wtd_listing_vendor">'.$vendor.'</span>';
-                        elseif(empty($title) && !substr_count($title, $vendor))
-                            $title .= '<span class="wtd_listing_vendor">'.$vendor.'</span>';?>
-                        <div layout="row" layout-sm="column" class="wtd_listing_title_bar" layout-align="center start"><?php
-							if($activity->vend_rec_type == 'wfree'){
-								echo $title;
-							}else{?>
-                            	<a href="<?php echo $activity_url;?>"><?php echo $title;?></a><?php
-							}?>	
-                        </div>
-	                    <div layout="row" offset="3" layout-sm="column" layout-align="center start" layout-padding><?php
-                            if(!empty($activity->thumbUrl) && $activity->vend_rec_type != 'wfree'){?>
-                                <div flex="20" flex-sm="100" class="wtd_listing_sc_imageArea">
-                                    <a href="<?php echo $activity_url;?>">
-                                        <img src="<?php echo $activity->thumbUrl;?>" alt="<?php echo $activity->title; ?>" layout-padding />
-                                    </a>
-                                </div><?php
-                            }?>
-	                        <div flex="75" flex-sm="100" layout-padding layout="column"><?php
-								if($activity->vend_rec_type != 'wfree'){
-	                            	echo "<div>";
-	                                $desc = strip_tags($activity->description);
-	                                wtd_excerpt_generator($desc, false, $activity_url);
-	                            	echo "</div>";
-								}
-	                            if(!empty($addresses)):
-	                                if(count($addresses) == 1):
-	                                    $address = $addresses[0];?>
-	                                    <div flex><?php
-	                                        $display_address = '';
-	                                        if(!empty($address->address))
-	                                            $street = $address->address;
-	                                        if(!empty($street))
-	                                            $display_address .= $street;
-	                                        if(!empty($address->city))
-	                                            $city = $address->city;
-	                                        if(!empty($city)){
-	                                            if(!$display_address)
-	                                                $display_address .= $city;
-	                                            else
-	                                                $display_address .= ' in ' . $city;
-	                                        }
-	                                        if(!empty($address->state))
-	                                            $state = $address->state;
-	                                        if(!empty($state)){
-	                                            if(empty($display_address))
-	                                                $display_address .= $state;
-	                                            else
-	                                                $display_address .= ', ' . $state;
-	                                        }
-	                                        if(!empty($address->phone))
-	                                            $phone = $address->phone;
-	                                        if(!empty($phone))
-	                                            $display_address .= " (" . substr($phone, 0, 3) . ") " . substr($phone, 3, 3) . "-" . substr($phone, 6);
-	                                        else
-	                                            $display_address .= '';
-	                                        echo $display_address;?>
-	                                    </div><?php
-	                                else:
-										$locations = array();
-	                                    foreach($addresses as $add){
-	                                        if(!empty($add->location)){
-	                                            if(!in_array(ucfirst($add->location), $locations))
-	                                                $locations[] = ucfirst($add->location);
-	                                        }elseif(!empty($add->city)){
-	                                            if(!in_array(ucfirst($add->city), $locations))
-	                                                $locations[] = ucfirst($add->city);
-	                                        }
-	                                    }
-	                                    $address = 'Various Locations in '.implode(', ', $locations);?>
-	                                    <div flex><?php echo $address;?></div><?php
-									endif;
-	                            endif;?>
-                            </div>
-                        </div>
-                    </div><?php
-                endforeach;
+                foreach($activities as $key => $activity) {
+					$activity_url = site_url(). '/' . $wtd_plugin['url_prefix'] . '/activity/' . $activity->id . '/' . sanitize_title($activity->title) . '/';
+					$desc = strip_tags($activity->description);
+					$params = array(
+						'title' => $activity->title,
+						'thumb_url' => $activity->thumbUrl,
+						'details_url' => $activity_url,
+						'vendor_name' => $activity->vendor,
+						'type' => $activity->vend_rec_type,
+						'desc' => wtd_excerpt_generator($desc, false, $activity_url),
+						'addresses' => $this->get_addresses($activity->addresses)
+					);
+					echo $this->twig->render('wtd_list_item.twig', $params);
+				}
             else:?>
                 No listings of this type are available.<?php
             endif;

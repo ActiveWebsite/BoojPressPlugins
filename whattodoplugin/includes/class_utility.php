@@ -72,7 +72,7 @@ class wtdUtility{
 				<div id="wtd_gallery_big" layout="row" layout-align="center center" layout-padding><?php
 					echo '<img src="'.$images[0].'" onclick="galleryNext();"/>';?>
 				</div>
-				<div id="wtd_gallery_nav" layout="row" layout-align="center center" layout-wrap><?php
+				<div id="wtd_gallery_nav" layout="row" layout-align="center center" layout-wrap style="display:flex;"><?php
 					foreach($images as $image){
 						echo '<div onclick="thumbnavClick(\''.$image.'\');" layout-margin><img src="'.$image.'"/></div>';
 					}?>

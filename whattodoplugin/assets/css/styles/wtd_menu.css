@@ -81,6 +81,10 @@
 	margin-bottom:15px;
 }
 
+.masonry-details{
+	margin-top:10px;
+}
+
 @media (max-width:768px){
 	.masonry-entry{
 		width:100%;

@@ -30,12 +30,12 @@ class wtd_main{
 	}
 
 	function admin_scripts($hook){
-		wp_enqueue_script('angular', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js');
-		wp_enqueue_script('angular-route', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js');
-		wp_enqueue_script('angular-animate', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js');
-		wp_enqueue_script('angular-aria', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js');
-		wp_enqueue_script('angular-material', 'https://ajax.googleapis.com/ajax/libs/angular_material/0.11.0/angular-material.min.js');
-		wp_register_style('angular-material-css', 'https://ajax.googleapis.com/ajax/libs/angular_material/0.11.0/angular-material.min.css');
+		wp_enqueue_script('angular', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js');
+		wp_enqueue_script('angular-route', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js');
+		wp_enqueue_script('angular-animate', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js');
+		wp_enqueue_script('angular-aria', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js');
+		wp_enqueue_script('angular-material', 'https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js');
+		wp_register_style('angular-material-css', 'https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css');
 		wp_enqueue_style('angular-material-css');
 	}
 
@@ -96,12 +96,12 @@ class wtd_main{
 		if(in_array($post->ID, $page_ids) || in_array($post->post_type, $wtd_types)){
 			ob_start();?>
 			<!-- Angular Material Dependencies -->
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.1/angular-material.min.js"></script>
-			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.1/angular-material.min.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.min.js"></script>
+			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.min.css">
 			<link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_frontend.css?wtd_version='.WTD_VERSION;?>" media="screen"/><?php
 			$output = ob_get_contents();
 			ob_end_clean();
@@ -358,7 +358,7 @@ if(!function_exists('wtd_excerpt_generator')){
 			$url = get_permalink($post->ID);
 		if($url)
 			$result .= ' <br/><a href="' . $url . '">Read More</a>';
-		echo $result;
+		return $result;
 	}
 }
 

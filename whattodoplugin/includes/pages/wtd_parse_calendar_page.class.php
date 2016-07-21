@@ -1,11 +1,13 @@
 <?php
+require_once WTD_PLUGIN_PATH.'/includes/pages/class_parse_page.php';
+
 if(!class_exists('wtd_parse_calendar_page')){
-    class wtd_parse_calendar_page{
+    class wtd_parse_calendar_page extends wtd_parse_page{
 
 		public function __construct(){
-		    $wtd_plugin = get_option('wtd_plugin');
+            parent::__construct();
 		    //Page Content
-            if(!empty($wtd_plugin['calendar-page']))
+            if(!empty($this->wtd_plugin['calendar-page']))
                 add_action('the_content', array($this, 'page_content'), 99);
             //Ajax calls
 	        add_action('wp_ajax_nopriv_get_date_dialog', array($this, 'build_date_dialog'));
@@ -28,36 +30,12 @@ if(!class_exists('wtd_parse_calendar_page')){
 		    $query = new \Parse\ParseQuery('event');
 		    $query->equalTo('eventDate', $date);
 		    $query->matchesQuery('resortObjectId', $resort_query);
-		    $results = $query->find();?>
-		    <md-dialog style="margin-top: -100px;min-width:400px;">
-			    <md-dialog-content >
-                    <div layout="row" layout-align="space-between start">
-                        <span style="font-weight: bold;">Events on <?php echo $date->format('F j, Y'); ?></span>
-                        <a href="javascript:hideDialog();">Close</a>
-                    </div>
-				    <div layout="column" layout-align="start start" style="max-height: 400px;min-height: 100px;" layout-padding><?php
-					    for($i = 0; $i < count($results); $i++){
-						    $event = $results[$i];?>
-						    <div layout="row" layout-padding>
-                                <a href="<?php echo '/'.$wtd_plugin['url_prefix'].'/event/'.$event->getObjectId().'/'.sanitize_title($event->name).'/';?>">
-							        <img src="<?php echo $event->logoUrl;?>" style="max-width: 50px; max-height: 50px;margin-right: 10px;"/>
-                                </a><?php
-                                    if($event->startTime == '23:59:59')
-                                        $datestring = " - tbd";
-									elseif($event->startTime == '00:00:00' || empty($event->startTime))
-                                         $datestring = "";
-									else{
-                                    	$start = new DateTime(date('Y-m-d '.$event->startTime));
-                                    	$datestring = " - ".$start->format('g:i a');
-									}?>
-						        <a href="<?php echo '/'.$wtd_plugin['url_prefix'].'/event/'.$event->getObjectId().'/'.sanitize_title($event->name).'/';?>"><?php
-							        echo $event->name.$datestring;?>
-						        </a>
-						    </div><?php
-					    }?>
-				    </div>
-			    </md-dialog-content>
-		    </md-dialog><?php
+		    $results = $query->find();
+            echo $this->twig->render('md_dialog.twig', array(
+                'date' => $date->format('F j, Y'),
+                'events' => $results,
+                'url_prefix' => site_url().'/'.$wtd_plugin['url_prefix'].'/event/'
+            ));
 		    die();
 	    }
 
@@ -164,14 +142,14 @@ if(!class_exists('wtd_parse_calendar_page')){
                 $temp_time += $step;
             }
             ob_start();?>
-            <div class="month" layout="column" flex>
-                <div layout="row" layout-sm="column"><?php
+            <div class="month">
+                <div class="week"><?php
                     $i = 0;
                     $type = $wtd_plugin['calendar_type'];
                     foreach($month_days as $date => $events){
                         $date_timestamp = strtotime($date);
                         if($i % 7 == 0 && $i != 0)
-                            echo '</div><div layout="row" layout-sm="column">';
+                            echo '</div><div class="week">';
                         $results = $events;
                         switch($type){
                             case 1:
@@ -212,13 +190,13 @@ if(!class_exists('wtd_parse_calendar_page')){
                                 $images = '';
                                 $count = count($results);
                                 if(!empty($results)){
-                                    $images = '<div class="small-events" layout="column">';
+                                    $images = '<div class="small-events">';
                                     $k = 0;
                                     foreach($results as $key => $row){
-                                        $event_url = '/' . $wtd_plugin['url_prefix'] . '/event/' . $row->id . '/' . sanitize_title($row->name) . '/';
-                                        //if($k == 3)
-                                        //    break;
-                                        $images .= '<a href="' . $event_url . '">&middot; ' . $row->name . '</a>';
+                                        $event_url = site_url(). '/' . $wtd_plugin['url_prefix'] . '/event/' . $row->id . '/' . sanitize_title($row->name) . '/';
+                                        if($k == 3)
+                                            break;
+                                        $images .= '<a href="' . $event_url . '">&middot; ' . $row->name . '</a><br/>';
                                         $k ++;
                                     }
                                     $images .= '</div>';
@@ -235,7 +213,7 @@ if(!class_exists('wtd_parse_calendar_page')){
                         $not_month = '';
                         if($month != date('m', $date_timestamp))
                             $not_month = 'not_month ';?>
-                        <div class="<?php echo $not_month; ?>day type<?php echo $type; ?>" <?php echo (empty($not_month)) ? '' : 'hide-sm'; ?> flex layout="column" layout-padding><?php
+                        <div class="<?php echo $not_month; ?>day type<?php echo $type; ?>" <?php echo (empty($not_month)) ? '' : 'hide-sm'; ?> layout="column" layout-padding><?php
                             if($count > 0){?>
                                 <div layout="column" title="See more events" class="day-list" onclick="showDateDialog(event, <?php echo $date_timestamp; ?>)"><?php
                             }else{?>

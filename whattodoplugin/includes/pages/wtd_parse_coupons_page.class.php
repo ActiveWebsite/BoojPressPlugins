@@ -68,10 +68,10 @@ if(!class_exists('wtd_parse_coupons_page')){
             if(!empty($coupons)):
                 $i = 0;
                 foreach($coupons as $key => $coupon){?>
-                    <div layout="column" layout-padding class="md-whiteframe-z1" layout-margin style="max-width:600px;">
+                    <div layout="column" class="md-whiteframe-z1 layout-padding layout-margin" style="max-width:600px;">
                         <div layout="row">
                             <div flex="70" flex-sm="100">
-                                <a href="<?php echo '/' . $wtd_plugin['url_prefix'] . '/coupon/' . $coupon->id; ?>">
+                                <a href="<?php echo site_url(). '/' . $wtd_plugin['url_prefix'] . '/coupon/' . $coupon->id; ?>">
                                     <span class="business"><?php echo htmlspecialchars_decode($coupon->title)." by ".htmlspecialchars_decode($coupon->vendor);?></span><br />
                                     <?php echo htmlspecialchars_decode($coupon->offer);?>
                                 </a>

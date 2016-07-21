@@ -72,13 +72,13 @@ if(!class_exists('wtd_parse_week_events')){
 				foreach($events as $key => $event):
 					$addresses = $event->addresses;
 					$vendor = $event->vendor;
-					$event_url = '/'.$wtd_plugin['url_prefix'].'/event/'.$event->id.'/'.sanitize_title($event->name).'/';
+					$event_url = site_url().'/'.$wtd_plugin['url_prefix'].'/event/'.$event->id.'/'.sanitize_title($event->name).'/';
 					$event_day = new DateTime('@'.strtotime($event->date));
 					if($event_day != $day){
 						$day = new DateTime('@'.strtotime($event->date));?>
 						<span><?php echo $day->format('m/d/Y');?></span><?php
 					}?>
-					<div class="wtd_event_container md-whiteframe-z2" layout-padding>
+					<div class="wtd_event_container md-whiteframe-z2" style="padding: 10px;">
 						<div class="wtd_listing_sc_top_content"><?php
 							$title = $event->name;?>
 							<p class="wtd_listing_title_bar">

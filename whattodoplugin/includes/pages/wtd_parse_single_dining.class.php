@@ -36,7 +36,7 @@ if(!class_exists('wtd_parse_single_dining')){
 							AND pm.meta_value = 'dining_page'
 							AND	p.post_type = 'page'";
 	            $dining_page = $wpdb->get_var($query);
-	            $dining_page = '/'.$wtd_plugin['url_prefix'].'/'.$dining_page.'/';
+	            $dining_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$dining_page.'/';
                 ob_start();
                 $res_id = get_post_meta($post->ID, 'res_id', true);?>
 	            <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_dining_page.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
@@ -104,7 +104,7 @@ if(!class_exists('wtd_parse_single_dining')){
 	                            elseif(!empty($address->postalCode))
 	                                $location_display = $address->postalCode;
 		                        if(!empty($address->geoLocation) && $address->geoLocation->latitude != 0 && $address->geoLocation->longitude != 0 )
-				                    $location_display .= ' - <a class="wtd_direction_link" target="_blank" href="https://maps.google.com/?saddr=%currlocation%&daddr=' . $address->geoLocation->latitude . ',' . $address->geoLocation->longitude . '">View Directions</a>';
+				                    $location_display .= ' - <a class="wtd_direction_link" target="_blank" href="https://maps.google.com/?saddr=Current+Location%&daddr=' . $address->geoLocation->latitude . ',' . $address->geoLocation->longitude . '">View Directions</a>';
 	                            echo $location_display;?>
 	                        </p><?php
 	                    endforeach;

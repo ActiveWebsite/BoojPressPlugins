@@ -1,9 +1,5 @@
 @import 'elements/_dom';
 
-md-dialog{
-  margin-top: -500px;
-}
-
 .day-list{
   height: 200px;
   overflow: hidden;
@@ -12,6 +8,9 @@ md-dialog{
 
 .month{
   border: 1px solid #EBEBEB;
+  .week{
+
+  }
 }
 
 .cal-day-footer{
@@ -278,10 +277,6 @@ md-dialog{
     font-style: italic;
   }
 
-  .terms-block{
-
-  }
-
   .terms-heading{
     font-size: 10pt;
     font-weight: bold;
@@ -327,9 +322,6 @@ md-dialog{
   background: rgba(0, 0, 0, 0.08);
 }
 
-#dates .day .current_date{
-}
-
 #dates .day{
   background: #fff;
   -webkit-box-sizing: border-box;
@@ -338,6 +330,8 @@ md-dialog{
   font-size: 12px;
   border: 1px solid #EBEBEB;
   line-height: 1.4em;
+  width: 14.28%;
+  float: left;
   a{
     margin-bottom: 3px;
   }
@@ -353,9 +347,6 @@ md-dialog{
 
 #dates{
   list-style: none;
-}
-
-#events_header{
 }
 
 #events_header span{

@@ -32,13 +32,13 @@ if(!class_exists('wtd_parse_single_coupon')){
 							AND pm.meta_value = 'coupons_page'
 							AND	p.post_type = 'page'";
 	            $coupons_page = $wpdb->get_var($query);
-	            $coupons_page = '/'.$wtd_plugin['url_prefix'].'/'.$coupons_page.'/';
+	            $coupons_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$coupons_page.'/';
                 ob_start();?>
 	            <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/coupon_print.css?wtd_version='.WTD_VERSION;?>" media="print"/>
             	<link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_coupons_page.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
 	            <div ng-app="couponApp" ng-controller="couponCtrl">
 		            <div class="coupon-header" layout="row" layout-align="space-between start">
-			            <a href="<?php echo $coupons_page;?>">Back to Coupons List</a>
+			            <a href="javascript: history.go(-1);">Back to Coupons List</a>
 			            <a href="javascript:sendEmail();">Email</a>
 			            <a href="javascript:window.print();">Print</a>
 		            </div>
@@ -107,7 +107,7 @@ if(!class_exists('wtd_parse_single_coupon')){
                                 //if(!empty($address->phone))
                                 //    $location_display .= ' Tel. <a href="callto://'.$address->phone.'">(' . substr($address->phone,0,3).') '.substr($address->phone,3,3).'-'.substr($address->phone,6,4).'</a>';
                                	if(!empty($address->geoLocation) && $address->geoLocation->latitude != 0 && $address->geoLocation->longitude != 0 )
-                                    $location_display .= ' -  <a class="wtd_direction_link" target="_blank" href="https://maps.google.com/?saddr=%currlocation%&daddr=' . $address->geoLocation->latitude . ',' . $address->geoLocation->longitude . '">View Directions</a>';
+                                    $location_display .= ' -  <a class="wtd_direction_link" target="_blank" href="https://maps.google.com/?saddr=Current+Location%&daddr=' . $address->geoLocation->latitude . ',' . $address->geoLocation->longitude . '">View Directions</a>';
                         		if(!empty($address->phone))
                                     $location_display .= '<br /> Tel. <a href="tel:'.$address->phone.'">(' . substr($address->phone,0,3).') '.substr($address->phone,3,3).'-'.substr($address->phone,6,4).'</a>';
 								echo $location_display;?>

@@ -30,6 +30,7 @@ body {
   border: 2px dashed #999;
   line-height: 25px;
   margin-bottom: 15px;
+  padding: 10px;
 }
 
 #wtd_coupon_sc_container .wtd_coupon_container ul,

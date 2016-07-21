@@ -1,4 +1,4 @@
-WhatToDo Wordpress Plugin Contributors: (Whattodo llc) Tags: Resort, Travel Data, Coupons, Event Calendar Requires at least: 3.0
+WhatToDo Wordpress Plugin Contributors: (Whattodo llc) Tags: Resort, Travel Data, Coupons, Event Calendar Requires at least: 4.0
 
 The Whattodo plug-in provides content to your website that is relevent to activities and events in your area.
 

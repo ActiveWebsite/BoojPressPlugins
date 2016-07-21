@@ -81,17 +81,17 @@ if(!class_exists('wtd_parse_overview_page')){
 					                $query->limit(1);
 					                $images = $query->find();
 					                $image_url = $images[0]->imageUrl;
-					                $url = '/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
+					                $url = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
 					                break;
 				                case 'coupon':
 									$image_url = $wtd_item->vendorObjectId->logoUrl;
-					                $url = '/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
+					                $url = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
 					                break;
 				                case 'event':
 									$name = $wtd_item->name;
 									if(!empty($wtd_item->title))
 										$name = $wtd_item->title;
-				                    $url = '/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($name).'/';
+				                    $url = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($name).'/';
 					                break;
 				                default:
 					                break;
