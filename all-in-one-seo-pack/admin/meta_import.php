@@ -475,9 +475,10 @@ function aiosp_seometa_import() {
 	 */
 	$_aiosp_seometa_plugins = array(
 		// alphabatized
-		'Add Meta Tags'                => array(
-			'META Description' => 'description',
-			'META Keywords'    => 'keywords',
+		'Add Meta Tags' => array(
+			'Custom Doctitle'  => '_amt_title',
+			'META Description' => '_amt_description',
+			'META Keywords'    => '_amt_keywords',
 		),
 		'All in One SEO Pack'          => array(
 			'Custom Doctitle'  => '_aioseop_title',
