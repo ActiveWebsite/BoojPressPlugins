@@ -501,7 +501,7 @@ div.aioseop_feature {
     -moz-transition-duration: .4s;
 }
 
-.aioseop_feature #free-flag {
+.aioseop_feature .flag {
 	float: right;
 	margin-right: -7px;
 	background: none repeat scroll 0 0 #D23D46;
@@ -510,27 +510,41 @@ div.aioseop_feature {
 	position: relative;
 }
 
-.aioseop_feature #free-flag:before {
+.aioseop_feature .flag:before {
 	border-color: #D23D46 #D23D46 #D23D46 transparent;
-	    border-style: solid;
-	    border-width: 14px 4px 15px 10px;
-	    content: "";
-	    left: -14px;
-	    position: absolute;
-	    top: 0;
+	border-style: solid;
+	border-width: 14px 4px 15px 10px;
+	content: "";
+	left: -14px;
+	position: absolute;
+	top: 0;
 }
 
-.aioseop_feature #free-flag:after {
+.aioseop_feature .flag:after {
 	border-color: #892026 transparent transparent;
-	    border-style: solid;
-	    border-width: 6px 6px 6px 0;
-	    bottom: -12px;
-	    content: "";
-	    position: absolute;
-	    right: 0;
+	border-style: solid;
+	border-width: 6px 6px 6px 0;
+	bottom: -12px;
+	content: "";
+	position: absolute;
+	right: 0;
 }
 
-#aioseop_coming_soon #free-flag {
+.aioseop_feature .flag.pro {
+	display: none;
+}
+
+#aioseop_coming_soon .free.flag,
+.all-in-one-seo_page_all-in-one-seo-pack-pro-modules-aioseop_feature_manager .aioseop_feature .free.flag {
+    display: none;
+}
+
+#aioseop_coming_soon .flag.pro {
+	display: block;
+	margin-top: -30px;
+}
+
+.all-in-one-seo_page_all-in-one-seo-pack-pro-modules-aioseop_feature_manager #aioseop_coming_soon .flag.pro {
 	display: none;
 }
 

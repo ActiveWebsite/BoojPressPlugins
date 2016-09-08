@@ -3,7 +3,7 @@
  * General functions file.
  *
  * We'll eventually move these to a better place, and figure out ones not being used anymore.
- * 
+ *
  * @package All-in-One-SEO-Pack
  */
 
@@ -971,57 +971,6 @@ if ( ! function_exists( 'aioseop_array_insert_after' ) ) {
 		}
 
 		return array_merge( array_combine( $keys, $vals ), array_combine( $keys2, $vals2 ) );
-	}
-}
-
-if ( ! function_exists( 'aioseop_load_json_services' ) ) {
-	/**
-	 * JSON support for PHP < 5.2.
-	 *
-	 * @TODO Do we really need to support < PHP 5.2 with the following functions??
-	 * @return null|Services_JSON
-	 */
-	function aioseop_load_json_services() {
-		static $services_json = null;
-		if ( $services_json ) {
-			return $services_json;
-		}
-		if ( ! class_exists( 'Services_JSON' ) ) {
-			require_once( 'inc/extlib/JSON.php' );
-		}
-		if ( ! $services_json ) {
-			$services_json = new Services_JSON();
-		}
-
-		return $services_json;
-	}
-}
-
-if ( ! function_exists( 'json_encode' ) ) {
-
-	/**
-	 * @param $arg
-	 *
-	 * @return mixed
-	 */
-	function json_encode( $arg ) {
-		$services_json = aioseop_load_json_services();
-
-		return $services_json->encode( $arg );
-	}
-}
-
-if ( ! function_exists( 'json_decode' ) ) {
-
-	/**
-	 * @param $arg
-	 *
-	 * @return mixed
-	 */
-	function json_decode( $arg ) {
-		$services_json = aioseop_load_json_services();
-
-		return $services_json->decode( $arg );
 	}
 }
 
