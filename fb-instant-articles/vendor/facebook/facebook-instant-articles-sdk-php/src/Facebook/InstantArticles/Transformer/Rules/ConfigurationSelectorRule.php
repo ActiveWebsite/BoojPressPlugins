@@ -130,7 +130,7 @@ abstract class ConfigurationSelectorRule extends Rule
                 }
             }
         }
-        
+
         return false;
     }
 

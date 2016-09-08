@@ -444,6 +444,22 @@
                         "selector" : "figure[data-feedback*='fb:likes']",
                         "attribute": "data-feedback"
                     },
+                    "aspect-fit": {
+                        "type": "exists",
+                        "selector" : "figure[data-mode=aspect-fit]"
+                    },
+                    "aspect-fit-only": {
+                        "type": "exists",
+                        "selector" : "figure[data-mode=aspect-fit-only]"
+                    },
+                    "fullscreen": {
+                        "type": "exists",
+                        "selector" : "figure[data-mode=fullscreen]"
+                    },
+                    "non-interactive": {
+                        "type": "exists",
+                        "selector" : "figure[data-mode=non-interactive]"
+                    },
                     "image.comments" : {
                         "type" : "exists",
                         "selector" : "figure[data-feedback*='fb:comments']",
