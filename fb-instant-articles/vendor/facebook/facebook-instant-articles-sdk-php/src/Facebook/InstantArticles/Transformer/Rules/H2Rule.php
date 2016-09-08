@@ -11,7 +11,7 @@ namespace Facebook\InstantArticles\Transformer\Rules;
 use Facebook\InstantArticles\Elements\Header;
 use Facebook\InstantArticles\Elements\Caption;
 use Facebook\InstantArticles\Elements\H2;
-use Facebook\InstantArticles\Elements\Instantarticle;
+use Facebook\InstantArticles\Elements\InstantArticle;
 use Facebook\InstantArticles\Validators\Type;
 
 class H2Rule extends ConfigurationSelectorRule

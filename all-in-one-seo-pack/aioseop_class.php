@@ -194,7 +194,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'google_set_site_name'        => __( 'Add markup to tell Google the preferred name for your website.', 'all-in-one-seo-pack' ),
 			'google_connect'              => __( 'Press the connect button to connect with Google Analytics; or if already connected, press the disconnect button to disable and remove any stored analytics credentials.', 'all-in-one-seo-pack' ),
 			'google_analytics_id'         => __( 'Enter your Google Analytics ID here to track visitor behavior on your site using Google Analytics.', 'all-in-one-seo-pack' ),
-			'ga_use_universal_analytics'  => __( 'Use the new Universal Analytics tracking code for Google Analytics.', 'all-in-one-seo-pack' ),
 			'ga_advanced_options'         => __( 'Check to use advanced Google Analytics options.', 'all-in-one-seo-pack' ),
 			'ga_domain'                   => __( 'Enter your domain name without the http:// to set your cookie domain.', 'all-in-one-seo-pack' ),
 			'ga_multi_domain'             => __( 'Use this option to enable tracking of multiple or additional domains.', 'all-in-one-seo-pack' ),
@@ -288,7 +287,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'google_enable_publisher'     => '#display-publisher-meta-on-front-page',
 			'google_specify_publisher'    => '#specify-publisher-url',
 			'google_analytics_id'         => 'http://semperplugins.com/documentation/setting-up-google-analytics/',
-			'ga_use_universal_analytics'  => '#use-universal-analytics',
 			'ga_domain'                   => '#tracking-domain',
 			'ga_multi_domain'             => '#track-multiple-domains-additional-domains',
 			'ga_addl_domains'             => '#track-multiple-domains-additional-domains',
@@ -681,17 +679,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				'type'        => 'text',
 				'placeholder' => 'UA-########-#',
 			),
-			'ga_use_universal_analytics'  => array(
-				'name'     => __( 'Use Universal Analytics:', 'all-in-one-seo-pack' ),
-				'default'  => 0,
-				'condshow' => array(
-					'aiosp_google_analytics_id' => array(
-						'lhs' => 'aiosp_google_analytics_id',
-						'op'  => '!=',
-						'rhs' => '',
-					),
-				),
-			),
 			'ga_advanced_options'         => array(
 				'name'            => __( 'Advanced Analytics Options:', 'all-in-one-seo-pack' ),
 				'default'         => 'on',
@@ -814,7 +801,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 						'op'  => '!=',
 						'rhs' => '',
 					),
-					'aiosp_ga_use_universal_analytics' => 'on',
 					'aiosp_ga_advanced_options'        => 'on',
 				),
 			),
@@ -1144,7 +1130,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'google_specify_publisher',
 					//	"google_connect",
 					'google_analytics_id',
-					'ga_use_universal_analytics',
 					'ga_advanced_options',
 					'ga_domain',
 					'ga_multi_domain',
@@ -2379,8 +2364,9 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$name = single_term_title( '', false );
 		}
 		// Apparently we're already ucwordsing this elsewhere, and doing it a second time messes it up... why aren't we just doing this at the end?
-		//		if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) )
-		//				$name = $this->ucwords( $name );
+				if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) ){
+					$name = $this->ucwords( $name );
+				}
 
 		return $this->internationalize( $name );
 	}
@@ -3804,7 +3790,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			$description = apply_filters( 'aioseop_description_full', $this->apply_description_format( $description, $post ) );
 			$desc_attr   = '';
 			if ( ! empty( $aioseop_options['aiosp_schema_markup'] ) ) {
-				$desc_attr = 'itemprop="description"';
+				$desc_attr = '';
 			}
 			$desc_attr = apply_filters( 'aioseop_description_attributes', $desc_attr );
 			$meta_string .= sprintf( "<meta name=\"description\" %s content=\"%s\" />\n", $desc_attr, $description );
@@ -4345,247 +4331,7 @@ EOF;
 	}
 
 	function aiosp_google_analytics() {
-		global $aioseop_options;
-		$analytics = '';
-		if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_exclude_users'] ) ) {
-			if ( is_user_logged_in() ) {
-				global $current_user;
-				if ( empty( $current_user ) ) {
-					wp_get_current_user();
-				}
-				if ( ! empty( $current_user ) ) {
-					$intersect = array_intersect( $aioseop_options['aiosp_ga_exclude_users'], $current_user->roles );
-					if ( ! empty( $intersect ) ) {
-						return;
-					}
-				}
-			}
-		}
-		if ( ! empty( $aioseop_options['aiosp_google_analytics_id'] ) ) {
-			ob_start();
-			$analytics = $this->universal_analytics();
-			echo $analytics;
-			if ( empty( $analytics ) ) {
-				?>
-				<script type="text/javascript">
-					var _gaq = _gaq || [];
-					<?php if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_link_attribution'] ) ) {
-					?>        var pluginUrl =
-						'//www.google-analytics.com/plugins/ga/inpage_linkid.js';
-					_gaq.push(['_require', 'inpage_linkid', pluginUrl]);
-					<?php
-					}
-					?>          _gaq.push(['_setAccount', '<?php
-						echo $aioseop_options['aiosp_google_analytics_id'];
-						?>']);
-					<?php if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_anonymize_ip'] ) ) {
-					?>          _gaq.push(['_gat._anonymizeIp']);
-					<?php
-					}
-					?>
-					<?php if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_multi_domain'] ) ) {
-					?>          _gaq.push(['_setAllowLinker', true]);
-					<?php
-					}
-					?>
-					<?php if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_domain'] ) ) {
-					$domain = $this->get_analytics_domain();
-					?>          _gaq.push(['_setDomainName', '<?php echo $domain; ?>']);
-					<?php
-					}
-					?>          _gaq.push(['_trackPageview']);
-					(function () {
-						var ga = document.createElement('script');
-						ga.type = 'text/javascript';
-						ga.async = true;
-						<?php
-						if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_display_advertising'] ) ) {
-						?>            ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-						<?php
-						} else {
-						?>            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-						<?php
-						}
-						?>            var s = document.getElementsByTagName('script')[0];
-						s.parentNode.insertBefore(ga, s);
-					})();
-				</script>
-				<?php
-			}
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && $aioseop_options['aiosp_ga_track_outbound_links'] ) { ?>
-				<script type="text/javascript">
-					function recordOutboundLink(link, category, action) {
-						<?php if ( ! empty( $aioseop_options['aiosp_ga_use_universal_analytics'] ) ) { ?>
-						ga('send', 'event', category, action);
-						<?php }
-						if ( empty( $aioseop_options['aiosp_ga_use_universal_analytics'] ) ) {    ?>
-						_gat._getTrackerByName()._trackEvent(category, action);
-						<?php } ?>
-						if (link.target == '_blank') return true;
-						setTimeout('document.location = "' + link.href + '"', 100);
-						return false;
-					}
-					/* use regular Javascript for this */
-					function getAttr(ele, attr) {
-						var result = (ele.getAttribute && ele.getAttribute(attr)) || null;
-						if (!result) {
-							var attrs = ele.attributes;
-							var length = attrs.length;
-							for (var i = 0; i < length; i++)
-								if (attr[i].nodeName === attr) result = attr[i].nodeValue;
-						}
-						return result;
-					}
-
-					function aiosp_addLoadEvent(func) {
-						var oldonload = window.onload;
-						if (typeof window.onload != 'function') {
-							window.onload = func;
-						} else {
-							window.onload = function () {
-								if (oldonload) {
-									oldonload();
-								}
-								func();
-							}
-						}
-					}
-
-					function aiosp_addEvent(element, evnt, funct) {
-						if (element.attachEvent)
-							return element.attachEvent('on' + evnt, funct);
-						else
-							return element.addEventListener(evnt, funct, false);
-					}
-
-					aiosp_addLoadEvent(function () {
-						var links = document.getElementsByTagName('a');
-						for (var x = 0; x < links.length; x++) {
-							if (typeof links[x] == 'undefined') continue;
-							aiosp_addEvent(links[x], 'onclick', function () {
-								var mydomain = new RegExp(document.domain, 'i');
-								href = getAttr(this, 'href');
-								if (href && href.toLowerCase().indexOf('http') === 0 && !mydomain.test(href)) {
-									recordOutboundLink(this, 'Outbound Links', href);
-								}
-							});
-						}
-					});
-				</script>
-				<?php
-			}
-			$analytics = ob_get_clean();
-		}
-		echo apply_filters( 'aiosp_google_analytics', $analytics );
-		do_action( 'after_aiosp_google_analytics' );
-	}
-
-	/**
-	 * @return string
-	 */
-	function universal_analytics() {
-		global $aioseop_options;
-		$analytics = '';
-		if ( ! empty( $aioseop_options['aiosp_ga_use_universal_analytics'] ) ) {
-			$allow_linker = $cookie_domain = $domain = $addl_domains = $domain_list = '';
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) ) {
-				$cookie_domain = $this->get_analytics_domain();
-			}
-			if ( ! empty( $cookie_domain ) ) {
-				$cookie_domain = esc_js( $cookie_domain );
-				$cookie_domain = "'cookieDomain': '{$cookie_domain}'";
-			}
-			if ( empty( $cookie_domain ) ) {
-				$domain = ", 'auto'";
-			}
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_multi_domain'] ) ) {
-				$allow_linker = "'allowLinker': true";
-				if ( ! empty( $aioseop_options['aiosp_ga_addl_domains'] ) ) {
-					$addl_domains = trim( $aioseop_options['aiosp_ga_addl_domains'] );
-					$addl_domains = preg_split( '/[\s,]+/', $addl_domains );
-					if ( ! empty( $addl_domains ) ) {
-						foreach ( $addl_domains as $d ) {
-							$d = $this->sanitize_domain( $d );
-							if ( ! empty( $d ) ) {
-								if ( ! empty( $domain_list ) ) {
-									$domain_list .= ', ';
-								}
-								$domain_list .= "'" . $d . "'";
-							}
-						}
-					}
-				}
-			}
-			$extra_options = '';
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_display_advertising'] ) ) {
-				$extra_options .= "ga('require', 'displayfeatures');";
-			}
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_enhanced_ecommerce'] ) ) {
-				if ( ! empty( $extra_options ) ) {
-					$extra_options .= "\n\t\t\t";
-				}
-				$extra_options .= "ga('require', 'ec');";
-			}
-			if ( ! empty( $domain_list ) ) {
-				if ( ! empty( $extra_options ) ) {
-					$extra_options .= "\n\t\t\t";
-				}
-				$extra_options .= "ga('require', 'linker');\n\t\t\tga('linker:autoLink', [{$domain_list}] );";
-			}
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_link_attribution'] ) ) {
-				if ( ! empty( $extra_options ) ) {
-					$extra_options .= "\n\t\t\t";
-				}
-				$extra_options .= "ga('require', 'linkid', 'linkid.js');";
-			}
-
-			if ( ! empty( $aioseop_options['aiosp_ga_advanced_options'] ) && ! empty( $aioseop_options['aiosp_ga_anonymize_ip'] ) ) {
-				if ( ! empty( $extra_options ) ) {
-					$extra_options .= "\n\t\t\t";
-				}
-				$extra_options .= "ga('set', 'anonymizeIp', true);";
-			}
-			$js_options = array();
-			foreach ( array( 'cookie_domain', 'allow_linker' ) as $opts ) {
-				if ( ! empty( $$opts ) ) {
-					$js_options[] = $$opts;
-				}
-			}
-			if ( ! empty( $js_options ) ) {
-				$js_options = join( ',', $js_options );
-				$js_options = ', { ' . $js_options . ' } ';
-			} else {
-				$js_options = '';
-			}
-			$analytics_id = esc_js( $aioseop_options['aiosp_google_analytics_id'] );
-			$analytics    = <<<EOF
-			<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-			ga('create', '{$analytics_id}'{$domain}{$js_options});
-			{$extra_options}
-			ga('send', 'pageview');
-			</script>
-
-EOF;
-		}
-
-		return $analytics;
-	}
-
-	/**
-	 * @return mixed|string
-	 */
-	function get_analytics_domain() {
-		global $aioseop_options;
-		if ( ! empty( $aioseop_options['aiosp_ga_domain'] ) ) {
-			return $this->sanitize_domain( $aioseop_options['aiosp_ga_domain'] );
-		}
-
-		return '';
+		new aioseop_google_analytics;
 	}
 
 	/**
@@ -4761,16 +4507,20 @@ EOF;
 
 			$aioseop_admin_menu = 1;
 			if ( ! is_admin() && ! empty( $post ) ) {
+
 				$blog_page = aiosp_common::get_blog_page( $post );
 				if ( ! empty( $blog_page ) ) {
 					$post = $blog_page;
 				}
-				$wp_admin_bar->add_menu( array(
-					'id'     => 'aiosp_edit_' . $post->ID,
-					'parent' => AIOSEOP_PLUGIN_DIRNAME,
-					'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
-					'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
-				) );
+				if( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
+					// Don't show if we're on the home page and the home page is the latest posts.
+					$wp_admin_bar->add_menu( array(
+						'id'     => 'aiosp_edit_' . $post->ID,
+						'parent' => AIOSEOP_PLUGIN_DIRNAME,
+						'title'  => __( 'Edit SEO', 'all-in-one-seo-pack' ),
+						'href'   => get_edit_post_link( $post->ID ) . '#aiosp',
+					) );
+				}
 			}
 		}
 	}
@@ -5111,30 +4861,12 @@ EOF;
 				</script>
 				<?php if ( ! AIOSEOPPRO ) { ?>
 					<div class="aioseop_advert aioseop_nopad_all">
-						<?php $adid = mt_rand( 21, 23 );
-
-						if ( $adid == 23 ) { ?>
-							<div
-								style="height: 220px; background-image: url('https://www.wincher.com/Content/Images/plugin/wp/banner30.jpg')">
-								<form style="position: relative; top: 170px; left: 40px;"
-								      action="https://www.wincher.com/FastReg" method="post" target="_blank">
-									<input type="hidden" name="adreferer" value="banner<?php echo $adid; ?>"/>
-									<input type="hidden" name="referer" value="all-in-one-seo-pack"/>
-									<input type="text" name="email" placeholder="Email"
-									       style="padding-left: 7px; height: 30px; width: 290px; border: solid 1px #DDD;"/>
-									<input type="submit" name="sub" value="Sign up!"
-									       style="height: 30px; width: 90px; background-color: #42DA76; color: #FFF; font-weight: bold; border:none; margin-left:5px;"/>
-								</form>
-							</div>
-							<?
-						} else {
-							?>
+						<?php $adid = mt_rand( 21, 22 ); ?>
 							<a href="https://www.wincher.com/?referer=all-in-one-seo-pack&adreferer=banner<?php echo $adid; ?>"
 							   target="_blank">
 								<div class=wincherad id=wincher<?php echo $adid; ?>>
 								</div>
 							</a>
-						<?php } ?>
 					</div>
 					<div class="aioseop_advert headwaythemes">
 						<div>

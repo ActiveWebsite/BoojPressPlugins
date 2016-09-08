@@ -169,11 +169,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 			if ( empty( $sql_mode ) ) {
 				$sql_mode = __( 'Not set', 'all-in-one-seo-pack' );
 			}
-			if ( ini_get( 'safe_mode' ) ) {
-				$safe_mode = __( 'On', 'all-in-one-seo-pack' );
-			} else {
-				$safe_mode = __( 'Off', 'all-in-one-seo-pack' );
-			}
 			if ( ini_get( 'allow_url_fopen' ) ) {
 				$allow_url_fopen = __( 'On', 'all-in-one-seo-pack' );
 			} else {
@@ -244,7 +239,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Performance' ) ) {
 				__( 'MYSQL Version', 'all-in-one-seo-pack' )               => $sqlversion,
 				__( 'SQL Mode', 'all-in-one-seo-pack' )                    => $sql_mode,
 				__( 'PHP Version', 'all-in-one-seo-pack' )                 => PHP_VERSION,
-				__( 'PHP Safe Mode', 'all-in-one-seo-pack' )               => $safe_mode,
 				__( 'PHP Allow URL fopen', 'all-in-one-seo-pack' )         => $allow_url_fopen,
 				__( 'PHP Memory Limit', 'all-in-one-seo-pack' )            => $memory_limit,
 				__( 'PHP Max Upload Size', 'all-in-one-seo-pack' )         => $upload_max,

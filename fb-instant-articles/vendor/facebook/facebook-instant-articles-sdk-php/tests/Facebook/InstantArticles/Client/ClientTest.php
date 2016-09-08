@@ -630,4 +630,197 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $result = $this->client->getArticlesURLs();
         $this->assertEquals($expected, $result);
     }
+
+    public function testClaimURL()
+    {
+        $url = 'example.com';
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->exactly(2))
+            ->method('getField')
+            ->withConsecutive(
+                [$this->equalTo('error')],
+                [$this->equalTo('success')]
+            )
+            ->will($this->onConsecutiveCalls(
+                null,
+                true
+            ));
+
+        $this->facebook
+            ->expects($this->once())
+            ->method('post')
+            ->with('PAGE_ID/claimed_urls?url=' . $url)
+            ->willReturn($serverResponseMock);
+
+        $result = $this->client->claimURL($url);
+    }
+
+    public function testClaimURLWithProtocl()
+    {
+        $url = 'http://example.com';
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->exactly(2))
+            ->method('getField')
+            ->withConsecutive(
+                [$this->equalTo('error')],
+                [$this->equalTo('success')]
+            )
+            ->will($this->onConsecutiveCalls(
+                null,
+                true
+            ));
+
+        $this->facebook
+            ->expects($this->once())
+            ->method('post')
+            ->with('PAGE_ID/claimed_urls?url=example.com')
+            ->willReturn($serverResponseMock);
+
+        $result = $this->client->claimURL($url);
+    }
+
+    public function testClaimURLError()
+    {
+        $url = 'example.com';
+        $error_user_msg = "Error message";
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->exactly(2))
+            ->method('getField')
+            ->withConsecutive(
+                [$this->equalTo('error')],
+                [$this->equalTo('success')]
+            )
+            ->will($this->onConsecutiveCalls(
+                array( 'error_user_msg' => $error_user_msg ),
+                false
+            ));
+
+        $this->facebook
+            ->expects($this->once())
+            ->method('post')
+            ->with('PAGE_ID/claimed_urls?url=' .$url)
+            ->willReturn($serverResponseMock);
+
+        $this->setExpectedException('\Facebook\InstantArticles\Client\ClientException');
+
+        $result = $this->client->claimURL($url);
+    }
+
+    public function testSubmitForReview()
+    {
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->exactly(2))
+            ->method('getField')
+            ->withConsecutive(
+                [$this->equalTo('error')],
+                [$this->equalTo('success')]
+            )
+            ->will($this->onConsecutiveCalls(
+                null,
+                true
+            ));
+
+        $this->facebook
+            ->expects($this->once())
+            ->method('post')
+            ->with('PAGE_ID/?instant_articles_submit_for_review=true')
+            ->willReturn($serverResponseMock);
+
+        $result = $this->client->submitForReview();
+    }
+
+    public function testSubmitForReviewError()
+    {
+        $error_user_msg = "Error message";
+
+        $serverResponseMock =
+            $this->getMockBuilder('Facebook\FacebookResponse')
+                ->disableOriginalConstructor()
+                ->getMock();
+        $graphNodeMock =
+            $this->getMockBuilder('Facebook\GraphNodes\GraphNode')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+        $serverResponseMock
+            ->expects($this->once())
+            ->method('getGraphNode')
+            ->willReturn($graphNodeMock);
+        $graphNodeMock
+            ->expects($this->exactly(2))
+            ->method('getField')
+            ->withConsecutive(
+                [$this->equalTo('error')],
+                [$this->equalTo('success')]
+            )
+            ->will($this->onConsecutiveCalls(
+                array( 'error_user_msg' => $error_user_msg ),
+                false
+            ));
+
+        $this->facebook
+            ->expects($this->once())
+            ->method('post')
+            ->with('PAGE_ID/?instant_articles_submit_for_review=true')
+            ->willReturn($serverResponseMock);
+
+        $this->setExpectedException('\Facebook\InstantArticles\Client\ClientException');
+
+        $result = $this->client->submitForReview();
+    }
 }

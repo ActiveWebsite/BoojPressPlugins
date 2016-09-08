@@ -242,4 +242,42 @@ class Client
 
         return $articleURLs;
     }
+
+    /**
+     * Claims an URL for the page
+     *
+     * @param string $url The root URL of the site
+     */
+    public function claimURL($url)
+    {
+        // Remove protocol from the URL
+        $url = preg_replace('/^https?:\/\//i', '', $url);
+        $response = $this->facebook->post($this->pageID . '/claimed_urls?url=' . urlencode($url));
+        $node = $response->getGraphNode();
+        $error = $node->getField('error');
+        $success = $node->getField('success');
+        if ($error) {
+            throw new ClientException($error['error_user_msg']);
+        }
+        if (!$success) {
+            throw new ClientException('Could not claim the URL');
+        }
+    }
+
+    /**
+     * Submits the page for review
+     */
+    public function submitForReview()
+    {
+        $response = $this->facebook->post($this->pageID . '/?instant_articles_submit_for_review=true');
+        $node = $response->getGraphNode();
+        $error = $node->getField('error');
+        $success = $node->getField('success');
+        if ($error) {
+            throw new ClientException($error['error_user_msg']);
+        }
+        if (!$success) {
+            throw new ClientException('Could not submit for review');
+        }
+    }
 }

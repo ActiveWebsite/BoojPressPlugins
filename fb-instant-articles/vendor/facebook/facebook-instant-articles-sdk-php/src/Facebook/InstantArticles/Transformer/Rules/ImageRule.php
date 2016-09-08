@@ -18,6 +18,11 @@ class ImageRule extends ConfigurationSelectorRule
     const PROPERTY_LIKE = 'image.like';
     const PROPERTY_COMMENTS = 'image.comments';
 
+    const ASPECT_FIT = 'aspect-fit';
+    const ASPECT_FIT_ONLY = 'aspect-fit-only';
+    const FULLSCREEN = 'fullscreen';
+    const NON_INTERACTIVE = 'non-interactive';
+
     public function getContextClass()
     {
         return InstantArticle::getClassName();
@@ -37,7 +42,11 @@ class ImageRule extends ConfigurationSelectorRule
             [
                 self::PROPERTY_IMAGE_URL,
                 self::PROPERTY_LIKE,
-                self::PROPERTY_COMMENTS
+                self::PROPERTY_COMMENTS,
+                self::ASPECT_FIT,
+                self::ASPECT_FIT_ONLY,
+                self::FULLSCREEN,
+                self::NON_INTERACTIVE
             ],
             $configuration
         );
@@ -63,6 +72,16 @@ class ImageRule extends ConfigurationSelectorRule
                     $this
                 )
             );
+        }
+
+        if ($this->getProperty(Image::ASPECT_FIT, $node)) {
+            $image->withPresentation(Image::ASPECT_FIT);
+        } elseif ($this->getProperty(Image::ASPECT_FIT_ONLY, $node)) {
+            $image->withPresentation(Image::ASPECT_FIT_ONLY);
+        } elseif ($this->getProperty(Image::FULLSCREEN, $node)) {
+            $image->withPresentation(Image::FULLSCREEN);
+        } elseif ($this->getProperty(Image::NON_INTERACTIVE, $node)) {
+            $image->withPresentation(Image::NON_INTERACTIVE);
         }
 
         if ($this->getProperty(self::PROPERTY_LIKE, $node)) {
