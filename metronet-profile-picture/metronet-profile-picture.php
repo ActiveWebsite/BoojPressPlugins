@@ -4,7 +4,7 @@ Plugin Name: User Profile Picture
 Plugin URI: http://wordpress.org/extend/plugins/metronet-profile-picture/
 Description: Use the native WP uploader on your user profile page.
 Author: Ronald Huereca
-Version: 1.3.1
+Version: 1.4.1
 Requires at least: 3.5
 Author URI: https://www.mediaron.com
 Contributors: ronalfy
@@ -63,6 +63,9 @@ class Metronet_Profile_Picture	{
 		
 		//Rest API
 		add_action( 'rest_api_init', array( $this, 'rest_api_register' ) );
+		
+		//Avatar check overridden - Can be overridden using a higher priority
+		add_filter( 'mpp_hide_avatar_override', '__return_true', 5 );
 	} //end constructor
 	
 	/**
@@ -76,7 +79,7 @@ class Metronet_Profile_Picture	{
 		$post_id = isset( $_POST[ 'post_id' ] ) ? absint( $_POST[ 'post_id' ] ) : 0;
 		$user_id = isset( $_POST[ 'user_id' ] ) ? absint( $_POST[ 'user_id' ] ) : 0;
 		$thumbnail_id = isset( $_POST[ 'thumbnail_id' ] ) ? absint( $_POST[ 'thumbnail_id' ] ) : 0;
-		if ( $post_id == 0 || $user_id == 0 || $thumbnail_id == 0 ) die( '' );
+		if ( $post_id == 0 || $user_id == 0 || $thumbnail_id == 0 || 'mt_pp' !== get_post_type( $post_id ) ) die( '' );
 		check_ajax_referer( "mt-update-post_$post_id" );
 		
 		//Save user meta
@@ -111,9 +114,9 @@ class Metronet_Profile_Picture	{
 
 		if ( has_post_thumbnail( $post_id ) ) {
 			$thumb_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'thumbnail' , false, '' );
-			$post_thumbnail = sprintf( '<img src="%s" width="150" height="150" title="%s" />', esc_url( $thumb_src[0] ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
+			$post_thumbnail = sprintf( '<img style="display:block" src="%s" width="150" height="150" title="%s" />', esc_url( $thumb_src[0] ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
 			$crop_html = $this->get_post_thumbnail_editor_link( $post_id );
-			$thumb_html = sprintf( '<a href="#" class="mpp_add_media">%s</a>', $post_thumbnail );
+			$thumb_html = sprintf( '<a style="display:block" href="#" class="mpp_add_media">%s</a>', $post_thumbnail );
 			$thumb_html .= sprintf( '<a id="metronet-remove" class="dashicons dashicons-trash" href="#" title="%s">%s</a>', esc_attr__( 'Remove profile image', 'metronet-profile-picture' ), esc_html__( "Remove profile image", "metronet-profile-picture" ) );
 			die( json_encode( array(
 				'thumb_html' => $thumb_html,
@@ -121,8 +124,8 @@ class Metronet_Profile_Picture	{
 				'has_thumb' => true
 			) ) );
 		} else {
-			$thumb_html = '<a href="#" class="mpp_add_media">';
-			$thumb_html.= sprintf( '<img src="%s" width="150" height="150" title="%s" />', $this->get_plugin_url( 'img/mystery.png' ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
+			$thumb_html = '<a style="display:block" href="#" class="mpp_add_media default-image">';
+			$thumb_html.= sprintf( '<img style="display:block" src="%s" width="150" height="150" title="%s" />', $this->get_plugin_url( 'img/mystery.png' ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
 			$thumb_html .= '</a>';	
 		}
 		die( json_encode( array( 'thumb_html' => $thumb_html, 'crop_html' => '', 'has_thumb' => false ) ) );
@@ -141,8 +144,8 @@ class Metronet_Profile_Picture	{
 		if ( $post_id == 0 || $user_id == 0 ) die( '' );
 		check_ajax_referer( "mt-update-post_$post_id" );
 		
-		$thumb_html = '<a href="#" class="mpp_add_media">';
-		$thumb_html.= sprintf( '<img src="%s" width="150" height="150" title="%s" />', $this->get_plugin_url( 'img/mystery.png' ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
+		$thumb_html = '<a style="display:block" href="#" class="mpp_add_media default-image">';
+		$thumb_html.= sprintf( '<img style="display:block" src="%s" width="150" height="150" title="%s" />', $this->get_plugin_url( 'img/mystery.png' ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
 		$thumb_html .= '</a>';
 
 		//Save user meta and update thumbnail
@@ -368,14 +371,14 @@ class Metronet_Profile_Picture	{
 					$has_profile_image = false;
 					if ( has_post_thumbnail( $post_id ) ) {
 						$has_profile_image = true;
-						echo '<a href="#" class="mpp_add_media">';
+						echo '<a style="display:block" href="#" class="mpp_add_media">';
 						$thumb_src = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'thumbnail' , false, '' );
-						$post_thumbnail = sprintf( '<img src="%s" width="150" height="150" title="%s" />', esc_url( $thumb_src[0] ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
+						$post_thumbnail = sprintf( '<img style="display:block" src="%s" width="150" height="150" title="%s" />', esc_url( $thumb_src[0] ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
 						echo $post_thumbnail;
 						echo '</a>';
 					} else {
-						echo '<a href="#" class="mpp_add_media">';
-						$post_thumbnail = sprintf( '<img src="%s" width="150" height="150" title="%s" />', $this->get_plugin_url( 'img/mystery.png' ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
+						echo '<a style="display:block" href="#" class="mpp_add_media default-image">';
+						$post_thumbnail = sprintf( '<img style="display:block" src="%s" width="150" height="150" title="%s" />', $this->get_plugin_url( 'img/mystery.png' ), esc_attr__( "Upload or Change Profile Picture", 'metronet-profile-picture' ) );
 						echo $post_thumbnail;
 						echo '</a>';
 					}
@@ -428,11 +431,11 @@ class Metronet_Profile_Picture	{
 		$post_id = $this->get_post_id( $this->get_user_id() );
 		wp_enqueue_media( array( 'post' => $post_id ) );
 		$script_deps = array( 'media-editor' );
-		wp_enqueue_script( 'mt-pp', $this->get_plugin_url( '/js/mpp.js' ), $script_deps, '20150416', true );
+		wp_enqueue_script( 'mt-pp', $this->get_plugin_url( '/js/mpp.js' ), $script_deps, '20160830', true );
 		wp_localize_script( 'mt-pp', 'metronet_profile_image', 
 			array( 
-				'set_profile_text' => __( 'Set profile image', 'metronet-profile-picture' ),
-				'remove_profile_text' => __( 'Remove profile image', 'metronet-profile-picture' ),
+				'set_profile_text' => __( 'Set Profile Image', 'metronet-profile-picture' ),
+				'remove_profile_text' => __( 'Remove Profile Image', 'metronet-profile-picture' ),
 				'crop' => __( 'Crop Thumbnail', 'metronet-profile-picture' ),
 				'ajax_url' => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'user_post_id' => absint( $post_id ),
@@ -461,6 +464,7 @@ class Metronet_Profile_Picture	{
 			content: "\f182";
 			color: #fd6a6a;
 			font-size: 20px;
+			margin-right:20px;
 		}
 		#metronet-remove:hover:before {
 			color: #ff3e3e;
