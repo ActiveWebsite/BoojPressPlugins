@@ -82,8 +82,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			$this->help_text = Array(
 				"setmeta"                => __( "Checking this box will use the Home Title and Home Description set in All in One SEO Pack, General Settings as the Open Graph title and description for your home page.", 'all-in-one-seo-pack' ),
-				"key"                    => __( "Enter your Facebook Admin ID here. Information about how to get your Facebook Admin ID can be found at https://developers.facebook.com/docs/platforminsights/domains", 'all-in-one-seo-pack' ),
-				"appid"                  => __( "Enter your Facebook App ID here. Information about how to get your Facebook App ID can be found at https://developers.facebook.com/docs/platforminsights/domains", 'all-in-one-seo-pack' ),
+				"key"                    => __( "Enter your Facebook Admin ID here. You can look up your Facebook ID using this tool http://findmyfbid.com/", 'all-in-one-seo-pack' ),
+				"appid"                  => __( "Enter your Facebook App ID here. Information about how to get your Facebook App ID can be found at https://developers.facebook.com/docs/apps/register", 'all-in-one-seo-pack' ),
 				"title_shortcodes"       => __( "Run shortcodes that appear in social title meta tags.", 'all-in-one-seo-pack' ),
 				"description_shortcodes" => __( "Run shortcodes that appear in social description meta tags.", 'all-in-one-seo-pack' ),
 				"sitename"               => __( "The Site Name is the name that is used to identify your website.", 'all-in-one-seo-pack' ),
@@ -132,7 +132,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			$this->help_anchors = Array(
 				'title_shortcodes'		=> '#run-shortcodes-in-title',
-				'description_shortcodes' => '#run-shortcodes-in-description', 
+				'description_shortcodes' => '#run-shortcodes-in-description',
 				'generate_descriptions' => '#auto-generate-og-descriptions',
 				'setmeta'               => '#use-aioseo-title-and-description',
 				'sitename'              => '#site-name',
@@ -179,7 +179,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				'section'				=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#article-section',
 				'tag'					=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#article-tags',
 				'setcard'				=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#twitter-card-type',
-				'customimg_twitter'		=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#custom-twitter-image',			
+				'customimg_twitter'		=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#custom-twitter-image',
 			);
 
 			$count_desc            = __( " characters. Open Graph allows up to a maximum of %s chars for the %s.", 'all-in-one-seo-pack' );
@@ -797,11 +797,18 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$type = 'WebSite';
 			}
 
-			$attributes = apply_filters( $this->prefix . 'attributes', Array(
+			$attr_array = Array();
+
+			// Don't show this schema.org if the AMP plugin is active.
+			if ( ! function_exists( 'amp_init' ) ) {
+				$attr_array = Array(
 				'itemscope',
 				'itemtype="http://schema.org/' . ucfirst( $type ) . '"',
 				'prefix="og: http://ogp.me/ns#"',
-			) );
+			);
+			}
+
+			$attributes = apply_filters( $this->prefix . 'attributes', $attr_array );
 			foreach ( $attributes as $attr ) {
 				if ( strpos( $output, $attr ) === false ) {
 					$output .= "\n\t$attr ";

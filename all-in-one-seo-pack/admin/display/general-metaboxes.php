@@ -26,7 +26,7 @@ class aiosp_metaboxes {
 				<div class="aioseop_metabox_text">
 					<p><h2
 						style="display:inline;"><?php echo AIOSEOP_PLUGIN_NAME; ?></h2><?php sprintf( __( 'by %s of %s.', 'all-in-one-seo-pack' ), 'Michael Torbert', '<a target="_blank" title="Semper Fi Web Design"
-							href="http://semperfiwebdesign.com/">Semper Fi Web Design</a>' ); ?>.</p>
+							href="https://semperfiwebdesign.com/">Semper Fi Web Design</a>' ); ?>.</p>
 					<?php
 					global $current_user;
 					$user_id = $current_user->ID;
@@ -58,7 +58,7 @@ class aiosp_metaboxes {
 									target="_blank"><strong>donate</strong></a> button or send me a gift from my <a
 									href="https://www.amazon.com/wishlist/1NFQ133FNCOOA/ref=wl_web" target="_blank">
 									<strong>Amazon wishlist</strong></a>. Also, don't forget to follow me on <a
-									href="http://twitter.com/michaeltorbert/"
+									href="https://twitter.com/michaeltorbert/"
 									target="_blank"><strong>Twitter</strong></a>.
 							</p>
 						</div>
@@ -114,7 +114,7 @@ class aiosp_metaboxes {
 				?>
 				<div class="aioseop_metabox_text">
 					<form
-						action="http://semperfiwebdesign.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=af0a96d3d9"
+						action="https://semperfiwebdesign.us1.list-manage.com/subscribe/post?u=794674d3d54fdd912f961ef14&amp;id=af0a96d3d9"
 						method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"
 						target="_blank">
 						<h2><?php _e( 'Join our mailing list for tips, tricks, and WordPress secrets.', 'all-in-one-seo-pack' ); ?></h2>
@@ -135,28 +135,28 @@ class aiosp_metaboxes {
 					<p>
 					<div class="aioseop_icon aioseop_file_icon"></div>
 					<a target="_blank"
-					   href="http://semperplugins.com/documentation/"><?php _e( 'Read the All in One SEO Pack user guide', 'all-in-one-seo-pack' ); ?></a></p>
+					   href="https://semperplugins.com/documentation/"><?php _e( 'Read the All in One SEO Pack user guide', 'all-in-one-seo-pack' ); ?></a></p>
 					<p>
 					<div class="aioseop_icon aioseop_support_icon"></div>
 					<a target="_blank"
 					   title="<?php _e( 'All in One SEO Pro Plugin Support Forum', 'all-in-one-seo-pack' ); ?>"
-					   href="http://semperplugins.com/support/"><?php _e( 'Access our Premium Support Forums', 'all-in-one-seo-pack' ); ?></a></p>
+					   href="https://semperplugins.com/support/"><?php _e( 'Access our Premium Support Forums', 'all-in-one-seo-pack' ); ?></a></p>
 					<p>
 					<div class="aioseop_icon aioseop_cog_icon"></div>
 					<a target="_blank" title="<?php _e( 'All in One SEO Pro Plugin Changelog', 'all-in-one-seo-pack' ); ?>"
 					   href="<?php if ( AIOSEOPPRO ) {
-						   echo 'http://semperplugins.com/documentation/all-in-one-seo-pack-pro-changelog/';
+						   echo 'https://semperplugins.com/documentation/all-in-one-seo-pack-pro-changelog/';
 					   } else {
-						   echo 'http://semperfiwebdesign.com/blog/all-in-one-seo-pack/all-in-one-seo-pack-release-history/';
+						   echo 'https://semperfiwebdesign.com/blog/all-in-one-seo-pack/all-in-one-seo-pack-release-history/';
 					   } ?>"><?php _e( 'View the Changelog', 'all-in-one-seo-pack' ); ?></a></p>
 					<p>
 					<div class="aioseop_icon aioseop_youtube_icon"></div>
 					<a target="_blank"
-					   href="http://semperplugins.com/doc-type/video/"><?php _e( 'Watch video tutorials', 'all-in-one-seo-pack' ); ?></a></p>
+					   href="https://semperplugins.com/doc-type/video/"><?php _e( 'Watch video tutorials', 'all-in-one-seo-pack' ); ?></a></p>
 					<p>
 					<div class="aioseop_icon aioseop_book_icon"></div>
 					<a target="_blank"
-					   href="http://semperplugins.com/documentation/quick-start-guide/"><?php _e( 'Getting started? Read the Beginners Guide', 'all-in-one-seo-pack' ); ?></a></p>
+					   href="https://semperplugins.com/documentation/quick-start-guide/"><?php _e( 'Getting started? Read the Beginners Guide', 'all-in-one-seo-pack' ); ?></a></p>
 				</div>
 				<?php
 				break;

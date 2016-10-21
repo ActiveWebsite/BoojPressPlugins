@@ -95,23 +95,6 @@ if ( ! function_exists( 'aioseop_mrt_mkarry' ) ) {
 	}
 }
 
-if ( ! function_exists( 'aioseop_activate_pl' ) ) {
-	/**
-	 * @TODO see if this still gets used.
-	 */
-	function aioseop_activate_pl() {
-		if ( $aioseop_options = get_option( 'aioseop_options' ) ) {
-			$aioseop_options['aiosp_enabled'] = '0';
-
-			if ( empty( $aioseop_options['aiosp_posttypecolumns'] ) ) {
-				$aioseop_options['aiosp_posttypecolumns'] = array( 'post', 'page' );
-			}
-
-			update_option( 'aioseop_options', $aioseop_options );
-		}
-	}
-}
-
 if ( ! function_exists( 'aioseop_get_version' ) ) {
 	/**
 	 * Returns the version.
@@ -144,7 +127,6 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 	/**
 	 * Adds posttype columns.
 	 *
-	 * @TODO We should see if this is still being used, and move it either way.
 	 */
 	function aioseop_addmycolumns() {
 		global $aioseop_options, $pagenow;
@@ -159,7 +141,6 @@ if ( ! function_exists( 'aioseop_addmycolumns' ) ) {
 		} else {
 			$post_type = $_REQUEST['post_type'];
 		}
-
 		if ( is_array( $aiosp_posttypecolumns ) && in_array( $post_type, $aiosp_posttypecolumns ) ) {
 			add_action( 'admin_head', 'aioseop_admin_head' );
 			if ( $post_type === 'page' ) {
@@ -988,6 +969,22 @@ if ( ! function_exists( 'fnmatch' ) ) {
 				'\*' => '.*',
 				'\?' => '.',
 			) ) . "$#i", $string );
+	}
+}
+
+if ( ! function_exists('aiosp_log')) {
+	function aiosp_log ( $log )  {
+
+		global $aioseop_options;
+
+		if ( ! empty( $aioseop_options ) && isset( $aioseop_options['aiosp_do_log'] ) && $aioseop_options['aiosp_do_log'] ) {
+
+			if ( is_array( $log ) || is_object( $log ) ) {
+				error_log( print_r( $log, true ) );
+			} else {
+				error_log( $log );
+			}
+		}
 	}
 }
 

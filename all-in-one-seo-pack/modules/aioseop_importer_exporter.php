@@ -522,10 +522,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Importer_Exporter' ) ) {
 						// Sends File to browser
 						$strlength = strlen( $buf );
 						header( 'Content-type: application/ini' );
-						header(
-							"Content-Disposition:
-								attachment; filename=$settings_file"
-						);
+						header( "Content-Disposition: attachment; filename=$settings_file" );
 						header( 'Content-Length: ' . $strlength );
 						echo $buf;
 						die();

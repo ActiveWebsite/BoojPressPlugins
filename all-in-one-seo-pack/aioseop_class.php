@@ -94,7 +94,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'dynamic_postspage_keywords'  => __( 'Check this if you want your keywords on your Posts page (set in WordPress under Settings, Reading, Front Page Displays) and your archive pages to be dynamically generated from the keywords of the posts showing on that page.  If unchecked, it will use the keywords set in the edit page screen for the posts page.', 'all-in-one-seo-pack' ),
 			'rewrite_titles'              => __( "Note that this is all about the title tag. This is what you see in your browser's window title bar. This is NOT visible on a page, only in the title bar and in the source code. If enabled, all page, post, category, search and archive page titles get rewritten. You can specify the format for most of them. For example: Using the default post title format below, Rewrite Titles will write all post titles as 'Post Title | Blog Name'. If you have manually defined a title using All in One SEO Pack, this will become the title of your post in the format string.", 'all-in-one-seo-pack' ),
 			'cap_titles'                  => __( 'Check this and Search Page Titles and Tag Page Titles will have the first letter of each word capitalized.', 'all-in-one-seo-pack' ),
-			'cap_cats'                    => __( 'Check this and Category Titles will have the first letter of each word capitalized.', 'all-in-one-seo-pack' ),
 			'home_page_title_format'      =>
 				__( 'This controls the format of the title tag for your Home Page.<br />The following macros are supported:', 'all-in-one-seo-pack' )
 				. '<ul><li>' . __( '%blog_title% - Your blog title', 'all-in-one-seo-pack' ) . '</li><li>' .
@@ -179,8 +178,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'taxactive'                   => __( 'Use these checkboxes to select which Taxonomies you want to use All in One SEO Pack with.', 'all-in-one-seo-pack' ),
 			'cposttitles'                 => __( 'This allows you to set the title tags for each Custom Post Type.', 'all-in-one-seo-pack' ),
 			'posttypecolumns'             => __( 'This lets you select which screens display the SEO Title, SEO Keywords and SEO Description columns.', 'all-in-one-seo-pack' ),
-			'admin_bar'                   => __( 'Check this to add All in One SEO Pack to the Admin Bar for easy access to your SEO settings.', 'all-in-one-seo-pack' ),
-			'custom_menu_order'           => __( 'Check this to move the All in One SEO Pack menu item to the top of your WordPress Dashboard menu.', 'all-in-one-seo-pack' ),
 			'google_verify'               => __( "Enter your verification code here to verify your site with Google Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/google-webmaster-tools-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
 			'bing_verify'                 => __( "Enter your verification code here to verify your site with Bing Webmaster Tools.<br /><a href='http://semperplugins.com/documentation/bing-webmaster-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
 			'pinterest_verify'            => __( "Enter your verification code here to verify your site with Pinterest.<br /><a href='http://semperplugins.com/documentation/pinterest-site-verification/' target='_blank'>Click here for documentation on this setting</a>", 'all-in-one-seo-pack' ),
@@ -254,7 +251,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'dynamic_postspage_keywords'  => '#dynamically-generate-keywords-for-posts-page',
 			'rewrite_titles'              => '#rewrite-titles',
 			'cap_titles'                  => '#capitalize-titles',
-			'cap_cats'                    => '#capitalize-titles',
 			'home_page_title_format'      => '#title-format-fields',
 			'page_title_format'           => '#title-format-fields',
 			'post_title_format'           => '#title-format-fields',
@@ -273,8 +269,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'taxactive'                   => '#seo-on-only-these-taxonomies',
 			'cposttitles'                 => '#custom-titles',
 			'posttypecolumns'             => '#show-column-labels-for-custom-post-types',
-			'admin_bar'                   => '#display-menu-in-admin-bar',
-			'custom_menu_order'           => '#display-menu-at-the-top',
 			'google_verify'               => '',
 			'bing_verify'                 => '',
 			'pinterest_verify'            => '',
@@ -353,7 +347,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'home_title'                  => array(
 				'name'     => __( 'Home Title:', 'all-in-one-seo-pack' ),
 				'default'  => null,
-				'type'     => 'textarea',
+				'type'     => 'text',
 				'sanitize' => 'text',
 				'count'    => true,
 				'rows'     => 1,
@@ -450,10 +444,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'cap_titles'                  => array(
 				'name'    => __( 'Capitalize Tag and Search Titles:', 'all-in-one-seo-pack' ),
-				'default' => 1,
-			),
-			'cap_cats'                    => array(
-				'name'    => __( 'Capitalize Category Titles:', 'all-in-one-seo-pack' ),
 				'default' => 1,
 			),
 			'home_page_title_format'      => array(
@@ -590,19 +580,11 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'aiosp_cpostadvanced'  => 'on',
 				),
 			),
-			'posttypecolumns'             => array(
+			'posttypecolumns' => array(
 				'name'     => __( 'Show Column Labels for Custom Post Types:', 'all-in-one-seo-pack' ),
 				'type'     => 'multicheckbox',
 				'default'  => array( 'post', 'page' ),
 				'condshow' => array( 'aiosp_enablecpost' => 'on' ),
-			),
-			'admin_bar'                   => array(
-				'name'    => __( 'Display Menu In Admin Bar:', 'all-in-one-seo-pack' ),
-				'default' => 'on',
-			),
-			'custom_menu_order'           => array(
-				'name'    => __( 'Display Menu At The Top:', 'all-in-one-seo-pack' ),
-				'default' => 'on',
 			),
 			'google_verify'               => array(
 				'name'    => __( 'Google Webmaster Tools:', 'all-in-one-seo-pack' ),
@@ -871,7 +853,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'generate_descriptions'       => array(
 				'name'    => __( 'Autogenerate Descriptions:', 'all-in-one-seo-pack' ),
-				'default' => 1,
+				'default' => 0,
 			),
 			'run_shortcodes'              => array(
 				'name'     => __( 'Run Shortcodes In Autogenerated Descriptions:', 'all-in-one-seo-pack' ),
@@ -1085,7 +1067,6 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 					'rewrite_titles',
 					'force_rewrites',
 					'cap_titles',
-					'cap_cats',
 					'home_page_title_format',
 					'page_title_format',
 					'post_title_format',
@@ -1108,7 +1089,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			'display'   => array(
 				'name'      => __( 'Display Settings', 'all-in-one-seo-pack' ),
 				'help_link' => 'http://semperplugins.com/documentation/display-settings/',
-				'options'   => array( 'posttypecolumns', 'admin_bar', 'custom_menu_order' ),
+				'options'   => array( 'posttypecolumns' ),
 			),
 			'webmaster' => array(
 				'name'      => __( 'Webmaster Verification', 'all-in-one-seo-pack' ),
@@ -1165,7 +1146,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			),
 			'advanced'  => array(
 				'name'      => __( 'Advanced Settings', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/advanced-settings/',
+				'help_link' => 'https://semperplugins.com/documentation/all-in-one-seo-pack-advanced-settings/',
 				'options'   => array(
 					'generate_descriptions',
 					'skip_excerpt',
@@ -1192,6 +1173,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				),
 			),
 		);
+
+		if ( AIOSEOPPRO ) {
+			// Add Pro options.
+			$this->default_options = aioseop_add_pro_opt( $this->default_options );
+			$this->help_text       = aioseop_add_pro_help( $this->help_text );
+			$this->layout          = aioseop_add_pro_layout( $this->layout );
+		}
 
 		if ( ! AIOSEOPPRO ) {
 			unset( $this->layout['cpt']['options']['2'] );
@@ -1384,9 +1372,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$title = $this->wp_title();
 			}
 			$description = $this->get_main_description( $post );
+
+			// All this needs to be in it's own function (class really)
+
 			if ( empty( $title_format ) ) {
 				if ( is_page() ) {
 					$title_format = $aioseop_options['aiosp_page_title_format'];
+
 				} elseif ( is_single() || is_attachment() ) {
 					$title_format = $this->get_post_title_format( 'post', $post );
 				}
@@ -1425,7 +1417,10 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 			}
 			$description = $this->internationalize( $description );
 		}
-
+		if($this->is_front_page == true ){
+			//$title_format = $aioseop_options['aiosp_home_page_title_format'];
+			$title_format = ''; // Not sure why this needs to be this way, but we should extract all this out to figure out what's going on.
+		}
 		$show_page = true;
 		if ( ! empty( $aioseop_options['aiosp_no_paged_canonical_links'] ) ) {
 			$show_page = false;
@@ -2346,7 +2341,13 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 	// Handle prev / next links.
 
 	/**
+	 *
+	 * Gets taxonomy name.
+	 *
 	 * @param $tax
+	 *
+	 * As of 2.3.10, we've removed the option for capitalize categories. We still respect the option,
+	 * and the default (true) or a legacy option in the db can be overridden with the new filter hook aioseop_capitalize_categories
 	 *
 	 * @return mixed|void
 	 */
@@ -2363,10 +2364,25 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		if ( empty( $name ) ) {
 			$name = single_term_title( '', false );
 		}
+
+		$cap_cats = true; // Default to uppercase category/taxonomy titles.
+		if ( isset( $aioseop_options['aiosp_cap_cats'] ) && ! empty( $aioseop_options['aiosp_cap_cats'] ) ) {
+			// Legacy option is checked.
+			$cap_cats = true;
+
+		}
+
+		if ( isset( $aioseop_options['aiosp_cap_cats'] ) && empty( $aioseop_options['aiosp_cap_cats'] ) ) {
+			// Legacy option is unchecked.
+			$cap_cats = false;
+		}
+
+		$cap_cats = apply_filters( 'aioseop_capitalize_categories', $cap_cats ); // This will override any legacy settings.
+
 		// Apparently we're already ucwordsing this elsewhere, and doing it a second time messes it up... why aren't we just doing this at the end?
-				if ( ( $tax == 'category' ) && ( !empty( $aioseop_options['aiosp_cap_cats'] ) ) ){
-					$name = $this->ucwords( $name );
-				}
+		if ( ( $tax == 'category' ) && $cap_cats == true ) {
+			$name = $this->ucwords( $name );
+		}
 
 		return $this->internationalize( $name );
 	}
@@ -3155,6 +3171,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 				$taxes[ $t ] = $t;
 			}
 		}
+
 		$this->default_options['posttypecolumns']['initial_options'] = $post_types;
 		$this->default_options['cpostactive']['initial_options']     = $all_post_types;
 		$this->default_options['cpostnoindex']['initial_options']    = $post_types;
@@ -3634,7 +3651,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 
 		aioseop_update_settings_check();
 		add_filter( 'user_contactmethods', 'aioseop_add_contactmethods' );
-		if ( is_user_logged_in() && function_exists( 'is_admin_bar_showing' ) && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) ) {
+		if ( is_user_logged_in() && is_admin_bar_showing() && current_user_can( 'aiosp_manage_seo' ) ) {
 			add_action( 'admin_bar_menu', array( $this, 'admin_bar_menu' ), 1000 );
 		}
 
@@ -4467,17 +4484,31 @@ EOF;
 	}
 
 	function admin_bar_menu() {
-		global $wp_admin_bar, $aioseop_admin_menu, $aioseop_options, $post;
+
+
+		if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
+			// API filter hook to disable showing SEO in admin bar.
+			return;
+		}
+
+
+		global $wp_admin_bar, $aioseop_admin_menu, $post, $aioseop_options;
 
 		$toggle = '';
-		if ( isset( $_POST['aiosp_use_original_title'] ) && isset( $_POST['aiosp_admin_bar'] ) ) {
+		if ( isset( $_POST['aiosp_use_original_title'] ) && isset( $_POST['aiosp_admin_bar'] ) && AIOSEOPPRO ) {
 			$toggle = 'on';
 		}
-		if ( isset( $_POST['aiosp_use_original_title'] ) && ! isset( $_POST['aiosp_admin_bar'] ) ) {
+		if ( isset( $_POST['aiosp_use_original_title'] ) && ! isset( $_POST['aiosp_admin_bar'] ) && AIOSEOPPRO ) {
 			$toggle = 'off';
 		}
 
-		if ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && $toggle != 'off' || isset( $_POST['aiosp_admin_bar'] ) ) {
+		if ( ( ! isset( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle  ) || ( ! empty( $aioseop_options['aiosp_admin_bar'] ) && 'off' !== $toggle ) || isset( $_POST['aiosp_admin_bar'] ) || true == apply_filters( 'aioseo_show_in_admin_bar', false ) ) {
+
+			if ( apply_filters( 'aioseo_show_in_admin_bar', true ) === false ) {
+				// API filter hook to disable showing SEO in admin bar.
+				return;
+			}
+
 			$menu_slug = plugin_basename( __FILE__ );
 
 			$url = '';
@@ -4512,7 +4543,7 @@ EOF;
 				if ( ! empty( $blog_page ) ) {
 					$post = $blog_page;
 				}
-				if( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
+				if ( ! is_home() || ( ! is_front_page() && ! is_home() ) ) {
 					// Don't show if we're on the home page and the home page is the latest posts.
 					$wp_admin_bar->add_menu( array(
 						'id'     => 'aiosp_edit_' . $post->ID,
@@ -4651,7 +4682,7 @@ EOF;
 			if ( isset( $_POST['aiosp_donate'] ) ) {
 				$donated = $_POST['aiosp_donate'];
 			}
-			if ( isset( $_POST['Submit'] ) ) {
+			if ( isset( $_POST['Submit'] ) && AIOSEOPPRO ) {
 				if ( isset( $_POST['aiosp_custom_menu_order'] ) ) {
 					$custom_menu_order = $_POST['aiosp_custom_menu_order'];
 				} else {
@@ -4669,7 +4700,7 @@ EOF;
 			}
 		}
 
-		if ( $custom_menu_order ) {
+		if ( ( $custom_menu_order && false !== apply_filters( 'aioseo_custom_menu_order', $custom_menu_order ) ) || true === apply_filters( 'aioseo_custom_menu_order', $custom_menu_order ) ) {
 			add_filter( 'custom_menu_order', '__return_true' );
 			add_filter( 'menu_order', array( $this, 'set_menu_order' ), 11 );
 		}
@@ -4867,18 +4898,6 @@ EOF;
 								<div class=wincherad id=wincher<?php echo $adid; ?>>
 								</div>
 							</a>
-					</div>
-					<div class="aioseop_advert headwaythemes">
-						<div>
-							<h3>Drag and Drop WordPress Design</h3>
-							<p><a href="http://semperfiwebdesign.com/headwayaio/" target="_blank">Headway Themes</a>
-								allows you to easily create your own stunning website designs! Stop using premade themes
-								start making your own design with Headway's easy to use Drag and Drop interface. All in
-								One SEO Pack users have an exclusive discount by using coupon code
-								<strong>SEMPERFI30</strong> at checkout.</p>
-						</div>
-						<a href="http://semperfiwebdesign.com/headwayaio/" target="_blank"><img
-								src="<?php echo AIOSEOP_PLUGIN_IMAGES_URL; ?>headwaybanner.png"></a>
 					</div>
 				<?php } ?>
 			</div>
