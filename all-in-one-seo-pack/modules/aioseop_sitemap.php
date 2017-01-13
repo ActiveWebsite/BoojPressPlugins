@@ -22,6 +22,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		var $freq;
 		var $freq_sel;
 		var $extra_sitemaps;
+		var $excludes = array();
 
 		/**
 		 * All_in_One_SEO_Pack_Sitemap constructor.
@@ -39,8 +40,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->help_text = array(
 				'filename'        => __( "Specifies the name of your sitemap file. This will default to 'sitemap'.", 'all-in-one-seo-pack' ),
-				'google'          => __( 'Notify Google when you update your sitemap settings.', 'all-in-one-seo-pack' ),
-				'bing'            => __( 'Notify Bing when you update your sitemap settings.', 'all-in-one-seo-pack' ),
 				'daily_cron'      => __( 'Notify search engines based on the selected schedule, and also update static sitemap daily if in use. (this uses WP-Cron, so make sure this is working properly on your server as well)', 'all-in-one-seo-pack' ),
 				'indexes'         => __( 'Organize sitemap entries into distinct files in your sitemap. Enable this only if your sitemap contains over 50,000 URLs or the file is over 5MB in size.', 'all-in-one-seo-pack' ),
 				'paginate'        => __( 'Split long sitemaps into separate files.', 'all-in-one-seo-pack' ),
@@ -52,7 +51,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				'gzipped'         => __( 'Create a compressed sitemap file in .xml.gz format.', 'all-in-one-seo-pack' ),
 				'robots'          => __( 'Places a link to your Sitemap.xml into your virtual Robots.txt file.', 'all-in-one-seo-pack' ),
 				'rewrite'         => __( 'Dynamically creates the XML sitemap instead of using a static file.', 'all-in-one-seo-pack' ),
-				'debug'           => __( 'Use rewrites to generate your sitemap on the fly. NOTE: This is required for WordPress Multisite.', 'all-in-one-seo-pack' ),
 				'addl_url'        => __( 'URL to the page.', 'all-in-one-seo-pack' ),
 				'addl_prio'       => __( 'The priority of the page.', 'all-in-one-seo-pack' ),
 				'addl_freq'       => __( 'The frequency of the page.', 'all-in-one-seo-pack' ),
@@ -63,8 +61,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->help_anchors = array(
 				'filename'        => '#filename-prefix',
-				'google'          => '#notify-google-bing',
-				'bing'            => '#notify-google-bing',
 				'daily_cron'      => '#schedule-updates',
 				'indexes'         => '#enable-sitemap-indexes',
 				'paginate'        => '#enable-sitemap-indexes',
@@ -91,8 +87,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					'type'     => 'text',
 					'sanitize' => 'filename',
 				),
-				'google'     => array( 'name' => __( 'Notify Google', 'all-in-one-seo-pack' ) ),
-				'bing'       => array( 'name' => __( 'Notify Bing', 'all-in-one-seo-pack' ) ),
 				'daily_cron' => array(
 					'name'            => __( 'Schedule Updates', 'all-in-one-seo-pack' ),
 					'type'            => 'select',
@@ -143,28 +137,17 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$status_options = array(
 				'link'  => array( 'default' => '', 'type' => 'html', 'label' => 'none', 'save' => false ),
-				'debug' => array(
-					'name'     => __( 'Debug Log', 'all-in-one-seo-pack' ),
-					'default'  => '',
-					'type'     => 'html',
-					'disabled' => 'disabled',
-					'save'     => false,
-					'label'    => 'none',
-					'rows'     => 5,
-					'cols'     => 120,
-					'style'    => 'min-width:950px',
-				),
 			);
 
 			$this->layout = array(
 				'status'  => array(
 					'name'      => __( 'Sitemap Status', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/',
+					'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/',
 					'options'   => array_keys( $status_options ),
 				),
 				'default' => array(
 					'name'      => $this->name,
-					'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/',
+					'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/',
 					'options'   => array_keys( $this->default_options ),
 				),
 			);
@@ -284,25 +267,25 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 
 			$this->layout['addl_pages'] = array(
 				'name'      => __( 'Additional Pages', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#additional-pages',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#additional-pages',
 				'options'   => array_keys( $addl_options ),
 			);
 
 			$this->layout['excl_pages'] = array(
 				'name'      => __( 'Excluded Items', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#excluded-items',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#excluded-items',
 				'options'   => array_keys( $excl_options ),
 			);
 
 			$this->layout['priorities'] = array(
 				'name'      => __( 'Priorities', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
 				'options'   => array_keys( $prio_options ),
 			);
 
 			$this->layout['frequencies'] = array(
 				'name'      => __( 'Frequencies', 'all-in-one-seo-pack' ),
-				'help_link' => 'http://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
+				'help_link' => 'https://semperplugins.com/documentation/xml-sitemaps-module/#priorities-and-frequencies',
 				'options'   => array_keys( $freq_options ),
 			);
 
@@ -323,7 +306,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			add_action( $this->prefix . 'daily_update_cron', array( $this, 'daily_update' ) );
 			add_action( 'init', array( $this, 'make_dynamic_xsl' ) );
 			add_action( 'transition_post_status', array( $this, 'update_sitemap_from_posts' ), 10, 3 );
+			add_action( 'after_doing_aioseop_updates', array( $this, 'scan_sitemaps' ) );
 		}
+
 
 		/**
 		 * Update sitemap from posts.
@@ -361,7 +346,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 *
 		 * Add new intervals of a week and a month.
 		 *
-		 * @link http://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules
+		 * @link https://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules
 		 *
 		 * @param $schedules
 		 *
@@ -630,18 +615,21 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				$options[ $this->prefix . 'max_posts' ] = 50000;
 			}
 			$url                               = trailingslashit( get_home_url() ) . $options[ $this->prefix . 'filename' ] . '.xml';
-			$options[ $this->prefix . 'link' ] = sprintf( __( 'Please review your settings below and click %s to build your sitemap; then, %s.',
-				'all-in-one-seo-pack' ), sprintf( '<a href="#" onclick="document.dofollow.elements[\'Submit\'][0].click();">%s</a>',
-				__( 'Update Sitemap', 'all-in-one-seo-pack' ) ), '<a href="' . esc_url( $url ) . '" target="_blank">' .
-			                                                     __( 'view your sitemap', 'all-in-one-seo-pack' ) . '</a>' );
-			if ( $this->option_isset( 'rewrite' ) ) {
 
-				$options[ $this->prefix . 'link' ] .= '<p>' . __( 'Note: you are using dynamic sitemap generation to keep your sitemap current; this will not generate a static sitemap file.', 'all-in-one-seo-pack' ) . '</p>';
+			$options[ $this->prefix . 'link' ] = sprintf( __( 'Click here to %s.', 'all-in-one-seo-pack' ), '<a href="' . esc_url( $url ) . '" target="_blank">' . __( 'view your sitemap', 'all-in-one-seo-pack' ) . '</a>' );
+			$options[ $this->prefix . 'link' ] .= __( ' Your sitemap has been created', 'all-in-one-seo-pack' );
+			if ( '0' !== get_option( 'blog_public' ) ){
+				$options[ $this->prefix . 'link' ] .= __( ' and changes are automatically submitted to search engines' );
+			}
+			$options[ $this->prefix . 'link' ] .= '.';
+
+
+
+
+			if ( $this->option_isset( 'rewrite' ) ) {
 				$rule  = $this->get_rewrite_url( $url );
 				$rules = $this->get_rewrite_rules();
-				if ( in_array( $rule, $rules ) ) {
-					$options[ $this->prefix . 'link' ] .= '<p>' . __( 'Dynamic sitemap generation appears to be using the correct rewrite rules.', 'all-in-one-seo-pack' ) . '</p>';
-				} else {
+				if ( ! in_array( $rule, $rules ) ) {
 					$options[ $this->prefix . 'link' ] .= '<p>' . __( 'Dynamic sitemap generation does not appear to be using the correct rewrite rules; please disable any other sitemap plugins or functionality on your site and reset your permalinks.', 'all-in-one-seo-pack' ) . '</p>';
 				}
 			}
@@ -654,11 +642,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				}
 				$options[ $this->prefix . 'link' ] .= '<p class="aioseop_error_notice">' . sprintf( __( 'Warning: your privacy settings are configured to ask search engines to not index your site; you can change this under %s for your blog.', 'all-in-one-seo-pack' ), $privacy_link );
 			}
-			if ( $this->option_isset( 'debug' ) ) {
-				$debug_msg                       = esc_html( $options["{$this->prefix}debug"] );
-				$options["{$this->prefix}debug"] = '<pre>' . $debug_msg . '</pre>';
-			}
-
 			return $options;
 		}
 
@@ -813,6 +796,28 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		}
 
 		/**
+		 * Whitelists files from static sitemap conflict warning.
+		 *
+		 * For right now, this is just externally produced news sitemaps until we figure out something better.
+		 *
+		 * @param $file
+		 *
+		 * @since 2.3.10.2
+		 *
+		 * @return string
+		 */
+		function whitelist_static_sitemaps( $file ) {
+
+			$whitelist = array( 'sitemap_news.xml', 'sitemap-news.xml' );
+
+			if ( in_array( $file, $whitelist, true ) ) {
+				return '';
+			}
+
+			return $file;
+		}
+
+		/**
 		 * Scan for sitemaps on filesystem.
 		 *
 		 * @return array
@@ -835,6 +840,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 				if ( ! empty( $filescan ) ) {
 					foreach ( $filescan as $f ) {
 						if ( ! empty( $scan1 ) && fnmatch( $scan1, $home_path . $f ) ) {
+
+							$f       = $this->whitelist_static_sitemaps( $f );
 							$files[] = $home_path . $f;
 							continue;
 						}
@@ -922,10 +929,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Get problem files.
 		 *
-		 * Get the list of potentially conflicting sitemap files.
+		 * Get the list of potentially conflicting sitemap files, identify whether they came from us, are blank, or are of unknown origin.
 		 *
 		 * @param $files
 		 * @param $msg
+		 *
+		 * In 2.3.10 we added the ability to see empty sitemap files as well.
 		 *
 		 * @return array
 		 */
@@ -976,6 +985,15 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 							$msg .= '<p>' . sprintf( __( 'Potential conflict with unknown file %s.', 'all-in-one-seo-pack' ), $f ) . "</p>\n";
 							$problem_files[] = $f;
 						}
+					} else {
+						$msg .= '<p>' . sprintf( __( 'Removed empty file %s.', 'all-in-one-seo-pack' ), $f ) . "</p>\n";
+						$problem_files[] = $f;
+
+						foreach ( $problem_files as $f => $file ) {
+							$files[ $f ] = realpath( $file );
+							$this->delete_file( realpath( $file ) );
+						}
+						$problem_files = false; // Don't return anything. If it's blank, we'll take care of it here.
 					}
 				}
 			}
@@ -1015,21 +1033,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		/**
 		 * Updates debug log messages.
 		 *
+		 * Deprecated as of 2.3.10 in favor of WP debug log. We should eventually remove this.
+		 *
 		 * @param $msg
 		 */
 		function debug_message( $msg ) {
-			if ( empty( $this->options["{$this->prefix}debug"] ) ) {
-				$this->options["{$this->prefix}debug"] = '';
-			}
-			$this->options["{$this->prefix}debug"] = date( 'Y-m-d H:i:s' ) . " {$msg}\n" . $this->options["{$this->prefix}debug"];
-			if ( $this->strlen( $this->options["{$this->prefix}debug"] ) > 2048 ) {
-				$end = $this->strrpos( $this->options["{$this->prefix}debug"], "\n" );
-				if ( false === $end ) {
-					$end = 2048;
-				}
-				$this->options["{$this->prefix}debug"] = $this->substr( $this->options["{$this->prefix}debug"], 0, $end );
-			}
-			$this->update_class_option( $this->options );
+			aiosp_log( $msg );
 		}
 
 		/**
@@ -1282,27 +1291,34 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 		 * Notify search engines, do logging.
 		 */
 		function do_notify() {
+
+			if ( '0' === get_option( 'blog_public' ) ) {
+				// Don't ping search engines if blog is set to not public.
+				return;
+			}
+
+			if ( apply_filters( 'aioseo_sitemap_ping', true ) === false ) {
+				// API filter hook to disable sending sitemaps to search engines.
+				return;
+			}
+
 			$notify_url = array(
-				'google' => 'http://www.google.com/webmasters/sitemaps/ping?sitemap=',
-				'bing'   => 'http://www.bing.com/webmaster/ping.aspx?siteMap=',
+				'google' => 'https://www.google.com/webmasters/sitemaps/ping?sitemap=',
+				'bing'   => 'https://www.bing.com/webmaster/ping.aspx?siteMap=',
 			);
+
+			$notify_url = apply_filters( 'aioseo_sitemap_ping_urls', $notify_url );
 
 			$url = $this->get_sitemap_url();
 			if ( ! empty( $url ) ) {
 				foreach ( $notify_url as $k => $v ) {
-					if ( isset( $this->options[ $this->prefix . $k ] ) && $this->options[ $this->prefix . $k ] ) {
-						$response = wp_remote_get( $notify_url[ $k ] . urlencode( $url ) );
-						if ( is_array( $response ) && ! empty( $response['response'] ) && ! empty( $response['response']['code'] ) ) {
-							if ( 200 == $response['response']['code'] ) {
-								$this->debug_message( sprintf( __( 'Successfully notified %s about changes to your sitemap at %s.', 'all-in-one-seo-pack' ), $k, $url ) );
-							} else {
-								$this->debug_message( sprintf( __( 'Failed to notify %s about changes to your sitemap at %s, error code %s.', 'all-in-one-seo-pack' ), $k, $url, $response['response']['code'] ) );
-							}
-						} else {
-							$this->debug_message( sprintf( __( 'Failed to notify %s about changes to your sitemap at %s, unable to access via wp_remote_get().', 'all-in-one-seo-pack' ), $k, $url ) );
+					$response = wp_remote_get( $notify_url[ $k ] . urlencode( $url ) );
+					if ( is_array( $response ) && ! empty( $response['response'] ) && ! empty( $response['response']['code'] ) ) {
+						if ( 200 != $response['response']['code'] ) {
+							$this->debug_message( sprintf( __( 'Failed to notify %s about changes to your sitemap at %s, error code %s.', 'all-in-one-seo-pack' ), $k, $url, $response['response']['code'] ) );
 						}
 					} else {
-						$this->debug_message( sprintf( __( 'Did not notify %s about changes to your sitemap.', 'all-in-one-seo-pack' ), $k, $url ) );
+						$this->debug_message( sprintf( __( 'Failed to notify %s about changes to your sitemap at %s, unable to access via wp_remote_get().', 'all-in-one-seo-pack' ), $k, $url ) );
 					}
 				}
 			}
@@ -1351,8 +1367,6 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->do_notify();
 			if ( ! empty( $message ) && is_string( $message ) ) {
 				$this->debug_message( $message );
-			} else {
-				$this->debug_message( __( 'Updated sitemap settings.', 'all-in-one-seo-pack' ) );
 			}
 		}
 
@@ -1748,18 +1762,54 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			$this->log_stats( 'indexed', $options["{$this->prefix}gzipped"], false );
 		}
 
+		function remove_posts_page( $postspageid ) {
+			if ( in_array( $postspageid, $this->excludes ) ) {
+				return true;
+			}
+
+			if ( in_array( get_post_field( 'post_name', $postspageid ), $this->excludes ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		function remove_homepage( $homepage_id ) {
+			if ( in_array( $homepage_id, $this->excludes ) ) {
+
+				return true;
+			}
+			if ( in_array( get_post_field( 'post_name', $homepage_id ), $this->excludes ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
 		/**
 		 * Get simple sitemap.
 		 *
 		 * @return array
 		 */
 		function get_simple_sitemap() {
+			$child   = $this->get_child_sitemap_urls();
+			$options = $this->options;
+			if ( is_array( $options["{$this->prefix}posttypes"] ) ) {
+				$options["{$this->prefix}posttypes"] = array_diff( $options["{$this->prefix}posttypes"], array( 'all' ) );
+			}
+			if ( is_array( $options["{$this->prefix}taxonomies"] ) ) {
+				$options["{$this->prefix}taxonomies"] = array_diff( $options["{$this->prefix}taxonomies"], array( 'all' ) );
+			}
+			$prio = $this->get_all_post_priority_data( $options["{$this->prefix}posttypes"] );
+
 			$home           = array(
 				'loc'        => get_home_url(),
 				'priority'   => $this->get_default_priority( 'homepage' ),
 				'changefreq' => $this->get_default_frequency( 'homepage' ),
 			);
-			$posts          = get_option( 'page_for_posts' );
+
+			$posts   = $postspageid    = get_option( 'page_for_posts' ); // It's 0 if posts are on homepage, otherwise it's the id of the posts page.
+
 			$this->paginate = false;
 			if ( $posts ) {
 				$posts = $this->get_permalink( $posts );
@@ -1773,15 +1823,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					);
 				}
 			}
-			$child   = $this->get_child_sitemap_urls();
-			$options = $this->options;
-			if ( is_array( $options["{$this->prefix}posttypes"] ) ) {
-				$options["{$this->prefix}posttypes"] = array_diff( $options["{$this->prefix}posttypes"], array( 'all' ) );
-			}
-			if ( is_array( $options["{$this->prefix}taxonomies"] ) ) {
-				$options["{$this->prefix}taxonomies"] = array_diff( $options["{$this->prefix}taxonomies"], array( 'all' ) );
-			}
-			$prio = $this->get_all_post_priority_data( $options["{$this->prefix}posttypes"] );
+
 			if ( $this->option_isset( 'archive' ) ) {
 				$prio = array_merge( $prio, $this->get_archive_prio_data() );
 			}
@@ -1805,9 +1847,10 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 					}
 				}
 			}
-			if ( is_array( $posts ) ) {
+			if ( is_array( $posts ) && $this->remove_posts_page( $postspageid ) !== true ) {
 				array_unshift( $prio, $posts );
 			}
+
 			if ( is_array( $home ) ) {
 				array_unshift( $prio, $home );
 			}
@@ -2899,6 +2942,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( ! empty( $q->posts ) ) {
 				$args['exclude'] = array_merge( $args['exclude'], $q->posts );
 			}
+			$this->excludes = array_merge( $args['exclude'] , $exclude_slugs ); // Add excluded slugs and IDs to class var.
 
 			$posts = get_posts( apply_filters( $this->prefix . 'post_query', $args ) );
 			if ( ! empty( $exclude_slugs ) ) {

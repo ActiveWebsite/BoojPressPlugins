@@ -2,7 +2,13 @@
 
 if ( ! class_exists( 'aioseop_welcome' ) ) {
 
+	/**
+	 * Class aioseop_welcome
+	 */
 	class aioseop_welcome {
+		/**
+		 * Constructor to add the actions.
+		 */
 		function __construct() {
 
 			if ( AIOSEOPPRO ) {
@@ -15,20 +21,31 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 		}
 
+		/**
+		 * Enqueues style and script.
+		 *
+		 * @param $hook
+		 */
 		function welcome_screen_assets( $hook ) {
 
-			if ( 'dashboard_page_aioseop-about' == $hook ) {
+			if ( 'dashboard_page_aioseop-about' === $hook ) {
 
 				wp_enqueue_style( 'aioseop_welcome_css', AIOSEOP_PLUGIN_URL . '/css/welcome.css' );
 				wp_enqueue_script( 'aioseop_welcome_js', AIOSEOP_PLUGIN_URL . '/js/welcome.js', array( 'jquery' ), AIOSEOP_VERSION, true );
 			}
 		}
 
+		/**
+		 * Removes unneeded pages.
+		 */
 		function remove_pages() {
 			remove_submenu_page( 'index.php', 'aioseop-about' );
 			remove_submenu_page( 'index.php', 'aioseop-credits' );
 		}
 
+		/**
+		 * Adds (hidden) menu.
+		 */
 		function add_menus() {
 			add_dashboard_page(
 				__( 'Welcome to All in One SEO Pack', 'all-in-one-seo-pack' ),
@@ -40,7 +57,12 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 		}
 
-		function init() {
+		/**
+		 * Initial stuff.
+		 *
+		 * @param bool $activate
+		 */
+		function init( $activate = false ) {
 
 			if ( AIOSEOPPRO ) {
 				return;
@@ -50,16 +72,33 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 				return;
 			}
 
+			// Bail if activating from network, or bulk
+			if ( is_network_admin() || isset( $_GET['activate-multi'] ) ) {
+				return;
+			}
+
 			if ( ! current_user_can( 'manage_options' ) ) {
 				return;
 			}
+			$seen = 0;
+			$seen = get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true );
+			if ( AIOSEOP_VERSION === get_user_meta( get_current_user_id(), 'aioseop_seen_about_page', true ) && true !== $activate ) {
+				return;
+			}
+
+			update_user_meta( get_current_user_id(), 'aioseop_seen_about_page', AIOSEOP_VERSION );
+
+			aiosp_common::clear_wpe_cache();
 
 			wp_safe_redirect( add_query_arg( array( 'page' => 'aioseop-about' ), admin_url( 'index.php' ) ) );
 			exit;
 		}
 
+		/**
+		 * Outputs the about screen.
+		 */
 		function about_screen() {
-
+			aiosp_common::clear_wpe_cache();
 			$version = AIOSEOP_VERSION;
 
 			?>

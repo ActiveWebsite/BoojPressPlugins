@@ -190,7 +190,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		 */
 		function filter_bad_referlist( $referlist ) {
 			if ( $this->option_isset( 'edit_blocks' ) && $this->option_isset( 'block_refer' ) && $this->option_isset( 'referlist' ) ) {
-				$referlist = explode( "\n", $this->options["{$this->prefix}referlist"] );
+				$referlist = preg_split('/\r\n|[\r\n]/', $this->options["{$this->prefix}referlist"] );
 			}
 
 			return $referlist;
@@ -203,7 +203,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		 */
 		function filter_bad_botlist( $botlist ) {
 			if ( $this->option_isset( 'edit_blocks' ) && $this->option_isset( 'blocklist' ) ) {
-				$botlist = explode( "\n", $this->options["{$this->prefix}blocklist"] );
+				$botlist = preg_split('/\r\n|[\r\n]/', $this->options["{$this->prefix}blocklist"] );
 			}
 
 			return $botlist;
@@ -216,6 +216,11 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Bad_Robots' ) ) {
 		 * @param string $msg
 		 */
 		function blocked_message( $msg ) {
+
+			if ( ! $this->option_isset( 'track_blocks' ) ) {
+				return; // Only log if track blocks is checked.
+			}
+
 			if ( empty( $this->options["{$this->prefix}blocked_log"] ) ) {
 				$this->options["{$this->prefix}blocked_log"] = '';
 			}

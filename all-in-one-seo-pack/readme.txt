@@ -3,12 +3,12 @@ Contributors: hallsofmontezuma, wpsmort, dougal, pbaylies, arnaudbroes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: seo, all in one seo, google, twitter, page, image seo, social, search engine optimization, sitemap, WordPress SEO, meta, meta description, xml sitemap, google sitemap, sitemaps, robots meta, yahoo, bing, news sitemaps, multisite, canonical, nofollow, noindex, keywords, description, webmaster tools, google webmaster tools, google analytics
 Requires at least: 4.0
-Tested up to: 4.6
-Stable tag: 2.3.9.2
+Tested up to: 4.7
+Stable tag: 2.3.11.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The most downloaded plugin for WordPress (almost 30 million downloads). Use All in One SEO Pack to automatically optimize your site for Search Engines.
+One of the most downloaded WordPress plugins (over 30 million downloads since 2007). Use All in One SEO Pack to optimize your site for Search Engines.
 
 == Description ==
 
@@ -18,12 +18,14 @@ The most downloaded plugin for WordPress (almost 30 million downloads). Use All 
 
 [Premium Support](http://semperplugins.com/support/?loc=readme_ps)
 
-First created in 2007, see why AIOSEO is the most downloaded plugin for WordPress.
+First created in 2007, see why AIOSEO is one of the all time most downloaded plugins for WordPress.
 
 * XML Sitemap support - submit your sitemap to Google and Bing and improve your SEO
+* Google AMP support (Accelerated Mobile Pages)
 * Google Analytics support
 * Support for SEO on Custom Post Types
 * Advanced Canonical URLs
+* Redirect attachment pages to parent post
 * Automatically notifies search engines like Google and Bing about changes to your site
 * Built-in API so other plugins/themes can access and extend functionality
 * ONLY free plugin to provide SEO Integration for e-Commerce sites, including WooCommerce

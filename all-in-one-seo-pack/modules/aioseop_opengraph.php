@@ -82,8 +82,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			$this->help_text = Array(
 				"setmeta"                => __( "Checking this box will use the Home Title and Home Description set in All in One SEO Pack, General Settings as the Open Graph title and description for your home page.", 'all-in-one-seo-pack' ),
-				"key"                    => __( "Enter your Facebook Admin ID here. Information about how to get your Facebook Admin ID can be found at https://developers.facebook.com/docs/platforminsights/domains", 'all-in-one-seo-pack' ),
-				"appid"                  => __( "Enter your Facebook App ID here. Information about how to get your Facebook App ID can be found at https://developers.facebook.com/docs/platforminsights/domains", 'all-in-one-seo-pack' ),
+				"key"                    => __( "Enter your Facebook Admin ID here. You can look up your Facebook ID using this tool http://findmyfbid.com/", 'all-in-one-seo-pack' ),
+				"appid"                  => __( "Enter your Facebook App ID here. Information about how to get your Facebook App ID can be found at https://developers.facebook.com/docs/apps/register", 'all-in-one-seo-pack' ),
 				"title_shortcodes"       => __( "Run shortcodes that appear in social title meta tags.", 'all-in-one-seo-pack' ),
 				"description_shortcodes" => __( "Run shortcodes that appear in social description meta tags.", 'all-in-one-seo-pack' ),
 				"sitename"               => __( "The Site Name is the name that is used to identify your website.", 'all-in-one-seo-pack' ),
@@ -114,7 +114,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				"customimg_twitter"      => __( "This option lets you upload an image to use as the Twitter image for this Page or Post.", 'all-in-one-seo-pack' ),
 				"gen_tags"               => __( "Automatically generate article tags for Facebook type article when not provided.", 'all-in-one-seo-pack' ),
 				"gen_keywords"           => __( "Use keywords in generated article tags.", 'all-in-one-seo-pack' ),
-				"gen_categories"         => __( "Use catergories in generated article tags.", 'all-in-one-seo-pack' ),
+				"gen_categories"         => __( "Use categories in generated article tags.", 'all-in-one-seo-pack' ),
 				"gen_post_tags"          => __( "Use post tags in generated article tags.", 'all-in-one-seo-pack' ),
 				"types"                  => __( "Select which Post Types you want to use All in One SEO Pack to set Open Graph meta values for.", 'all-in-one-seo-pack' ),
 				"title"                  => __( "This is the Open Graph title of this Page or Post.", 'all-in-one-seo-pack' ),
@@ -132,7 +132,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			$this->help_anchors = Array(
 				'title_shortcodes'		=> '#run-shortcodes-in-title',
-				'description_shortcodes' => '#run-shortcodes-in-description', 
+				'description_shortcodes' => '#run-shortcodes-in-description',
 				'generate_descriptions' => '#auto-generate-og-descriptions',
 				'setmeta'               => '#use-aioseo-title-and-description',
 				'sitename'              => '#site-name',
@@ -179,7 +179,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				'section'				=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#article-section',
 				'tag'					=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#article-tags',
 				'setcard'				=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#twitter-card-type',
-				'customimg_twitter'		=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#custom-twitter-image',			
+				'customimg_twitter'		=> 'https://semperplugins.com/documentation/social-meta-settings-individual-pagepost-settings/#custom-twitter-image',
 			);
 
 			$count_desc            = __( " characters. Open Graph allows up to a maximum of %s chars for the %s.", 'all-in-one-seo-pack' );
@@ -430,7 +430,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 																jQuery( "#aioseop_opengraph_settings_facebook_debug_wrapper").hide();
 															} else {
 																snippet = snippet.html();
-																jQuery("#aioseop_opengraph_settings_facebook_debug").attr( "href", "https://developers.facebook.com/tools/debug/og/object?q=" + snippet );
+																jQuery("#aioseop_opengraph_settings_facebook_debug").attr( "href", "https://developers.facebook.com/tools/debug/sharing/?q=" + snippet );
 															}
 														});
 													</script>
@@ -555,27 +555,27 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			$this->layout = Array(
 				'default'   => Array(
 					'name'      => __( 'General Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/',
 					'options'   => Array() // this is set below, to the remaining options -- pdb
 				),
 				'home'      => Array(
 					'name'      => __( 'Home Page Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#use-aioseo-title-and-description',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#use-aioseo-title-and-description',
 					'options'   => Array( 'setmeta', 'sitename', 'hometitle', 'description', 'homeimage', 'hometag' ),
 				),
 				'image'     => Array(
 					'name'      => __( 'Image Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#select-og-image-source',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#select-og-image-source',
 					'options'   => Array( 'defimg', 'fallback', 'dimg', 'dimgwidth', 'dimgheight', 'meta_key' ),
 				),
 				'links'     => Array(
 					'name'      => __( 'Social Profile Links', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#social-profile-links',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#social-profile-links',
 					'options'   => Array( 'profile_links', 'person_or_org', 'social_name' ),
 				),
 				'facebook'  => Array(
 					'name'      => __( 'Facebook Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#facebook-settings',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#facebook-settings',
 					'options'   => Array(
 						'key',
 						'appid',
@@ -591,12 +591,12 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				),
 				'twitter'   => Array(
 					'name'      => __( 'Twitter Settings', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#default-twitter-card',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#default-twitter-card',
 					'options'   => Array( 'defcard', 'setcard', 'twitter_site', 'twitter_creator', 'twitter_domain' ),
 				),
 				'scan_meta' => Array(
 					'name'      => __( 'Scan Social Meta', 'all-in-one-seo-pack' ),
-					'help_link' => 'http://semperplugins.com/documentation/social-meta-module/#scan_meta',
+					'help_link' => 'https://semperplugins.com/documentation/social-meta-module/#scan_meta',
 					'options'   => Array( 'scan_header' ),
 				),
 			);
@@ -618,8 +618,68 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 				$this->do_opengraph();
 			}
 
-			// Avoid having duplicate meta tags
-			add_filter( 'jetpack_enable_open_graph', '__return_false' );
+			add_filter( 'jetpack_enable_open_graph', '__return_false' ); // Avoid having duplicate meta tags
+
+			// Force refresh of Facebook cache.
+			add_action( 'post_updated', array( $this, 'force_fb_refresh_update' ), 10, 3 );
+			add_action( 'transition_post_status', array( $this, 'force_fb_refresh_transition' ), 10, 3 );
+		}
+
+		/**
+		 * Forces FaceBook OpenGraph to refresh its cache when a post is changed to
+		 *
+		 * @param $new_status
+		 * @param $old_status
+		 * @param $post
+		 *
+		 * @todo  this and force_fb_refresh_update can probably have the remote POST extracted out.
+		 *
+		 * @see   https://developers.facebook.com/docs/sharing/opengraph/using-objects#update
+		 * @since 2.3.11
+		 */
+		function force_fb_refresh_transition( $new_status, $old_status, $post ) {
+			if ( 'publish' !== $new_status ) {
+				return;
+			}
+			if ( 'future' !== $old_status ) {
+				return;
+			}
+
+			$current_post_type = get_post_type();
+
+			// Only ping Facebook if Social SEO is enabled on this post type.
+			if ( $this->option_isset( 'types' ) && is_array( $this->options['aiosp_opengraph_types'] ) && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] ) ) {
+				$post_url = get_permalink( $post->ID );
+				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array(
+					'id'     => $post_url,
+					'scrape' => true,
+				) ) );
+				wp_remote_post( $endpoint, array( 'blocking' => false ) );
+			}
+		}
+
+		/**
+		 * Forces FaceBook OpenGraph refresh on update.
+		 *
+		 * @param $post_ID
+		 * @param $post_after
+		 *
+		 * @see   https://developers.facebook.com/docs/sharing/opengraph/using-objects#update
+		 * @since 2.3.11
+		 */
+		function force_fb_refresh_update( $post_ID, $post_after ) {
+
+			$current_post_type = get_post_type();
+
+			// Only ping Facebook if Social SEO is enabled on this post type.
+			if ( 'publish' === $post_after->post_status && $this->option_isset( 'types' ) && is_array( $this->options['aiosp_opengraph_types'] ) && in_array( $current_post_type, $this->options['aiosp_opengraph_types'] ) ) {
+				$post_url = get_permalink( $post_ID );
+				$endpoint = sprintf( 'https://graph.facebook.com/?%s', http_build_query( array(
+					'id'     => $post_url,
+					'scrape' => true,
+				) ) );
+				wp_remote_post( $endpoint, array( 'blocking' => false ) );
+			}
 		}
 
 		function settings_page_init() {
@@ -800,8 +860,9 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 			$attributes = apply_filters( $this->prefix . 'attributes', Array(
 				'itemscope',
 				'itemtype="http://schema.org/' . ucfirst( $type ) . '"',
-				'prefix="og: http://ogp.me/ns#"',
+				'prefix="og: http://ogp.me/ns#"'
 			) );
+
 			foreach ( $attributes as $attr ) {
 				if ( strpos( $output, $attr ) === false ) {
 					$output .= "\n\t$attr ";
@@ -1042,6 +1103,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			if ( ! empty( $thumbnail ) ) {
 				$thumbnail = esc_url( $thumbnail );
+				$thumbnail = set_url_scheme( $thumbnail );
 			}
 
 			$width = $height = '';
@@ -1103,7 +1165,7 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 
 			if ( isset( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) && ! empty( $metabox['aioseop_opengraph_settings_customimg_twitter'] ) ) {
 				// Set Twitter image from custom.
-				$twitter_thumbnail = $metabox['aioseop_opengraph_settings_customimg_twitter'];
+				$twitter_thumbnail = set_url_scheme( $metabox['aioseop_opengraph_settings_customimg_twitter'] );
 			}
 
 			$meta = Array(
@@ -1301,6 +1363,7 @@ END;
 				$size    = apply_filters( 'post_thumbnail_size', 'large' );
 				$default = $this->get_the_image_by_default();
 				if ( ! empty( $default ) ) {
+					$default = set_url_scheme( $default );
 					$img[ $default ] = 0;
 				}
 				$img = array_merge( $img, parent::get_all_images( $options, null ) );
