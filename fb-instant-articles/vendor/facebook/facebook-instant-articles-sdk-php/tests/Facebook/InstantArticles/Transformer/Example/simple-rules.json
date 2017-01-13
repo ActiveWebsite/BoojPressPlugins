@@ -85,6 +85,55 @@
                 }
             },
             {
+                "class": "ImageRule",
+                "selector" : "div.prefix",
+                "properties" : {
+                    "image.url" : {
+                        "type" : "string",
+                        "selector" : "img",
+                        "attribute": "src",
+                        "prefix": "http:"
+                    },
+                    "image.caption" : {
+                        "type" : "element",
+                        "selector" : "div.image-caption"
+                    }
+                }
+            },
+            {
+                "class": "ImageRule",
+                "selector" : "div.suffix",
+                "properties" : {
+                    "image.url" : {
+                        "type" : "string",
+                        "selector" : "img",
+                        "attribute": "src",
+                        "suffix": "?suffix=yes"
+                    },
+                    "image.caption" : {
+                        "type" : "element",
+                        "selector" : "div.image-caption"
+                    }
+                }
+            },
+            {
+                "class": "ImageRule",
+                "selector" : "div.prefixsuffix",
+                "properties" : {
+                    "image.url" : {
+                        "type" : "string",
+                        "selector" : "img",
+                        "attribute": "src",
+                        "prefix" : "http:",
+                        "suffix": "?suffix=yes"
+                    },
+                    "image.caption" : {
+                        "type" : "element",
+                        "selector" : "div.image-caption"
+                    }
+                }
+            },
+            {
                 "class": "HeaderImageRule",
                 "selector" : "div.hero-image",
                 "properties" : {

@@ -63,7 +63,7 @@
         "class": "PassThroughRule",
         "selector": "blockquote p"
     }, {
-        "class": "ImageInsideParagraphRule",
+        "class": "ImageRule",
         "selector": "img",
         "properties": {
             "image.url": {
@@ -72,9 +72,9 @@
                 "attribute": "src"
             }
         }
-    },{
+    }, {
         "class": "ImageRule",
-        "selector": "img",
+        "selector": "//a[img and not(*[not(self::img)])]",
         "properties": {
             "image.url": {
                 "type": "string",
@@ -122,6 +122,26 @@
         "selector" : "h3,h4,h5,h6"
     }, {
         "class": "InteractiveRule",
+        "selector" : "blockquote.instagram-media",
+        "properties" : {
+            "interactive.iframe" : {
+                "type" : "multiple",
+                "children": [
+                    {
+                        "type": "element",
+                        "selector": "blockquote"
+                    }, {
+                        "type": "next-sibling-element-of",
+                        "selector": "blockquote"
+                    }
+                ]
+            }
+        }
+    }, {
+        "class": "IgnoreRule",
+        "selector" : "script"
+    }, {
+        "class": "InteractiveRule",
         "selector" : "iframe",
         "properties" : {
             "interactive.url" : {
@@ -247,133 +267,6 @@
             "interactive.width" : {
                 "type" : "int",
                 "selector" : "iframe",
-                "attribute": "width"
-            }
-        }
-    }, {
-        "class": "InteractiveInsideParagraphRule",
-        "selector" : "iframe",
-        "properties" : {
-            "interactive.url" : {
-                "type" : "string",
-                "selector" : "iframe",
-                "attribute": "src"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "height"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "width"
-            }
-        }
-    },{
-        "class": "InteractiveInsideParagraphRule",
-        "selector" : "div.embed",
-        "properties" : {
-            "interactive.iframe" : {
-                "type" : "children",
-                "selector" : "div.embed"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "height"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "width"
-            }
-        }
-    }, {
-        "class": "InteractiveInsideParagraphRule",
-        "selector" : "div.interactive",
-        "properties" : {
-            "interactive.iframe" : {
-                "type" : "children",
-                "selector" : "div.interactive"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "height"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "width"
-            }
-        }
-    }, {
-        "class": "InteractiveInsideParagraphRule",
-        "selector" : "//div[@class='embed' and iframe]",
-        "properties" : {
-            "interactive.url" : {
-                "type" : "string",
-                "selector" : "iframe",
-                "attribute": "src"
-            },
-            "interactive.iframe" : {
-                "type" : "children",
-                "selector" : "iframe",
-                "attribute": "src"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "width"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "height"
-            }
-        }
-    }, {
-        "class": "InteractiveInsideParagraphRule",
-        "selector" : "//div[@class='interactive' and iframe]",
-        "properties" : {
-            "interactive.url" : {
-                "type" : "string",
-                "selector" : "iframe",
-                "attribute": "src"
-            },
-            "interactive.iframe" : {
-                "type" : "children",
-                "selector" : "iframe",
-                "attribute": "src"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "height"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "iframe",
-                "attribute": "width"
-            }
-        }
-    }, {
-        "class": "InteractiveInsideParagraphRule",
-        "selector" : "table",
-        "properties" : {
-            "interactive.iframe" : {
-                "type" : "element",
-                "selector" : "table"
-            },
-            "interactive.height" : {
-                "type" : "int",
-                "selector" : "table",
-                "attribute": "height"
-            },
-            "interactive.width" : {
-                "type" : "int",
-                "selector" : "table",
                 "attribute": "width"
             }
         }
@@ -397,8 +290,10 @@
     }, {
         "class": "CaptionRule",
         "selector" : "figcaption"
-    },
-    {
+    }, {
+        "class": "CaptionRule",
+        "selector" : "p.wp-caption-text"
+    }, {
         "class": "ImageRule",
         "selector" : "figure",
         "properties" : {
@@ -424,5 +319,29 @@
                 "attribute": "type"
             }
         }
-    }]
+    }, {
+        "class" : "PassThroughRule",
+        "selector" : "div.vce-gallery-big"
+    }, {
+        "class" : "PassThroughRule",
+        "selector" : "div.vce-gallery-small"
+    }, {
+        "class" : "IgnoreRule",
+        "selector" : "div.vce-gallery-slider"
+    }, {
+        "class": "SlideshowImageRule",
+        "selector" : "div.big-gallery-item",
+        "properties" : {
+            "image.url" : {
+                "type" : "string",
+                "selector" : "img",
+                "attribute": "src"
+            },
+            "caption.title" : {
+                "type" : "string",
+                "selector" : "figcaption.wp-caption-text"
+            }
+        }
+    }
+  ]
 }

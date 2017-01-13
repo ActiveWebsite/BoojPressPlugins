@@ -213,24 +213,30 @@
             {
                 "class": "TimeRule",
                 "selector" : "time.op-modified",
-                "article.time_type": "op-modified",
                 "properties" : {
                     "article.time" : {
                         "type" : "string",
                         "selector" : "time",
                         "attribute": "datetime"
+                    },
+                    "article.datetype": {
+                        "type": "constant",
+                        "value": "op-modified"
                     }
                 }
             },
             {
                 "class": "TimeRule",
                 "selector" : "time.op-published",
-                "article.time_type": "op-published",
                 "properties" : {
                     "article.time" : {
                         "type" : "string",
                         "selector" : "time",
                         "attribute": "datetime"
+                    },
+                    "article.datetype": {
+                        "type": "constant",
+                        "value": "op-published"
                     }
                 }
             },
