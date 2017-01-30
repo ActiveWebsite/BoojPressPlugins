@@ -25,9 +25,9 @@
 			return {
 				longname: 'resort_shortcode',
 				author: 'WhatToDo',
-				authorurl: 'http://whattodo.com/',
-				infourl: 'http://sales.whattodo.info/',
-				version: "1.0"
+				authorurl: 'http://www.whattodo.info/',
+				infourl: 'http://www.whattodo.info/',
+				version: "1.1"
 			};
 		}
 	});

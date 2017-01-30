@@ -23,7 +23,12 @@ if(!class_exists('wtd_parse_single_dining')){
 
         public function dining_content($content){
             global $wpdb, $post, $wtd_plugin, $wtd_connector, $wp_query;
-            if(!is_singular('wtd_dining') || !in_the_loop())
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+
+			if(!is_singular('wtd_dining') || !in_the_loop())
                 return $content;
             if($post->post_type == 'wtd_dining'){
 	            $query = "SELECT
@@ -36,7 +41,7 @@ if(!class_exists('wtd_parse_single_dining')){
 							AND pm.meta_value = 'dining_page'
 							AND	p.post_type = 'page'";
 	            $dining_page = $wpdb->get_var($query);
-	            $dining_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$dining_page.'/';
+	            $dining_page = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$dining_page.'/';
                 ob_start();
                 $res_id = get_post_meta($post->ID, 'res_id', true);?>
 	            <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_dining_page.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
@@ -50,8 +55,8 @@ if(!class_exists('wtd_parse_single_dining')){
                 $base_request = $wtd_connector->get_base_request();
 	            $base_request['dining'] = true;
                 $base_request['object_id'] = $wp_query->query['wtd_parse_id'];?>
-                <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-                <script src="<?php echo WTD_PLUGIN_URL;?>assets/js/parse_init.js"></script>
+		<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
+            	<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
                 <script>
                     var wtd_base_request = <?php echo json_encode($base_request);?>;
 	                var parent_page = '<?php echo $dining_page;?>';

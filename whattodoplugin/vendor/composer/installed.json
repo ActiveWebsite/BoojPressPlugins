@@ -1,17 +1,17 @@
 [
     {
         "name": "parse/php-sdk",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
+        "version": "1.2.1",
+        "version_normalized": "1.2.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/ParsePlatform/parse-php-sdk.git",
-            "reference": "1f668b97b229829f2ed05e23fd38685cc9e2c62b"
+            "reference": "c4f227ae396afa5e2759c95d3a4848f0b13154c2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/ParsePlatform/parse-php-sdk/zipball/1f668b97b229829f2ed05e23fd38685cc9e2c62b",
-            "reference": "1f668b97b229829f2ed05e23fd38685cc9e2c62b",
+            "url": "https://api.github.com/repos/ParsePlatform/parse-php-sdk/zipball/c4f227ae396afa5e2759c95d3a4848f0b13154c2",
+            "reference": "c4f227ae396afa5e2759c95d3a4848f0b13154c2",
             "shasum": ""
         },
         "require": {
@@ -24,7 +24,7 @@
             "phpunit/phpunit": "~4.0",
             "squizlabs/php_codesniffer": "~1.5"
         },
-        "time": "2016-02-16 15:58:08",
+        "time": "2016-07-01T23:38:47+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -56,17 +56,17 @@
     },
     {
         "name": "twig/twig",
-        "version": "v1.24.0",
-        "version_normalized": "1.24.0.0",
+        "version": "v1.30.0",
+        "version_normalized": "1.30.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/twigphp/Twig.git",
-            "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8"
+            "reference": "c6ff71094fde15d12398eaba029434b013dc5e59"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/twigphp/Twig/zipball/3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
-            "reference": "3e5aa30ebfbafd5951fb1b01e338e1800ce7e0e8",
+            "url": "https://api.github.com/repos/twigphp/Twig/zipball/c6ff71094fde15d12398eaba029434b013dc5e59",
+            "reference": "c6ff71094fde15d12398eaba029434b013dc5e59",
             "shasum": ""
         },
         "require": {
@@ -74,13 +74,13 @@
         },
         "require-dev": {
             "symfony/debug": "~2.7",
-            "symfony/phpunit-bridge": "~2.7"
+            "symfony/phpunit-bridge": "~3.2@dev"
         },
-        "time": "2016-01-25 21:22:18",
+        "time": "2016-12-23T11:06:22+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.24-dev"
+                "dev-master": "1.30-dev"
             }
         },
         "installation-source": "dist",

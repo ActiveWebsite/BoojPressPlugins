@@ -26,14 +26,7 @@ if(!class_exists('wtd_short_parse_activities_page')){
 
 		private function results($res_id, $cat_id, $subcat_id){?>
             <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_activities_page.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
-			<!-- Angular Material Dependencies -->
 			<link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_frontend.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
-			<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.min.js"></script>
-			<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.min.css">
 		    <div ng-app="activitiesApp" ng-controller="activitiesCtrl">
     	    <div layout="row" layout-sm="column" layout-padding><?php
 				global $wp_query, $post, $wtd_plugin, $wtd_connector;
@@ -49,7 +42,7 @@ if(!class_exists('wtd_short_parse_activities_page')){
 				$wtd_excluded_cats = get_option('wtd_excluded_cats');
 				if (!empty($wtd_excluded_cats))
 					$wtd_base_request['excluded_categories'] = json_decode($wtd_excluded_cats); ?>
-				<script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+				<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
 				<script src="<?php echo WTD_PLUGIN_URL; ?>/assets/js/parse_init.js"></script>
 				<script>
 					var wtd_categories = <?php echo json_encode($this->wtd_categories);?>;
@@ -59,9 +52,14 @@ if(!class_exists('wtd_short_parse_activities_page')){
 					var wtd_parse_page = 1;
 					var cur_category = '<?php echo $cat_id;?>';
 				</script>
+				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
+				<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.min.js"></script>
 				<script src="<?php echo WTD_PLUGIN_URL; ?>assets/js/pages/activities.js"></script>
 				</div>
-				<div id="wtd_listing_sc_container" name="wtd_listing_sc_container">test</div><?php
+				<div id="wtd_listing_sc_container" name="wtd_listing_sc_container"></div><?php
 				wtd_copyright();?>
 			</div>
 			<?php

@@ -25,8 +25,7 @@ if(!class_exists('wtd_parse_specials_page')){
 				if(in_array($post->ID, $wtd_pages['specials_pages'])){
 					ob_start();
 					$res_id = get_post_meta($post->ID, 'res_id', true);?>
-					<script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script><?php
-
+		    			<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script><?php
 					$step = 24 * 60 * 60;
 					$first_day = date('Y-m-1');
 					$temp_arr = explode('-', $first_day);
@@ -89,9 +88,11 @@ if(!class_exists('wtd_parse_specials_page')){
 					$resort = $wpdb->get_var($wpdb->prepare("SELECT wtd_term_id FROM {$wpdb->prefix}wtd_meta WHERE term_id = %s AND meta_key = 'res_id'", $res_id));
 					$wtd_base_request['resorts'] = array($resort);?>
 					<link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'/assets/css/wtd_calendar_page.css';?>"/>
-					<script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-					<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
-					<script>
+					<!--<script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+					<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>-->
+                    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/buddy.js"></script>
+                    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/buddy_init.js"></script>
+                    <script>
 						var wtd_start_date = "<?php echo $start;?>";
 						var wtd_end_date = "<?php echo $end;?>";
 						var wtd_year = "<?php echo date('Y');?>";
@@ -194,7 +195,7 @@ if(!class_exists('wtd_parse_specials_page')){
 							base_request.end = end;
 							jQuery('#modal_background').addClass('month_loader');
 							jQuery('#month_loader').show();
-							Parse.Cloud.run('specials_calendar_short', base_request, {
+							Parse.Cloud.run('specials_calendar_short_v2', base_request, {
 								success: function(result){
 									jQuery.ajax({
 										url: wtd_ajax_url,

@@ -42,7 +42,11 @@ if(!class_exists('wtd_parse_dining_page')){
 
         private function results(){
 			global $wp_query, $post, $wtd_plugin, $wtd_connector;
-            $res_id = get_post_meta($post->ID, 'res_id', true);
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			$res_id = get_post_meta($post->ID, 'res_id', true);
 	        $query = new ParseQuery("resort");
 	        try{
 		        $resort = $query->get($res_id);
@@ -91,7 +95,7 @@ if(!class_exists('wtd_parse_dining_page')){
 					        $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 					        $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 					        $subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-					        $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
+					        $url = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
 				            <li class="wtd_subcategory_menu_item <?php echo ($category->getObjectId() == $wp_query->query['wtds']) ? 'active' : '';?>">
 					            <a href="<?php echo $url;?>"><?php echo $category->get('name');?></a>
 					        </li><?php
@@ -113,7 +117,7 @@ if(!class_exists('wtd_parse_dining_page')){
 					        if(!empty($parent_cat_id)):
 						        $category_url_name = strtolower($parent_cat->get('name'));
 						        $category_url_name = str_replace(' ', '-', $category_url_name);
-						        $url = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
+						        $url = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
 						        <span class="wtd_bread_separator">&gt;</span>
 						        <a id="parent_<?php echo $parent_cat->getObjectId();?>_header" class="wtd_pull_left" href="<?php echo $url;?>"><?php
 						        echo $parent_cat->get('name');?>
@@ -121,8 +125,12 @@ if(!class_exists('wtd_parse_dining_page')){
 					        endif;
 					        if($wtd_plugin['dining_page_type'] == 2){?>
 						        <span class="wtd_bread_separator">&gt;</span>
-						        <select class="wtd_subcategory_navigator">
-							        <option>Select Subcategory</option><?php
+						        <select class="wtd_subcategory_navigator"><?php
+									$category_url_name = strtolower($parent_cat->get('name'));
+									$category_url_name = str_replace(' ', '-', $category_url_name);
+									$category_url_name = str_replace('/', '-', $category_url_name);
+									$firsturl = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
+									<option value="<?php echo $firsturl;?>">Select Subcategory</option><?php
 							        for($i = 0; $i < count($categories); $i++){
 								        $category = $categories[$i];
 								        $category_url_name = strtolower($parent_cat->get('name'));
@@ -132,7 +140,7 @@ if(!class_exists('wtd_parse_dining_page')){
 								        $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 								        $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 								        $subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-								        $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
+								        $url = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
 								        $selected = '';
 								        if($cat_id == $category->getObjectId())
 									        $selected = ' selected="selected"';
@@ -166,7 +174,7 @@ if(!class_exists('wtd_parse_dining_page')){
                 $subcat_id = $cat->getObjectId();
             if(!empty($subcat_id))
                 $wtd_base_request['category_id'] = $subcat_id;?>
-            <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+	    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
             <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
             <script>
                 var wtd_categories = <?php echo json_encode($this->wtd_categories);?>;
@@ -182,7 +190,12 @@ if(!class_exists('wtd_parse_dining_page')){
 
         public function build_list(){
             global $wtd_connector, $wtd_plugin;
-            $data = $wtd_connector->decrypt_parse_response($_POST['data']);
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+
+			$data = $wtd_connector->decrypt_parse_response($_POST['data']);
             ob_start();
             if(!empty($data)){
                 $dining = $data;
@@ -191,7 +204,7 @@ if(!class_exists('wtd_parse_dining_page')){
                         $addresses = $dining->addresses;
                     if(!empty($dining->vendor))
                         $vendor = $dining->vendor;
-                    $dining_url = site_url(). '/' . $wtd_plugin['url_prefix'] . '/dining/' . $dining->id . '/' . sanitize_title($dining->title) . '/';
+                    $dining_url = $start_url. '/' . $wtd_plugin['url_prefix'] . '/dining/' . $dining->id . '/' . sanitize_title($dining->title) . '/';
                     $desc = strip_tags($dining->description);
                     $params = array(
                         'title' => $dining->title,

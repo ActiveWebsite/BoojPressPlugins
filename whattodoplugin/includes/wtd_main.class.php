@@ -34,8 +34,8 @@ class wtd_main{
 		wp_enqueue_script('angular-route', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.js');
 		wp_enqueue_script('angular-animate', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js');
 		wp_enqueue_script('angular-aria', 'https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js');
-		wp_enqueue_script('angular-material', 'https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js');
-		wp_register_style('angular-material-css', 'https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css');
+		wp_enqueue_script('angular-material', 'https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.min.js');
+		wp_register_style('angular-material-css', 'https://ajax.googleapis.com/ajax/libs/angular_material/1.0.4/angular-material.min.css');
 		wp_enqueue_style('angular-material-css');
 	}
 
@@ -130,11 +130,9 @@ class wtd_main{
 		if(isset($_GET['page'])){
 			if($_GET['page'] == 'wtd_plugin_settings'){
 				//<!-- Parse Dependencies -->
-				wp_enqueue_script('parse', 'http://www.parsecdn.com/js/parse-1.3.5.min.js');
+				//wp_enqueue_script('parse', 'http://www.parsecdn.com/js/parse-1.3.5.min.js');
+				wp_enqueue_script('parse', WTD_PLUGIN_URL.'assets/js/parse-1.6.14.js');
 				wp_enqueue_script('parse_init', WTD_PLUGIN_URL.'assets/js/parse_init.js');
-				/*<script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-				<script src="<?php echo WTD_PLUGIN_URL;?>assets/js/parse_init.js"></script><?php
-				*/
 			}
 		}
 	}
@@ -333,7 +331,7 @@ if(!function_exists('wtd_copyright')){
 					To get listed on this site or to get
 					<a href="http://www.whattodo.info" target="_blank">WhatToDo.info resort content</a>
 					for your site visit
-					<a href="http://sales.whattodo.info">sales.whattodo.info</a>.
+					<a href="http://www.whattodo.info">www.whattodo.info</a>.
 				</div>
 			</div><?php
 		else:?>

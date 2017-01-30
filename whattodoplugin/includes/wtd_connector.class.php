@@ -214,22 +214,17 @@ class wtd_connector{
 	}
 
 	public function decrypt_parse_response($data){
-		if(!empty($this->options['wtd_api_key'])){
-			$api_key = substr($this->options['wtd_api_key'], 0, 16);
-			$iv = '1234567890123456';
-			$data = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $api_key, hex2bin($data), MCRYPT_MODE_CBC, $iv);
-			$pos = max(strrpos($data, ']'), strrpos($data, '}'));
-			$data = substr($data, 0, $pos + 1);
-			$blocksize = 16;
-			$len = mb_strlen($data);
-			$pad = ord($data[$len - 1]);
-			if($pad && $pad < $blocksize){
-				$pm = preg_match('/' . chr($pad) . '{' . $pad . '}$/', $data);
-				if($pm)
-					$data = mb_substr($data, 0, $len - $pad);
-			}
+		$pos = max(strrpos($data, ']'), strrpos($data, '}'));
+		$data = substr($data, 0, $pos + 1);
+		$blocksize = 16;
+		$len = mb_strlen($data);
+		$pad = ord($data[$len - 1]);
+		if($pad && $pad < $blocksize){
+		$pm = preg_match('/' . chr($pad) . '{' . $pad . '}$/', $data);
+		if($pm)
+			$data = mb_substr($data, 0, $len - $pad);
 		}
-		return json_decode($data);
+		return json_decode(stripslashes($data));
 	}
 
 	public function fake_hard(){

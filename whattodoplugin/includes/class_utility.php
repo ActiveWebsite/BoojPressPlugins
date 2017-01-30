@@ -28,6 +28,7 @@ class wtdUtility{
 						height: '390',
 						width: '640',
 						videoId: '<?php echo $wtd_video_id;?>',
+						playerVars: {rel: 0},
 						events: {
 							'onReady': wtd_player_onPlayerReady,
 							'onStateChange': wtd_player_onStateChange

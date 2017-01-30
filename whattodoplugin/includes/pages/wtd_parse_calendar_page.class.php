@@ -22,11 +22,15 @@ if(!class_exists('wtd_parse_calendar_page')){
 
 	    public function build_date_dialog(){
             global $wtd_plugin;
-		    $timestamp = $_POST['timestamp'];
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			$timestamp = $_POST['timestamp'];
 		    $res_id = $_POST['res_id'];
 		    $resort_query = new \Parse\ParseQuery('resort');
 		    $resort_query->equalTo('objectId', $res_id);
-            $date = new DateTime("@$timestamp");
+            	    $date = new DateTime("@$timestamp");
 		    $query = new \Parse\ParseQuery('event');
 		    $query->equalTo('eventDate', $date);
 		    $query->matchesQuery('resortObjectId', $resort_query);
@@ -34,7 +38,7 @@ if(!class_exists('wtd_parse_calendar_page')){
             echo $this->twig->render('md_dialog.twig', array(
                 'date' => $date->format('F j, Y'),
                 'events' => $results,
-                'url_prefix' => site_url().'/'.$wtd_plugin['url_prefix'].'/event/'
+                'url_prefix' => $start_url.'/'.$wtd_plugin['url_prefix'].'/event/'
             ));
 		    die();
 	    }
@@ -50,7 +54,7 @@ if(!class_exists('wtd_parse_calendar_page')){
                 if(in_array($post->ID, $wtd_pages['calendar_pages'])){
                     ob_start();
                     $res_id = get_post_meta($post->ID, 'res_id', true);?>
-                    <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script><?php
+		    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script><?php
                     $step = 24 * 60 * 60;
                     $start = strtotime(date('Y-m-1'));
                     while(date('l', $start) != "Sunday"){
@@ -65,10 +69,10 @@ if(!class_exists('wtd_parse_calendar_page')){
                     $wtd_base_request = $wtd_connector->get_base_request();
                     $wtd_base_request['resorts'] = array($res_id);?>
                     <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'/assets/css/wtd_calendar_page.css';?>"/>
-                    <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-					<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
-					<script>
-						var base_request = <?php echo json_encode($wtd_base_request);?>;
+		    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
+		    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script> 
+		    <script>
+			var base_request = <?php echo json_encode($wtd_base_request);?>;
                         var wtd_start_date = new Date('<?php echo $start;?>');
                         var wtd_end_date = new Date('<?php echo $end;?>');
 						var res_id = '<?php echo $res_id;?>';
@@ -109,7 +113,11 @@ if(!class_exists('wtd_parse_calendar_page')){
 
         public function build_calendar(){
             global $wtd_plugin, $wtd_connector;
-            $data = $wtd_connector->decrypt_parse_response($_POST['data']);
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			$data = $wtd_connector->decrypt_parse_response($_POST['data']);
 
             $dates = array();
             foreach($data as $event){
@@ -193,7 +201,7 @@ if(!class_exists('wtd_parse_calendar_page')){
                                     $images = '<div class="small-events">';
                                     $k = 0;
                                     foreach($results as $key => $row){
-                                        $event_url = site_url(). '/' . $wtd_plugin['url_prefix'] . '/event/' . $row->id . '/' . sanitize_title($row->name) . '/';
+                                        $event_url = $start_url. '/' . $wtd_plugin['url_prefix'] . '/event/' . $row->id . '/' . sanitize_title($row->name) . '/';
                                         if($k == 3)
                                             break;
                                         $images .= '<a href="' . $event_url . '">&middot; ' . $row->name . '</a><br/>';

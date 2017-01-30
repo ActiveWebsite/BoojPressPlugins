@@ -1,22 +1,23 @@
 <?php
 /**
  * Plugin Name: What To Do Plugin
- * Plugin URI: http://sales.whattodo.info/
+ * Plugin URI: http://www.whattodo.info/
  * Description: This plugin allows you to display dynamically updated information, events, activities, discounts and more on your website. Note: This plugin requires Mcrypt extension (PHP), cURL extension (PHP)
- * Version: 1.4.6
+ * Version: 1.6.1
  * Author: What To Do
- * Author URI: http://www.whattodo.info/splash/
+ * Author URI: http://www.whattodo.info/
  * License: Licensed Under What To Do LLC.
+ * Tested up to: 4.7
  * Text Domain: whattodoplugin
  */
  
 define('WTD_PLUGIN_PATH', dirname(__FILE__));
 define('WTD_PLUGIN_URL', plugins_url('/', __FILE__));
 define('WTD_PLUGIN_FILE', __FILE__);
-define('WTD_VERSION', '1.4.6');
+define('WTD_VERSION', '1.6.1');
 define('WTD_API_URL', 'http://admin.whattodo.info/admin/support/scp/ajax/parse/data_handler.php'); // production
 define('WTD_IMG_BASE', 'http://cdn.whattodo.info/');
-define('WTD_LEAD_BASE', 'http://whattodosites.com/wtd/lead/single/');
+define('WTD_LEAD_BASE', 'http://www.whattodo.info/');
 
 global $wtd_syncing, $wtd_modal;
 $wtd_syncing = false;

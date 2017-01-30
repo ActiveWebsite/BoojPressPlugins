@@ -127,10 +127,9 @@ class ParseObject implements Encodable
         $this->operationSet = [];
         $this->estimatedData = [];
         $this->dataAvailability = [];
-        if ($objectId || $isPointer) {
-            $this->objectId = $objectId;
-            $this->hasBeenFetched = false;
-        } else {
+        $this->objectId = $objectId;
+        $this->hasBeenFetched = false;
+        if (!$objectId || $isPointer) {
             $this->hasBeenFetched = true;
         }
     }
@@ -812,7 +811,7 @@ class ParseObject implements Encodable
         foreach ($objects as $object) {
             $data[] = [
                 'method' => 'DELETE',
-                'path'   => 'classes/'.$object->getClassName().'/'.$object->getObjectId(),
+                'path'   => '/'.ParseClient::getMountPath().'classes/'.$object->getClassName().'/'.$object->getObjectId(),
             ];
         }
         $sessionToken = null;
@@ -931,8 +930,16 @@ class ParseObject implements Encodable
      */
     private function getSaveJSON()
     {
+        $this->beforeSave();
         return ParseClient::_encode($this->operationSet, true);
     }
+    
+    /**
+     * Before save stub
+     *
+     * @return void
+     */
+    public function beforeSave(){}
 
     /**
      * Save Object to Parse.
@@ -1039,7 +1046,7 @@ class ParseObject implements Encodable
                 $batch[0]->mergeAfterSave($result);
             } else {
                 foreach ($requests as &$r) {
-                    $r['path'] = '/1/'.$r['path'];
+                    $r['path'] = '/' . ParseClient::getMountPath() . $r['path'];
                 }
                 $result = ParseClient::_request(
                     'POST',

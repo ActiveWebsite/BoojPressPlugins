@@ -75,23 +75,27 @@ if(!class_exists('wtd_parse_overview_page')){
 		                for($i = 0; $i < count($results); $i++){
 			                $wtd_item = $results[$i]['wtd_item'];
 			                $wtd_item_type = $results[$i]['type'];
+							if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+								$start_url = site_url();
+							else
+								$start_url = home_url();
 			                switch($wtd_item_type){
 				                case 'activity':
 					                $query = $wtd_item->imageRelation->getQuery();
 					                $query->limit(1);
 					                $images = $query->find();
 					                $image_url = $images[0]->imageUrl;
-					                $url = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
+					                $url = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
 					                break;
 				                case 'coupon':
 									$image_url = $wtd_item->vendorObjectId->logoUrl;
-					                $url = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
+					                $url = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($wtd_item->name).'/';
 					                break;
 				                case 'event':
 									$name = $wtd_item->name;
 									if(!empty($wtd_item->title))
 										$name = $wtd_item->title;
-				                    $url = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($name).'/';
+				                    $url = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$wtd_item_type.'/'.$wtd_item->getObjectId().'/'.sanitize_title($name).'/';
 					                break;
 				                default:
 					                break;

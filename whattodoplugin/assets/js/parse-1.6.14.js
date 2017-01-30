@@ -220,7 +220,8 @@ var config = {
   // Defaults
   IS_NODE: typeof process !== 'undefined' && !!process.versions && !!process.versions.node,
   REQUEST_ATTEMPT_LIMIT: 5,
-  SERVER_URL: 'https://api.parse.com/1',
+  //SERVER_URL: 'https://api.parse.com/1',
+  SERVER_URL: 'https://api.parse.buddy.com/parse/',
   VERSION: 'js' + '1.6.14',
   APPLICATION_ID: null,
   JAVASCRIPT_KEY: null,

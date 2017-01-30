@@ -51,9 +51,9 @@ if(!class_exists('wtd_parse_week_specials')){
 				</div>
 				<div id="wtd_listing_sc_container" ng-hide="progress == true"></div>
 			</div>
-			<script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+			<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
 			<script src="<?php echo WTD_PLUGIN_URL; ?>/assets/js/parse_init.js"></script>
-			<script>
+            		<script>
 				var wtd_base_request = <?php echo json_encode($wtd_base_request);?>;
 				var start = new Date('<?php echo $start;?>');
 				var end = new Date('<?php echo $end;?>');
@@ -66,6 +66,10 @@ if(!class_exists('wtd_parse_week_specials')){
 
 		public function build_week(){
 			global $wtd_connector, $wtd_plugin;
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
 			$data = $wtd_connector->decrypt_parse_response($_POST['data']);
 			ob_start();
 			if(!empty($data)):
@@ -75,7 +79,7 @@ if(!class_exists('wtd_parse_week_specials')){
 				foreach($events as $key => $event):
 					$addresses = $event->addresses;
 					$vendor = $event->vendor;
-					$event_url = site_url().'/'.$wtd_plugin['url_prefix'].'/special/'.$event->id.'/'.sanitize_title($event->name);
+					$event_url = $start_url.'/'.$wtd_plugin['url_prefix'].'/special/'.$event->id.'/'.sanitize_title($event->name);
 					$event_day = new DateTime('@'.strtotime($event->date));
 					if($event_day != $day){
 						$day = new DateTime('@'.strtotime($event->date));?>

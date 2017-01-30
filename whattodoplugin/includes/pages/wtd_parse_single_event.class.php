@@ -24,8 +24,11 @@ if(!class_exists('wtd_parse_single_event')){
 
         public function single_event($content){
 	        global $wtd_plugin, $post, $wpdb, $wp_query, $wtd_connector;
-
-            if(!is_singular('wtd_event') || !in_the_loop())
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			if(!is_singular('wtd_event') || !in_the_loop())
                 return $content;
 
             if($post->post_type == 'wtd_event'){
@@ -40,7 +43,7 @@ if(!class_exists('wtd_parse_single_event')){
 						AND pm.meta_value = 'calendar_page'
 						AND	p.post_type = 'page'";
 	            $calendar_page = $wpdb->get_var($query);
-	            $calendar_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$calendar_page.'/';
+	            $calendar_page = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$calendar_page.'/';
                 remove_filter('the_content', 'theme_formatter', 99);
                 remove_filter('the_content', 'wpautop', 99);
                 ob_start();?>
@@ -66,8 +69,8 @@ if(!class_exists('wtd_parse_single_event')){
                     <div id="wtd_event_sc_container" ng-hide="progress == true" ng-bind-html="content"></div>
                 </div><?php
                 wtd_copyright();?>
-                <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-                <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
+	    	<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
+            	<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
                 <script>
                     var wtd_base_request = <?php echo json_encode($base_request);?>;
 	                var return_page = '<?php echo $calendar_page;?>';

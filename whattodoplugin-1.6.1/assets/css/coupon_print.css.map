@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA;;;;;;;;;MASM;EACJ,OAAO,EAAE,IAAI;;AAGf,YAAY;EACV,KAAK,EAAE,KAAK;EACZ,SAAS,EAAE,KAAK",
-"sources": ["coupon_print.scss"],
-"names": [],
-"file": "coupon_print.css"
-}

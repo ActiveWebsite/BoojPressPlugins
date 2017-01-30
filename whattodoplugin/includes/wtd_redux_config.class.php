@@ -26,7 +26,8 @@ if(!class_exists('wtd_redux_config')){
 
 		public function __construct(){
 			try{
-				ParseClient::initialize('uq0vJ1MzPcmMwbLuhxSNFF9tvx3WXHerQO7kKgu3', 'K9Oz5R2I3bWcz1bei7DJ1pLADNNjDX6D9annyOWu',''); // production
+				ParseClient::initialize('6370c08a-a41a-4383-8d71-6d917443fa74', '','qbSbsil3TgZtqPpJHsAFG355JrwuWcbJ'); // production
+				//ParseClient::initialize('uq0vJ1MzPcmMwbLuhxSNFF9tvx3WXHerQO7kKgu3', 'K9Oz5R2I3bWcz1bei7DJ1pLADNNjDX6D9annyOWu',''); // production
 				//ParseClient::initialize( 'myAppId', 'restKey', 'mymasterkey' );
 				// Users of Parse Server will need to point ParseClient at their remote URL:
 				//ParseClient::setServerURL('http://localhost:1337/parse');
@@ -133,34 +134,6 @@ if(!class_exists('wtd_redux_config')){
 					case 'wtd_resorts':
 						toggle_wtd_resort($this->wtd_page_types);
 						break;
-					/*case 'overview-page':
-						$wtd_pages = get_option('wtd_pages');
-						if(!empty($options[$key])){
-							$args = array(
-								'post_type' => 'page',
-								'orderby' => 'ID',
-								'order' => 'ASC',
-								'meta_query' => array(
-									array(
-										'key' => 'wtd_page',
-										'value' => 'overview_page')));
-							$page_query = new WP_Query($args);
-							if(!$page_query->found_posts){
-								$new_page = array(
-									'post_title' => 'What To Do Overview',
-									'post_content' => '',
-									'post_type' => 'page',
-									'post_status' => 'publish');
-								$page_id = wp_insert_post($new_page);
-								update_post_meta($page_id, 'wtd_page', 'overview_page');
-								$wtd_pages['overview_page'] = $page_id;
-							}
-						}else{
-							wp_delete_post($wtd_pages['overview_page'], true);
-							unset($wtd_pages['overview_page']);
-						}
-						update_option('wtd_pages', $wtd_pages);
-						break;*/
 				}
 				if(in_array($key, $nav_fields)){
 					if(!empty($nav_options))
@@ -422,6 +395,18 @@ if(!class_exists('wtd_redux_config')){
 						'title' => '<a href="' . admin_url('admin.php?page=wtd_plugin_settings&wtd_pre_reset=2') . '" class="button button-primary wtd_hard_reseter">Hard Reset WTD Plug-in</a>',
 						'desc' => '<span style="margin-top:20px;float:left;"><b>Note:</b>  Only use this feature if you are requested to by What To Do technical support or your website manager. This feature will reset your entire What To Do plugin, including deleting all What To Do pages, data and your feed settings. The plugin will remain installed but will revert to a brand new installation, ready to be set up again.</span>'),
 					*/
+					array(
+						'id'       => 'start_url',
+						'type'     => 'radio',
+						'title'    => 'Build Urls from',
+						'desc'     => 'This will select the correct url to build dynamic what to do page links for site_url() or home_url().',
+						//Must provide key => value pairs for radio options
+						'options'  => array(
+							'1' => 'Site Address (URL)',
+							'2' => 'Worpress Address (URL)'
+						),
+						'default' => '2'
+					),
 					array(
 						'id' => 'url_prefix',
 						'type' => 'text',
@@ -1008,64 +993,6 @@ if(!class_exists('wtd_redux_config')){
 						'Real Estate' => 'Real Estate',
 						'Restaurant' => 'Restaurant',
 						'Wedding' => 'Wedding');
-					/*$this->sections[] = array(
-						'title' => __('Feed Settings', 'wtd-admin'),
-						'icon' => 'el-icon-filter',
-						'submenu' => false,
-						'class' => 'feed_settings',
-						'fields' => array(
-							array(
-								'id' => 'business_category',
-								'type' => 'select',
-								'title' => 'Select your website type',
-								'subtitle' => 'Select the website type that is closest to your type of business to receive suggestions on optimal feed setup.',
-								'desc' => 'Please save the settings after changing this option',
-								'multi' => false,
-								'options' => $area_cats,
-								'default' => 'All Categories',
-								'compiler' => true)));*/
-
-					/*$this->sections[] = array(
-						'title' => __('Activity Providers', 'wtd-admin'),
-						'icon' => 'el-icon-list',
-						'subsection' => true,
-						'fields' => array(
-							array(
-								'id' => 'activity_providers',
-								'type' => 'button_set',
-								'title' => 'Activity Providers',
-								//Must provide key => value pairs for options
-								'options' => array(
-									'1' => 'Default',
-									'2' => 'Exclude Certain Activity Providers',
-									'3' => 'Include Certain Activity Providers'),
-								'default' => '1'),
-							));*/
-	//				array(
-	//						'id' => 'excluded_vendors',
-	//						'type' => 'select',
-	//						'title' => 'Exclude the following activity providers',
-	//						'multi' => true,
-	//						'options' => $vendors,
-	//						'class' => 'exclude_vendors'),
-	//					array(
-	//						'id' => 'vendors',
-	//						'type' => 'select',
-	//						'title' => 'Include only the activities provided by the following activity providers',
-	//						'multi' => true,
-	//						'options' => $vendors,
-	//						'class' => 'include_vendors')
-	//			$this->sections[] = array(
-	//				'title' => __('Locations', 'wtd-admin'),
-	//				'icon' => 'el-icon-map-marker-alt',
-	//				'subsection' => true,
-	//				'fields' => array(
-	//					array(
-	//						'id' => 'excluded_locations',
-	//						'type' => 'select',
-	//						'title' => 'Exclude the following Locations',
-	//						'multi' => true,
-	//						'options' => $locations)));
 					$this->sections[] = array(
 						'title' => __('Categories', 'wtd-admin'),
 						'icon' => 'el-icon-bookmark',
@@ -1207,17 +1134,17 @@ if(!class_exists('wtd_redux_config')){
 							'event' => 'click mouseleave'))));
 			// SOCIAL ICONS -> Setup custom links in the footer for quick links in your panel footer icons.
 			$this->args['share_icons'][] = array(
-				'url' => 'https://github.com/WhatToDoInfo/whattodo',
+				'url' => 'https://github.com/WhatToDoInfo',
 				'title' => 'Visit us on GitHub',
 				'icon' => 'el-icon-github'
 				//'img'   => '', // You can use icon OR img. IMG needs to be a full URL.
 			);
 			$this->args['share_icons'][] = array(
-				'url' => 'https://www.facebook.com/whattodoaspenglenwood',
+				'url' => 'https://www.facebook.com/What-To-Do-Vacation-Planning-226784627783',
 				'title' => 'Like us on Facebook',
 				'icon' => 'el-icon-facebook');
 			$this->args['share_icons'][] = array(
-				'url' => 'https://twitter.com/WhatToDoVail',
+				'url' =>'https://twitter.com/WhatToDoTravel',
 				'title' => 'Follow us on Twitter',
 				'icon' => 'el-icon-twitter');
 			$this->args['share_icons'][] = array(
@@ -1239,15 +1166,6 @@ if(!class_exists('wtd_redux_config')){
 		public function validate_callback_function($field, $value, $existing_value){
 			$error = true;
 			$value = 'just testing';
-			/*
-          do your validation
-          if(something){
-            $value = $value;
-          }elseif(something else){
-            $error = true;
-            $value = $existing_value;
-          }
-         */
 			$return['value'] = $value;
 			$field['msg'] = 'your custom error message';
 			if($error == true)
@@ -1281,17 +1199,6 @@ if(!function_exists('redux_validate_callback_function')):
 	function redux_validate_callback_function($field, $value, $existing_value){
 		$error = true;
 		$value = 'just testing';
-		/*
-      do your validation
-
-      if(something) {
-        $value = $value;
-      } elseif(something else) {
-        $error = true;
-        $value = $existing_value;
-
-      }
-     */
 		$return['value'] = $value;
 		$field['msg'] = 'your custom error message';
 		if($error == true)
@@ -1997,7 +1904,7 @@ function wtd_bus_options($field, $value){
 function wtd_setup_page($field, $value){
 	wp_enqueue_media();
 	add_thickbox();?>
-	<script src="<?php echo WTD_PLUGIN_URL;?>assets/js/external/jquery.validate.min.js"></script>
+	<!--<script src="<?php echo WTD_PLUGIN_URL;?>assets/js/external/jquery.validate.min.js"></script>-->
 	<div id="info-import_feed" class="redux-normal  redux-info-field redux-field-info wtd_setup_box">
 		<i class="el-icon-adult icon-large"></i>
 		<h2>Enter your api key</h2>
@@ -2510,245 +2417,6 @@ function wtd_page_check($key, $value){
 			}
 			break;
 	}
-	/*
-	// Map
-    if ($key == 'map-page'){
-        if(!empty($options[$key])){
-            if(!empty($options['wtd_resorts']))
-                foreach ($options['wtd_resorts'] as $res_id){
-                    wtd_check_post_type(
-                        array(
-                            'post_type' => 'wtd_activity',
-                            'page' => $key,
-                            'res_id' => $res_id,
-                            'limit' => 100,
-                            'type' => 'activities'
-                        )
-                    );
-                    $res_term = $wpdb->get_var(
-                        $wpdb->prepare(
-                            'SELECT wtd_term_id FROM '.$wpdb->prefix.'wtd_meta WHERE term_id = %s AND meta_key = "res_id" LIMIT 1',
-                            $res_id
-                        )
-                    );
-                    $options['map_position'][$res_id]['lat'] = $options['user_map']['lat'];
-                    $options['map_position'][$res_id]['lng'] = $options['user_map']['lng'];
-                    $args = array(
-                        'post_type' => 'page',
-                        'orderby' => 'ID',
-                        'order' => 'ASC',
-                        'meta_query' => array(
-                            array(
-                                'key' => 'wtd_page',
-                                'value' => 'map_page'
-                            ),
-                            array(
-                                'key' => 'res_id',
-                                'value' => $res_id
-                            )
-                        )
-                    );
-                    $page_query = new WP_Query($args);
-                    if (!$page_query->found_posts){
-                        $transient = 1;
-                        $resort = get_term($res_id,'wtd_resort');
-                        $rname = explode(',',$resort->name);
-                        $new_page = array(
-                            'post_title' => $rname[0].' Map',
-                            'post_content' => '',
-                            'post_type' => 'page',
-                            'post_status' => 'publish'
-                        );
-                        $page_id = wp_insert_post($new_page);
-                        update_post_meta($page_id,'wtd_page','map_page');
-                        update_post_meta($page_id,'res_id',$res_id);
-                        if (empty($wtd_pages['map_pages']))
-                            $wtd_pages['map_pages'] = array($res_id => $page_id);
-                        else
-                            $wtd_pages['map_pages'][$res_id] = $page_id;
-                    } elseif(!empty($wtd_pages['map_pages']))
-                        if (!in_array($page_query->posts[0]->ID, $wtd_pages['map_pages'])) {
-                            $transient = 1;
-                            for($i = 1; $i < $page_query->found_posts; $i++)
-                                wp_delete_post($page_query->posts[$i]->ID, true);
-                            $wtd_pages['map_pages'][$res_id] = $page_query->posts[0]->ID;
-                        }
-                }
-        }
-    }
-	//Calendar
-	//Week
-	if($key == 'week-page'){
-		if(!empty($options[$key])){
-			if(!empty($options['wtd_resorts'])){
-				foreach($options['wtd_resorts'] as $res_id){
-					$args = array(
-						'post_type' => 'page',
-						'orderby' => 'ID',
-						'order' => 'ASC',
-						'meta_query' => array(
-							array(
-								'key' => 'wtd_page',
-								'value' => 'week_page'),
-							array(
-								'key' => 'res_id',
-								'value' => $res_id)));
-					$page_query = new WP_Query($args);
-					if(!$page_query->found_posts){
-						$transient = 1;
-						$options['calendar_options']['page_style'][$res_id] = 1;
-						$resort = get_term($res_id, 'wtd_resort');
-						$rname = explode(',', $resort->name);
-						$new_page = array(
-							'post_title' => $rname[0] . ' Events This Week',
-							'post_content' => '',
-							'post_type' => 'page',
-							'post_status' => 'publish');
-						$page_id = wp_insert_post($new_page);
-						update_post_meta($page_id, 'wtd_page', 'week_page');
-						update_post_meta($page_id, 'res_id', $res_id);
-						if(empty($wtd_pages['week_pages']))
-							$wtd_pages['week_pages'] = array($res_id => $page_id);
-						else
-							$wtd_pages['week_pages'][$res_id] = $page_id;
-					}elseif(!empty($wtd_pages['week_pages'])){
-						if(!in_array($page_query->posts[0]->ID, $wtd_pages['week_pages'])){
-							$transient = 1;
-							for($i = 1; $i < $page_query->found_posts; $i ++){
-								wp_delete_post($page_query->posts[$i]->ID, true);
-							}
-							$wtd_pages['week_pages'][$res_id] = $page_query->posts[0]->ID;
-						}
-					}
-				}
-				$args = array(
-					'post_type' => 'wtd_event',
-					'orderby' => 'ID',
-					'order' => 'ASC');
-				$post_query = new WP_Query($args);
-				if(!$post_query->found_posts){
-					$new_post = array(
-						'post_title' => 'WTD Event',
-						'post_content' => '',
-						'post_name' => 'wtd-event',
-						'post_type' => 'wtd_event',
-						'post_status' => 'publish');
-					$post = wp_insert_post($new_post);
-				}
-			}
-		}
-	}
-	//Week Specials
-	if($key == 'week-specials-page'){
-		if(!empty($options[$key])){
-			if(!empty($options['wtd_resorts'])){
-				foreach($options['wtd_resorts'] as $res_id){
-					$args = array(
-						'post_type' => 'page',
-						'orderby' => 'ID',
-						'order' => 'ASC',
-						'meta_query' => array(
-							array(
-								'key' => 'wtd_page',
-								'value' => 'week_specials_page'),
-							array(
-								'key' => 'res_id',
-								'value' => $res_id)));
-					$page_query = new WP_Query($args);
-					if(!$page_query->found_posts){
-						$transient = 1;
-						$resort = get_term($res_id, 'wtd_resort');
-						$rname = explode(',', $resort->name);
-						$new_page = array(
-							'post_title' => $rname[0] . ' Specials This Week',
-							'post_content' => '',
-							'post_type' => 'page',
-							'post_status' => 'publish');
-						$page_id = wp_insert_post($new_page);
-						update_post_meta($page_id, 'wtd_page', 'week_specials_page');
-						update_post_meta($page_id, 'res_id', $res_id);
-						if(empty($wtd_pages['week_specials_pages']))
-							$wtd_pages['week_specials_pages'] = array($res_id => $page_id);
-						else
-							$wtd_pages['week_specials_pages'][$res_id] = $page_id;
-					}elseif(!empty($wtd_pages['week_specials_pages'])){
-						if(!in_array($page_query->posts[0]->ID, $wtd_pages['week_specials_pages'])){
-							$transient = 1;
-							for($i = 1; $i < $page_query->found_posts; $i ++){
-								wp_delete_post($page_query->posts[$i]->ID, true);
-							}
-							$wtd_pages['week_specials_pages'][$res_id] = $page_query->posts[0]->ID;
-						}
-					}
-				}
-				$args = array(
-					'post_type' => 'wtd_special',
-					'orderby' => 'ID',
-					'order' => 'ASC');
-				$post_query = new WP_Query($args);
-				if(!$post_query->found_posts){
-					$new_post = array(
-						'post_title' => 'WTD Special',
-						'post_content' => '',
-						'post_name' => 'wtd-special',
-						'post_type' => 'wtd_special',
-						'post_status' => 'publish');
-					$post = wp_insert_post($new_post);
-				}
-			}
-		}
-	}
-	//Search
-	if($key == 'search-page'){
-		if(!empty($options[$key])){
-			$args = array(
-				'post_type' => 'page',
-				'orderby' => 'ID',
-				'order' => 'ASC',
-				'meta_query' => array(
-					array(
-						'key' => 'wtd_page',
-						'value' => 'search_page')));
-			$page_query = new WP_Query($args);
-			if(!$page_query->found_posts){
-				$transient = 1;
-				$new_page = array(
-					'post_title' => 'Search',
-					'post_content' => '',
-					'post_type' => 'page',
-					'post_status' => 'publish');
-				$page_id = wp_insert_post($new_page);
-				update_post_meta($page_id, 'wtd_page', 'search_page');
-				if(empty($wtd_pages['search_page']))
-					$wtd_pages['search_page'] = array($page_id);
-				else
-					$wtd_pages['search_page'][] = $page_id;
-			}elseif(!empty($wtd_pages['search_page'])){
-				if(!in_array($page_query->posts[0]->ID, $wtd_pages['search_page'])){
-					$transient = 1;
-					for($i = 1; $i < $page_query->found_posts; $i ++){
-						wp_delete_post($page_query->posts[$i]->ID, true);
-					}
-					$wtd_pages['search_page'][] = $page_query->posts[0]->ID;
-				}
-			}
-		}else{
-			$args = array(
-				'post_type' => 'page',
-				'orderby' => 'ID',
-				'order' => 'ASC',
-				'meta_query' => array(
-					array(
-						'key' => 'wtd_page',
-						'value' => 'search_page')));
-			$page_query = new WP_Query($args);
-			foreach($page_query->posts as $post){
-				wp_delete_post($post->ID, true);
-			}
-			$wtd_pages['search_page'] = array();
-		}
-	}
-	*/
 
 	update_option('wtd_plugin', $options);
 	update_option('wtd_pages', $wtd_pages);

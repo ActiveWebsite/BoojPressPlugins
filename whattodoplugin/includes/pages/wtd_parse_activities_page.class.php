@@ -55,6 +55,7 @@ if(!class_exists('wtd_parse_activities_page')){
 
         private function matrix(){
 			global $post;
+			global $wtd_plugin;
             $res_id = get_post_meta($post->ID, 'res_id', true);
 	        $query = new ParseQuery("resort");
 	        try{
@@ -73,14 +74,19 @@ if(!class_exists('wtd_parse_activities_page')){
 		        $parent_cats = $query->find();
 	        }catch(ParseException $ex){
 		        error_log($ex->getMessage());
-	        }?>
+	        }
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			?>
             <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL."assets/css/styles/wtd_menu.css?wtd_version=".WTD_VERSION;?>" media="screen"/>
 	        <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL."assets/css/styles/masonry.css?wtd_version=".WTD_VERSION;?>" media="screen"/>
             <div id="wtd_parent_menu" class="grid">
 	            <div class="masonry-column-width"></div><?php
                 for($i = 0; $i < count($parent_cats); $i++){
 	                $parent_cat = $parent_cats[$i];
-	                $url = site_url().'/'.$post->post_name.'/whattodo/'.strtolower($parent_cat->get('name')).'/'.$parent_cat->getObjectId().'/';
+	                $url = $start_url.'/'.$post->post_name.'/whattodo/'.strtolower($parent_cat->get('name')).'/'.$parent_cat->getObjectId().'/';
                     //if($image):?>
                         <div class="masonry-entry">
 	                        <div class="masonry-thumbnail">
@@ -119,7 +125,11 @@ if(!class_exists('wtd_parse_activities_page')){
 
         private function results(){
 			global $wp_query, $post, $wtd_plugin, $wtd_connector;
-            $res_id = get_post_meta($post->ID, 'res_id', true);
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			$res_id = get_post_meta($post->ID, 'res_id', true);
             $parent_cat_id = get_query_var('wtdc');
             $cat_id = get_query_var('wtds');
 	        $excluded_cats = json_decode(get_option('wtd_excluded_cats'));
@@ -163,7 +173,7 @@ if(!class_exists('wtd_parse_activities_page')){
 			                    $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 			                    $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 			                    $subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-			                    $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
+			                    $url = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
 		                        <li class="wtd_subcategory_menu_item <?php echo ($category->getObjectId() == $wp_query->query['wtds']) ? 'active' : '';?>">
 		                            <a href="<?php echo $url;?>"><?php echo $category->get('name');?></a>
 		                        </li><?php
@@ -186,7 +196,7 @@ if(!class_exists('wtd_parse_activities_page')){
 			                    $category_url_name = strtolower($parent_cat->get('name'));
 			                    $category_url_name = str_replace(' ', '-', $category_url_name);
 			                    //http://realty.home/vail-valley-activities/whattodo/spa-&-fitness/ZUNm0C89zy/fitness-centers/QoljJWroB8/
-			                    $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
+			                    $url = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
 			                    <span class="wtd_bread_separator">&gt;</span>
 			                    <a id="parent_<?php echo $parent_cat->getObjectId();?>_header" class="wtd_pull_left" href="<?php echo $url;?>"><?php
 			                        echo $parent_cat->get('name');?>
@@ -194,9 +204,13 @@ if(!class_exists('wtd_parse_activities_page')){
 		                    endif;
 	                        if($wtd_plugin['act_page_type'] == 2){?>
 		                        <span class="wtd_bread_separator">&gt;</span>
-		                        <select class="wtd_subcategory_navigator">
-			                        <option>Select Subcategory</option><?php
-			                        for($i = 0; $i < count($categories); $i ++){
+								<select class="wtd_subcategory_navigator"><?php
+									$category_url_name = strtolower($parent_cat->get('name'));
+									$category_url_name = str_replace(' ', '-', $category_url_name);
+									$category_url_name = str_replace('/', '-', $category_url_name);
+									$firsturl = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
+									<option value="<?php echo $firsturl;?>">Select Subcategory</option><?php
+		                        	for($i = 0; $i < count($categories); $i ++){
 				                        $category = $categories[$i];
 				                        $selected = '';
 				                        if($cat_id == $category->getObjectId())
@@ -208,7 +222,7 @@ if(!class_exists('wtd_parse_activities_page')){
 				                        $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 				                        $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 										$subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-				                        $url = site_url().'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
+				                        $url = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
 				                        echo '<option value="'.$url.'" '.$selected.'>'.$category->get('name').'</option>';
 			                        }?>
 		                        </select><?php
@@ -264,25 +278,29 @@ if(!class_exists('wtd_parse_activities_page')){
             global $wtd_connector, $wtd_plugin;
             $data = $wtd_connector->decrypt_parse_response($_POST['data']);
             ob_start();
-            if(!empty($data)):
+            if(!empty($data)){
                 $activities = $data;
                 foreach($activities as $key => $activity) {
-					$activity_url = site_url(). '/' . $wtd_plugin['url_prefix'] . '/activity/' . $activity->id . '/' . sanitize_title($activity->title) . '/';
-					$desc = strip_tags($activity->description);
-					$params = array(
-						'title' => $activity->title,
-						'thumb_url' => $activity->thumbUrl,
-						'details_url' => $activity_url,
-						'vendor_name' => $activity->vendor,
-						'type' => $activity->vend_rec_type,
-						'desc' => wtd_excerpt_generator($desc, false, $activity_url),
-						'addresses' => $this->get_addresses($activity->addresses)
-					);
-					echo $this->twig->render('wtd_list_item.twig', $params);
-				}
-            else:?>
+                	if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+                		$start_url = site_url();
+			else
+				$start_url = home_url();
+			$activity_url = $start_url. '/' . $wtd_plugin['url_prefix'] . '/activity/' . $activity->id . '/' . sanitize_title($activity->title) . '/';
+			$desc = strip_tags($activity->description);
+			$params = array(
+					'title' => $activity->title,
+					'thumb_url' => $activity->thumbUrl,
+					'details_url' => $activity_url,
+					'vendor_name' => $activity->vendor,
+					'type' => $activity->vend_rec_type,
+					'desc' => wtd_excerpt_generator($desc, false, $activity_url),
+					'addresses' => $this->get_addresses($activity->addresses)
+				);
+				echo $this->twig->render('wtd_list_item.twig', $params);
+			}
+            }else{?>
                 No listings of this type are available.<?php
-            endif;
+            }
 		    if($_POST['page'] != 1){?>
 	            <a href="javascript:void(0)" id="wtd_parse_prev">&laquo; Previous</a><?php
             }

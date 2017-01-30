@@ -49,7 +49,7 @@ if(!class_exists('wtd_parse_coupons_page')){
             $wtd_base_request = $wtd_connector->get_base_request();
             $wtd_base_request['resorts'] = array($res_id);
             $wtd_base_request['page'] = 1;?>
-            <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+	    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
             <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
             <script>
                 var wtd_base_request = <?php echo json_encode($wtd_base_request);?>;
@@ -63,6 +63,11 @@ if(!class_exists('wtd_parse_coupons_page')){
 
         public function build_list(){
             global $wtd_connector, $wtd_plugin;
+            if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+                $start_url = site_url();
+            else
+                $start_url = home_url();
+
             $coupons = $wtd_connector->decrypt_parse_response($_POST['data']);
             ob_start();
             if(!empty($coupons)):
@@ -71,7 +76,7 @@ if(!class_exists('wtd_parse_coupons_page')){
                     <div layout="column" class="md-whiteframe-z1 layout-padding layout-margin" style="max-width:600px;">
                         <div layout="row">
                             <div flex="70" flex-sm="100">
-                                <a href="<?php echo site_url(). '/' . $wtd_plugin['url_prefix'] . '/coupon/' . $coupon->id; ?>">
+                                <a href="<?php echo $start_url. '/' . $wtd_plugin['url_prefix'] . '/coupon/' . $coupon->id; ?>">
                                     <span class="business"><?php echo htmlspecialchars_decode($coupon->title)." by ".htmlspecialchars_decode($coupon->vendor);?></span><br />
                                     <?php echo htmlspecialchars_decode($coupon->offer);?>
                                 </a>

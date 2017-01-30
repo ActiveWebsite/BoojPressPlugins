@@ -17,7 +17,12 @@ if(!class_exists('wtd_parse_single_coupon')){
 
         public function coupon_content($content){
             global $wpdb, $post, $wtd_plugin, $wtd_connector, $wp_query;
-            if(!is_singular('wtd_coupon') || !in_the_loop())
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+
+			if(!is_singular('wtd_coupon') || !in_the_loop())
                 return $content;
             if($post->post_type == 'wtd_coupon'){
                 remove_filter('the_content', 'theme_formatter', 99);
@@ -32,7 +37,7 @@ if(!class_exists('wtd_parse_single_coupon')){
 							AND pm.meta_value = 'coupons_page'
 							AND	p.post_type = 'page'";
 	            $coupons_page = $wpdb->get_var($query);
-	            $coupons_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$coupons_page.'/';
+	            $coupons_page = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$coupons_page.'/';
                 ob_start();?>
 	            <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/coupon_print.css?wtd_version='.WTD_VERSION;?>" media="print"/>
             	<link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_coupons_page.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
@@ -52,8 +57,8 @@ if(!class_exists('wtd_parse_single_coupon')){
                 wtd_copyright();
                 $base_request = $wtd_connector->get_base_request();
                 $base_request['coupon_id'] = $wp_query->query['wtd_parse_id'];?>
-                <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-                <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
+		<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
+            	<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
                 <script>
                     var wtd_base_request = <?php echo json_encode($base_request);?>;
                 </script>

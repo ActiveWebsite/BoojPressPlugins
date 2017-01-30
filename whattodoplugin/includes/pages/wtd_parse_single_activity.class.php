@@ -23,6 +23,10 @@ if(!class_exists('wtd_parse_single_activity')){
 
         public function activity_content($content){
             global $wpdb, $post, $wtd_plugin, $wtd_connector, $wp_query;
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
 
             if(!is_singular('wtd_activity') || !in_the_loop())
                 return $content;
@@ -37,7 +41,7 @@ if(!class_exists('wtd_parse_single_activity')){
 							AND pm.meta_value = 'activities_page'
 							AND	p.post_type = 'page'";
 	            $activities_page = $wpdb->get_var($query);
-	            $activities_page = site_url().'/'.$wtd_plugin['url_prefix'].'/'.$activities_page.'/';
+	            $activities_page = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$activities_page.'/';
                 ob_start();
                 $res_id = get_post_meta($post->ID, 'res_id', true);?>
 	            <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'assets/css/wtd_activities_page.css?wtd_version='.WTD_VERSION;?>" media="screen"/>
@@ -50,8 +54,8 @@ if(!class_exists('wtd_parse_single_activity')){
                 wtd_copyright();
                 $base_request = $wtd_connector->get_base_request();
                 $base_request['object_id'] = $wp_query->query['wtd_parse_id'];?>
-                <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-                <script src="<?php echo WTD_PLUGIN_URL;?>assets/js/parse_init.js"></script>
+	    	<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
+            	<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
                 <script>
                     var wtd_base_request = <?php echo json_encode($base_request);?>;
 	                var parent_page = '<?php echo $activities_page;?>';
