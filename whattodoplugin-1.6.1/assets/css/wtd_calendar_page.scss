@@ -1,0 +1,556 @@
+@import 'elements/_dom';
+
+.day-list{
+  height: 200px;
+  overflow: hidden;
+  margin-bottom:4px;
+}
+
+.month{
+  border: 1px solid #EBEBEB;
+  .week{
+
+  }
+}
+
+.cal-day-footer{
+  background-color: #000;
+  color: #fff;
+  padding:4px;
+}
+
+#wtd_event_sc_container{
+
+  .clearfix:after{
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+  }
+
+  .wtd_event_container,
+  .wtd_single_event_container{
+    display: block;
+    overflow: hidden;
+    line-height: 25px;
+    margin-bottom: 15px;
+    float: left;
+    width: 100%;
+  }
+
+  .textItalic{
+    font-style: italic;
+  }
+
+  .textItalicSmallSize{
+    font-style: italic;
+    font-size: 12px;
+  }
+
+  .moreCouponLink{
+    font-size: 10px;
+  }
+
+  .moreCouponLinkBig{
+    font-size: 12px;
+    text-decoration: underline;
+    color: #06f;
+  }
+
+  .contactPhone{
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .print a{
+    padding: 0px 12px;
+    border: 1px solid #666;
+    background: #ccc;
+    display: block;
+    color: #000 !important;
+    text-decoration: none !important;
+    float: right;
+    margin-top: 5px;
+  }
+
+  .wtd_single_event_sc_left_content ul li .print a{
+    float: none;
+    width: 50px;
+    text-align: center;
+    padding: 3px;
+    margin: 10px 0;
+  }
+
+  .expire,
+  .expireBig{
+    font-size: 10px;
+    font-style: italic;
+    color: #f00;
+  }
+
+  .expireBig{
+    font-size: 12px;
+    color: #999;
+  }
+
+  .bigFontLink{
+    font-size: 14px !important;
+    color: #333;
+    font-weight: bold;
+    text-decoration: underline !important;
+  }
+
+  .wtd_event_container ul,
+  .wtd_single_event_container ul{
+    display: block;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .wtd_event_container ul li,
+  .wtd_single_event_container ul li{
+    list-style: none;
+    line-height: 15px;
+    margin-bottom: 10px;
+    background: none !important;
+
+    :first-child{
+      line-height: 18px;
+      margin-top: 5px;
+    }
+  }
+
+  .wtd_single_event_container ul li{
+    font-size: 14px;
+  }
+
+  .wtd_event_container ul li:last-child{
+    margin-top: 0px;
+  }
+
+  .wtd_event_container ul li a{
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .wtd_event_sc_event_list{
+    display: block;
+    margin: 10px;
+  }
+
+  .wtd_event_sc_event_list .wtd_event_sc_top_content{
+    display: block;
+  }
+
+  .wtd_event_sc_imageArea,
+  .wtd_single_event_sc_image{
+    display: block;
+    width: 120px;
+    height: 120px;
+    float: left;
+    margin-right: 15px;
+    margin-top: 7px;
+    margin-bottom: 10px;
+    line-height: 118px;
+
+    img{
+      width: 118px;
+      margin: 0 auto;
+    }
+  }
+
+  .wtd_single_event_sc_image{
+    width: 100%;
+    text-align: center;
+  }
+
+  .wtd_event_sc_imageArea img{
+    margin: 3px;
+  }
+
+  .wtd_event_sc_centerContent,
+  .wtd_single_event_sc_left_content{
+    float: left;
+    width: 100%;
+
+    ul li{
+      background: none !important;
+    }
+  }
+
+  .wtd_event_sc_pagination{
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .hr_line{
+    border-bottom: 1px solid #666;
+    height: 1px;
+    margin: 10px 0;
+  }
+}
+
+#wtd-print-event{
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Verdana, Geneva, sans-serif;
+
+  .midbody{
+    width: 640px;
+    margin: 20px auto;
+  }
+
+  .event-block{
+    width: 50%;
+  }
+
+  .event-content{
+    margin: 2px;
+    border: 1px solid #999;
+    min-height: 150px;
+    overflow: hidden;
+  }
+
+  .images-container{
+    float: left;
+    width: 105px;
+    height: 105px;
+    margin: 3px 0 0 3px;
+    border: 1px solid #000;
+
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .logo-container{
+    float: left;
+    width: 100px;
+    height: 13px;
+    margin: 10px 0 0 5px;
+  }
+
+  .event-text{
+    float: left;
+    min-height: 137px;
+    max-width: 196px;
+    margin: 3px 0 0 3px;
+  }
+
+  .event-title{
+    font-size: 13px;
+    font-weight: bold;
+    margin: 2px 0 5px 5px;
+  }
+
+  .event-desc{
+    font-size: 10px;
+    color: #333;
+    margin: 2px 0 20px 5px;
+  }
+
+  .event-valid{
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+    margin: 2px 0 0px 5px;
+  }
+
+  .event-id{
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+    margin: 2px 0 10px 5px;
+  }
+
+  .event-restrictions{
+    font-size: 10px;
+    font-weight: normal;
+    line-height: normal;
+    text-align: justify;
+    color: #333;
+    margin: 2px 5px 10px 5px;
+    clear: both;
+    font-style: italic;
+  }
+
+  .terms-heading{
+    font-size: 10pt;
+    font-weight: bold;
+    font-family: Verdana;
+    margin: 10px 0 10px 0;
+  }
+
+  .terms-hr{
+    color: #000;
+    background-color: #000;
+    height: 4px;
+  }
+
+  .terms-content{
+    font-size: 10px;
+    margin: 10px 0 0 0;
+  }
+}
+
+#month_container_header{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.day_container_header{
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.day_container_header hr{
+  margin: 2px 0 0 4px;
+}
+
+.today{
+  border: 2px dashed #666666;
+}
+
+#month_container .week_container .day_container:hover{
+  background-color: #c6c6c6;
+}
+
+#wtd_events{
+  background: rgba(0, 0, 0, 0.08);
+}
+
+#dates .day{
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 12px;
+  border: 1px solid #EBEBEB;
+  line-height: 1.4em;
+  width: 14.28%;
+  float: left;
+  a{
+    margin-bottom: 3px;
+  }
+}
+
+#dates .day:hover, #dates .day.active{
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#dates .day.active .current_date{
+  color: #fff;
+}
+
+#dates{
+  list-style: none;
+}
+
+#events_header span{
+  font-weight: bold;
+  text-align: center;
+}
+
+.wtd-events-page #wtd_event_sc_container .wtd_single_event_sc_image{
+  width: 100%;
+  float: left;
+}
+
+.wtd-events-page #wtd_event_sc_container .wtd_single_event_sc_image img{
+  display: block;
+  margin: 0 auto;
+}
+
+.wtd-events-page .wtd_single_event_sc_left_content ul li span#dates .day .current_date{
+  font-size: 16px !important;
+}
+
+#dates .day .small-events a{
+  text-decoration: none;
+}
+
+#dates .day.active .small-events a{
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.day:before{
+  content: '' !important;
+  width: 0px !important;
+  height: 0px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.empty_spot{
+  float: left;
+  width: 12%;
+  margin-top: 10px;
+  margin-left: 1%;
+  position: relative;
+  padding: 0.5%;
+  margin-bottom: 10px;
+}
+
+#prev_month:focus, #next_month:focus{
+  outline: none !important;
+}
+
+#prev_month, #next_month{
+  width: 20%;
+  float: left;
+}
+
+.get_month{
+  text-decoration: none !important;
+  border: none !important;
+}
+
+#next_month{
+  text-align: right;
+  cursor: pointer;
+}
+
+#prev_month{
+  cursor: pointer;
+}
+
+.wtd_ical_button{
+  font-weight: bold;
+  min-width: 111px;
+  line-height: 12px;
+
+  :before{
+    content: "+";
+  }
+}
+
+.not_month{
+  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.08) !important;
+
+  :hover{
+    opacity: 1;
+  }
+}
+
+#calendar_controller{
+  display: inline-block;
+  width: 100%;
+}
+
+.get_month{
+  text-decoration: none !important;
+}
+
+.small-events a{
+  text-decoration: none !important;
+}
+
+.wtd_event_sc_event_list{
+  .expireBig{
+    font-style: normal !important;
+  }
+
+  hr{
+    display: none !important;
+  }
+}
+
+.date-dialog-link{
+  cursor: pointer;
+}
+
+@media (max-width: 600px){
+  #wtd_events{
+    background: none;
+  }
+}
+
+@media (max-width: 1100px){
+  .wtd_events_modal{
+    width: 70vw;
+    left: 15vw;
+  }
+}
+
+@media (max-width: 1024px){
+  .wtd-events-page{
+    .site-main{
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+
+    .main-content{
+      float: left !important;
+      margin-left: 0;
+      width: 100% !important;
+    }
+
+    .site-logo{
+      margin-left: 30px;
+      margin-top: 4px;
+    }
+  }
+}
+
+@media (max-width: 820px){
+  #dates .day{
+    padding: 2px;
+
+    .current_date{
+      font-size: 1.3vw;
+    }
+  }
+
+  .wtd_events_modal{
+    width: 90vw;
+    left: 5vw;
+
+    .control h2{
+      font-size: 22px;
+    }
+  }
+}
+
+@media (max-width: 768px){
+  #events_header{
+    display: none;
+  }
+
+  #dates .day{
+    width: 97% !important;
+    min-height: 35px;
+
+    .current_date{
+      font-size: 2.5vw !important;
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .type1{
+      min-height: 142px !important;
+
+      .main_thumb{
+        left: 36%;
+        width: auto;
+      }
+    }
+
+    .type2{
+      min-height: 150px !important;
+
+      img{
+        width: 25%;
+        margin: 5px 0px;
+      }
+    }
+  }
+
+  .row{
+    margin-bottom: 0px !important;
+  }
+}

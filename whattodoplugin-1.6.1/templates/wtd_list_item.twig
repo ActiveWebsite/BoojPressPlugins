@@ -1,0 +1,40 @@
+<div class="listing-item md-whiteframe-z2" layout="column">
+    <div class="item-content" layout="row" layout-align="start start">
+        {% if type != 'wfree' and thumb_url is not empty %}
+            <div class="feature-img" layout="row" layout-align="center start">
+                <a href="{{ details_url }}">
+                    <img src="{{ thumb_url }}" alt="{{ title }}"/>
+                </a>
+            </div>
+        {% endif %}
+        <div>
+            <div layout="row" class="wtd_listing_title_bar" layout-align="start start">
+                {% if type == 'wfree' %}
+                    {{ title }}
+                    {% if vendor_name is not empty %}
+                      <span class="wtd_listing_vendor"> - {{ vendor_name }}</span>
+                    {% endif %}
+                {% else %}
+                    <a href="{{ details_url }}">
+                        {{ title }}
+                        {% if vendor_name is not empty %}
+                            <span class="wtd_listing_vendor"> - {{ vendor_name }}</span>
+                        {% endif %}
+                    </a>
+                {% endif %}
+            </div>
+            <div layout-padding layout="column">
+                {% if type != 'wfree' %}
+                    <div class="listing-about">
+                        {{ desc|raw }}
+                    </div>
+                {% endif %}
+                {% if addresses is not empty %}
+                    <div>
+                        {{ addresses|raw }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
