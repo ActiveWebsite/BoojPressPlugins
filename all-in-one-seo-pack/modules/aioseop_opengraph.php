@@ -11,6 +11,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 		var $type;
 
 		function __construct() {
+			add_action( 'admin_enqueue_scripts', array( $this, 'og_admin_enqueue_scripts' ) );
+
 			$this->name            = __( 'Social Meta', 'all-in-one-seo-pack' );    // Human-readable name of the plugin
 			$this->prefix          = 'aiosp_opengraph_';                        // option prefix
 			$this->file            = __FILE__;                                    // the current file
@@ -938,6 +940,8 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Opengraph' ) ) {
 					$social_links = $this->options['aiosp_opengraph_profile_links'];
 					if ( ! empty( $this->options['aiosp_opengraph_social_name'] ) ) {
 						$social_name = $this->options['aiosp_opengraph_social_name'];
+					}else{
+						$social_name = '';
 					}
 					if ( $this->options['aiosp_opengraph_person_or_org'] == 'person' ) {
 						$social_type = "Person";
@@ -1421,6 +1425,23 @@ END;
 
 		function settings_update() {
 
+		}
+
+		/**
+		 * Enqueue our file upload scripts and styles.
+		 * @param $hook
+		 */
+		function og_admin_enqueue_scripts($hook){
+
+			if ( 'all-in-one-seo_page_aiosp_opengraph' != $hook ) {
+				// Only enqueue if we're on the social module settings page.
+				return;
+			}
+
+			wp_enqueue_script('media-upload');
+			wp_enqueue_script('thickbox');
+			wp_enqueue_style('thickbox');
+			wp_enqueue_media();
 		}
 	}
 }

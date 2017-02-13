@@ -16,7 +16,7 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 			}
 
 			add_action( 'admin_menu', array( $this, 'add_menus' ) );
-			add_action( 'admin_head', array( $this, 'remove_pages' ) );
+			add_action( 'admin_menu', array( $this, 'remove_pages' ), 999 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'welcome_screen_assets' ) );
 
 		}
@@ -30,13 +30,15 @@ if ( ! class_exists( 'aioseop_welcome' ) ) {
 
 			if ( 'dashboard_page_aioseop-about' === $hook ) {
 
-				wp_enqueue_style( 'aioseop_welcome_css', AIOSEOP_PLUGIN_URL . '/css/welcome.css' );
+				wp_enqueue_style( 'aioseop_welcome_css', AIOSEOP_PLUGIN_URL . '/css/welcome.css', array(), AIOSEOP_VERSION );
 				wp_enqueue_script( 'aioseop_welcome_js', AIOSEOP_PLUGIN_URL . '/js/welcome.js', array( 'jquery' ), AIOSEOP_VERSION, true );
 			}
 		}
 
 		/**
 		 * Removes unneeded pages.
+         *
+         * @since 2.3.12 Called via admin_menu action instead of admin_head.
 		 */
 		function remove_pages() {
 			remove_submenu_page( 'index.php', 'aioseop-about' );

@@ -183,7 +183,7 @@ if ( ! function_exists( 'aioseop_mrt_pcolumns' ) ) {
 if ( ! function_exists( 'aioseop_admin_head' ) ) {
 
 	function aioseop_admin_head() {
-		echo '<script type="text/javascript" src="' . AIOSEOP_PLUGIN_URL . 'js/quickedit_functions.js" ></script>';
+		wp_enqueue_script( 'aioseop_welcome_js', AIOSEOP_PLUGIN_URL . '/js/quickedit_functions.js', array( 'jquery' ), AIOSEOP_VERSION);
 		?>
 		<style>
 			.aioseop_edit_button {

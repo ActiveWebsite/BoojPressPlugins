@@ -3000,7 +3000,7 @@ class All_in_One_SEO_Pack extends All_in_One_SEO_Pack_Module {
 		wp_enqueue_style( 'wp-pointer' );
 		//$this->add_admin_pointers();
 
-		wp_enqueue_style( 'aiosp_admin_style', AIOSEOP_PLUGIN_URL . 'css/aiosp_admin.css' );
+		wp_enqueue_style( 'aiosp_admin_style', AIOSEOP_PLUGIN_URL . 'css/aiosp_admin.css', array(), AIOSEOP_VERSION );
 		?>
 		<script>
 			function aioseop_show_pointer(handle, value) {

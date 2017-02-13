@@ -2909,6 +2909,16 @@ if ( ! class_exists( 'All_in_One_SEO_Pack_Sitemap' ) ) {
 			if ( defined( 'ICL_SITEPRESS_VERSION' ) ) {
 				$defaults['suppress_filters'] = false;
 			}
+
+			/*
+			 * Filter to exclude password protected posts.
+			 * TODO: move to its own function and call it from here, returning whatever is appropriate.
+			 * @since 2.3.12
+			 */
+			if ( apply_filters( 'aioseop_sitemap_include_password_posts', true ) === false ) {
+				$defaults['has_password'] = false;
+			}
+
 			$args = wp_parse_args( $args, $defaults );
 			if ( empty( $args['post_type'] ) ) {
 				return apply_filters( $this->prefix . 'post_filter', array(), $args );

@@ -4,11 +4,11 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtor
 Tags: seo, all in one seo, google, twitter, page, image seo, social, search engine optimization, sitemap, WordPress SEO, meta, meta description, xml sitemap, google sitemap, sitemaps, robots meta, yahoo, bing, news sitemaps, multisite, canonical, nofollow, noindex, keywords, description, webmaster tools, google webmaster tools, google analytics
 Requires at least: 4.0
 Tested up to: 4.7
-Stable tag: 2.3.11.1
+Stable tag: 2.3.11.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-One of the most downloaded WordPress plugins (over 30 million downloads since 2007). Use All in One SEO Pack to optimize your site for Search Engines.
+The original SEO plugin for WordPress, downloaded over 30,000,000 times since 2007.
 
 == Description ==
 
