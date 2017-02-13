@@ -414,4 +414,63 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('Facebook\InstantArticles\Elements\InstantArticleInterface', $this->article);
     }
+
+    public function testIsRTLEnabled()
+    {
+        $article =
+            InstantArticle::create()
+                ->withCanonicalURL('http://wp.localtest.me/2016/04/12/stress-on-earth/')
+                ->enableAutomaticAdPlacement()
+                ->enableRTL()
+                ->withHeader(
+                    Header::create()
+                        ->withTitle(
+                            H1::create()->appendText('Peace on <b>earth</b>')
+                        )
+                        ->addAuthor(
+                            Author::create()->withName('bill')
+                        )
+                        ->withPublishTime(
+                            Time::create(Time::PUBLISHED)
+                                ->withDatetime(
+                                    \DateTime::createFromFormat(
+                                        'j-M-Y G:i:s',
+                                        '14-Aug-1984 19:30:00'
+                                    )
+                                )
+                        )
+                )
+                ->addChild(
+                    Paragraph::create()
+                        ->appendText('Yes, peace is good for everybody!')
+                        ->appendText(LineBreak::create())
+                        ->appendText(' Man kind.')
+                );
+        $result = $article->render();
+        $expected =
+            '<!doctype html>'.
+            '<html dir="rtl">'.
+                '<head>'.
+                    '<link rel="canonical" href="http://wp.localtest.me/2016/04/12/stress-on-earth/"/>'.
+                    '<meta charset="utf-8"/>'.
+                    '<meta property="op:generator" content="facebook-instant-articles-sdk-php"/>'.
+                    '<meta property="op:generator:version" content="1.5.2"/>'.
+                    '<meta property="op:markup_version" content="v1.0"/>'.
+                '</head>'.
+                '<body>'.
+                    '<article>'.
+                        '<header>'.
+                            '<h1>Peace on &lt;b&gt;earth&lt;/b&gt;</h1>'.
+                            '<time class="op-published" datetime="1984-08-14T19:30:00+00:00">August 14th, 7:30pm</time>'.
+                            '<address>'.
+                                '<a>bill</a>'.
+                            '</address>'.
+                        '</header>'.
+                        '<p>Yes, peace is good for everybody!<br/> Man kind.</p>'.
+                    '</article>'.
+                '</body>'.
+            '</html>';
+
+        $this->assertEquals($expected, $result);
+    }
 }

@@ -3,12 +3,12 @@ Contributors: hallsofmontezuma, wpsmort, dougal, pbaylies, arnaudbroes
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=mrtorbert%40gmail%2ecom&item_name=All%20In%20One%20SEO%20Pack&item_number=Support%20Open%20Source&no_shipping=0&no_note=1&tax=0&currency_code=USD&lc=US&bn=PP%2dDonationsBF&charset=UTF%2d8
 Tags: seo, all in one seo, google, twitter, page, image seo, social, search engine optimization, sitemap, WordPress SEO, meta, meta description, xml sitemap, google sitemap, sitemaps, robots meta, yahoo, bing, news sitemaps, multisite, canonical, nofollow, noindex, keywords, description, webmaster tools, google webmaster tools, google analytics
 Requires at least: 4.0
-Tested up to: 4.6
-Stable tag: 2.3.10.2
+Tested up to: 4.7
+Stable tag: 2.3.11.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-One of the most downloaded plugins for WordPress (over 30 million downloads since 2007). Use All in One SEO Pack to automatically optimize your site for Search Engines.
+The original SEO plugin for WordPress, downloaded over 30,000,000 times since 2007.
 
 == Description ==
 

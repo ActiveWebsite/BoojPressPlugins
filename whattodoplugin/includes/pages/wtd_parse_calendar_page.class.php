@@ -1,11 +1,13 @@
 <?php
+require_once WTD_PLUGIN_PATH.'/includes/pages/class_parse_page.php';
+
 if(!class_exists('wtd_parse_calendar_page')){
-    class wtd_parse_calendar_page{
+    class wtd_parse_calendar_page extends wtd_parse_page{
 
 		public function __construct(){
-		    $wtd_plugin = get_option('wtd_plugin');
+            parent::__construct();
 		    //Page Content
-            if(!empty($wtd_plugin['calendar-page']))
+            if(!empty($this->wtd_plugin['calendar-page']))
                 add_action('the_content', array($this, 'page_content'), 99);
             //Ajax calls
 	        add_action('wp_ajax_nopriv_get_date_dialog', array($this, 'build_date_dialog'));
@@ -20,44 +22,24 @@ if(!class_exists('wtd_parse_calendar_page')){
 
 	    public function build_date_dialog(){
             global $wtd_plugin;
-		    $timestamp = $_POST['timestamp'];
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			$timestamp = $_POST['timestamp'];
 		    $res_id = $_POST['res_id'];
 		    $resort_query = new \Parse\ParseQuery('resort');
 		    $resort_query->equalTo('objectId', $res_id);
-            $date = new DateTime("@$timestamp");
+            	    $date = new DateTime("@$timestamp");
 		    $query = new \Parse\ParseQuery('event');
 		    $query->equalTo('eventDate', $date);
 		    $query->matchesQuery('resortObjectId', $resort_query);
-		    $results = $query->find();?>
-		    <md-dialog style="margin-top: -100px;min-width:400px;">
-			    <md-dialog-content >
-                    <div layout="row" layout-align="space-between start">
-                        <span style="font-weight: bold;">Events on <?php echo $date->format('F j, Y'); ?></span>
-                        <a href="javascript:hideDialog();">Close</a>
-                    </div>
-				    <div layout="column" layout-align="start start" style="max-height: 400px;min-height: 100px;" layout-padding><?php
-					    for($i = 0; $i < count($results); $i++){
-						    $event = $results[$i];?>
-						    <div layout="row" layout-padding>
-                                <a href="<?php echo '/'.$wtd_plugin['url_prefix'].'/event/'.$event->getObjectId().'/'.sanitize_title($event->name).'/';?>">
-							        <img src="<?php echo $event->logoUrl;?>" style="max-width: 50px; max-height: 50px;margin-right: 10px;"/>
-                                </a><?php
-                                    if($event->startTime == '23:59:59')
-                                        $datestring = " - tbd";
-									elseif($event->startTime == '00:00:00' || empty($event->startTime))
-                                         $datestring = "";
-									else{
-                                    	$start = new DateTime(date('Y-m-d '.$event->startTime));
-                                    	$datestring = " - ".$start->format('g:i a');
-									}?>
-						        <a href="<?php echo '/'.$wtd_plugin['url_prefix'].'/event/'.$event->getObjectId().'/'.sanitize_title($event->name).'/';?>"><?php
-							        echo $event->name.$datestring;?>
-						        </a>
-						    </div><?php
-					    }?>
-				    </div>
-			    </md-dialog-content>
-		    </md-dialog><?php
+		    $results = $query->find();
+            echo $this->twig->render('md_dialog.twig', array(
+                'date' => $date->format('F j, Y'),
+                'events' => $results,
+                'url_prefix' => $start_url.'/'.$wtd_plugin['url_prefix'].'/event/'
+            ));
 		    die();
 	    }
 
@@ -72,7 +54,7 @@ if(!class_exists('wtd_parse_calendar_page')){
                 if(in_array($post->ID, $wtd_pages['calendar_pages'])){
                     ob_start();
                     $res_id = get_post_meta($post->ID, 'res_id', true);?>
-                    <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script><?php
+		    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script><?php
                     $step = 24 * 60 * 60;
                     $start = strtotime(date('Y-m-1'));
                     while(date('l', $start) != "Sunday"){
@@ -87,10 +69,10 @@ if(!class_exists('wtd_parse_calendar_page')){
                     $wtd_base_request = $wtd_connector->get_base_request();
                     $wtd_base_request['resorts'] = array($res_id);?>
                     <link rel="stylesheet" href="<?php echo WTD_PLUGIN_URL.'/assets/css/wtd_calendar_page.css';?>"/>
-                    <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-					<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
-					<script>
-						var base_request = <?php echo json_encode($wtd_base_request);?>;
+		    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
+		    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script> 
+		    <script>
+			var base_request = <?php echo json_encode($wtd_base_request);?>;
                         var wtd_start_date = new Date('<?php echo $start;?>');
                         var wtd_end_date = new Date('<?php echo $end;?>');
 						var res_id = '<?php echo $res_id;?>';
@@ -131,7 +113,11 @@ if(!class_exists('wtd_parse_calendar_page')){
 
         public function build_calendar(){
             global $wtd_plugin, $wtd_connector;
-            $data = $wtd_connector->decrypt_parse_response($_POST['data']);
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			$data = $wtd_connector->decrypt_parse_response($_POST['data']);
 
             $dates = array();
             foreach($data as $event){
@@ -164,14 +150,14 @@ if(!class_exists('wtd_parse_calendar_page')){
                 $temp_time += $step;
             }
             ob_start();?>
-            <div class="month" layout="column" flex>
-                <div layout="row" layout-sm="column"><?php
+            <div class="month">
+                <div class="week"><?php
                     $i = 0;
                     $type = $wtd_plugin['calendar_type'];
                     foreach($month_days as $date => $events){
                         $date_timestamp = strtotime($date);
                         if($i % 7 == 0 && $i != 0)
-                            echo '</div><div layout="row" layout-sm="column">';
+                            echo '</div><div class="week">';
                         $results = $events;
                         switch($type){
                             case 1:
@@ -212,13 +198,13 @@ if(!class_exists('wtd_parse_calendar_page')){
                                 $images = '';
                                 $count = count($results);
                                 if(!empty($results)){
-                                    $images = '<div class="small-events" layout="column">';
+                                    $images = '<div class="small-events">';
                                     $k = 0;
                                     foreach($results as $key => $row){
-                                        $event_url = '/' . $wtd_plugin['url_prefix'] . '/event/' . $row->id . '/' . sanitize_title($row->name) . '/';
-                                        //if($k == 3)
-                                        //    break;
-                                        $images .= '<a href="' . $event_url . '">&middot; ' . $row->name . '</a>';
+                                        $event_url = $start_url. '/' . $wtd_plugin['url_prefix'] . '/event/' . $row->id . '/' . sanitize_title($row->name) . '/';
+                                        if($k == 3)
+                                            break;
+                                        $images .= '<a href="' . $event_url . '">&middot; ' . $row->name . '</a><br/>';
                                         $k ++;
                                     }
                                     $images .= '</div>';
@@ -235,7 +221,7 @@ if(!class_exists('wtd_parse_calendar_page')){
                         $not_month = '';
                         if($month != date('m', $date_timestamp))
                             $not_month = 'not_month ';?>
-                        <div class="<?php echo $not_month; ?>day type<?php echo $type; ?>" <?php echo (empty($not_month)) ? '' : 'hide-sm'; ?> flex layout="column" layout-padding><?php
+                        <div class="<?php echo $not_month; ?>day type<?php echo $type; ?>" <?php echo (empty($not_month)) ? '' : 'hide-sm'; ?> layout="column" layout-padding><?php
                             if($count > 0){?>
                                 <div layout="column" title="See more events" class="day-list" onclick="showDateDialog(event, <?php echo $date_timestamp; ?>)"><?php
                             }else{?>

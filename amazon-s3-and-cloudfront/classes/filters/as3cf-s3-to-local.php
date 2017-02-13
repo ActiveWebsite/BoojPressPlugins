@@ -12,11 +12,26 @@ class AS3CF_S3_To_Local extends AS3CF_Filter {
 		add_filter( 'pre_set_theme_mod_background_image', array( $this, 'filter_customizer_image' ), 10, 2 );
 		add_filter( 'pre_set_theme_mod_header_image', array( $this, 'filter_customizer_image' ), 10, 2 );
 		add_filter( 'pre_set_theme_mod_header_image_data', array( $this, 'filter_header_image_data' ), 10, 2 );
+		add_filter( 'update_custom_css_data', array( $this, 'filter_update_custom_css_data' ), 10, 2 );
 		// Posts
 		add_filter( 'content_save_pre', array( $this, 'filter_post' ) );
 		add_filter( 'excerpt_save_pre', array( $this, 'filter_post' ) );
 		// Widgets
 		add_filter( 'widget_update_callback', array( $this, 'filter_widget_update' ), 10, 4 );
+	}
+
+	/**
+	 * Filter update custom CSS data.
+	 *
+	 * @param array $data
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	public function filter_update_custom_css_data( $data, $args ) {
+		$data['css'] = $this->filter_custom_css( $data['css'], $args['stylesheet'] );
+
+		return $data;
 	}
 
 	/**
@@ -42,6 +57,15 @@ class AS3CF_S3_To_Local extends AS3CF_Filter {
 		$this->maybe_update_option_cache( $to_cache );
 
 		return $instance;
+	}
+
+	/**
+	 * Should filter content.
+	 *
+	 * @return bool
+	 */
+	protected function should_filter_content() {
+		return true;
 	}
 
 	/**
@@ -98,13 +122,14 @@ class AS3CF_S3_To_Local extends AS3CF_Filter {
 		global $wpdb;
 
 		$full_url = $this->as3cf->remove_size_from_filename( $url );
-		$parts    = parse_url( $full_url );
-		$path     = $this->as3cf->decode_filename_in_path( ltrim( $parts['path'], '/' ) );
 
 		if ( isset( $this->query_cache[ $full_url ] ) ) {
 			// ID already cached, return
 			return $this->query_cache[ $full_url ];
 		}
+
+		$parts = parse_url( $full_url );
+		$path  = $this->as3cf->decode_filename_in_path( ltrim( $parts['path'], '/' ) );
 
 		if ( false !== strpos( $path, '/' ) ) {
 			// Remove the first directory to cater for bucket in path domain settings
@@ -160,6 +185,31 @@ class AS3CF_S3_To_Local extends AS3CF_Filter {
 		$this->query_cache[ $full_url ] = false;
 
 		return false;
+	}
+
+	/**
+	 * Get attachment IDs from URLs.
+	 *
+	 * @param array $urls
+	 *
+	 * @return array url => attachment ID (or false)
+	 */
+	protected function get_attachment_ids_from_urls( $urls ) {
+		$results = array();
+
+		if ( empty( $urls ) ) {
+			return $results;
+		}
+
+		if ( ! is_array( $urls ) ) {
+			$urls = array( $urls );
+		}
+
+		foreach ( $urls as $url ) {
+			$results[ $url ] = $this->get_attachment_id_from_url( $url );
+		}
+
+		return $results;
 	}
 
 	/**

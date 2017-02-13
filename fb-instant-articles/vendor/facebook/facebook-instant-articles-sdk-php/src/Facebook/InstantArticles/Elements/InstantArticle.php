@@ -34,7 +34,7 @@ use Facebook\InstantArticles\Validators\Type;
 
 class InstantArticle extends Element implements Container, InstantArticleInterface
 {
-    const CURRENT_VERSION = '1.5.0';
+    const CURRENT_VERSION = '1.5.3';
 
     /**
      * The meta properties that are used on <head>
@@ -80,6 +80,11 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
      * @var Element[] of all elements an article can have.
      */
     private $children = [];
+
+    /**
+     * @var boolean flag that indicates if this article is Right-to-left(RTL). Defaults to false.
+     */
+    private $isRTLEnabled = false;
 
     /**
      * Factory method
@@ -162,6 +167,24 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
     public function disableAutomaticAdPlacement()
     {
         $this->isAutomaticAdPlaced = false;
+        return $this;
+    }
+
+    /**
+     * Updates article to use RTL orientation.
+     */
+    public function enableRTL()
+    {
+        $this->isRTLEnabled = true;
+        return $this;
+    }
+
+    /**
+     * Updates article to use LTR orientation (default), disabling RTL.
+     */
+    public function disableRTL()
+    {
+        $this->isRTLEnabled = false;
         return $this;
     }
 
@@ -326,6 +349,9 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
 
         // Builds and appends head to the HTML document
         $html = $document->createElement('html');
+        if ($this->isRTLEnabled) {
+            $html->setAttribute('dir', 'rtl');
+        }
         $head = $document->createElement('head');
         $html->appendChild($head);
 

@@ -11,7 +11,21 @@ use Facebook\InstantArticles\Client\InstantArticleStatus;
 use Facebook\InstantArticles\Client\ServerMessage;
 ?>
 
-<?php if ( ! $published ) : ?>
+<?php if ( $dev_mode ) : ?>
+<a href="<?php echo esc_url( $settings_page_href ); ?>" class="instant-articles-dev-mode-indicator">
+	<span class="dashicons dashicons-admin-tools"></span>
+	Development Mode
+</a>
+<?php endif; ?>
+
+<?php if ( ! $should_submit_post ) : ?>
+<p>
+	<b>
+		<span class="dashicons dashicons-no-alt"></span>
+		This post will not be submitted to Instant Articles due to a rule created in your site.
+	</b>
+</p>
+<?php elseif ( ! $published ) : ?>
 <p>
 	<b>
 		<span class="dashicons dashicons-media-document"></span>
@@ -163,6 +177,13 @@ use Facebook\InstantArticles\Client\ServerMessage;
 			</li>
 		<?php endforeach; ?>
 	</ul>
+	<?php if ( ! $publish_with_warnings ) : ?>
+		<hr />
+		<p>
+			<input type="checkbox" id="instant_articles_force_submit" data-security="<?php echo $ajax_nonce; ?>" <?php checked( $force_submit , 1 ); ?> />
+			Submit this article even with warnings
+		</p>
+	<?php endif; ?>
 
 <?php else : ?>
 	<p>

@@ -43,16 +43,16 @@ class Instant_Articles_Option_Publishing extends Instant_Articles_Option {
 			'label' => '',
 			'render' => 'textarea',
 			'placeholder' => '{ "rules": [{ "class": "BoldRule", "selector": "span.bold" }, ... ] }',
-			'description' => 'Read more about <a href="https://github.com/facebook/facebook-instant-articles-sdk-php/blob/master/docs/QuickStart.md#custom-transformer-rules" target="_blank">defining your own custom rules</a> to extend/override the <a href="https://github.com/Automattic/facebook-instant-articles-wp/blob/master/rules-configuration.json" target="_blank">built-in ruleset</a>. If you\'ve defined a common rule which you think this plugin should include by default, <a href="https://github.com/Automattic/facebook-instant-articles-wp/issues/new" target="_blank">tell us about it</a>!',
+			'description' => 'Read more about <a href="https://developers.facebook.com/docs/instant-articles/sdk/transformer-rules" target="_blank">defining your own custom rules</a> to extend/override the <a href="https://github.com/Automattic/facebook-instant-articles-wp/blob/master/rules-configuration.json" target="_blank">built-in ruleset</a>. If you\'ve defined a common rule which you think this plugin should include by default, <a href="https://github.com/Automattic/facebook-instant-articles-wp/issues/new" target="_blank">tell us about it</a>!',
 			'default' => '',
 		),
 
-		'block_publish_with_warnings' => array(
+		'publish_with_warnings' => array(
 			'label' => 'Transformation warnings',
-			'description' => 'Articles won\'t be available as Instant Articles if transformation process contains warnings. Note: All warnings should be fixed in order to have them available as Instant Articles.',
+			'description' => 'With this option disabled, articles which contain warnings in their transformation process won\'t be available as Instant Articles by default — this can be overridden on individual articles. Note: It is recommended that all transformation warnings be fixed.',
 			'render' => 'checkbox',
 			'default' => false,
-			'checkbox_label' => 'Don\'t publish with warnings',
+			'checkbox_label' => 'Publish articles containing warnings',
 		),
 	);
 

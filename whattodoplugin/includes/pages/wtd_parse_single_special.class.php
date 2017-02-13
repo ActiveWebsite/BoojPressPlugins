@@ -24,6 +24,10 @@ if(!class_exists('wtd_parse_single_special')){
 
         public function single_special($content){
             global $post, $wp_query, $wtd_connector, $wpdb, $wtd_plugin;
+            if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+                $start_url = site_url();
+            else
+                $start_url = home_url();
             if(!is_singular('wtd_special') || !in_the_loop())
                 return $content;
 
@@ -37,7 +41,7 @@ if(!class_exists('wtd_parse_single_special')){
 						AND pm.meta_value = 'specials_page'
 						AND	p.post_type = 'page'";
 	        $specials_page = $wpdb->get_var($query);
-	        $specials_page = '/'.$wtd_plugin['url_prefix'].'/'.$specials_page.'/';
+	        $specials_page = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$specials_page.'/';
 
             if($post->post_type == 'wtd_special'){
                 remove_filter('the_content', 'theme_formatter', 99);
@@ -66,9 +70,9 @@ if(!class_exists('wtd_parse_single_special')){
 	                <div id="wtd_event_sc_container" ng-hide="progess == true"></div>
                 </div><?php
                 wtd_copyright();?>
-                <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
-                <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
-                <script>
+		<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
+            	<script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
+               <script>
                     var wtd_base_request = <?php echo json_encode($base_request);?>;
                     var return_page = '<?php echo $specials_page;?>';
                 </script>

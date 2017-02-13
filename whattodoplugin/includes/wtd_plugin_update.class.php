@@ -20,7 +20,7 @@ class wtd_plugin_update {
 		//DO NOT SYNC THE BELOW LINES - PRODUCTION REPOSITORY
 		$this->repo = 'whattodoplugin';
 		$this->username = 'whattodoinfo';
-		$this->accessToken = '0cf0ece1a93689f06f5f9ec5d61343a4e2220344';  // Production Plugin Token
+		$this->accessToken = '199aa29f3419d78e9f6ff34a58808876eadb2073'; //New Correct Access Token
         add_action('admin_head', array($this, 'admin_head'));
     }
 

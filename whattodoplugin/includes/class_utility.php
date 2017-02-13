@@ -28,6 +28,7 @@ class wtdUtility{
 						height: '390',
 						width: '640',
 						videoId: '<?php echo $wtd_video_id;?>',
+						playerVars: {rel: 0},
 						events: {
 							'onReady': wtd_player_onPlayerReady,
 							'onStateChange': wtd_player_onStateChange
@@ -72,7 +73,7 @@ class wtdUtility{
 				<div id="wtd_gallery_big" layout="row" layout-align="center center" layout-padding><?php
 					echo '<img src="'.$images[0].'" onclick="galleryNext();"/>';?>
 				</div>
-				<div id="wtd_gallery_nav" layout="row" layout-align="center center" layout-wrap><?php
+				<div id="wtd_gallery_nav" layout="row" layout-align="center center" layout-wrap style="display:flex;"><?php
 					foreach($images as $image){
 						echo '<div onclick="thumbnavClick(\''.$image.'\');" layout-margin><img src="'.$image.'"/></div>';
 					}?>

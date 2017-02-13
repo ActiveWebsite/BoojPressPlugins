@@ -1,27 +1,27 @@
 === WP-Paginate ===
-Contributors: StudioFuel, emartin24
+Contributors: maxfoundry, emartin24, AlanP57
 Tags: paginate, pagination, navigation, page, wp-paginate, comments, rtl, seo, usability
 Requires at least: 2.6.0 (2.7.0 for comments pagination)
-Tested up to: 4.1
-Stable tag: 1.3.1
+Tested up to: 4.7.1
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-	
+
 WP-Paginate is a simple and flexible pagination plugin which provides users with better navigation on your WordPress site.
 
 == Description ==
 
 = Latest News =
-> I am happy to announce that, effective December 15, 2014, Noah Cinquini and the team at Studio Fuel (studiofuel.com) have offered to take over maintenance, support, and development of WP-Paginate! A huge thanks to Noah and all of the people that have used WP-Paginate over the last 5 years! 
-
 WP-Paginate is a simple and flexible pagination plugin which provides users with better navigation on your WordPress site.
 
 In addition to increasing the user experience for your visitors, it has also been widely reported that pagination increases the SEO of your site by providing more links to your content.
 
+You can add custom CSS for your pagination links with the Custom CSS tab in WP-Paginate Settings.
+
 Starting in version 1.1, WP-Paginate can also be used to paginate post comments!
 
 Translations: http://plugins.svn.wordpress.org/wp-paginate/I18n (check the version number for the correct file)
-	
+
 == Installation ==
 
 *Install and Activate*
@@ -37,55 +37,74 @@ For posts pagination:
 
 Examples:
 
-For the `twentytwelve` theme, in `index.php`, replace:
+For the `Twenty Seventeen` theme, in `index.php`, replace:
 
-	<?php twentytwelve_content_nav( 'nav-below' ); ?>
-
-With:
-
-	<?php if(function_exists('wp_paginate')) {
-		wp_paginate();
-	}
-	else {
-		twentytwelve_content_nav( 'nav-below' );
-	}
-	?> 
-
-For the `twentythirteen` theme, in `index.php`, replace:
-
-	<?php twentythirteen_paging_nav(); ?>
+	the_posts_pagination( array(
+		'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
+		'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
+		'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
+	) );
 
 With:
 
-	<?php if(function_exists('wp_paginate')) {
-		wp_paginate();
-	}
-	else {
-		twentythirteen_paging_nav();
-	}
-	?> 
+	if(function_exists('wp_paginate')):
+		wp_paginate();	
+	else :
+		the_posts_pagination( array(
+			'prev_text' => twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '<span class="screen-reader-text">' . __( 'Previous page', 'twentyseventeen' ) . '</span>',
+			'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'twentyseventeen' ) . '</span>' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ),
+			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyseventeen' ) . ' </span>',
+		) );
+	endif;
 
-For the `twentyfourteen` theme, in `index.php`, replace:
+For the `Twenty Sixteen` theme, in `index.php`, replace:
 
-	twentyfourteen_paging_nav();
+		the_posts_pagination( array(
+			'prev_text'          => __( 'Previous page', 'twentysixteen' ),
+			'next_text'          => __( 'Next page', 'twentysixteen' ),
+			'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentysixteen' ) . ' </span>',
+		) );
 
 With:
 
-	if(function_exists('wp_paginate')) {
-		wp_paginate();
-	}
-	else {
-		twentyfourteen_paging_nav();
-	} 
+		if(function_exists('wp_paginate')):
+			wp_paginate();	
+		else :
+			the_posts_pagination( array(
+				'prev_text'          => __( 'Previous page', 'twentysixteen' ),
+				'next_text'          => __( 'Next page', 'twentysixteen' ),
+				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentysixteen' ) . ' </span>',
+			) );
+		endif;
+
+For the `Twenty Fifteen` theme, in `index.php`, replace:
+
+			the_posts_pagination( array(
+				'prev_text'          => __( 'Previous page', 'twentyfifteen' ),
+				'next_text'          => __( 'Next page', 'twentyfifteen' ),
+				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>',
+			) );
+
+With:
+
+			if(function_exists('wp_paginate')):
+				wp_paginate();	
+			else :
+			the_posts_pagination( array(
+				'prev_text'          => __( 'Previous page', 'twentyfifteen' ),
+				'next_text'          => __( 'Next page', 'twentyfifteen' ),
+				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'twentyfifteen' ) . ' </span>',
+			) );
+		  endif;
 
 For comments pagination:
 1) Open the theme file(s) where you'd like comments pagination to be used. Usually this is the `comments.php` file.
 
 2) Replace your existing `previous_comments_link()` and `next_comments_link()` code block with the following:
 
-	<?php if(function_exists('wp_paginate_comments')) {
-		wp_paginate_comments();
-	} ?>
+    <?php if(function_exists('wp_paginate_comments')) {
+        wp_paginate_comments();
+    } ?>
 
 
 *Configure*
@@ -130,28 +149,24 @@ You can even control the current page and number of pages with:
 
 Example (also applies to `wp_paginate_comments()`):
 
-	<?php if(function_exists('wp_paginate')) {
-		wp_paginate('range=4&anchor=2&nextpage=Next&previouspage=Previous');
-	} ?>
+    <?php if(function_exists('wp_paginate')) {
+        wp_paginate('range=4&anchor=2&nextpage=Next&previouspage=Previous');
+    } ?>
 
 
 = How can I style the comments pagination differently than the posts pagination? =
 
 When calling `wp_paginate_comments()`, WP-Paginate adds an extra class to the `ol` element, `wp-paginate-comments`.
 
-This allows you to use the `.wp-paginate-comments` styles, already in `wp-paginate.css`, to override the default styles.
-
-== Screenshots ==
-
-1. An example of the WP-Paginate display using the default options and styling
-2. The WP-Paginate admin settings page
-
-
-== Upgrade Notice ==
-
-N/A
-
 == Changelog ==
+= 1.3.4=
+* Tested with WordPress 4.7.1
+
+= 1.3.3 =
+* Added settings tab for entering custom CSS code
+
+= 1.3.2 =
+* Tested with WordPress 4.7
 
 = 1.3.1 =
 * Fixed bug that prevented a wp-paginate.css stylesheet from loading from a child theme (reported by sunamumaya)

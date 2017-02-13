@@ -2,10 +2,6 @@ body {
   flex-direction: column;
 }
 
-md-dialog {
-  margin-top: -500px;
-}
-
 .day-list {
   height: 200px;
   overflow: hidden;
@@ -334,6 +330,8 @@ md-dialog {
   font-size: 12px;
   border: 1px solid #EBEBEB;
   line-height: 1.4em;
+  width: 14.28%;
+  float: left;
 }
 
 #dates .day a {

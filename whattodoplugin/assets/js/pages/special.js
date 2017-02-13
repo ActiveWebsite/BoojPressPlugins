@@ -14,10 +14,7 @@ specials_calendar_app.controller('calendarCtrl', function($scope, $mdDialog, $an
 			success: function(result){
 				var time = new Date($scope.end.getTime() - ($scope.week * 2));
 				var month = time.getMonth();
-				if(month == 11)
-					month = 1;
-				else
-					month++;
+				month++;
 				jQuery.ajax({
 					url: wtd_ajax_url,
 					type: 'post',
@@ -27,7 +24,7 @@ specials_calendar_app.controller('calendarCtrl', function($scope, $mdDialog, $an
 						data: result,
 						start: $scope.start.getTime(),
 						end: $scope.end.getTime(),
-						year: $scope.start.getFullYear(),
+						year: time.getFullYear(),
 						month: month
 					},
 					success: function(data){
@@ -55,7 +52,9 @@ specials_calendar_app.controller('calendarCtrl', function($scope, $mdDialog, $an
 				res_id: res_id
 			},
 			success: function(data){
+				var parentEl = angular.element(document.body);
 				$mdDialog.show({
+					parent: parentEl,
 					template: data,
 					clickOutsideToClose: true
 				});

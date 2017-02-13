@@ -18,7 +18,7 @@ class add_resort_shortcode_button {
 	 *
 	 * @return void
 	 */
-	function add_resort_shortcode_button() {
+	public function _construct() {
 		// Set path to editor_plugin.js
 		$this->path = WTD_PLUGIN_URL.'/includes/shortcodes/tinymce/';
 

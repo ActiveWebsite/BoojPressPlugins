@@ -38,7 +38,9 @@ if ( class_exists( 'WPSEO_Import_Hooks' ) ) {
 		}
 	}
 } else {
-	add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
+	if(is_admin()) {
+		add_action( 'init', 'mi_aioseop_yst_detected_notice_dismissed' );
+	}
 }
 
 /**
@@ -162,7 +164,7 @@ function aiosp_seometa_admin() {
 		</p>
 
 		<p><span
-				class="row-title"><?php printf( esc_html__( 'Before performing an import, we strongly recommend that you make a backup of your site. We use and recommend %s BackupBuddy %s for backups.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'http://semperfiwebdesign.com/backupbuddy/' ) ), '</a>' ); ?></span>
+				class="row-title"><?php printf( esc_html__( 'Before performing an import, we strongly recommend that you make a backup of your site. We use and recommend %s BackupBuddy %s for backups.', 'all-in-one-seo-pack' ), sprintf( '<a target="_blank" href="%s">', esc_url( 'https://semperfiwebdesign.com/backupbuddy/' ) ), '</a>' ); ?></span>
 		</p>
 
 
@@ -484,6 +486,7 @@ function aiosp_seometa_import() {
 			'Custom Doctitle'  => '_aioseop_title',
 			'META Description' => '_aioseop_description',
 			'META Keywords'    => '_aioseop_keywords',
+			'Canonical URI'    => '_aioseop_custom_link',
 		),
 		'Greg\'s High Performance SEO' => array(
 			'Custom Doctitle'  => '_ghpseo_secondary_title',
@@ -504,6 +507,9 @@ function aiosp_seometa_import() {
 			'nofollow'         => '_wds_meta-robots-nofollow',
 			'Canonical URI'    => '_wds_canonical',
 			'Redirect URI'     => '_wds_redirect',
+		),
+		'Jetpack'                => array(
+			'META Description' => 'advanced_seo_description',
 		),
 		'Meta SEO Pack'                => array(
 			'META Description' => '_msp_description',

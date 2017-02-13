@@ -51,7 +51,9 @@ calendar_app.controller('calendarCtrl', function($scope, $mdDialog, $anchorScrol
 				res_id: res_id
 			},
 			success: function(data){
+				var parentEl = angular.element(document.body);
 				$mdDialog.show({
+					parent: parentEl,
 					template: data,
 					clickOutsideToClose: true
 				});

@@ -1,16 +1,18 @@
 <?php
+require_once WTD_PLUGIN_PATH.'/includes/pages/class_parse_page.php';
+
 use Parse\ParseQuery;
 
 if(!class_exists('wtd_parse_dining_page')){
 
-    class wtd_parse_dining_page{
+    class wtd_parse_dining_page extends wtd_parse_page{
 
         private $wtd_categories;
 
         function __construct(){
-            $wtd_plugin = get_option('wtd_plugin');
+            parent::__construct();
             //Page Content
-            if(!empty($wtd_plugin['dining-page']))
+            if(!empty($this->wtd_plugin['dining-page']))
                 add_action('the_content', array($this, 'page_content'), 99);
             //Ajax calls
             add_action('wp_ajax_wtd_build_dining_list', array($this, 'build_list'));
@@ -40,7 +42,11 @@ if(!class_exists('wtd_parse_dining_page')){
 
         private function results(){
 			global $wp_query, $post, $wtd_plugin, $wtd_connector;
-            $res_id = get_post_meta($post->ID, 'res_id', true);
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+			$res_id = get_post_meta($post->ID, 'res_id', true);
 	        $query = new ParseQuery("resort");
 	        try{
 		        $resort = $query->get($res_id);
@@ -89,7 +95,7 @@ if(!class_exists('wtd_parse_dining_page')){
 					        $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 					        $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 					        $subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-					        $url = '/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
+					        $url = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';?>
 				            <li class="wtd_subcategory_menu_item <?php echo ($category->getObjectId() == $wp_query->query['wtds']) ? 'active' : '';?>">
 					            <a href="<?php echo $url;?>"><?php echo $category->get('name');?></a>
 					        </li><?php
@@ -111,7 +117,7 @@ if(!class_exists('wtd_parse_dining_page')){
 					        if(!empty($parent_cat_id)):
 						        $category_url_name = strtolower($parent_cat->get('name'));
 						        $category_url_name = str_replace(' ', '-', $category_url_name);
-						        $url = '/'.$wtd_plugin['url_prefix'].'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
+						        $url = $start_url.'/'.$wtd_plugin['url_prefix'].'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
 						        <span class="wtd_bread_separator">&gt;</span>
 						        <a id="parent_<?php echo $parent_cat->getObjectId();?>_header" class="wtd_pull_left" href="<?php echo $url;?>"><?php
 						        echo $parent_cat->get('name');?>
@@ -119,8 +125,12 @@ if(!class_exists('wtd_parse_dining_page')){
 					        endif;
 					        if($wtd_plugin['dining_page_type'] == 2){?>
 						        <span class="wtd_bread_separator">&gt;</span>
-						        <select class="wtd_subcategory_navigator">
-							        <option>Select Subcategory</option><?php
+						        <select class="wtd_subcategory_navigator"><?php
+									$category_url_name = strtolower($parent_cat->get('name'));
+									$category_url_name = str_replace(' ', '-', $category_url_name);
+									$category_url_name = str_replace('/', '-', $category_url_name);
+									$firsturl = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/';?>
+									<option value="<?php echo $firsturl;?>">Select Subcategory</option><?php
 							        for($i = 0; $i < count($categories); $i++){
 								        $category = $categories[$i];
 								        $category_url_name = strtolower($parent_cat->get('name'));
@@ -130,7 +140,7 @@ if(!class_exists('wtd_parse_dining_page')){
 								        $subcategory_url_name = str_replace(' ', '-', $subcategory_url_name);
 								        $subcategory_url_name = str_replace(',', '', $subcategory_url_name);
 								        $subcategory_url_name = str_replace('/', '-', $subcategory_url_name);
-								        $url = '/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
+								        $url = $start_url.'/'.$post->post_name.'/whattodo/'.$category_url_name.'/'.$parent_cat->getObjectId().'/'.$subcategory_url_name.'/'.$category->getObjectId().'/';
 								        $selected = '';
 								        if($cat_id == $category->getObjectId())
 									        $selected = ' selected="selected"';
@@ -164,7 +174,7 @@ if(!class_exists('wtd_parse_dining_page')){
                 $subcat_id = $cat->getObjectId();
             if(!empty($subcat_id))
                 $wtd_base_request['category_id'] = $subcat_id;?>
-            <script src="//www.parsecdn.com/js/parse-1.3.5.min.js"></script>
+	    <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse-1.6.14.js"></script>
             <script src="<?php echo WTD_PLUGIN_URL;?>/assets/js/parse_init.js"></script>
             <script>
                 var wtd_categories = <?php echo json_encode($this->wtd_categories);?>;
@@ -180,107 +190,42 @@ if(!class_exists('wtd_parse_dining_page')){
 
         public function build_list(){
             global $wtd_connector, $wtd_plugin;
-            $data = $wtd_connector->decrypt_parse_response($_POST['data']);
+			if($wtd_plugin['start_url'] == 2 || empty($wtd_plugin['start_url']))
+				$start_url = site_url();
+			else
+				$start_url = home_url();
+
+			$data = $wtd_connector->decrypt_parse_response($_POST['data']);
             ob_start();
-            if(!empty($data)):
-                $dining = $data;				
-                foreach($dining as $key => $dining):
+            if(!empty($data)){
+                $dining = $data;
+                foreach($dining as $key => $dining){
                     if(!empty($dining->addresses))
                         $addresses = $dining->addresses;
                     if(!empty($dining->vendor))
                         $vendor = $dining->vendor;
-                    $dining_url = '/'.$wtd_plugin['url_prefix'].'/dining/'.$dining->id.'/'.sanitize_title($dining->title).'/';?>
-                    <div class="wtd_listing_container wtd_parse_result md-whiteframe-z2" layout="column">
-                        <div><?php
-                            $title = '<span class="wtd_listing_title">'.$dining->title.'</span>';
-                            if(!empty($dining->title) && !empty($vendor) && !substr_count($title, $vendor))
-                                $title .= ' - <span class="wtd_listing_vendor">'.$vendor.'</span>';
-                            elseif(empty($dining->title) && !substr_count($title, $vendor))
-                                $title .= '<span class="wtd_listing_vendor">'.$vendor.'</span>';?>
-	                        <div layout="row" layout-sm="column" class="wtd_listing_title_bar" layout-align="center start"><?php
-		                        if($dining->vend_rec_type == 'wfree'){
-			                        echo $title;
-		                        }else{?>
-			                        <a href="<?php echo $dining_url;?>"><?php echo $title;?></a><?php
-		                        }?>
-	                        </div>
-                            <div layout="row" offset="3" layout-sm="column" layout-align="center start" layout-padding><?php
-                                if(!empty($dining->logoUrl) && $dining->vend_rec_type != 'wfree'){?>
-                                    <div flex="20" flex-sm="100" class="wtd_listing_sc_imageArea">
-                                        <a href="<?php echo $dining_url;?>">
-                                            <img src="<?php echo $dining->logoUrl;?>" alt="<?php echo $dining->title;?>" layout-padding />
-                                        </a>
-                                    </div><?php
-                                }?>
-                                <div flex="75" flex-sm="100" layout-padding layout="column"><?php
-                                    if($dining->vend_rec_type != 'wfree'){
-                                        echo "<div>";
-                                        $desc = strip_tags($dining->description);
-                                        wtd_excerpt_generator($desc, false, $dining_url);
-                                        echo "</div>";
-                                    }
-                                    if(!empty($addresses)):
-                                    if(count($addresses) == 1):
-                                        $address = $addresses[0];?>
-                                        <div><?php
-                                            $display_address = '';
-                                            if(!empty($address->address))
-                                                $street = $address->address;
-                                            if(!empty($street))
-                                                $display_address .= $street;
-                                            if(!empty($address->city))
-                                                $city = $address->city;
-                                            if(!empty($city)){
-                                                if(!$display_address)
-                                                    $display_address .= $city;
-                                                else
-                                                    $display_address .= ' in ' . $city;
-                                            }
-                                            if(!empty($address->state))
-                                                $state = $address->state;
-                                            if(!empty($state)){
-                                                if(empty($display_address))
-                                                    $display_address .= $state;
-                                                else
-                                                    $display_address .= ', ' . $state;
-                                            }
-                                            if(!empty($address->phone))
-                                                $phone = $address->phone;
-                                            if(!empty($phone))
-                                                $display_address .= " (" . substr($phone, 0, 3) . ") " . substr($phone, 3, 3) . "-" . substr($phone, 6);
-                                            else
-                                                $display_address .= '';
-                                            echo $display_address;?>
-                                        </div><?php
-                                    else:
-                                        $locations = array();
-                                        foreach($addresses as $add){
-                                            if(!empty($add->location)){
-                                                if(!in_array(ucfirst($add->location), $locations))
-                                                    $locations[] = ucfirst($add->location);
-                                            }elseif(!empty($add->city)){
-                                                if(!in_array(ucfirst($add->city), $locations))
-                                                    $locations[] = ucfirst($add->city);
-                                            }
-                                        }
-                                        $address = 'Various Locations in '.implode(', ', $locations);?>
-                                        <div><?php echo $address;?></div><?php
-                                    endif;
-                                endif;?>
-                                </div>
-                            </div>
-                        </div>
-                    </div><?php
-                    endforeach;
-            else:?>
+                    $dining_url = $start_url. '/' . $wtd_plugin['url_prefix'] . '/dining/' . $dining->id . '/' . sanitize_title($dining->title) . '/';
+                    $desc = strip_tags($dining->description);
+                    $params = array(
+                        'title' => $dining->title,
+                        'thumb_url' => $dining->logoUrl,
+                        'details_url' => $dining_url,
+                        'vendor_name' => $dining->vendor,
+                        'type' => $dining->vend_rec_type,
+                        'desc' => wtd_excerpt_generator($desc, false, $dining_url),
+                        'addresses' => $this->get_addresses($dining->addresses)
+                    );
+                    echo $this->twig->render('wtd_list_item.twig', $params);
+                }
+            }else{?>
                 No listings of this type are available.<?php
+            }
+            if($_POST['page'] != 1):?>
+                <a href="javascript:void(0)" class="wtd_pull_left" id="wtd_parse_prev">&laquo; Previous</a><?php
             endif;
-                if($_POST['page'] != 1):?>
-                    <a href="javascript:void(0)" class="wtd_pull_left" id="wtd_parse_prev">&laquo; Previous</a><?php
-                endif;
-                if(count($data) == 10):?>
-                    <a href="javascript:void(0)" class="wtd_pull_right" id="wtd_parse_next">Next &raquo;</a><?php
-                endif;
+            if(count($data) == 10):?>
+                <a href="javascript:void(0)" class="wtd_pull_right" id="wtd_parse_next">Next &raquo;</a><?php
+            endif;
             die();
         }
     }

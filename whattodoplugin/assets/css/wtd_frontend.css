@@ -1,3 +1,6 @@
+.et_post_meta_wrapper {
+    display: none;
+}
 
 .wtd_clearfix{
     clear:both;
