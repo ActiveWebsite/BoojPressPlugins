@@ -1,5 +1,5 @@
 <h4><?php _e('Share Ajax Load More', 'ajax-load-more'); ?> <i class="fa fa-share-alt"></i></h4>
-<p><?php _e('Use the links below to share with your friends on Twitter and Facebook.', 'ajax-load-more'); ?></p>		   	
+<p><?php _e('Help <a href="https://twitter.com/KaptonKaos" target="_blank">me</a> spread the word by sharing with your friends and colleagues on Twitter and Facebook.', 'ajax-load-more'); ?></p>		   	
 <ul class="share">
 	<li class="twitter">
 		<a target="blank" title="Share on Twitter" href="//twitter.com/home?status=Ajax Load More - WordPress plugin for infinite scrolling posts with Ajax - https://connekthq.com/plugins/ajax-load-more/" class="share-twitter">Twitter</a>
