@@ -73,54 +73,7 @@ jQuery(document).ready(function($) {
       	$('.alm-template-toggle', parent).hide()
       	$('.alm-template-toggle', parent).eq(index).show();
    	}
-   });
-	
-	
-	
-	
-	/*
-	*  Mailchimp Signup
-	*  From the setting screen
-	*
-	*  @since 2.7.2
-	*/
-	
-	$('form#alm-mc-embedded').submit(function() {
-      var el = $('#alm-mailing-list'),
-          email = $('input#mc_email', el).val(),
-          data_path = $('form', el).data('path'); 
-   	
-   	// update user interface
-   	$('#response', el).fadeIn(250).addClass('loading');
-   	$('#response p', el).html('Adding email address...');   	
-   	
-   	// Verify email address
-   	if(!IsEmail(email)){
-   		$('#response p', el).html('<i class="fa fa-exclamation-circle"></i> Please enter a valid email address.');
-   		$('#response', el).removeClass('loading');
-   		$('#response', el).delay(2000).fadeOut(250);
-   		return false;
-   	}
-   	// Prepare query string and send AJAX request
-   	$.ajax({
-   		url: data_path,
-   		data: 'ajax=true&email=' + escape(email),
-   		success: function(msg) {
-   		   $('#response', el).removeClass('loading');
-   			$('#response p', el).html(msg);			
-   		},
-   		error: function() {
-            $('#response', el).removeClass('loading').delay(2000).fadeOut(250);	
-   			$('#response p', el).html('There was an error submitting your email address.');
-   		}
-   	});
-   	
-   	return false;
-   });
-   function IsEmail(email) {
-	  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-	  return regex.test(email);
-	}		
+   });	
 	
 	
 	

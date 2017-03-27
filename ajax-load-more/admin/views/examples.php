@@ -1,15 +1,15 @@
-<div class="admin ajax-load-more" id="alm-examples">	
+<div class="admin ajax-load-more" id="alm-examples">
 	<div class="wrap">
 		<div class="header-wrap">
    			<h1>
       			<?php echo ALM_TITLE; ?>: <strong><?php _e('Examples', 'ajax-load-more'); ?></strong>
                <em><?php _e('A collection of everyday shortcode usages and implementation examples', 'ajax-load-more'); ?></em>
-   			</h1> 
+   			</h1>
 		</div>
 		<div class="cnkt-main forceColors">
-		   <div class="group">		   	
+		   <div class="group">
 			   <span class="toggle-all"><span class="inner-wrap"><em class="collapse"><?php _e('Collapse All', 'ajax-load-more'); ?></em><em class="expand"><?php _e('Expand All', 'ajax-load-more'); ?></em></span></span>
-			   
+
 			   <div class="row gist" id="example-archive">
 			      <h3 class="heading"><?php _e('Archive.php', 'ajax-load-more'); ?></h3>
 			      <div class="expand-wrap">
@@ -19,7 +19,7 @@
 	   		      </div>
 			      </div>
 			   </div>
-			   
+
 			   <div class="row gist" id="example-author">
 			      <h3 class="heading"><?php _e('Author.php', 'ajax-load-more'); ?></h3>
 			      <div class="expand-wrap">
@@ -54,7 +54,7 @@
 	               <script src="https://gist.github.com/dcooney/9b037efbd166b4dba5ae.js"></script>
 			      </div>
 			   </div>
-			   
+
 			   <div class="row gist" id="example-tag">
 			      <h3 class="heading"><?php _e('Tag.php', 'ajax-load-more'); ?></h3>
 			      <div class="expand-wrap">
@@ -65,20 +65,21 @@
 			      </div>
 			   </div>
 		   </div>
-		   
+
 		   <p class="back2top"><a href="#wpcontent" class="group"><i class="fa fa-angle-up"></i> Back to Top</a></p>
-		   
-	   </div>	   
+
+	   </div>
 	   <div class="cnkt-sidebar">
          <div class="cta padding-bottom">
-         <h3>Example Library</h3>
-         <p style="padding-bottom: 10px;">We have a collection of over 20 real-world Ajax Load More <a href="https://connekthq.com/plugins/ajax-load-more/examples/"  target="_blank">examples</a> available on the plugin website.</p>
-         
-         <a href="https://connekthq.com/plugins/ajax-load-more/examples/" class="visit" target="_blank"><i class="fa fa-chevron-circle-right"></i> <?php _e('View All Examples', 'ajax-load-more'); ?></a>
-         </div>			
-	   	<?php include_once( ALM_PATH . 'admin/includes/cta/dyk.php');	?>   	
+            <h3>Example Library</h3>
+            <div class="cta-inner">
+               <p style="padding-bottom: 10px;">We have a collection of over 20 real-world Ajax Load More <a href="https://connekthq.com/plugins/ajax-load-more/examples/"  target="_blank">examples</a> available on the plugin website.</p>
+            </div>
+            <a href="https://connekthq.com/plugins/ajax-load-more/examples/" class="visit" target="_blank"><i class="fa fa-chevron-circle-right"></i> <?php _e('View All Examples', 'ajax-load-more'); ?></a>
+         </div>
+	   	<?php include_once( ALM_PATH . 'admin/includes/cta/dyk.php');	?>
 	   	<?php include_once( ALM_PATH . 'admin/includes/cta/resources.php');	?>
-	   </div>	  
-	   	
+	   </div>
+
 	</div>
 </div>

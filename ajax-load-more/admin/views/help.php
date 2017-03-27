@@ -1,4 +1,4 @@
-<div class="admin ajax-load-more" id="alm-help">	
+<div class="admin ajax-load-more" id="alm-help">
 	<div class="wrap">
 		<div class="header-wrap">
    			<h1>
@@ -7,16 +7,16 @@
    			</h1>
 		</div>
 		<div class="cnkt-main forceColors">
-		   <div class="group">		   	
-			   
+		   <div class="group">
+
 				<img src="<?php echo ALM_ADMIN_URL; ?>img/infographic.png">
-			   
-		   </div>		   
-	   </div>	   
-	   <div class="cnkt-sidebar">   	
+
+		   </div>
+	   </div>
+	   <div class="cnkt-sidebar">
 	   	<?php include_once( ALM_PATH . 'admin/includes/cta/resources.php');	?>
 	   	<?php include_once( ALM_PATH . 'admin/includes/cta/dyk.php');	?>
-	   </div>	  
-	   	
+	   </div>
+
 	</div>
 </div>
