@@ -157,6 +157,42 @@
                         "selector" : "*"
                     }
                 }
-            }
+            },
+
+            {
+    "class" : "FooterRule",
+    "selector" : "footer"
+  },
+  {
+    "class" : "RelatedArticlesRule",
+    "selector" : "ul.op-related-articles",
+    "properties" : {
+      "related.title" : {
+        "type" : "exists",
+        "selector" : "ul.op-related-articles",
+        "attribute" : "title"
+      }
+    }
+  },
+  {
+    "class" : "FooterRelatedArticlesRule",
+    "selector" : "ul.op-related-articles"
+  },
+  {
+    "class" : "RelatedItemRule",
+    "selector" : "li",
+    "properties" : {
+      "related.sponsored" : {
+        "type" : "exists",
+        "selector" : "li",
+        "attribute": "data-sponsored"
+      },
+      "related.url" : {
+        "type" : "string",
+        "selector" : "a",
+        "attribute" : "href"
+      }
+    }
+  }
         ]
 }

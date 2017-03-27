@@ -146,14 +146,7 @@
             },
             {
                 "class": "FooterRelatedArticlesRule",
-                "selector" : "ul.op-related-articles",
-                "properties" : {
-                    "related.title" : {
-                        "type" : "string",
-                        "selector" : "ul.op-related-articles",
-                        "attribute": "title"
-                    }
-                }
+                "selector" : "ul.op-related-articles"
             },
             {
                 "class": "RelatedItemRule",
