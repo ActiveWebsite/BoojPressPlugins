@@ -196,6 +196,14 @@ class WpBoojAdmin {
       'setting_section_id'
     );
 
+    add_settings_field(
+      'WpBoojMU_Force_No_SSL', 
+      'Force Non SSL Admin', 
+      array( $this, 'WpBoojMU_Force_No_SSL_callback' ), 
+      'wp-booj-admin', 
+      'setting_section_id'
+    );
+
   }
 
   /**
@@ -233,7 +241,10 @@ class WpBoojAdmin {
       $new_input['WpBoojEnableUATracking'] = $input['WpBoojEnableUATracking'];
 
     if( isset( $input['WpBoojUACodes'] ) )
-      $new_input['WpBoojUACodes'] = $input['WpBoojUACodes'];    
+      $new_input['WpBoojUACodes'] = $input['WpBoojUACodes'];
+
+    if( isset( $input['WpBoojMU_Force_No_SSL'] ) )
+      $new_input['WpBoojMU_Force_No_SSL'] = $input['WpBoojMU_Force_No_SSL'];
 
     return $new_input;
   }
@@ -307,6 +318,12 @@ class WpBoojAdmin {
     <input name="wp-booj[WpBoojUACodes]" value="<?php echo $this->options['WpBoojUACodes']; ?>" />    
     <?php
   }  
+
+  function WpBoojMU_Force_No_SSL_callback(){
+    ?>
+    <input name="wp-booj[WpBoojMU_Force_No_SSL]" value="<?php echo $this->options['WpBoojMU_Force_No_SSL']; ?>" />    
+    <?php
+  }
 
   /***********************************************************
      _____     _   _              _____     _       
