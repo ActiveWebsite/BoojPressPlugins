@@ -198,12 +198,19 @@ class WpBoojAdmin {
 
     add_settings_field(
       'WpBoojMU_No_Admin_SSL_URL', 
-      'No SSL Admin URL', 
+      'Non-SSL Admin URL', 
       array( $this, 'WpBoojMU_No_Admin_SSL_URL_callback' ), 
       'wp-booj-admin', 
       'setting_section_id'
     );
 
+    add_settings_field(
+      'WpBoojMU_SSL_URL',
+      'SSL URL',
+      array( $this, 'WpBoojMU_SSL_URL_callback' ),
+      'wp-booj-admin',
+      'setting_section_id'
+    );
   }
 
   /**
@@ -245,6 +252,9 @@ class WpBoojAdmin {
 
     if( isset( $input['WpBoojMU_No_Admin_SSL_URL'] ) )
       $new_input['WpBoojMU_No_Admin_SSL_URL'] = $input['WpBoojMU_No_Admin_SSL_URL'];
+
+    if( isset( $input['WpBoojMU_SSL_URL'] ) )
+      $new_input['WpBoojMU_SSL_URL'] = $input['WpBoojMU_SSL_URL'];
 
     return $new_input;
   }
@@ -322,6 +332,12 @@ class WpBoojAdmin {
   function WpBoojMU_No_Admin_SSL_URL_callback(){
     ?>
     <input name="wp-booj[WpBoojMU_No_Admin_SSL_URL]" value="<?php echo $this->options['WpBoojMU_No_Admin_SSL_URL']; ?>" />
+    <?php
+  }
+  
+  function WpBoojMU_SSL_URL_callback(){
+    ?>
+    <input name="wp-booj[WpBoojMU_SSL_URL]" value="<?php echo $this->options['WpBoojMU_SSL_URL']; ?>" />
     <?php
   }
 
