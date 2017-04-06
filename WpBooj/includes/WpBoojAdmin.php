@@ -197,12 +197,14 @@ class WpBoojAdmin {
     );
 
     add_settings_field(
+
       'WpBoojMU_No_Admin_SSL_URL', 
       'Non-SSL Admin URL', 
       array( $this, 'WpBoojMU_No_Admin_SSL_URL_callback' ), 
       'wp-booj-admin', 
       'setting_section_id'
     );
+
 
     add_settings_field(
       'WpBoojMU_SSL_URL',
@@ -211,6 +213,7 @@ class WpBoojAdmin {
       'wp-booj-admin',
       'setting_section_id'
     );
+
   }
 
   /**
