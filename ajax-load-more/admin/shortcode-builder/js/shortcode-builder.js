@@ -186,6 +186,35 @@ jQuery(document).ready(function($) {
                
       
       // ---------------------------
+      // - Advacned Custom Fields      
+      // ---------------------------     
+       
+      var acf = $('#alm-acf input[name=acf]:checked').val(); 
+      
+      if(acf !== 'false' && acf != undefined){    
+                 
+         
+         var acf_post_id = $('#acf_post_id').val(),
+             acf_field_type = $('#acf_field_type').val(),
+             acf_field_name = $('#acf_field_name').val();
+             
+         $('.acf-options').slideDown(150, 'alm_easeInOutQuad');
+         
+         if(acf_field_type !== '' && acf_field_name !== ''){                    
+            output += ' acf="'+acf+'"';
+            if(acf_post_id !== ''){
+               output += ' acf_post_id="\'.'+ acf_post_id +'.\'"'; 
+            }
+            output += ' acf_field_type="'+ acf_field_type +'"'; 
+            output += ' acf_field_name="'+ acf_field_name +'"';          
+         }      
+         
+      }else{
+         $('.acf-options').slideUp(150, 'alm_easeInOutQuad')
+      }     
+               
+      
+      // ---------------------------
       // - Cache      
       // ---------------------------     
        
@@ -226,7 +255,7 @@ jQuery(document).ready(function($) {
          // Theme repeater
          if(cta_theme_repeater != '' && cta_theme_repeater != undefined && cta_position != '' && cta_position != null){
             output += ' cta="'+cta+'"'; 
-            output += ' cta_position="'+cta_before_after+':'+cta_position; 
+            output += ' cta_position="'+cta_before_after+':'+cta_position+'"'; 
             output += ' cta_theme_repeater="'+cta_theme_repeater+'"'; 
          }          
          $('#sequence-update').text(cta_position); 

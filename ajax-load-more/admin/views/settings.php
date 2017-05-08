@@ -10,27 +10,32 @@
 	   <div class="cnkt-main">
 
    	   <?php
-         $alm_dismiss_sharing = get_transient( 'alm_dismiss_sharing');
-         if(!isset($alm_dismiss_sharing) || empty($alm_dismiss_sharing)){
+         $alm_share_notification = get_transient( 'alm_dismiss_sharing');
+         if(!isset($alm_share_notification) || empty($alm_share_notification)){
 	         // If transient has not been set - display this notice.
          ?>
 	   	<div class="group share-alm">
-   	   	<div class="dotted">
-<!--
-      	   	<h2 style="padding: 0; margin: 0 0 10px;"><?php _e('Thanks for using Ajax Load More', 'ajax-load-more'); ?>...</h2>
-      	   	<p style="padding: 0 0 15px; margin: 0 0 20px; border-bottom: 1px dashed #ccc; font-size: 14px;">
-         	   	<?php _e('Please consider helping <a href="https://twitter.com/KaptonKaos" target="_blank">me</a> spread the word by sharing with your networks and/or leaving a review on <a href="https://wordpress.org/support/view/plugin-reviews/ajax-load-more" target="_blank">wordpress.org</a> forums.', 'ajax-load-more'); ?></p>
--->
-      	   	<div class="one_half sharing">
-         	   	<?php include_once( ALM_PATH . 'admin/includes/cta/sharing.php'); ?>
-      	   	</div>
+				<div class="dotted">
+      	   	<h2 style="padding: 0; margin: 0 0 20px;">
+	      	   	👋 &nbsp;<?php _e('Thanks for installing Ajax Load More 3.0!', 'ajax-load-more'); ?>
+	      	   </h2>
+	      	   <p>Version 3 is a big step forward for Ajax Load More and I really hope you like the changes and new features - be sure to check out the new <a href="admin.php?page=ajax-load-more-extensions">Extensions</a> section for 1-click installs of all currently available extensions for Ajax Load More.</p>
+				</div>
+   	   	<p>Please consider helping <a href="https://twitter.com/KaptonKaos" target="_blank">me</a> widen the reach of Ajax Load More by sharing with your networks.</p>      	   		   	
 
-      	   	<div class="one_half mailing">
-         	   	<?php include_once( ALM_PATH . 'admin/includes/cta/reviews.php'); ?>
-      	   	</div>
-   	   	</div>
+				<ul class="share">
+					<li class="twitter">
+						<a target="blank" title="Share on Twitter" href="//twitter.com/home?status=I'm infinite scrolling with Ajax Load More for #WordPress - https://connekthq.com/plugins/ajax-load-more/" class="share-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+					</li>				
+					<li class="facebook">
+						<a target="blank" title="Share on Facebook" href="//facebook.com/share.php?u=https://connekthq.com/plugins/ajax-load-more/" class="share-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+					</li>
+				</ul>
+				
             <div class="clear"></div>
+            
             <a href="javascript: void(0);" class="dismiss" id="alm_dismiss_sharing" title="<?php _e('Don\'t show me this again!', 'ajax-load-more');?>">&times;</a>
+            
 	   	</div>
 	   	<?php } ?>
 
@@ -40,7 +45,7 @@
       	   	if(has_action('alm_cache_settings') || has_action('alm_layouts_installed') || has_action('alm_prev_post_settings')  || has_action('alm_paging_settings') || has_action('alm_seo_settings') || has_action('alm_theme_repeaters_settings')) {
        	   ?>
        	   <div class="admin-select">
-          	   <label fo"alm-settings-nav" class="offscreen">
+          	   <label for="alm-settings-nav" class="offscreen">
              	   <?php _e('Jump to Setting', 'ajax-load-more'); ?>
           	   </label>
           	   <select id="alm-settings-nav">

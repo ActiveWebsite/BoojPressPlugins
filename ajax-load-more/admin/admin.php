@@ -188,7 +188,11 @@ function alm_admin_vars() { ?>
         'select_cats' => __('Select Categories', 'ajax-load-more'),
         'select_tags' => __('Select Tags', 'ajax-load-more'),
         'jump_to_option' => __('Jump to Option', 'ajax-load-more'),
-        'jump_to_template' => __('Jump to Template', 'ajax-load-more')
+        'jump_to_template' => __('Jump to Template', 'ajax-load-more'),
+        'install_now' => __('Are you sure you want to install this Ajax Load More extension?', 'ajax-load-more'),
+        'install_btn' => __('Install Now', 'ajax-load-more'),
+        'activate_btn' => __('Activate', 'ajax-load-more'),
+        'installed_btn' => __('Installed', 'ajax-load-more')
     )); ?>
     /* ]]> */
     </script>
@@ -378,13 +382,13 @@ function alm_admin_menu() {
       'alm_add_ons_page'
    );
 
-   $alm_examples_page = add_submenu_page(
+   $alm_extensions_page = add_submenu_page(
       'ajax-load-more',
-      'Examples',
-      'Examples',
+      'Extensions',
+      'Extensions',
       'edit_theme_options',
-      'ajax-load-more-examples',
-      'alm_examples_page'
+      'ajax-load-more-extensions',
+      'alm_extensions_page'
    );
 
    $alm_help_page = add_submenu_page(
@@ -426,14 +430,131 @@ function alm_admin_menu() {
    add_action( 'load-' . $alm_template_page, 'alm_set_admin_nonce' );
    add_action( 'load-' . $alm_shortcode_page, 'alm_load_admin_js' );
    add_action( 'load-' . $alm_shortcode_page, 'alm_set_admin_nonce' );
-   add_action( 'load-' . $alm_examples_page, 'alm_load_admin_js' );
-   add_action( 'load-' . $alm_examples_page, 'alm_set_admin_nonce' );
    add_action( 'load-' . $alm_help_page, 'alm_load_admin_js' );
    add_action( 'load-' . $alm_help_page, 'alm_set_admin_nonce' );
    add_action( 'load-' . $alm_addons_page, 'alm_load_admin_js' );
    add_action( 'load-' . $alm_addons_page, 'alm_set_admin_nonce' );
+   add_action( 'load-' . $alm_extensions_page, 'alm_load_admin_js' );
+   add_action( 'load-' . $alm_extensions_page, 'alm_set_admin_nonce' );
    add_action( 'load-' . $alm_licenses_page, 'alm_load_admin_js' );
    add_action( 'load-' . $alm_licenses_page, 'alm_set_admin_nonce' );
+}
+
+
+
+
+/*
+*  alm_settings_page
+*  Settings page
+*
+*  @since 2.0.0
+*/
+
+function alm_settings_page(){
+   include_once( ALM_PATH . 'admin/views/settings.php');
+}
+
+
+
+/*
+*  alm_repeater_page
+*  Custom Repeaters
+*
+*  @since 2.0.0
+*/
+
+function alm_repeater_page(){
+   include_once( ALM_PATH . 'admin/views/repeater-templates.php');
+}
+
+
+
+/*
+*  alm_shortcode_builder_page
+*  Shortcode Builder
+*
+*  @since 2.0.0
+*/
+
+function alm_shortcode_builder_page(){
+   include_once( ALM_PATH . 'admin/views/shortcode-builder.php');
+}
+
+
+
+/*
+*  alm_add_ons_page
+*  Ajax Load More Add-ons
+*
+*  @since 2.0.0
+*/
+
+function alm_add_ons_page(){
+   include_once( ALM_PATH . 'admin/views/add-ons.php');
+}
+
+
+
+/*
+*  alm_extensions_ons_page
+*  Ajax Load More Add-ons
+*
+*  @since 3.0.0
+*/
+
+function alm_extensions_page(){
+   include_once( ALM_PATH . 'admin/views/extensions.php');
+}
+
+
+
+/*
+*  alm_example_page
+*  Examples Page
+*
+*  @since 2.0.0
+*/
+
+function alm_examples_page(){
+   include_once( ALM_PATH . 'admin/views/examples.php');
+}
+
+
+
+/*
+*  alm_help_page
+*  Help Page (Implementation Inforgraphic)
+*
+*  @since 2.8.7
+*/
+
+function alm_help_page(){
+   include_once( ALM_PATH . 'admin/views/help.php');
+}
+
+
+
+/*
+*  alm_licenses_page
+*  Ajax Load More Licenses
+*
+*  @since 2.7.0
+*/
+
+function alm_licenses_page(){
+   include_once( ALM_PATH . 'admin/views/licenses.php');
+}
+
+
+/*
+*  alm_cache_page
+*  Cache Add-on page
+*
+*  @since 2.6.0
+*/
+
+function alm_cache_page(){
+   include_once( ALM_CACHE_ADMIN_PATH . 'admin/views/cache.php');
 }
 
 
@@ -500,110 +621,6 @@ function alm_enqueue_admin_scripts(){
    wp_enqueue_script( 'alm-tipster', ALM_ADMIN_URL. 'js/libs/jquery.tooltipster.min.js', array( 'jquery' ));
    wp_enqueue_script( 'alm-admin', ALM_ADMIN_URL. 'js/admin.js', array( 'jquery' ));
    wp_enqueue_script( 'alm-shortcode-builder', ALM_ADMIN_URL. 'shortcode-builder/js/shortcode-builder.js', array( 'jquery' ));
-}
-
-
-
-
-/*
-*  alm_settings_page
-*  Settings page
-*
-*  @since 2.0.0
-*/
-
-function alm_settings_page(){
-   include_once( ALM_PATH . 'admin/views/settings.php');
-}
-
-
-
-/*
-*  alm_repeater_page
-*  Custom Repeaters
-*
-*  @since 2.0.0
-*/
-
-function alm_repeater_page(){
-   include_once( ALM_PATH . 'admin/views/repeater-templates.php');
-}
-
-
-
-/*
-*  alm_shortcode_builder_page
-*  Shortcode Builder
-*
-*  @since 2.0.0
-*/
-
-function alm_shortcode_builder_page(){
-   include_once( ALM_PATH . 'admin/views/shortcode-builder.php');
-}
-
-
-
-/*
-*  alm_example_page
-*  Examples Page
-*
-*  @since 2.0.0
-*/
-
-function alm_examples_page(){
-   include_once( ALM_PATH . 'admin/views/examples.php');
-}
-
-
-
-/*
-*  alm_help_page
-*  Help Page (Implementation Inforgraphic)
-*
-*  @since 2.8.7
-*/
-
-function alm_help_page(){
-   include_once( ALM_PATH . 'admin/views/help.php');
-}
-
-
-
-/*
-*  alm_add_ons_page
-*  Ajax Load More Add-ons
-*
-*  @since 2.0.0
-*/
-
-function alm_add_ons_page(){
-   include_once( ALM_PATH . 'admin/views/add-ons.php');
-}
-
-
-
-/*
-*  alm_licenses_page
-*  Ajax Load More Licenses
-*
-*  @since 2.7.0
-*/
-
-function alm_licenses_page(){
-   include_once( ALM_PATH . 'admin/views/licenses.php');
-}
-
-
-/*
-*  alm_cache_page
-*  Cache Add-on page
-*
-*  @since 2.6.0
-*/
-
-function alm_cache_page(){
-   include_once( ALM_CACHE_PATH . 'admin/views/cache.php');
 }
 
 
@@ -1270,18 +1287,20 @@ function alm_btn_color_callback() {
 	 $selected12 = '';
 	 if($type == 'infinite chasing-arrows') $selected12 = 'selected="selected"';
 
-    $html =  '<label for="alm_settings_btn_color">'.__('Select an Ajax loading style - you can choose between a <strong>button</strong> or <strong>infinite scroll</strong>', 'ajax-load-more');
-    $html .= '.<br/><span style="display:block">Selecting an Infinite Scroll button style will remove the click interaction and load content on scroll only.</span>';
+    $html =  '<label for="alm_settings_btn_color">'.__('Select an Ajax loading style - you can choose between a <strong>Button</strong> or <strong>Infinite Scroll</strong>', 'ajax-load-more');
+    $html .= '.<br/><span style="display:block">Selecting an Infinite Scroll style will remove the click interaction and load content on scroll <u>only</u>.</span>';
     $html .= '</label>';
     $html .= '<select id="alm_settings_btn_color" name="alm_settings[_alm_btn_color]">';
-    $html .= '<optgroup label="Buttons">';
+
+    $html .= '<optgroup label="'. __('Button', 'ajax-load-more') .'">';
     $html .= '<option value="default" class="alm-color default" ' . $selected0 .'>Default</option>';
     $html .= '<option value="blue" class="alm-color blue" ' . $selected1 .'>Blue</option>';
     $html .= '<option value="green" class="alm-color green" ' . $selected2 .'>Green</option>';
     $html .= '<option value="purple" class="alm-color purple" ' . $selected4 .'>Purple</option>';
     $html .= '<option value="grey" class="alm-color grey" ' . $selected5 .'>Grey</option>';
     $html .= '</optgroup>';
-    $html .= '<optgroup label="Infinite Scroll (no button)">';
+
+    $html .= '<optgroup label="'. __('Infinite Scroll (No Button)', 'ajax-load-more') .'">';
     $html .= '<option value="infinite classic" class="infinite classic" ' . $selected7 .'>Classic</option>';
     $html .= '<option value="infinite skype" class="infinite skype" ' . $selected8 .'>Skype</option>';
     $html .= '<option value="infinite ring" class="infinite ring" ' . $selected9 .'>Circle Fill</option>';
@@ -1289,6 +1308,7 @@ function alm_btn_color_callback() {
     $html .= '<option value="infinite fading-circles" class="infinite fading-circles" ' . $selected11 .'>Fading Circles</option>';
     $html .= '<option value="infinite chasing-arrows" class="infinite chasing-arrows" ' . $selected12 .'>Chasing Arrows</option>';
     $html .= '</optgroup>';
+
     $html .= '</select>';
 
     $html .= '<div class="clear"></div><div class="ajax-load-more-wrap core '.$type.'"><span>'.__('Preview', 'ajax-load-more') .'</span><button class="alm-load-more-btn loading" disabled="disabled">'.apply_filters('alm_button_label', __('Older Posts', 'ajax-load-more')).'</button></div>';

@@ -20,6 +20,7 @@
       if(alm_localize.scrolltop === 'true'){
          $(window).scrollTop(0); 
       }
+      
       //Set variables
       var alm = this;
       alm.AjaxLoadMore = {};
@@ -42,6 +43,7 @@
       alm.canonical_url = alm.el.attr('data-canonical-url');
       alm.is_search = alm.el.attr('data-search');
       alm.slug = alm.el.attr('data-slug');
+      alm.post_id = alm.el.attr('data-post-id');
       alm.prefix = 'alm-';
       
       alm.cache = alm.content.attr('data-cache'); // Cache add-on 
@@ -63,13 +65,19 @@
       alm.destroy_after = alm.content.attr('data-destroy-after');
       alm.lang = alm.content.attr('data-lang');
       alm.orginal_posts_per_page = alm.content.attr('data-posts-per-page'); // Used for paging add-on
-      alm.posts_per_page = alm.content.attr('data-posts-per-page');  
+      alm.posts_per_page = alm.content.attr('data-posts-per-page'); 
       
       alm.cta_array =  '';
       alm.cta = alm.content.attr('data-cta'); // CTA add-on 
       alm.cta_position = alm.content.attr('data-cta-position');
       alm.cta_repeater = alm.content.attr('data-cta-repeater');
       alm.cta_theme_repeater = alm.content.attr('data-cta-theme-repeater');
+      
+      alm.acf_array = '';
+      alm.acf = alm.content.attr('data-acf'); // ACF add-on  
+      alm.acf_field_type = alm.content.attr('data-acf-field-type'); // Field Type 
+      alm.acf_field_name = alm.content.attr('data-acf-field-name'); // Field Name 
+      alm.acf_post_id = alm.content.attr('data-acf-post-id'); // Get the Post ID 
       
       alm.nextpage_array = '';
       alm.nextpage = alm.content.attr('data-nextpage'); // Nextpage add-on  
@@ -231,7 +239,8 @@
       /* Nextpage */      
                        	   
       if (alm.nextpage === 'true'){
-         alm.nextpage = true;           
+         alm.nextpage = true;  
+         alm.posts_per_page = 1;         
       }else{
          alm.nextpage = false;
       }      
@@ -251,8 +260,25 @@
       if (alm.nextpage_startpage === undefined){
          alm.nextpage_startpage = 1;     
       } 
+      if (alm.nextpage_startpage > 1) {
+         alm.isPaged = true;
+	   }
       
       /* End Nextpage  */ 
+           
+      
+      /* Advanced Custom Fields */      
+                       	   
+      if (alm.acf === 'true'){
+         alm.acf = true;           
+      }else{
+         alm.acf = false;
+      }
+      if (alm.acf_field_type === undefined || alm.acf_field_name === undefined || alm.acf_post_id === undefined){
+         alm.acf = false;     
+      }   
+      
+      /* End Advanced Custom Fields  */ 
             
        
       /* Previous Post */                 	   
@@ -394,6 +420,7 @@
       alm.post_type = alm.content.attr('data-post-type');
       alm.post_type = alm.post_type.split(",");
       
+      
       /* Sticky Posts */
       alm.sticky_posts = alm.content.attr('data-sticky-posts');
       
@@ -401,6 +428,7 @@
       /* Append 'load More' button to .ajax-load-more-wrap */
       alm.container.append('<div class="' + alm.prefix + 'btn-wrap"/>');
       alm.btnWrap = $('.' + alm.prefix + 'btn-wrap', alm.container);
+      
       if(alm.paging){ 
 	      
    		// Paging add-on				
@@ -408,8 +436,8 @@
       	
 		}else{      	
       			
-      // If paging is false      
-      $('.'+ alm.prefix + 'btn-wrap', alm.container).append('<button id="load-more" class="' + alm.prefix + 'load-more-btn more'+ alm.button_class +'">' + alm.button_label + '</button>');
+      	// If paging is false      
+			$('.'+ alm.prefix + 'btn-wrap', alm.container).append('<button id="load-more" class="' + alm.prefix + 'load-more-btn more'+ alm.button_class +'">' + alm.button_label + '</button>');
 			alm.button = $('.alm-load-more-btn', alm.container);
 		}
 
@@ -425,6 +453,7 @@
          if(!alm.disable_ajax){ // Check for ajax blocker
 	         if(!alm.paging){
             	alm.button.addClass('loading');
+            	alm.container.addClass('alm-loading');            	
             	if(alm.button_loading_label !== false){
                	alm.button.text(alm.button_loading_label);
             	}
@@ -437,14 +466,30 @@
                var cache_page;
                
                if(alm.init && alm.seo && alm.isPaged){ 
+                  // SEO Add-on
                   // If the request a paged URL (/page/3/)
                   var firstpage = '1';          
-                  cache_page = alm.cache_path + '/page-' + firstpage +'-'+ alm.start_page +'.html';
-                  
-               } else { 
-                  // standard request url                  
-                  cache_page = alm.cache_path + '/page-' + (alm.page + 1) +'.html';
-                  
+                  cache_page = alm.cache_path + '/page-' + firstpage +'-'+ alm.start_page +'.html';                  
+               } 
+               
+               else if(alm.nextpage){
+                  // Nextpage add-on
+                  var nextpage_cache_page;
+                  if(alm.paging){ 
+                     nextpage_cache_page = parseInt(alm.page) + 1;
+                  }else{
+                     nextpage_cache_page = parseInt(alm.page) + 2;
+                     if(alm.isPaged){
+                        // If the request a paged URL (/page/3/) 
+                        nextpage_cache_page = parseInt(alm.page) + parseInt(alm.nextpage_startpage) + 1;
+                     }
+                  }
+                  cache_page = alm.cache_path + '/page' +'-'+ nextpage_cache_page +'.html';                     
+               }
+               
+               else { 
+                  // Standard ALM URL request                  
+                  cache_page = alm.cache_path + '/page-' + (alm.page + 1) +'.html';                  
                }
                
                $.get(cache_page, function( data ) {       
@@ -467,12 +512,31 @@
       /*  ajax()
        * 
        *  Ajax Load Moe Ajax function
+       *
+       *  @param queryType The type of Ajax request (standard/totalposts)
        *  @since 2.6.0
        */
        
       alm.AjaxLoadMore.ajax = function (queryType) {
          
+         // Default action
          var action = 'alm_query_posts';
+         
+           
+         // ACF Params
+         if(alm.acf){	
+            
+            // Custom query for the repeater field
+            if(alm.acf_field_type === 'repeater'){        
+               action = 'alm_acf_query';
+            }                        
+            alm.acf_array = {
+               'acf' 			: 'true',
+               'post_id' 		: alm.acf_post_id,
+               'field_type' 	: alm.acf_field_type,
+               'field_name' 	: alm.acf_field_name
+            };
+         }
          
          
          // Nextpage Params
@@ -618,6 +682,7 @@
                   cache_id             : alm.cache_id,
                   repeater             : alm.repeater,
                   theme_repeater       : alm.theme_repeater,
+                  acf           			: alm.acf_array,
                   nextpage           	: alm.nextpage_array,
                   cta            		: alm.cta_array,
                   comments             : alm.comments_array,
@@ -702,18 +767,12 @@
       
       
       // If pagination enabled, run totalposts query
-      if(alm.paging){
-	      
-	      if(alm.nextpage){
-		      
-		      alm.AjaxLoadMore.ajax('totalpages'); // Create paging menu and query for total pages
-	      
-	      } else {
-		      
-         	alm.AjaxLoadMore.ajax('totalposts'); // Create paging menu and query for total posts
-         
-         }
-         
+      if(alm.paging){	      
+	      if(alm.nextpage){		      
+		      alm.AjaxLoadMore.ajax('totalpages'); // Create paging menu and query for total pages	      
+	      } else {		      
+         	alm.AjaxLoadMore.ajax('totalposts'); // Create paging menu and query for total posts         
+         }         
       }
       
       
@@ -721,6 +780,9 @@
       /*  success()
        * 
        *  Success function after loading data
+       *
+       *  @param data     The results of the Ajax request
+       *  @param is_cache Are results of the Ajax request coming from cache
        *  @since 2.6.0
        */
        
@@ -728,7 +790,7 @@
 
          if(alm.previous_post){ // Get previous page data	         
             alm.AjaxLoadMore.getPreviousPost();           
-         }   
+         }  
            
          var html, meta, total;                  
          
@@ -906,6 +968,7 @@
 		                     alm.loading = false;
 		                     if(!alm.paging){
 		                     	alm.button.delay(alm.speed).removeClass('loading');
+										alm.container.delay(alm.speed).removeClass('alm-loading');	                     	
 		                     	alm.AjaxLoadMore.resetBtnText();
 		                     }
 				               alm.AjaxLoadMore.triggerAddons(alm);
@@ -916,6 +979,7 @@
 	                     alm.loading = false;
 	                     if(!alm.paging){
 	                     	alm.button.delay(alm.speed).removeClass('loading');
+									alm.container.delay(alm.speed).removeClass('loading');
 	                     	alm.AjaxLoadMore.resetBtnText();
 	                     }                     	                     
 			               alm.AjaxLoadMore.triggerAddons(alm);
@@ -935,6 +999,7 @@
                   alm.loading = false;
                   if(!alm.paging){
                   	alm.button.delay(alm.speed).removeClass('loading');
+							alm.container.delay(alm.speed).removeClass('loading');
                   	alm.AjaxLoadMore.resetBtnText();
                   } 
                                      
@@ -945,6 +1010,7 @@
 		                     alm.loading = false;
 		                     if(!alm.paging){
 		                     	alm.button.delay(alm.speed).removeClass('loading');
+										alm.container.delay(alm.speed).removeClass('loading');
 		                     	alm.AjaxLoadMore.resetBtnText();
 		                     }	                     
 				               alm.AjaxLoadMore.triggerAddons(alm);
@@ -955,13 +1021,14 @@
 	                     alm.loading = false;
 	                     if(!alm.paging){
 	                     	alm.button.delay(alm.speed).removeClass('loading');
+									alm.container.delay(alm.speed).removeClass('loading');
 	                     	alm.AjaxLoadMore.resetBtnText();
 	                     }     
                         alm.AjaxLoadMore.triggerAddons(alm);
 	                  });
                   }
                }
-               // End Transition -- /
+               // End Transition
                
             } else { 
                
@@ -977,9 +1044,10 @@
                } else {
 	               alm.AjaxLoadMore.triggerAddons(alm);
                }  
-               // End Paging -- /
+               // End Paging
+                                         
+            }           
                           
-            }                         
                   
             // ALM Complete
             if ($.isFunction($.fn.almComplete)) {
@@ -991,7 +1059,8 @@
 						$.fn.almComplete(alm);
 					}					
             }  
-            // End ALM Complete -- /
+            // End ALM Complete
+            
             
             // ALM Done
             if(!alm.cache){ 
@@ -1004,12 +1073,12 @@
 	               alm.AjaxLoadMore.triggerDone();
 	            } 
             }  
-            // End ALM Done -- /                 
+            // End ALM Done  
+                         
 
          } else { 
 	         
-	         // No Results!
-            
+	         // No Results!            
 	         if(!alm.paging){
             	alm.button.delay(alm.speed).removeClass('loading').addClass('done');
             	alm.AjaxLoadMore.resetBtnText();
@@ -1032,7 +1101,7 @@
                }
             }
          }
-         // End Destroy After  -- /
+         // End Destroy After
          
          alm.init = false;   
                 
@@ -1044,6 +1113,8 @@
        * 
        *  First run for Paging + Preloaded add-ons
        *  Moves preloaded content into ajax container
+       *
+       *  @param data     The results of the Ajax request
        *  @since 2.11.3
        */ 
       alm.AjaxLoadMore.pagingPreloadedInit = function(data){
@@ -1069,6 +1140,8 @@
        * 
        *  First run for Paging + Next Page add-ons
        *  Moves .alm-nextpage content into ajax container
+       *
+       *  @param data     The results of the Ajax request
        *  @since 2.14.0
        */ 
       alm.AjaxLoadMore.pagingNextpageInit = function(data){
@@ -1187,11 +1260,13 @@
        *  @since 2.8.4
        */
       alm.AjaxLoadMore.resetBtnText = function(){
+	      
 	      if(alm.button_loading_label !== false){ // Reset button text 
    	      if(!alm.paging){
                alm.button.text(alm.button_label); 
             }
-         } 
+         }  
+         
       };
       
       
@@ -1540,7 +1615,7 @@
       
       if(data.target){
 	      // if a target has been specified
-      	$(".ajax-load-more-wrap[data-id="+data.target+"").ajaxloadmore(); // re-initiate Ajax Load More	      
+      	$(".ajax-load-more-wrap[data-id="+data.target+"]").ajaxloadmore(); // re-initiate Ajax Load More	      
       } else {
 	      // Target not specified
       	$(".ajax-load-more-wrap").ajaxloadmore(); // re-initiate Ajax Load More	      

@@ -13,6 +13,7 @@
 		      <p><?php _e('Manage your Ajax Load More license key\'s below - enter a key for each of your add-ons to receive plugin update notifications directly within the <a href="plugins.php">WP Plugins dashboard</a>.', 'ajax-load-more'); ?></p>
 
 		      <?php
+   		      // alm_acf_installed
    		      // alm_cache_installed
    		      // alm_cta_installed
    		      // alm_comments_installed
@@ -29,8 +30,74 @@
    		   <?php
       		   // Check if any add ons are installed. /admin/admin-functions.php
       		   if(alm_has_addon()) : ?>
+      		
+      		
+      		<?php
+   		      if (has_action('alm_acf_installed')){
+   		      // ACF
+				   $alm_acf_license = get_option( 'alm_acf_license_key' );
+               $alm_acf_status = get_option( 'alm_acf_license_status' );
+               $alm_acf_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/advacned-custom-fields/';
+		      ?>
+	         <div class="license" id="license-acf">
+		         <div class="license-title">
+   		         <div class="status <?php if($alm_acf_status == 'valid'){echo 'valid';}else{echo 'invalid';} ?> "></div>
+         			<h2><?php _e('Advanced Custom Fields', 'ajax-load-more'); ?></h2>
+		         </div>
+               <div class="license-wrap">
+   			      <form method="post" action="options.php">
 
+         			   <?php if( $alm_acf_status !== false && $alm_acf_status == 'valid' ) { ?>
+         			   <!-- nothing -->
+         			   <?php } else { ?>
+         			   <div class="no-license">
+            	         <h4><?php _e('Don\'t have a license?', 'ajax-load-more'); ?></h4>
+            	         <p><?php _e('A valid license is required to activate and receive plugin updates directly in your WordPress dashboard', 'ajax-load-more'); ?> &rarr; <a href="<?php echo $alm_acf_url; ?>?utm_source=WP%20Admin&utm_medium=Licenses&utm_campaign=ACF" target="blank"><strong><?php _e('Purchase Now', 'ajax-load-more'); ?>!</strong></a></p>
+                     </div>
+         			   <?php } ?>
 
+	         			<?php settings_fields('alm_acf_license'); ?>
+
+	         			<label class="description offscreen" for="alm_acf_license_key"><?php _e('Enter License Key', 'ajax-load-more'); ?></label>
+	         			<div class="license-key-field">
+	         			   <input id="alm_acf_license_key" name="alm_acf_license_key" type="text" class="regular-text" value="<?php esc_attr_e( $alm_acf_license ); ?>" placeholder="<?php _e('Enter License Key', 'ajax-load-more'); ?>" />
+	         			   <?php if( $alm_acf_status !== false && $alm_acf_status == 'valid' ) { ?>
+	            		   <span class="status active">
+	            		      <?php _e('Active', 'ajax-load-more'); ?>
+	            		   </span>
+	            		   <?php } else { ?>
+	            		   <span class="status inactive">
+	            		      <?php _e('Inactive', 'ajax-load-more'); ?>
+	            		   </span>
+	            		   <?php } ?>
+	         			</div>
+
+	         			<?php wp_nonce_field( 'alm_acf_license_nonce', 'alm_acf_license_nonce' ); ?>
+	         			<div class="license-btn-wrap"
+						   		data-name="<?php echo ALM_ACF_ITEM_NAME; ?>"
+				         		data-url="<?php echo ALM_STORE_URL; ?>"
+					         	data-option-status="alm_acf_license_status"
+						         data-option-key="alm_acf_license_key"
+						         data-upgrade-url="<?php echo $alm_acf_url; ?>">
+		         			<button type="button" class="activate license-btn <?php if($alm_acf_status === 'valid'){ echo 'hide'; } ?> button-primary" data-type="activate">
+							   	<?php _e('Activate License', 'ajax-load-more'); ?>
+							   </button>
+
+							   <button type="button" class="deactivate license-btn <?php if($alm_acf_status !== 'valid'){ echo 'hide'; } ?> button-secondary" data-type="deactivate">
+							   	<?php _e('Deactivate License', 'ajax-load-more'); ?>
+							   </button>
+	         			</div>
+
+               	</form>
+			      </div>
+			      <div class="loading"></div>
+            </div>
+            <?php
+               }
+               // End ACF
+            ?>
+      		
+      		                 
 		      <?php
    		      if (has_action('alm_cache_installed')){
    		      // CACHE
@@ -771,7 +838,7 @@
 	   </div>
 
 	   <div class="cnkt-sidebar">
-   	   <div class="cta padding-bottom">
+   	   <div class="cta">
             <h3><?php _e('About Licenses', 'ajax-load-more'); ?></h3>
             <div class="cta-inner">
                <ul>
@@ -779,8 +846,8 @@
                   <li><?php _e('License keys are found in the purchase receipt email that was sent immediately after your successful purchase and in the <a target="_blank" href="https://connekthq.com/account/">Account</a> section on our website', 'ajax-load-more');?></li>
                   <li><?php _e('If you cannot locate your key please open a support ticket by filling out the <a href="https://connekthq.com/contact/">form</a> on our website and reference the email address used when you completed the purchase.', 'ajax-load-more'); ?></li>
                </ul>
-            </div>
-            <a class="visit" target="_blank" href="https://connekthq.com/account/"><i class="fa fa-chevron-circle-right"></i> Sign Into Your Account</a>
+               <p><a class="button button-primary button-large" target="_blank" href="https://connekthq.com/account/"><i class="fa fa-chevron-circle-right"></i> Sign Into Your Account</a></p>
+            </div>            
          </div>
          <div class="cta">
             <h3><?php _e('Legacy Users', 'ajax-load-more'); ?></h3>

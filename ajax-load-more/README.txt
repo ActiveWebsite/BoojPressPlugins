@@ -1,22 +1,22 @@
-=== Ajax Load More - Infinite Scroll ===
-Contributors: dcooney
+=== WordPress Infinite Scroll - Ajax Load More ===
+Contributors: dcooney, connekthq
 Donate link: https://connekthq.com/donate/
 Tags: infinite scroll, infinite scrolling, scroll, infinite, lazy load, lazy loading, pagination, ajax pagination, ajax, ajax posts, ajax load posts, search, tags, category, post types, taxonomy, meta_query, woocommerce, ajax load more
 Requires at least: 3.6
-Tested up to: 4.7.3
-Stable tag: 2.14.1
+Tested up to: 4.7.4
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The ultimate infinite scroll and lazy load solution for your website
+The ultimate infinite scroll and lazy load solution for your WordPress powered website.
 
 == Description ==
 
-Ajax Load More is a powerful solution for infinite scrolling and lazy loading posts, custom post types, single posts, pages and comments with Ajax powered queries.
+Ajax Load More is a powerful solution for infinite scrolling and lazy loading WordPress posts, custom post types, single posts, pages and comments with Ajax powered queries.
 
 Build complex custom WordPress queries using the Ajax Load More shortcode builder then add the generated shortcode to your page via the content editor or directly into your template files.
 
-Ajax Load More is fully compatible with popular eCommerce plugins such as WooCommerce and Easy Digital Downloads.
+Ajax Load More is fully compatible for infinite scrolling with popular eCommerce plugins such as WooCommerce and Easy Digital Downloads.
 
 **[Get More Information](https://connekthq.com/plugins/ajax-load-more/)**
 
@@ -184,6 +184,10 @@ Ajax Load More accepts a number of parameters that are passed to the WordPress q
 = Extensions =
  The following [extensions](https://connekthq.com/plugins/ajax-load-more/extensions/) are available to provide compatibility with popular WordPress plugins and core features.
 
+> #### Advanced Custom Fields
+> The **[Advanced Custom Fields](https://connekthq.com/plugins/ajax-load-more/extensions/advanced-custom fields/)** extension provides additional functionality for infinite scrolling Repeater and Relationship field data with Ajax Load More.
+>
+
 > #### Relvanssi
 > The **[Relevanssi](https://connekthq.com/plugins/ajax-load-more/extensions/relevanssi/)** extension provides the functionality for returning Relevanssi query results to Ajax Load More.
 >
@@ -347,6 +351,21 @@ How to install Ajax Load More.
 
 
 == Changelog ==
+
+= 3.0 - May 4, 2017 =
+
+* NEW - Added required functionality for new [Advanced Custom Fields extension](https://connekthq.com/plugins/ajax-load-more/extensions/advanced-custom-fields/)
+* NEW - New interface for displaying Theme Repeater Templates inside template admin.
+* NEW - Added new `.alm-loading` class to `#ajax-load-more` container while content is loading. This class will allow for added transition states without needing to bake into core.
+* NEW - Adding `post__in` to `orderby` param in shortcode builder
+* NEW - Added new `data-post-id` attribute to ALM container to get current post ID.
+* NEW - Add Extensions page to ALM admin for installs extensions with a single click.
+* Updated - Added support for > 4 meta_query queries.
+* Updated - Updated cache directory path to reside in `uploads/alm-cache` directory vs ALM cache directory.
+* Updated - Updated styling (font size and family) on Load More button.
+* FIX - JS error when using multiple filters in Safari (Missing closing `]` bracket on data attribute).
+* FIX - Missing quote in shortcode builder when using call to actions and theme repater add-ons.
+* UPDATE - Various UI and UX enhancements.	
 
 = 2.14.1 - March 24, 2017 =
 
