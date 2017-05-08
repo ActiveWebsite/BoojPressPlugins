@@ -3,7 +3,7 @@
 Plugin Name: WP-Paginate
 Plugin URI: https://wordpress.org/plugins/wp-paginate/
 Description: A simple and flexible pagination plugin for WordPress posts and comments.
-Version: 2.0.1
+Version: 2.0.2
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: 'wp-paginate'
@@ -40,7 +40,8 @@ if(!defined('WPP_WP_PAGINATE_PRO_LINK'))
   define("WPP_WP_PAGINATE_PRO_LINK", "https://maxgalleria.com/downloads/wp-paginate-pro/");
 
   define("WPP_REVIEW_NOTICE", "wpp_review_notice");
-  define("WP_PAGINATE_NONCE", "wpp_js_nonce");
+	if(!defined("WP_PAGINATE_NONCE"))
+    define("WP_PAGINATE_NONCE", "wpp_js_nonce");
 
 /**
  * Set the wp-content and plugin urls/paths
@@ -59,7 +60,7 @@ if (!class_exists('WPPaginate')) {
         /**
          * @var string The plugin version
          */
-        public $version = '2.0.1';
+        public $version = '2.0.2';
 
         /**
          * @var string The options string name for this plugin
@@ -146,6 +147,7 @@ if (!class_exists('WPPaginate')) {
 						$this->presets = array(
 							array('default', __('Grey Buttons', 'wp-paginate'), 'default.jpg'),
 							array('wpp-blue-cta', __('Blue Buttons', 'wp-paginate'), 'blue-cta-buttons.jpg'),
+							array('wpp-modern-grey', __('Modern Grey Buttons', 'wp-paginate'), 'modern-grey-buttons.jpg'),
 						);
 												
             if ($this->options['css'])
@@ -332,7 +334,7 @@ if (!class_exists('WPPaginate')) {
                 ? esc_url(get_pagenum_link($page + 1))
                 : get_comments_pagenum_link($page + 1);
 
-            $output = $before;
+            $output = stripslashes(wp_kses_decode_entities($before));
             if ($pages > 1) {
 							
 							if($preset === 'default')
@@ -387,7 +389,7 @@ if (!class_exists('WPPaginate')) {
                 }
                 $output .= "</ol>";
             }
-            $output .= $after;
+            $output .= stripslashes(wp_kses_decode_entities($after));
 
             if ($pages > 1 || $empty) {
                 echo $output;
@@ -556,6 +558,7 @@ if (!class_exists('WPPaginate')) {
 
 <form method="post" id="wp_paginate_options">
 <?php wp_nonce_field('wp-paginate-update-options'); ?>
+	
     <h3><?php _e('General', 'wp-paginate'); ?></h3>
     <table class="form-table">
         <tr valign="top">
@@ -716,7 +719,9 @@ if (!class_exists('WPPaginate')) {
         </tr>
         <tr valign="top">
             <th scope="row"><?php _e('Button Style:', 'wp-paginate'); ?></th>
+				    <input type='hidden' value='<?php echo $this->options['preset']; ?>' name='preset' id='preset'>
 						<td>
+					  <p>Choose a preset style from the list below.</p>
 							<table class="button-styles">
 								<?php 
 								if(isset($this->options['preset'])) {

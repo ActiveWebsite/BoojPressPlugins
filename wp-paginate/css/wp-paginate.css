@@ -40,42 +40,6 @@ ol.wp-paginate li {
 .wp-paginate.font-verdana {font-family: Verdana, sans-serif;}
 
 
-/* Theme: Free-Standing Numbers */
-.wp-paginate.wpp-numbers a, .wp-paginate.wpp-numbers .current {
-  background: transparent;
-  border: none;
-}
-  .wp-paginate.wpp-numbers .current {
-    color: #ccc;
-  }
-
-/* Theme: Peach Buttons */
-.wp-paginate.wpp-peach a, .wp-paginate.wpp-peach .current {
-  background: #ffcaaf;
-  border:none;
-  border-radius: 4px;
-  color: #908c90;
-}
-  .wp-paginate.wpp-peach .current {
-    opacity: .6;
-  }
-
-
-/* Theme: Outlined Buttons */
-.wp-paginate.wpp-outlined a, .wp-paginate.wpp-outlined .current {
-  background: #fff;
-  border: 2px solid #ababab;
-  border-radius: 6px;
-  color: #ababab;
-  padding: 6px 12px;
-}
-  .wp-paginate.wpp-outlined a:hover {
-    color: #000;
-  }
-  .wp-paginate.wpp-outlined .current {
-    opacity: .6;
-  }
-
 /* Theme: Modern Grey Buttons */
 .wp-paginate.wpp-modern-grey a, .wp-paginate.wpp-modern-grey .current {
   background: #f8f8f8;
