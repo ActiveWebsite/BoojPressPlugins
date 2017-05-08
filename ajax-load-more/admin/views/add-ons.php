@@ -10,7 +10,7 @@
 		<div class="cnkt-main full">
 
 		   <!-- Cache -->
-		   <div class="group<?php if (has_action('alm_cache_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_cache_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
                   	$cache_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/cache/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Cache'; ?>
@@ -37,7 +37,7 @@
 
 
 		   <!-- Call to Actions -->
-		   <div class="group<?php if (has_action('alm_cta_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_cta_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
                   	$cta_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/call-to-actions/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Call to Actions'; ?>
@@ -64,7 +64,7 @@
 
 
 		   <!-- Comments -->
-		   <div class="group<?php if (has_action('alm_comments_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_comments_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
                   	$comments_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/comments/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Comments'; ?>
@@ -91,7 +91,7 @@
 
 
 		   <!-- Custom Repeaters -->
-		   <div class="group<?php if (has_action('alm_unlimited_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_unlimited_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php $cr_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/custom-repeaters/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Custom%20Repeaters'; ?>
    			   <a href="<?php echo $cr_url; ?>" <?php echo $target; ?>>
@@ -117,7 +117,7 @@
 
 
 		   <!-- Layouts -->
-		   <div class="group<?php if (has_action('alm_layouts_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_layouts_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
       			   $layout_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/layouts/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Layouts';
@@ -143,7 +143,7 @@
 
 
 		   <!-- Layouts -->
-		   <div class="group<?php if (has_action('alm_nextpage_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_nextpage_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
       			   $layout_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/next-page/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Next Page';
@@ -169,7 +169,7 @@
 
 
 		   <!-- Paging -->
-		   <div class="group<?php if (has_action('alm_paging_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_paging_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
                   	$paging_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/paging/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Paging';
@@ -196,7 +196,7 @@
 
 
 		   <!-- Preloaded -->
-		   <div class="group<?php if (has_action('alm_preload_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_preload_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
       			   $preload_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/preloaded/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Preloaded';
@@ -222,7 +222,7 @@
 
 
 		   <!-- Previous Post -->
-		   <div class="group<?php if (has_action('alm_prev_post_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_prev_post_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
       			   $prev_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/previous-post/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Previous Post';
@@ -248,7 +248,7 @@
 
 
 		   <!-- SEO -->
-		   <div class="group<?php if (has_action('alm_seo_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_seo_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
    			   <?php
       			   $seo_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/search-engine-optimization/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=SEO';
@@ -276,7 +276,7 @@
 
 
 		   <!-- Theme Repeaters -->
-		   <div class="group<?php if (has_action('alm_theme_repeaters_installed')){echo ' installed'; } ?>">
+		   <div class="group<?php if (has_action('alm_theme_repeaters_installed')){ echo ' installed'; } ?>">
 			   <div class="row no-brd">
 			      <?php $themer_url = 'https://connekthq.com/plugins/ajax-load-more/add-ons/theme-repeaters/?utm_source=WP%20Admin&utm_medium=ALM%20Add-ons&utm_campaign=Theme Repeaters'; ?>
 			      <a href="<?php echo $themer_url; ?>" <?php echo $target; ?>>

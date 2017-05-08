@@ -1149,46 +1149,6 @@ function sbi_add_settings_link( $links, $file ) {
     return $links;
 }
 
-/* Display a notice that can be dismissed regarding updating the Instagram Access Token */
-add_action('admin_notices', 'sbi_new_token_notice_2016');
-function sbi_new_token_notice_2016() {
-
-    //Only show to admins
-    if( current_user_can('manage_options') ){
-
-        global $current_user;
-            $user_id = $current_user->ID;
-
-        // Use this to show notice again
-        // delete_user_meta($user_id, 'sb_instagram_ignore_notice_2016');
-
-        /* Check that the user hasn't already clicked to ignore the message */
-        if ( ! get_user_meta($user_id, 'sb_instagram_ignore_notice_2016') ) {
-
-            _e("
-            <div class='sb_instagram_notice'>
-                <p class='sb_instagram_notice_title'><i class='fa fa-exclamation-circle' aria-hidden='true'></i> <b>Important</b></p>
-                <p><b>Just installed the plugin?</b> You can ignore this notice and hide it using the 'Dismiss' button in the top right corner.</p>
-                <p><b>Just updated the plugin?</b> Due to the recent Instagram API changes, in order for the Instagram Feed plugin to continue working after <b><u>June 1st</u></b> you must obtain and save a new Access Token by using the Instagram button on the plugin's <a href='".get_admin_url()."admin.php?page=sb-instagram-feed'>Settings page</a>. This is required even if you recently already obtained a new token. Apologies for any inconvenience.</p>
-                <a class='sb_instagram_dismiss' href='" .esc_url( add_query_arg( 'sb_instagram_token_nag_ignore_2016', '0' ) ). "'><i class='fa fa-times-circle' aria-hidden='true'></i> Dismiss</a>
-            </div>
-            ");
-
-        }
-
-    }
-
-}
-add_action('admin_init', 'sb_instagram_token_nag_ignore_2016');
-function sb_instagram_token_nag_ignore_2016() {
-    global $current_user;
-        $user_id = $current_user->ID;
-        if ( isset($_GET['sb_instagram_token_nag_ignore_2016']) && '0' == $_GET['sb_instagram_token_nag_ignore_2016'] ) {
-             add_user_meta($user_id, 'sb_instagram_ignore_notice_2016', 'true', true);
-    }
-}
-
-
 
 //REVIEW REQUEST NOTICE
 
