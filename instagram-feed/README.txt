@@ -1,9 +1,9 @@
 === Instagram Feed ===
 Contributors: smashballoon
-Tags: Instagram, Instagram feed, Instagram photos, Custom Instagram Feed, Instagram gallery
+Tags: Instagram, Instagram feed, Instagram photos, Instagram widget, Instagram gallery
 Requires at least: 3.0
-Tested up to: 4.7.3
-Stable tag: 1.4.8
+Tested up to: 4.8
+Stable tag: 1.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -310,12 +310,10 @@ We understand that sometimes you need help, have issues or just have questions. 
 * Use the shortcode options to style multiple Instagram feeds in completely different ways
 * Plus more customization options added all the time!
 
-== Upgrade Notice ==
-
-= 1.4.6 =
-**Important:** Due to the recent Instagram API changes, in order for the Instagram Feed plugin to continue working after **June 1st** you must update the plugin and obtain a new Access Token on the plugin's Settings page.
-
 == Changelog ==
+
+= 1.4.9 =
+* Compatible with WordPress 4.8
 
 = 1.4.8 =
 * Tweak: Updated plugin links for new WordPress.org repo
