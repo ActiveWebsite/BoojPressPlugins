@@ -2,6 +2,76 @@
 
 
 /*
+*  alm_masonry_after
+*  Masonry HTML wrapper open
+*
+*  @param $transition string
+*  @since 3.1.0
+*/
+function alm_masonry_before($transition){
+	return ($transition === 'masonry') ? '<div class="alm-masonry">' : '';
+}
+add_filter('alm_masonry_before', 'alm_masonry_before');
+
+
+
+/*
+*  alm_masonry_after
+*  Masonry HTML wrapper close
+*
+*  @param $transition string
+*  @since 3.1.0
+*/
+function alm_masonry_after($transition){
+	return ($transition === 'masonry') ? '</div>' : '';
+}
+add_filter('alm_masonry_after', 'alm_masonry_after');
+
+
+
+/*
+*  alm_progress_css
+*  If progress bar, add the CSS styles for the bar.
+*
+*  @param $counter              int
+*  @param $progress_bar         string
+*  @param $progress_bar_color   string
+*  @since 3.1.0
+*/
+function alm_progress_css($counter, $progress_bar, $progress_bar_color){
+	if($counter == 1 && $progress_bar === 'true'){
+		$style = '
+<style>
+.pace {
+	-webkit-pointer-events: none;
+	pointer-events: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+.pace-inactive {
+	display: none;
+}
+.pace .pace-progress {
+	background: #'. $progress_bar_color .';
+	position: fixed;
+	z-index: 2000;
+	top: 0;
+	right: 100%;
+	width: 100%;
+	height: 5px;
+	-webkit-box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+	box-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+}
+</style>';
+		return $style;
+	}
+}
+add_filter('alm_progress_css', 'alm_progress_css', 10, 3);
+
+
+
+/*
 *  alm_get_current_repeater
 *  Get the current repeater template file
 *
@@ -488,7 +558,7 @@ function alm_get_page_slug($post){
 		elseif(is_author()){
 	      $slug = get_the_author_meta('ID');
 	   }
-		// Post Tupe Archive
+		// Post Type Archive
 		elseif(is_post_type_archive()){
 			$slug = get_post_type();
 		}
@@ -513,6 +583,67 @@ function alm_get_page_slug($post){
 	}
 
 	return $slug;
+}
+
+
+/*
+*  alm_get_page_id
+*  Get current page ID
+*
+*  @return $post_id;
+*  @since 3.0.1
+*/
+function alm_get_page_id($post){
+
+   $post_id = '';
+
+	if(!is_archive()){
+		// If not an archive page, set the post slug
+		if(is_front_page() || is_home()){
+			$post_id = '0';
+		}else{
+   		// Search
+   		if(is_search()){
+      		$search_query = get_search_query();
+      		if($search_query){
+         		$post_id = "$search_query";
+      		}
+         }else{
+		      $post_id = $post->ID;
+		   }
+      }
+	}else{
+		// Tax
+		if(is_tax() || is_tag() || is_category()){
+			$queried_object = get_queried_object();
+			$post_id = $queried_object->term_id;
+		}
+		// Author
+		elseif(is_author()){
+	      $post_id = get_the_author_meta('ID');
+	   }
+		// Post Type Archive
+		elseif(is_post_type_archive()){
+			$post_id = get_post_type();
+		}
+		elseif(is_date()){
+			// Is archive page
+	      $archive_year = get_the_date('Y');
+	      $archive_month = get_the_date('m');
+	      $archive_day = get_the_date('d');
+	      if(is_year()){
+	        $post_id = $archive_year;
+	      }
+	      if(is_month()){
+	        $post_id = $archive_year.'-'.$archive_month;
+	      }
+	      if(is_day()){
+	        $post_id = $archive_year.'-'.$archive_month.'-'.$archive_day;
+	      }
+		}
+	}
+
+	return $post_id;
 }
 
 

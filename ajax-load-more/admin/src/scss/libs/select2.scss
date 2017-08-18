@@ -128,7 +128,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    background: #fff url("../img/bkg-select.png") no-repeat center center;
+    background: #fff url("../../img/bkg-select.png") no-repeat center center;
 }
 
 .select2-dropdown-open.select2-container-active div b {
@@ -152,7 +152,7 @@
       -webkit-box-shadow: none !important;
       -moz-box-shadow: none !important;
       box-shadow: none !important;
-      background: url("../img/select2.png") no-repeat scroll 100% -22px !important;
+      background: url("../../img/select2.png") no-repeat scroll 100% -22px !important;
    }
 
 /* Multi select box */
@@ -191,7 +191,7 @@
       position: relative;
    }
       #alm-builder ul.select2-choices .select2-input{
-         background: #f7f7f7 url("../img/bkg-select.png") no-repeat right center;
+         background: #f7f7f7 url("../../img/bkg-select.png") no-repeat right center;
       }
       #alm-builder ul.select2-choices li.select2-search-choice a{
          position: absolute;
@@ -199,7 +199,7 @@
          top: 5px;
          width: 13px;
          height: 13px;
-         background: #999 url("../img/ico-close.png") no-repeat center center;
+         background: #999 url("../../img/ico-close.png") no-repeat center center;
          color: #fff;
          display: block;
          border-radius: 2px;           
@@ -345,4 +345,5 @@ disabled look for disabled choices in the results dropdown
     padding: 0;
     position: absolute;
     width: 1px;
+    left: 0;
 }

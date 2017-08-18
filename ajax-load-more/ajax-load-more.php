@@ -1,19 +1,21 @@
 <?php
 /*
 Plugin Name: Ajax Load More
-Plugin URI: http://connekthq.com/plugins/ajax-load-more
+Plugin URI: https://connekthq.com/plugins/ajax-load-more
 Description: The ultimate solution to add infinite scroll functionality to your website.
 Text Domain: ajax-load-more
 Author: Darren Cooney
 Twitter: @KaptonKaos
-Author URI: http://connekthq.com
-Version: 3.0
+Author URI: https://connekthq.com
+Version: 3.2.0
 License: GPL
 Copyright: Darren Cooney & Connekt Media
 */
 
-define('ALM_VERSION', '3.0');
-define('ALM_RELEASE', 'May 4, 2017');
+
+
+define('ALM_VERSION', '3.2.0');
+define('ALM_RELEASE', 'August 8, 2017');
 define('ALM_STORE_URL', 'https://connekthq.com');
 
 
@@ -64,7 +66,7 @@ function alm_create_table(){
 	$table_name = $wpdb->prefix . "alm";
 	$blog_id = $wpdb->blogid;
 
-	$defaultRepeater = '<li <?php if (!has_post_thumbnail()) { ?> class="no-img"<?php } ?>><?php if ( has_post_thumbnail() ) { the_post_thumbnail(array(150,150));}?><h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3><p class="entry-meta"><?php the_time("F d, Y"); ?></p><?php the_excerpt(); ?></li>';
+	$defaultRepeater = '<li <?php if (!has_post_thumbnail()) { ?> class="no-img"<?php } ?>><?php if ( has_post_thumbnail() ) { the_post_thumbnail(\'alm-thumbnail\');}?><h3><a href="<?php the_permalink(); ?>" title="<?php the_title(); ?>"><?php the_title(); ?></a></h3><p class="entry-meta"><?php the_time("F d, Y"); ?></p><?php the_excerpt(); ?></li>';
 
 	/* MULTISITE */
    /* if this is a multisite blog and it's not id = 1, create default template */
@@ -257,14 +259,17 @@ if( !class_exists('AjaxLoadMore') ):
 
 
    		// Load JS
-   		//wp_register_script( 'ajax-load-more', plugins_url( '/core/js/ajax-load-more.js', __FILE__ ), $dependencies,  ALM_VERSION, true );
-   		wp_register_script( 'ajax-load-more', plugins_url( '/core/js/ajax-load-more.min.js', __FILE__ ), $dependencies,  ALM_VERSION, true );
+
+   		// Core JS
+   		wp_register_script( 'ajax-load-more', plugins_url( '/core/dist/js/ajax-load-more.min.js', __FILE__ ), $dependencies,  ALM_VERSION, true );
+
+   		// Progress Bar JS
+   		wp_register_script( 'ajax-load-more-progress', plugins_url( '/core/src/js/vendor/pace/pace.min.js', __FILE__ ), 'ajax-load-more',  ALM_VERSION, true );
 
 
    		// Load CSS
    		if(!isset($options['_alm_disable_css']) || $options['_alm_disable_css'] != '1'){
-         	//$file = plugins_url('/core/css/ajax-load-more.css', __FILE__ );
-         	$file = plugins_url('/core/css/ajax-load-more.min.css', __FILE__ );
+         	$file = plugins_url('/core/dist/css/ajax-load-more.min.css', __FILE__ );
             ALM_ENQUEUE::alm_enqueue_css('ajax-load-more', $file);
    		}
 
@@ -277,7 +282,8 @@ if( !class_exists('AjaxLoadMore') ):
    		}
 
    		wp_localize_script(
-   			'ajax-load-more', 'alm_localize',
+   			'ajax-load-more',
+   			'alm_localize',
    			array(
    				'ajaxurl'   => admin_url('admin-ajax.php'),
    				'alm_nonce' => wp_create_nonce( "ajax_load_more_nonce" ),
@@ -425,7 +431,7 @@ if( !class_exists('AjaxLoadMore') ):
 
    		// CTA Add-on
          $cta = false;
-         $ctaData = (isset($_GET['cta'])) ? $_GET['cta'] : '';
+         $ctaData = (isset($_GET['cta'])) ? $_GET['cta'] : false;
          if($ctaData){
             $cta = true;
    		   $cta_position = (isset($ctaData['cta_position'])) ? $ctaData['cta_position'] : 'before:1';
@@ -441,8 +447,13 @@ if( !class_exists('AjaxLoadMore') ):
 
 
          // Previous Post Add-on
-   		$is_previous_post = (isset($_GET['previous_post'])) ? $_GET['previous_post'] : false;
-   		$previous_post_id = (isset($_GET['previous_post_id'])) ? $_GET['previous_post_id'] : '';
+         $previous_post = false;
+   		$pp_data = (isset($_GET['previous_post'])) ? $_GET['previous_post'] : false;
+   		if($pp_data){
+      		$previous_post = true;
+      		$previous_post_id = (isset($pp_data['id'])) ? $pp_data['id'] : '';
+      		$previous_post_slug = (isset($pp_data['slug'])) ? $pp_data['slug'] : '';
+         }
 
 
          // Paging Add-on
@@ -666,7 +677,7 @@ if( !class_exists('AjaxLoadMore') ):
 	   	 *
 	   	 * @return $args;
 	   	 */
-   		if($is_previous_post == 'true' && has_action('alm_prev_post_installed')){
+   		if($previous_post && has_action('alm_prev_post_installed')){
       		$args = apply_filters('alm_prev_post_args', $previous_post_id, $postType);
          }
 
@@ -729,7 +740,6 @@ if( !class_exists('AjaxLoadMore') ):
 	   	 */
          if(!empty($cache_id) && has_action('alm_cache_create_dir')){
             apply_filters('alm_cache_create_dir', $cache_id, $canonical_url);
-            $page_cache = ''; // set our page cache variable
          }
 
 
@@ -800,7 +810,13 @@ if( !class_exists('AjaxLoadMore') ):
       	   	 * @return null
       	   	 */
    	         if(!empty($cache_id) && has_action('alm_cache_installed')){
-   	            apply_filters('alm_cache_file', $cache_id, $page, $seo_start_page, $data, $preloaded);
+      	         if($previous_post){
+         	         // Previous Post Cache
+   	               apply_filters('alm_previous_post_cache_file', $cache_id, $previous_post_slug, $data);
+      	         }else{
+         	         // Standard Cache
+   	               apply_filters('alm_cache_file', $cache_id, $page, $seo_start_page, $data, $preloaded);
+   	            }
    	         }
 
 

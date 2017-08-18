@@ -179,6 +179,7 @@ function alm_admin_vars() { ?>
 	 /* <![CDATA[ */
     var alm_admin_localize = <?php echo json_encode( array(
         'ajax_admin_url' => admin_url( 'admin-ajax.php' ),
+        'ajax_load_more' => __('Ajax Load More', 'ajax-load-more'),
         'active' => __('Active', 'ajax-load-more'),
         'inactive' => __('Inactive', 'ajax-load-more'),
         'applying_layout' => __('Applying layout', 'ajax-load-more'),
@@ -192,7 +193,9 @@ function alm_admin_vars() { ?>
         'install_now' => __('Are you sure you want to install this Ajax Load More extension?', 'ajax-load-more'),
         'install_btn' => __('Install Now', 'ajax-load-more'),
         'activate_btn' => __('Activate', 'ajax-load-more'),
-        'installed_btn' => __('Installed', 'ajax-load-more')
+        'settings_saving' => '<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> ' . __('Saving Settings', 'ajax-load-more'),
+        'settings_saved' => '<i class="fa fa-check" aria-hidden="true"></i> ' . __('Settings Saved Successfully', 'ajax-load-more'),
+        'settings_error' => '<i class="fa fa-exclamation-circle" aria-hidden="true"></i> ' . __('Error Saving Settings', 'ajax-load-more')
     )); ?>
     /* ]]> */
     </script>
@@ -586,16 +589,14 @@ function alm_load_cache_admin_js(){
 
 function alm_enqueue_admin_scripts(){
 
-   //Load Admin CSS
-   wp_enqueue_style( 'alm-admin', ALM_ADMIN_URL. 'css/admin.css');
-   wp_enqueue_style( 'alm-select2', ALM_ADMIN_URL. 'css/select2.css');
-   wp_enqueue_style( 'alm-tooltipster', ALM_ADMIN_URL. 'css/tooltipster/tooltipster.css');
-   wp_enqueue_style( 'alm-core', ALM_URL. '/core/css/ajax-load-more.css');
-   wp_enqueue_style( 'alm-font-awesome', '//netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css');
+   // Admin CSS
+   wp_enqueue_style( 'alm-admin', ALM_ADMIN_URL. 'dist/css/admin.css', '', ALM_VERSION);
+   wp_enqueue_style( 'alm-core', ALM_URL. '/core/dist/css/ajax-load-more.css', '', ALM_VERSION);
 
-   wp_dequeue_style( 'acf-input' );
+	// disable ACF select2 on ALM pages
+   wp_dequeue_style( 'acf-input' ); 
 
-   //Load CodeMirror Syntax Highlighting if on Repater Template page
+   // CodeMirror Syntax Highlighting if on Repater Template page
    $screen = get_current_screen();
    if ( in_array( $screen->id, array( 'ajax-load-more_page_ajax-load-more-repeaters') ) ){
 
@@ -612,15 +613,13 @@ function alm_enqueue_admin_scripts(){
       wp_enqueue_script( 'alm-codemirror-clike', ALM_ADMIN_URL. 'codemirror/mode/clike/clike.js' );
       wp_enqueue_script( 'alm-codemirror-php', ALM_ADMIN_URL. 'codemirror/mode/php/php.js' );
 
-   }
+   } 
 
-   //Load JS
+   // Admin JS
    wp_enqueue_script( 'jquery-form' );
-   wp_enqueue_script( 'alm-select2', ALM_ADMIN_URL. 'js/libs/select2.min.js', array( 'jquery' ));
-   wp_enqueue_script( 'alm-drops', ALM_ADMIN_URL. 'js/libs/jquery.drops.js', array( 'jquery' ));
-   wp_enqueue_script( 'alm-tipster', ALM_ADMIN_URL. 'js/libs/jquery.tooltipster.min.js', array( 'jquery' ));
-   wp_enqueue_script( 'alm-admin', ALM_ADMIN_URL. 'js/admin.js', array( 'jquery' ));
-   wp_enqueue_script( 'alm-shortcode-builder', ALM_ADMIN_URL. 'shortcode-builder/js/shortcode-builder.js', array( 'jquery' ));
+   wp_enqueue_script( 'alm-admin', ALM_ADMIN_URL. 'dist/js/admin.js', array( 'jquery' ), ALM_VERSION);
+   wp_enqueue_script( 'alm-shortcode-builder', ALM_ADMIN_URL. 'shortcode-builder/js/shortcode-builder.js', array( 'jquery' ), ALM_VERSION);
+   
 }
 
 
@@ -1120,7 +1119,7 @@ function alm_disable_css_callback(){
 
 	$html = '<input type="hidden" name="alm_settings[_alm_disable_css]" value="0" />';
 	$html .= '<input type="checkbox" id="alm_disable_css_input" name="alm_settings[_alm_disable_css]" value="1"'. (($options['_alm_disable_css']) ? ' checked="checked"' : '') .' />';
-	$html .= '<label for="alm_disable_css_input">'.__('I want to use my own CSS styles.', 'ajax-load-more').'<br/><span style="display:block;"><i class="fa fa-file-text-o"></i> &nbsp;<a href="'.ALM_URL.'/core/css/ajax-load-more.css" target="blank">'.__('View Ajax Load More CSS', 'ajax-load-more').'</a></span></label>';
+	$html .= '<label for="alm_disable_css_input">'.__('I want to use my own CSS styles.', 'ajax-load-more').'<br/><span style="display:block;"><i class="fa fa-file-text-o"></i> &nbsp;<a href="'.ALM_URL.'/core/dist/css/ajax-load-more.css" target="blank">'.__('View Ajax Load More CSS', 'ajax-load-more').'</a></span></label>';
 
 	echo $html;
 }

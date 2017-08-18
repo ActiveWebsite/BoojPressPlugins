@@ -1,3 +1,5 @@
+<div class="alm-settings-feedback"></div>
+
 <div class="admin ajax-load-more settings" id="alm-settings">
 	<div class="wrap">
 
@@ -14,28 +16,28 @@
          if(!isset($alm_share_notification) || empty($alm_share_notification)){
 	         // If transient has not been set - display this notice.
          ?>
-	   	<div class="group share-alm">
+	   	<div class="group share-alm" style="display: none !important;">
 				<div class="dotted">
       	   	<h2 style="padding: 0; margin: 0 0 20px;">
 	      	   	👋 &nbsp;<?php _e('Thanks for installing Ajax Load More 3.0!', 'ajax-load-more'); ?>
 	      	   </h2>
 	      	   <p>Version 3 is a big step forward for Ajax Load More and I really hope you like the changes and new features - be sure to check out the new <a href="admin.php?page=ajax-load-more-extensions">Extensions</a> section for 1-click installs of all currently available extensions for Ajax Load More.</p>
 				</div>
-   	   	<p>Please consider helping <a href="https://twitter.com/KaptonKaos" target="_blank">me</a> widen the reach of Ajax Load More by sharing with your networks.</p>      	   		   	
+   	   	<p>Please consider helping <a href="https://twitter.com/KaptonKaos" target="_blank">me</a> widen the reach of Ajax Load More by sharing with your networks.</p>
 
 				<ul class="share">
 					<li class="twitter">
-						<a target="blank" title="Share on Twitter" href="//twitter.com/home?status=I'm infinite scrolling with Ajax Load More for #WordPress - https://connekthq.com/plugins/ajax-load-more/" class="share-twitter"><i class="fa fa-twitter"></i> Twitter</a>
-					</li>				
+						<a target="blank" title="Share on Twitter" href="//twitter.com/home?status=I'm infinite scrolling with Ajax Load More for %23WordPress - https://connekthq.com/plugins/ajax-load-more/" class="share-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+					</li>
 					<li class="facebook">
 						<a target="blank" title="Share on Facebook" href="//facebook.com/share.php?u=https://connekthq.com/plugins/ajax-load-more/" class="share-facebook"><i class="fa fa-facebook"></i> Facebook</a>
 					</li>
 				</ul>
-				
+
             <div class="clear"></div>
-            
+
             <a href="javascript: void(0);" class="dismiss" id="alm_dismiss_sharing" title="<?php _e('Don\'t show me this again!', 'ajax-load-more');?>">&times;</a>
-            
+
 	   	</div>
 	   	<?php } ?>
 
@@ -75,23 +77,14 @@
       	   ?>
       	   <?php settings_errors(); ?>
    			<form action="options.php" method="post" id="alm_OptionsForm">
-   				<?php
-   					settings_fields( 'alm-setting-group' );
-   					do_settings_sections( 'ajax-load-more' );
-   					//get the older values, wont work the first time
-   					$options = get_option( '_alm_settings' ); ?>
-   					<div class="row no-brd alm-save-settings">
-   		            <?php submit_button('Save Settings'); ?>
-                     <div class="spinner"></div>
-   					</div>
+					<?php
+					settings_fields( 'alm-setting-group' );
+					do_settings_sections( 'ajax-load-more' );
+					//get the older values, wont work the first time
+					$options = get_option( '_alm_settings' ); ?>
+					<div class="save-in-progress"></div>
    			</form>
-   			<script type="text/javascript">
-            jQuery(document).ready(function() {
-               jQuery('#alm_OptionsForm').submit(function() {
-                  jQuery('.alm-save-settings .spinner').fadeIn();
-               });
-            });
-            </script>
+
 	   	</div>
 	   </div>
 	   <div class="cnkt-sidebar">
