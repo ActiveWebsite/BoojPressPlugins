@@ -3,7 +3,7 @@
 Plugin Name: WP-Paginate
 Plugin URI: https://wordpress.org/plugins/wp-paginate/
 Description: A simple and flexible pagination plugin for WordPress posts and comments.
-Version: 2.0.2
+Version: 2.0.3
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: 'wp-paginate'
@@ -60,7 +60,7 @@ if (!class_exists('WPPaginate')) {
         /**
          * @var string The plugin version
          */
-        public $version = '2.0.2';
+        public $version = '2.0.3';
 
         /**
          * @var string The options string name for this plugin
@@ -148,6 +148,7 @@ if (!class_exists('WPPaginate')) {
 							array('default', __('Grey Buttons', 'wp-paginate'), 'default.jpg'),
 							array('wpp-blue-cta', __('Blue Buttons', 'wp-paginate'), 'blue-cta-buttons.jpg'),
 							array('wpp-modern-grey', __('Modern Grey Buttons', 'wp-paginate'), 'modern-grey-buttons.jpg'),
+							array('wpp-neon-pink', __('Neon Pink Buttons', 'wp-paginate'), 'neon-pink-buttons.png'),
 						);
 												
             if ($this->options['css'])
