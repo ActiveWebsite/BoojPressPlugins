@@ -85,7 +85,7 @@ class CaptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $rendered);
     }
 
-    public function testRenderWithFontSize()
+    public function testRenderWithLargeFontSize()
     {
         $caption =
             Caption::create()
@@ -95,6 +95,22 @@ class CaptionTest extends \PHPUnit_Framework_TestCase
         $expected =
             '<figcaption class="op-large">'.
                 'Caption Title'.
+            '</figcaption>';
+
+        $rendered = $caption->render();
+        $this->assertEquals($expected, $rendered);
+    }
+
+    public function testRenderWithSmallFontSize()
+    {
+        $caption =
+            Caption::create()
+                ->appendText('Small Caption Title')
+                ->withFontsize(Caption::SIZE_SMALL);
+
+        $expected =
+            '<figcaption class="op-small">'.
+                'Small Caption Title'.
             '</figcaption>';
 
         $rendered = $caption->render();

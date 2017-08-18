@@ -223,4 +223,22 @@ class H1Test extends \PHPUnit_Framework_TestCase
         $rendered = $h1->render();
         $this->assertEquals($expected, $rendered);
     }
+
+    public function testGetPlainText()
+    {
+        $h1 =
+            H1::create()
+                ->appendText(Bold::create()->appendText('Some'))
+                ->appendText(' text to be ')
+                ->appendText(Italic::create()->appendText('within'))
+                ->appendText(' a ')
+                ->appendText(Italic::create()->appendText('paragraph'))
+                ->appendText(' for ')
+                ->appendText(Bold::create()->appendText('testing.'));
+
+        $expected = 'Some text to be within a paragraph for testing.';
+
+        $rendered = $h1->getPlainText();
+        $this->assertEquals($expected, $rendered);
+    }
 }

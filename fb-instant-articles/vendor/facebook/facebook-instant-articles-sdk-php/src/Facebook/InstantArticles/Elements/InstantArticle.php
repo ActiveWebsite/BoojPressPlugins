@@ -34,7 +34,7 @@ use Facebook\InstantArticles\Validators\Type;
 
 class InstantArticle extends Element implements Container, InstantArticleInterface
 {
-    const CURRENT_VERSION = '1.5.5';
+    const CURRENT_VERSION = '1.6.2';
 
     /**
      * The meta properties that are used on <head>
@@ -55,6 +55,11 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
      * @var boolean The ad strategy that will be used. True by default
      */
     private $isAutomaticAdPlaced = true;
+
+    /**
+     * @var string The ad density that will be used. "default" by default
+     */
+    private $adDensity = 'default';
 
     /**
      * @var string The charset that will be used. "utf-8" by default.
@@ -98,7 +103,6 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
     /**
      * Private constructor. It must be used the Factory method
      * @see InstantArticle#create() For building objects
-     * @return InstantArticle object.
      */
     private function __construct()
     {
@@ -167,6 +171,21 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
     public function disableAutomaticAdPlacement()
     {
         $this->isAutomaticAdPlaced = false;
+        return $this;
+    }
+
+    /**
+     * Sets the ad density to be used for auto ad placement
+     *
+     * @param string $adDensity Ad density
+     *
+     * @return $this
+     */
+    public function withAdDensity($adDensity)
+    {
+        Type::enforce($adDensity, Type::STRING);
+        $this->adDensity = $adDensity;
+
         return $this;
     }
 
@@ -357,6 +376,14 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
     }
 
     /**
+     * @return string style from the InstantArticle
+     */
+    public function getStyle()
+    {
+        return $this->style;
+    }
+
+    /**
      * @return Header header element from the InstantArticle
      */
     public function getHeader()
@@ -381,6 +408,22 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
     }
 
     /**
+     * @return boolean if this article is Right-to-left(RTL).
+     */
+    public function isRTLEnabled()
+    {
+        return $this->isRTLEnabled;
+    }
+
+    /**
+     * @return string The article charset.
+     */
+    public function getCharset()
+    {
+        return $this->charset;
+    }
+
+    /**
      * Adds a meta property for the <head> of Instant Article.
      *
      * @param string $property_name name of meta attribute
@@ -396,6 +439,7 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
 
     public function render($doctype = '<!doctype html>', $format = false)
     {
+        $doctype = is_null($doctype) ? '<!doctype html>' : $doctype;
         return parent::render($doctype, $format);
     }
 
@@ -424,10 +468,14 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
 
         $this->addMetaProperty('op:markup_version', $this->markupVersion);
         if ($this->header && count($this->header->getAds()) > 0) {
-            $this->addMetaProperty(
-                'fb:use_automatic_ad_placement',
-                $this->isAutomaticAdPlaced ? 'true' : 'false'
-            );
+            if ($this->isAutomaticAdPlaced) {
+                $this->addMetaProperty(
+                    'fb:use_automatic_ad_placement',
+                    'enable=true ad_density=' . $this->adDensity
+                );
+            } else {
+                $this->addMetaProperty('fb:use_automatic_ad_placement', 'false');
+            }
         }
 
         if ($this->style) {
@@ -538,5 +586,19 @@ class InstantArticle extends Element implements Container, InstantArticleInterfa
         }
 
         return $children;
+    }
+
+    public function getFirstParagraph()
+    {
+        $items = $this->getChildren();
+        if ($items) {
+            foreach ($items as $item) {
+                if (Type::is($item, Paragraph::getClassName())) {
+                    return $item;
+                }
+            }
+        }
+        // Case no paragraph exists, we return an empty paragraph
+        return Paragraph::create();
     }
 }
