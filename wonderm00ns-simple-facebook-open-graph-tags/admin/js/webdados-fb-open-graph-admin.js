@@ -60,6 +60,13 @@
 		showYoastSEOOptions();
 		showSubheadingOptions();
 
+		//Tools
+		$('.fb-og-tool').on('click', function(event) {
+			if ( !confirm(texts.confirm_tool) ) {
+				event.preventDefault();
+			}
+		});
+
 		//Functions
 		function showDescriptionCustomText(focus) {
 			if ($('#fb_desc_homepage').val()=='custom') {

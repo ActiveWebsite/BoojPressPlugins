@@ -4,29 +4,29 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 ?>
 <div class="menu_containt_div" id="tabs-4">
-	<p><?php _e( 'Schema.org tags used by Google+ to render link share posts.', 'wd-fb-og' ); ?></p>
+	<p><?php _e( 'Schema.org tags used by Google+ to render link share posts.', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?></p>
 	<div class="postbox">
-		<h3 class="hndle"><i class="dashicons-before dashicons-googleplus"></i> <?php _e( 'Google+ / Schema.org Tags', 'wd-fb-og' ) ?></h3>
+		<h3 class="hndle"><i class="dashicons-before dashicons-googleplus"></i> <?php _e( 'Google+ / Schema.org Tags', 'wonderm00ns-simple-facebook-open-graph-tags' ) ?></h3>
 		<div class="inside">
 			<table class="form-table">
 				<tbody>
 					
 					<tr>
-						<th><?php _e( 'Include Title', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Include Title', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_title_show_schema]" id="fb_title_show_schema" value="1" <?php echo (intval($options['fb_title_show_schema'])==1 ? ' checked="checked"' : ''); ?>/>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="info">
-							<i>&lt;meta itemprop="name" content="..."/&gt;</i>
+							<i>&lt;meta itemprop="name" content="..."/&gt;</i> <?php _e('and', 'wonderm00ns-simple-facebook-open-graph-tags'); ?> <i>&lt;meta itemprop="headline" content="..."/&gt;</i>
 							<br/>
-							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wd-fb-og' ), 'fb_og_title' ); ?>
+							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wonderm00ns-simple-facebook-open-graph-tags' ), 'fb_og_title' ); ?>
 						</td>
 					</tr>
 					
 					<tr>
-						<th><?php _e( 'Include Description', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Include Description', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_desc_show_schema]" id="fb_desc_show_schema" value="1" <?php echo (intval($options['fb_desc_show_schema'])==1 ? ' checked="checked"' : ''); ?>/>
 						</td>
@@ -35,12 +35,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 						<td colspan="2" class="info">
 							<i>&lt;meta itemprop="description" content="..."/&gt;</i>
 							<br/>
-							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wd-fb-og' ), 'fb_og_desc' ); ?>
+							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wonderm00ns-simple-facebook-open-graph-tags' ), 'fb_og_desc' ); ?>
 						</td>
 					</tr>
 					
 					<tr>
-						<th><?php _e( 'Include Image', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Include Image', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_image_show_schema]" id="fb_image_show_schema" value="1" <?php echo (intval($options['fb_image_show_schema'])==1 ? ' checked="checked"' : ''); ?>/>
 						</td>
@@ -49,12 +49,12 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 						<td colspan="2" class="info">
 							<i>&lt;meta itemprop="image" content="..."/&gt;</i>
 							<br/>
-							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wd-fb-og' ), 'fb_og_image' ); ?>
+							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wonderm00ns-simple-facebook-open-graph-tags' ), 'fb_og_image' ); ?>
 						</td>
 					</tr>
 					
 					<tr>
-						<th><?php _e( 'Include Type', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Include Type', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_type_show_schema]" id="fb_type_show_schema" value="1" <?php echo (intval($options['fb_type_show_schema'])==1 ? ' checked="checked"' : ''); ?>/>
 						</td>
@@ -63,16 +63,16 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 						<td colspan="2" class="info">
 							<i>&lt;html ... itemscope itemtype="http://schema.org/..."/&gt;</i>
 							<br/>
-							- <?php _e('Experimental', 'wd-fb-og'); ?>
+							- <?php _e('Experimental', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>
 							<br/>
-							- <?php _e('Added to the HTML tag, if you want to avoid W3C and Structured Data validation errors', 'wd-fb-og'); ?>
+							- <?php _e('Added to the HTML tag, if you want to avoid W3C and Structured Data validation errors', 'wonderm00ns-simple-facebook-open-graph-tags'); ?>
 							<br/>
-							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wd-fb-og' ), 'fb_type_schema' ); ?>
+							- <?php printf( __( 'You can change this value using the <i>%1$s</i> filter', 'wonderm00ns-simple-facebook-open-graph-tags' ), 'fb_type_schema' ); ?>
 						</td>
 					</tr>
 					
 					<tr class="fb_type_schema_options">
-						<th><?php _e( 'Homepage Type', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Homepage Type', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<select name="wonderm00n_open_graph_settings[fb_type_schema_homepage]" id="fb_type_schema_homepage">
 								<option value="WebSite"<?php if (trim($options['fb_type_schema_homepage'])=='' || trim($options['fb_type_schema_homepage'])=='WebSite') echo ' selected="selected"'; ?>>WebSite</option>
@@ -86,7 +86,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 					</tr>
 					
 					<tr class="fb_type_schema_options">
-						<th><?php _e( 'Default (including Post/Page) Type', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Default (including Post/Page) Type', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<select name="wonderm00n_open_graph_settings[fb_type_schema_post]" id="fb_type_schema_post">
 								<option value="Article"<?php if (trim($options['fb_type_schema_post'])=='' || trim($options['fb_type_schema_post'])=='Article') echo ' selected="selected"'; ?>>Article</option>
@@ -104,7 +104,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 					
 					<!-- Removed in 2.0 - https://support.google.com/webmasters/answer/6083347 -->
 					<!--<tr>
-						<th><?php _e( 'Include Post/Page Author', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Include Post/Page Author', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_author_show_linkrelgp]" id="fb_author_show_linkrelgp" value="1" <?php echo (intval($options['fb_author_show_linkrelgp'])==1 ? ' checked="checked"' : ''); ?>/>
 						</td>
@@ -113,25 +113,40 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 						<td colspan="2" class="info">
 							<i>&lt;link rel="author" content="..."/&gt;</i>
 							<br/>
-							- <?php _e('The user\'s Google+ URL must be filled in on his profile', 'wd-fb-og');?>
+							- <?php _e('The user\'s Google+ URL must be filled in on his profile', 'wonderm00ns-simple-facebook-open-graph-tags');?>
 						</td>
 					</tr>-->
 
 					<tr>
-						<th><?php _e( 'Include Post/Page Author', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Include Post/Page Author', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
-							<small><?php _e('Google doesn\'t use it anymore', 'wd-fb-og');?></small>
-							<input type="hidden" name="wonderm00n_open_graph_settings[fb_author_show_linkrelgp]" id="fb_author_show_linkrelgp" value="0"/>
+							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_author_show_schema]" id="fb_author_show_schema" value="1" <?php echo (intval($options['fb_author_show_schema'])==1 ? ' checked="checked"' : ''); ?>/>
 						</td>
 					</tr>
 					<tr>
 						<td colspan="2" class="info">
-							- <a href="https://support.google.com/webmasters/answer/6083347" target="_blank">https://support.google.com/webmasters/answer/6083347</a>
+							<i>&lt;meta itemprop="author" content="..."/&gt;</i>
+							<br/>
+							- <?php _e('From the user Display name', 'wonderm00ns-simple-facebook-open-graph-tags');?>
 						</td>
 					</tr>
 					
 					<tr>
-						<th><?php _e( 'Include Publisher', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Include Published/Modified Dates', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
+						<td>
+							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_article_dates_show_schema]" id="fb_article_dates_show_schema" value="1" <?php echo (intval($options['fb_article_dates_show_schema'])==1 ? ' checked="checked"' : ''); ?>/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" class="info">
+							<i>&lt;itemprop="datePublished" content="..."/&gt;</i> <?php _e('and', 'wonderm00ns-simple-facebook-open-graph-tags'); ?> <i>&lt;meta itemprop="dateModified" content="..."/&gt;</i>
+							<br/>
+							- <?php _e( 'For posts only', 'wonderm00ns-simple-facebook-open-graph-tags' );?>
+						</td>
+					</tr>
+					
+					<tr>
+						<th><?php _e( 'Include Publisher', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<input type="checkbox" name="wonderm00n_open_graph_settings[fb_publisher_show_schema]" id="fb_publisher_show_schema" value="1" <?php echo (intval($options['fb_publisher_show_schema'])==1 ? ' checked="checked"' : ''); ?>/>
 						</td>
@@ -140,19 +155,19 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 						<td colspan="2" class="info">
 							<i>&lt;link rel="publisher" href="..."/&gt;</i>
 							<br/>
-							- <?php _e( 'The website\'s Google+ Page', 'wd-fb-og' );?>
+							- <?php _e( 'The website\'s Google+ Page', 'wonderm00ns-simple-facebook-open-graph-tags' );?>
 						</td>
 					</tr>
 					
 					<tr class="fb_publisher_schema_options">
-						<th><?php _e( 'Website\'s Google+ Page', 'wd-fb-og' );?>:</th>
+						<th><?php _e( 'Website\'s Google+ Page', 'wonderm00ns-simple-facebook-open-graph-tags' );?>:</th>
 						<td>
 							<input type="text" name="wonderm00n_open_graph_settings[fb_publisher_schema]" id="fb_publisher_schema" size="50" value="<?php echo trim(esc_attr($options['fb_publisher_schema'])); ?>"/>
 						</td>
 					</tr>
 					<tr class="fb_publisher_schema_options">
 						<td colspan="2" class="info">
-							- <?php _e( 'Google+ Page URL (with https://)', 'wd-fb-og' ); ?>
+							- <?php _e( 'Google+ Page URL (with https://)', 'wonderm00ns-simple-facebook-open-graph-tags' ); ?>
 						</td>
 					</tr>
 

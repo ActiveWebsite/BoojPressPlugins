@@ -7,6 +7,7 @@
  * Database helper class.
  */
 class WPSEO_Link_Query {
+
 	/**
 	 * Determine if there are any unprocessed public posts.
 	 *
@@ -71,7 +72,6 @@ class WPSEO_Link_Query {
 
 	/**
 	 * Returns a limited set of unindexed posts.
-	 * *
 	 *
 	 * @param array $post_types The post type.
 	 * @param int   $limit      The limit for the resultset.
@@ -85,23 +85,20 @@ class WPSEO_Link_Query {
 		$post_types  = self::format_post_types( $post_types );
 
 		// @codingStandardsIgnoreStart
-		$results = $wpdb->get_results(
-			$wpdb->prepare( '
-				SELECT posts.ID, posts.post_content
+		$query = 'SELECT posts.ID, posts.post_content
 				  FROM ' . $wpdb->posts . ' AS posts
 			 LEFT JOIN ' . $count_table . ' AS yoast_meta
 			 		ON yoast_meta.object_id = posts.ID
 				 WHERE posts.post_status = "publish"
 				   AND posts.post_type IN ( ' . $post_types . ' )
 				   AND yoast_meta.internal_link_count IS NULL
-				 LIMIT %1$d
-				',
-				$limit
-			)
-		);
+				 LIMIT %d
+	   ';
 		// @codingStandardsIgnoreEnd
 
-		return $results;
+		return $wpdb->get_results(
+			$wpdb->prepare( $query, $limit )
+		);
 	}
 
 	/**
