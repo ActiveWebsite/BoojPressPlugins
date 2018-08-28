@@ -301,19 +301,29 @@ class WpBooj {
 
   public static function get_top_posts_for_loop( $count = 10 ){
     include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+    $order = get_option( 'wpbooj_popular_orderby' );
+    $direction = get_option( 'wpbooj_popular_order' );
     if( is_plugin_active( 'wp-postviews/wp-postviews.php' ) ){
       global $wpdb;
-      $sql = "SELECT 
-          posts.`ID`, 
-          meta.`meta_value`
-        FROM `{$wpdb->prefix}postmeta` as meta
-        INNER JOIN `{$wpdb->prefix}posts` as posts
-        ON meta.`post_id`  = posts.`ID`
-        WHERE meta.`meta_key` = 'views' AND 
-          posts.`post_type` = 'post'AND 
-          posts.`post_status` = 'publish'
-        ORDER BY CAST( `meta_value` AS DECIMAL ) DESC 
-        LIMIT " . $count;
+
+      if($order === 'views')
+      {
+          $sql = "SELECT posts.`ID`, meta.`meta_value`
+          FROM `{$wpdb->prefix}postmeta` as meta
+          INNER JOIN `{$wpdb->prefix}posts` as posts
+          ON meta.`post_id`  = posts.`ID`
+          WHERE posts.`post_type` = 'post' AND posts.`post_status` = 'publish'
+          AND meta.`meta_key` = 'views' 
+          ORDER BY CAST( `meta_value` AS DECIMAL ) ";
+      }else{
+          $sql = "SELECT posts.`ID`
+          FROM `{$wpdb->prefix}posts` as posts
+          WHERE posts.`post_type` = 'post' AND posts.`post_status` = 'publish'
+          ORDER BY post_date ";
+      }
+
+      $sql .= " {$direction} LIMIT {$count}";
+
       $posts = $wpdb->get_results( $sql  );
       $popular = array();
       foreach( $posts as $key => $post ){
