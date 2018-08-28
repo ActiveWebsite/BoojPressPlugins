@@ -7,6 +7,7 @@
     <meta property="op:generator:transformer" content="facebook-instant-articles-sdk-php"/>
     <meta property="op:generator:transformer:version" content="1.0.0"/>
     <meta property="op:markup_version" content="v1.0"/>
+    <meta property="fb:article_style" content="wod-gray"/>
   </head>
   <body>
     <article>
@@ -62,7 +63,7 @@
         <img src="https://jpeg.org/images/jpegls-home.jpg"/>
         <figcaption><h1>Image Name</h1>Some text on text node<cite>Some caption to the image</cite></figcaption>
       </figure>
-      <p>Other text to be within a second paragraph for testing.</p>
+      <p>Other text to be within a <em>second paragraph</em> for testing.</p>
       <figure class="op-slideshow">
         <figure>
           <img src="https://jpeg.org/images/jpegls-home.jpg"/>
@@ -182,6 +183,9 @@
           <p>Some plaintext credits to<a href="http://facebook.com/author" rel="facebook">Author</a></p>
           <p>Paragraph text as credits</p>
         </aside>
+        <small>
+          Copyright <a href="http://example.com">with link</a> and <b>inline style</b>
+        </small>
         <ul class="op-related-articles">
           <li>
             <a href="http://example.com/article.html"></a>

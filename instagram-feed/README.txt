@@ -1,9 +1,9 @@
 === Instagram Feed ===
-Contributors: smashballoon
-Tags: Instagram, Instagram feed, Instagram photos, Custom Instagram Feed, Instagram gallery
+Contributors: smashballoon, craig-at-smash-balloon
+Tags: Instagram, Instagram feed, Instagram photos, Instagram widget, Instagram gallery
 Requires at least: 3.0
-Tested up to: 4.7.3
-Stable tag: 1.4.8
+Tested up to: 4.9
+Stable tag: 1.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,6 @@ Display beautifully clean, customizable, and responsive feeds from multiple Inst
 Display Instagram photos from any non-private Instagram accounts, either in the same single feed or in multiple different ones.
 
 = Features =
-* **Compatible with the June 1st Instagram API changes**
 * Super **simple to set up**
 * Display photos from **multiple Instagram accounts** in the same feed or in separate feeds
 * Completely **responsive** and mobile ready - layout looks great on any screen size and in any container width
@@ -140,7 +139,7 @@ Yep. You can display multiple Instagram feeds by using our built-in shortcode op
 
 Yep. You can just separate the IDs by commas, either in the User ID(s) field on the plugin's Settings page, or directly in the shortcode like so: `[instagram-feed id="12986477,13460080"]`.
 
-= How do I find my Instagram Access Token and User ID =
+= How do I find my Instagram Access Token and Instagram User ID =
 
 We've made it super easy. Simply click on the big blue button on the Instagram Feed Settings page and log into your Instagram account. The plugin will then retrieve and display both your Access Token and User ID from Instagram.
 
@@ -310,12 +309,26 @@ We understand that sometimes you need help, have issues or just have questions. 
 * Use the shortcode options to style multiple Instagram feeds in completely different ways
 * Plus more customization options added all the time!
 
-== Upgrade Notice ==
-
-= 1.4.6 =
-**Important:** Due to the recent Instagram API changes, in order for the Instagram Feed plugin to continue working after **June 1st** you must update the plugin and obtain a new Access Token on the plugin's Settings page.
-
 == Changelog ==
+= 1.5.1 =
+* New: The plugin is now compatible with the [WPML plugin](https://wpml.org/) allowing you to use multiple translations for your feeds on your multi-language sites
+* New: Added translation files for Danish (da_DK), Finnish (fi_FL), Japanese (ja_JP), Norwegian (nn_NO), Portuguese (pt_PT), and Swedish (sv_SE) to translate the "Load More" and "Follow on Instagram" text
+
+= 1.5 =
+* New: Improved tool for retrieving Instagram Access Tokens
+* New: Added an option to show/hide Instagram bio text in feed header
+* New: Feeds that include IDs from "private" Instagram accounts will now ignore the private data and display a message to logged-in site admins which indicates that one of the Instagram accounts is private
+* New: Feeds without any Instagram posts yet will display a message informing logged-in admins to make a post on Instagram in order to view the feed
+* New: Added translation files for French (fr_FR), German (de_DE), English (en_EN), Spanish (es_ES), Italian (it_IT), and Russian (ru_RU) to translate "Load More..." and "Follow on Instagram"
+* Tweak: Optimized several images used in the Instagram feed including loader.png
+* Tweak: Font Awesome stylesheet handle has been renamed so it will only be loaded once if our Custom Facebook Feed plugin is also active
+* Fix: Updated the Font Awesome icon font to the latest version: 4.7.0
+* Fix: Padding removed from "Load More" button if no buttons are being used in the Instagram feed
+* Fix: All links in the feed are now https
+* Fix: Fixed JavaScript errors which were being caused if the Instagram Access Token had expired or the user ID was incorrect, private, or had no Instagram posts
+
+= 1.4.9 =
+* Compatible with WordPress 4.8
 
 = 1.4.8 =
 * Tweak: Updated plugin links for new WordPress.org repo

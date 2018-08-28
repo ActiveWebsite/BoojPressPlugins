@@ -3,7 +3,7 @@
 Plugin Name: WP-Paginate
 Plugin URI: https://wordpress.org/plugins/wp-paginate/
 Description: A simple and flexible pagination plugin for WordPress posts and comments.
-Version: 2.0.2
+Version: 2.0.4
 Author: Max Foundry
 Author URI: http://maxfoundry.com
 Text Domain: 'wp-paginate'
@@ -60,7 +60,7 @@ if (!class_exists('WPPaginate')) {
         /**
          * @var string The plugin version
          */
-        public $version = '2.0.2';
+        public $version = '2.0.4';
 
         /**
          * @var string The options string name for this plugin
@@ -148,6 +148,7 @@ if (!class_exists('WPPaginate')) {
 							array('default', __('Grey Buttons', 'wp-paginate'), 'default.jpg'),
 							array('wpp-blue-cta', __('Blue Buttons', 'wp-paginate'), 'blue-cta-buttons.jpg'),
 							array('wpp-modern-grey', __('Modern Grey Buttons', 'wp-paginate'), 'modern-grey-buttons.jpg'),
+							array('wpp-neon-pink', __('Neon Pink Buttons', 'wp-paginate'), 'neon-pink-buttons.png'),
 						);
 												
             if ($this->options['css'])
@@ -328,12 +329,12 @@ if (!class_exists('WPPaginate')) {
             }
 
             $prevlink = ($this->type === 'posts')
-                ? esc_url(get_pagenum_link($page - 1))
+                ? rtrim(esc_url(get_pagenum_link($page - 1)), '/')
                 : get_comments_pagenum_link($page - 1);
             $nextlink = ($this->type === 'posts')
-                ? esc_url(get_pagenum_link($page + 1))
+                ? rtrim(esc_url(get_pagenum_link($page + 1)), '/')
                 : get_comments_pagenum_link($page + 1);
-
+						
             $output = stripslashes(wp_kses_decode_entities($before));
             if ($pages > 1) {
 							
@@ -402,7 +403,7 @@ if (!class_exists('WPPaginate')) {
         function paginate_loop($start, $max, $page = 0) {
             $output = "";
             for ($i = $start; $i <= $max; $i++) {
-                $p = ($this->type === 'posts') ? esc_url(get_pagenum_link($i)) : get_comments_pagenum_link($i);
+                $p = ($this->type === 'posts') ? rtrim(esc_url(get_pagenum_link($i)), '/') : get_comments_pagenum_link($i);
                 $output .= ($page == intval($i))
                     ? "<li><span class='page current'>$i</span></li>"
                     : "<li><a href='$p' title='$i' class='page'>$i</a></li>";

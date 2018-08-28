@@ -23,7 +23,7 @@ abstract class TextContainer extends Element implements Container
     /**
      * @var array The content is a list of strings and FormattingElements
      */
-    private $textChildren = [];
+    private $textChildren = array();
 
     /**
      * Adds content to the formatted text.
@@ -38,6 +38,14 @@ abstract class TextContainer extends Element implements Container
         $this->textChildren[] = $child;
 
         return $this;
+    }
+
+    /**
+     * Clears the text.
+     */
+    public function clearText()
+    {
+        $this->textChildren = array();
     }
 
     /**
@@ -78,6 +86,27 @@ abstract class TextContainer extends Element implements Container
         }
 
         return $fragment;
+    }
+
+    /**
+     * Build up a string with the content from children text container
+     *
+     * @return string the unformated plain text content from children
+     */
+    public function getPlainText()
+    {
+        $text = '';
+
+        // Generate markup
+        foreach ($this->textChildren as $content) {
+            if (Type::is($content, Type::STRING)) {
+                $text .= $content;
+            } else {
+                $text .= $content->getPlainText();
+            }
+        }
+
+        return $text;
     }
 
     /**

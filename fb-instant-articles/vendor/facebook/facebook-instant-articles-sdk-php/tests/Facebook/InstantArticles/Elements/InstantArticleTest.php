@@ -221,7 +221,7 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
                 '<meta property="op:generator" content="facebook-instant-articles-sdk-php"/>'.
                 '<meta property="op:generator:version" content="'.InstantArticle::CURRENT_VERSION.'"/>'.
                 '<meta property="op:markup_version" content="v1.0"/>'.
-                '<meta property="fb:use_automatic_ad_placement" content="true"/>'.
+                '<meta property="fb:use_automatic_ad_placement" content="enable=true ad_density=default"/>'.
                 '<meta property="fb:article_style" content="myarticlestyle"/>'.
             '</head>'.
             '<body>'.
@@ -280,6 +280,38 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
         $this->article->getHeader()->addAd(Ad::create()->withSource('http://foo.com'));
 
         $this->assertEquals($expected, $this->article->render());
+    }
+
+    public function testRenderWithoutAds()
+    {
+        $article =
+            InstantArticle::create()
+                ->disableAutomaticAdPlacement()
+                ->withHeader(
+                    Header::create()
+                        ->addAd(
+                            Ad::create()
+                        )
+                );
+        $result = $article->render();
+        $expected =
+            '<!doctype html>'.
+            '<html>'.
+                '<head>'.
+                    '<link rel="canonical" href=""/>'.
+                    '<meta charset="utf-8"/>'.
+                    '<meta property="op:generator" content="facebook-instant-articles-sdk-php"/>'.
+                    '<meta property="op:generator:version" content="'.InstantArticle::CURRENT_VERSION.'"/>'.
+                    '<meta property="op:markup_version" content="v1.0"/>'.
+                    '<meta property="fb:use_automatic_ad_placement" content="false"/>'.
+                '</head>'.
+                '<body>'.
+                    '<article>'.
+                    '</article>'.
+                '</body>'.
+            '</html>';
+
+        $this->assertEquals($expected, $result);
     }
 
     public function testInstantArticleAlmostEmpty()
@@ -474,6 +506,53 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result);
     }
 
+    public function testGetFirstParagraph()
+    {
+        $article =
+            InstantArticle::create()
+                ->withCanonicalURL('http://wp.localtest.me/2016/04/12/stress-on-earth/')
+                ->enableAutomaticAdPlacement()
+                ->enableRTL()
+                ->withHeader(
+                    Header::create()
+                        ->withTitle(
+                            H1::create()->appendText('Peace on <b>earth</b>')
+                        )
+                        ->addAuthor(
+                            Author::create()->withName('bill')
+                        )
+                        ->withPublishTime(
+                            Time::create(Time::PUBLISHED)
+                                ->withDatetime(
+                                    \DateTime::createFromFormat(
+                                        'j-M-Y G:i:s',
+                                        '14-Aug-1984 19:30:00'
+                                    )
+                                )
+                        )
+                )
+                ->addChild(
+                    Paragraph::create()
+                        ->appendText('Yes, peace is good for everybody!')
+                        ->appendText(LineBreak::create())
+                        ->appendText(' Man kind.')
+                );
+        $result = $article->getFirstParagraph()->render();
+        $expected = '<p>Yes, peace is good for everybody!<br/> Man kind.</p>';
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testGetEmptyFirstParagraph()
+    {
+        $article =
+            InstantArticle::create();
+        $result = $article->getFirstParagraph()->render();
+        $expected = '';
+
+        $this->assertEquals($expected, $result);
+    }
+
     public function testDeleteChildren()
     {
         $article =
@@ -535,7 +614,7 @@ class InstantArticleTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($expected, $result);
     }
-    
+
     public function testDeleteOnlyChild()
     {
         $article =

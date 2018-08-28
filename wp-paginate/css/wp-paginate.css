@@ -66,3 +66,17 @@ ol.wp-paginate li {
 .wp-paginate.wpp-blue-cta .current {
 	opacity: .6;
 }
+
+/* Theme: Pink Neon Buttons */
+.wp-paginate.wpp-neon-pink a, .wp-paginate.wpp-neon-pink .current {
+  background: #54d3f4;
+  border:1px solid #eee;
+  border-radius: 6px;
+  color: #000;
+}
+.wp-paginate.wpp-neon-pink a, .wp-paginate.wpp-neon-pink .current {
+  background: #ff4ecd;
+}
+.wp-paginate.wpp-neon-pink .current {
+	opacity: .6;
+}     

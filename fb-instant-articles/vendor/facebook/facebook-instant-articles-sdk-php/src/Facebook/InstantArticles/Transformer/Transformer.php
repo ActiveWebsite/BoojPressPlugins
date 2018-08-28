@@ -47,10 +47,23 @@ class Transformer
     private $instantArticle;
 
     /**
+     * @var DateTimeZone the timezone for parsing dates. It defaults to 'America/Los_Angeles', but can be customized.
+     */
+    private $defaultDateTimeZone;
+
+    /**
      * Flag attribute added to elements processed by a getter, so they
      * are not processed again by other rules.
      */
     const INSTANT_ARTICLES_PARSED_FLAG = 'data-instant-articles-element-processed';
+
+    /**
+     * Initializes default values.
+     */
+    public function __construct()
+    {
+        $this->defaultDateTimeZone = new \DateTimeZone('America/Los_Angeles');
+    }
 
     /**
      * Clones a node for appending to raw-html containing Elements like Interactive.
@@ -337,7 +350,7 @@ class Transformer
     /**
      * Overrides all rules already set in this transformer instance.
      *
-     * @return Rule[] List of configured rules.
+     * @param Rule[] $rules List of configured rules.
      */
     public function setRules($rules)
     {
@@ -348,5 +361,26 @@ class Transformer
         foreach ($rules as $rule) {
             $this->addRule($rule);
         }
+    }
+
+    /**
+     * Sets the default timezone for parsing dates.
+     *
+     * @param DateTimeZone $dateTimeZone
+     */
+    public function setDefaultDateTimeZone($dateTimeZone)
+    {
+        Type::enforce($dateTimeZone, 'DateTimeZone');
+        $this->defaultDateTimeZone = $dateTimeZone;
+    }
+
+    /**
+     * Gets the default timezone for parsing dates.
+     *
+     * @return DateTimeZone
+     */
+    public function getDefaultDateTimeZone()
+    {
+        return $this->defaultDateTimeZone;
     }
 }

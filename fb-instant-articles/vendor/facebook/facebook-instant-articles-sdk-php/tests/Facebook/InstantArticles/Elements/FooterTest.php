@@ -106,6 +106,31 @@ class FooterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $rendered);
     }
 
+    public function testRenderWithCopyrightSmallElement()
+    {
+        $small =
+            Small::create()
+                ->appendText("2016 ")
+                ->appendText(
+                    Anchor::create()
+                        ->withHRef('https://facebook.com')
+                        ->appendText('Facebook')
+                );
+        $footer =
+            Footer::create()
+                ->withCopyright($small);
+
+        $expected =
+            '<footer>'.
+                '<small>'.
+                    '2016 <a href="https://facebook.com">Facebook</a>'.
+                '</small>'.
+            '</footer>';
+
+        $rendered = $footer->render();
+        $this->assertEquals($expected, $rendered);
+    }
+
     public function testRenderWithRelatedArticles()
     {
         $footer =
