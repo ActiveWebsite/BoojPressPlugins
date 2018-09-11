@@ -23,144 +23,229 @@
 */
 
 class WpBoojRelated {
-	
-	public static function get( $post_id, $count = 4 ){
+    /**
+     * @description Method is entry point to get related posts.  Mostly called in theme's single.php.
+     * @param $post_id | integer|string | The post id.  Should be int but can come in as string.
+     * @param int | $count | The number of related posts to retrieve.
+     * @return array|bool|mixed
+     */
+	public static function get($post_id, $count = 4){
 		$related_cache = WpBoojCache::check( $post_id = $post_id, $type = 'WpBoojRelated' );		
-		if( $related_cache ){
-			return $related_cache;
-		}
+
+		if( $related_cache ){ return $related_cache; }
 
 		global $wpdb;
 		// Get the cat and tag ids from the given $post_id
-		$tags  = wp_get_post_tags( $post_id );
-		$tag_ids = '';
-		foreach ( $tags as $key => $tag) {
-			$tag_ids .= $tag->term_id . ',';
-		}
-		$tag_ids = substr( $tag_ids, 0, -1);	
+		$tags  = wp_get_post_tags( $post_id, array('fields' => 'ids') );
 
 		$cats  = get_the_category( $post_id );
-		$cat_ids = '';
-		foreach ( $cats as $key => $cat) {
-			$cat_ids .= $cat->term_id . ',';
-		}
-		$cat_ids = substr( $cat_ids, 0, -1);
+		$catIds = array();
+		foreach ( $cats as $key => $cat) { $catIds[] = $cat->term_id; }
 
-		// NOW WELL LOOK FOR ALL THE OTHER POSTS / PAGES
-		// WHICH USE ANY OF THE SAME CATS / TAGS ORDERD AMMOUNT OF SIMILARITIES
-		// $potential_posts is created here
-
-		if( $tag_ids == '' && $cat_ids == ''){
-			$full_search = '';
-		} elseif( $tag_ids == '' && $cat_ids != '' ){
-			$full_search = $cat_ids;
-		} elseif( $tag_ids != '' && $cat_ids == '' ){
-			$full_search = $tag_ids;
-		}		 else {
-			$full_search = $tag_ids . "," . $cat_ids;
-		}
+        $full_search = implode(array_merge($tags, $catIds), ',');
 
 		// Get the term_taxonomy_id from the term_ids
-		$query = "SELECT * FROM `{$wpdb->prefix}term_taxonomy` WHERE `term_id` IN ( ". $full_search  ." );";
-		$rows  = $wpdb->get_results( $query );
-		$term_taxonomy_ids = '';
-		foreach( $rows as $key => $row ){
-			$term_taxonomy_ids .= $row->term_taxonomy_id . ',';		  
-		}
-		$term_taxonomy_ids = substr( $term_taxonomy_ids, 0, -1);		
-		$query = "SELECT DISTINCT( object_id ), COUNT(*) AS count 
-			FROM `{$wpdb->prefix}term_relationships` 
-			WHERE `term_taxonomy_id` IN( " . $term_taxonomy_ids ." ) 
-				AND `object_id` != " . $post_id . "
-			GROUP BY 1
-			ORDER BY 2 DESC
-			LIMIT 50";
-		$rows = $wpdb->get_results( $query );
+		$query = "SELECT `term_taxonomy_id` FROM `{$wpdb->prefix}term_taxonomy` WHERE `term_id` IN ({$full_search});";
+		$rows  = $wpdb->get_results( $query, ARRAY_N );
+		$termIds = array_map((function ($item) { return (integer)$item[0]; }), $rows);
 
-		$potential_posts = array();
-		$post_ids = '';
-		foreach( $rows as $key => $row ) {
-			$potential_posts[$row->object_id] = array( 
-				'post_id'    => $row->object_id,
-				'occurance'  => $row->count,
-				'points'     => ( $row->count * 1000 ), 
-			);
-			$post_ids .= $row->object_id . ',';
-		}
-		$post_ids = substr( $post_ids, 0, -1);
-		// NOW WE QUERY AGAINST THE POST IDS FROM ABOVE
-		// WE ARE FILTERING OUT ANY POST WHICH IS NOT PUBLISHED
-		// $potential_posts is important here
-		$query2 = "SELECT `ID`, `post_date` FROM `{$wpdb->prefix}posts` 
-			WHERE `ID` IN( ". $post_ids ." ) 
-				AND `post_status` = 'publish'
-				AND `post_type`   = 'post'
-			ORDER BY `post_date` DESC";
+        $rows = self::getRelatedPosts($post_id, $termIds);
 
-		$rows = $wpdb->get_results( $query2 );
-		foreach( $rows as $key => $row ) {
-			if( is_array( $potential_posts[ $row->ID ]) ){
-				$date_point_penelty = round( ( time() - strtotime( $row->post_date ) ) / 86400, 0 );
-				$potential_posts[ $row->ID ]['post']   = $row;
-				$potential_posts[ $row->ID ]['points'] = $potential_posts[ $row->ID ]['points'] - $date_point_penelty;
-			}
+        // Get more posts if we don't have 4.
+        if(count($rows) < $count) $rows = self::getMoreRelatedPosts($rows, $count);
+
+		$relatedPosts = array();
+
+		foreach( $rows as $key => $row )
+		{
+            $datePenalty = round( ( time() - strtotime( $row->post_date ) ) / 86400, 0 );
+            $relatedPosts[ $row->ID ]['post']   = $row;
+            $relatedPosts[ $row->ID ]['points'] = $relatedPosts[$row->ID]['points'] - $datePenalty;
 		}
 
-		// HERE WE COMPUTE OUR POINTS
-		$weighted_posts = array();
-		foreach( $potential_posts as $key => $value ) {
-			if( is_object( $value['post'] ) ){
-				$weighted_posts[$key] = $value['points'];			
-			} else {
-				unset( $potential_posts[$key] );
-			}
-		}
-
-		array_multisort( $weighted_posts, SORT_DESC, $potential_posts );
-
-		// NOW LETS GROOM THE LIST, MAKE SURE WE HAVE WHAT WE NEED
-		// MAKE SURE WE HAVE ENOUGH CONTENT, OTHER WISE FIND SOME
-		if( count( $potential_posts ) < $count ){
-			$ids_to_omit = $post_id . ',';
-			$posts_more_needed = $count - count( $potential_posts );
-			if( ! empty( $potential_posts ) ){
-				foreach ($potential_posts as $key => $value) {
-					$ids_to_omit .= $value['post']->ID . ',';
-				}
-			}
-			$ids_to_omit = substr( $ids_to_omit, 0, -1);			
-
-			//@todo: should just select IDS to simplify
-			$query3 = "SELECT * FROM `{$wpdb->prefix}posts` 
-				WHERE `ID` NOT IN( ". $ids_to_omit ." )
-					AND `post_status` = 'publish'  
-					AND `post_type` = 'post' 
-				ORDER BY `post_date` DESC
-				LIMIT " . $posts_more_needed;
-				
-			$rows = $wpdb->get_results( $query3 );
-
-			foreach( $rows as $key => $row ) {
-				$potential_posts[$row->ID]['post_id']   = $row->ID;
-				$potential_posts[$row->ID]['post'] = $row;
-			}
-		}
-
-		$posts = array();
-		foreach ( $potential_posts as $the_post_added ) { 
-			$posts[] = get_post( $the_post_added['post_id'] ); 
-		}
-
-		if( count( $posts ) > $count ){ $posts = array_slice( $posts, 0, $count, True ); }
+		$posts = self::getFinalPosts($relatedPosts);
 
 		// store a cached version if we found content
-		if( count( $posts ) == $count ){
-		  WpBoojCache::store( $post_id = $post_id, $post_type = 'WpBoojRelated', $posts );
-		}
+		if( count($posts) === $count ) WpBoojCache::store( $post_id = $post_id, $post_type = 'WpBoojRelated', $posts );
 
 		return $posts;
 	}
 
-}
 
-/* ENDFILE: includes/WpBoojRelated.php */
+    /**
+     * @description Method gets related posts from term ids and the post.
+     * @param $post | integer | The post ID.
+     * @param $termIds | array | The term ids associated with the post.
+     * @return array|null|object
+     */
+    private static function getRelatedPosts($post, $termIds)
+    {
+        global $wpdb;
+        $terms = implode($termIds, ",");
+
+        $query = "SELECT DISTINCT( object_id ), COUNT(*) AS count, `p`.`post_date` , `p`.`ID`
+			FROM `{$wpdb->prefix}term_relationships` t
+			JOIN wp_posts p on t.object_id = p.ID 
+			JOIN wp_postmeta pm on p.ID = pm.post_id and pm.meta_key = 'views'
+			WHERE `term_taxonomy_id` IN({$terms})
+				AND `object_id` != {$post}
+				AND p.post_status = \"publish\"
+				AND p.post_type   = \"post\"
+			GROUP BY 1
+			ORDER BY 2 DESC
+			LIMIT 50";
+
+        return $wpdb->get_results($query);
+    }
+
+
+    /**
+     * @description Method gets related posts from term ids and the post.
+     * @param $posts | array | The related posts already pulled.
+     * @param $count | integer | The number of posts we need.
+     * @return array|null|object
+     */
+    private static function getMoreRelatedPosts($posts, $count)
+    {
+        global $wpdb;
+
+        $ids = implode(self::getPostIdsFromArray($posts), ",");
+        $postsNeeded = $count - count($posts);
+
+        $query = "SELECT ID, 0, `post_date` as `count` FROM `{$wpdb->prefix}posts` 
+				WHERE `ID` NOT IN({$ids})
+					AND `post_status` = 'publish'  
+					AND `post_type` = 'post'
+				ORDER BY `post_date` DESC
+				LIMIT {$postsNeeded}";
+
+        $result = $wpdb->get_results($query);
+
+        // Merge the arrays.
+        return array_merge($posts, $result);
+    }
+
+
+    /**
+     * @description Method orders final posts by system setting and gets posts object.
+     * @param $posts
+     * @return array
+     */
+    private static function getFinalPosts($posts)
+    {
+        self::orderRelatedPosts($posts);
+
+        $out = array();
+
+        // Loop through and get the actual post objects for display.
+        foreach ($posts as $id => $post) { $out[] = get_post( $id ); }
+
+        return $out;
+    }
+
+
+    /**
+     * @description Method gets Booj settings and delegates ordering posts.
+     * @param $posts | array | The array of posts to order.
+     * @return array|bool | Sorted array of posts.
+     */
+    private static function orderRelatedPosts(&$posts)
+    {
+        $sortBy = get_option('wpbooj_ymal_orderby');
+        $sortOrder = get_option('wpbooj_ymal_order');
+
+        // Set sort order if it is null.
+        if(is_null($sortOrder)) $sortOrder = "desc";
+
+        switch ($sortBy)
+        {
+            case 'views':
+                // Do views logic here.
+                return self::sortPostsByViews($posts, $sortOrder);
+                break;
+            case 'date':
+                // Do date logic here.
+                return self::sortPostsByDate($posts, $sortOrder);
+                break;
+            case 'related':
+            default:
+                // DO old logic here.
+                return self::sortPostsByScore($posts, $sortOrder);
+                break;
+        }
+    }
+
+
+    /**
+     * @description Method sorts posts array by date.
+     * @param $posts | array | The posts to sort.
+     * @param $order | string | The order to sort by (ASC, DESC)
+     * @return bool|array | false or an array of sorted posts.
+     */
+    private static function sortPostsByDate(&$posts, $order)
+    {
+        if($order === 'asc')
+        {
+            return uasort($posts, function($a, $b) {
+                return ($a['post']->post_date < $b['post']->post_date) ? -1 : 1;
+            });
+        }
+
+        return uasort($posts, function($a, $b) {
+            return ($a['post']->post_date > $b['post']->post_date) ? -1 : 1;
+        });
+    }
+
+
+    /**
+     * @description Method sorts posts array by views.
+     * @param $posts | array | The posts to sort.
+     * @param $order | string | The order to sort by (ASC, DESC)
+     * @return bool|array | false or an array of sorted posts.
+     */
+    private static function sortPostsByViews(&$posts, $order)
+    {
+        if($order === 'asc')
+        {
+            return uasort($posts, function($a, $b) {
+                return ($a['post']->views < $b['post']->views) ? -1 : 1;
+            });
+        }
+
+        return uasort($posts, function($a, $b) {
+            return ($a['post']->views > $b['post']->views) ? -1 : 1;
+        });
+    }
+
+
+    /**
+     * @description Method sorts posts array by views.
+     * @param $posts | array | The posts to sort.
+     * @param $order | string | The order to sort by (ASC, DESC)
+     * @return bool|array | false or an array of sorted posts.
+     */
+    private static function sortPostsByScore(&$posts, $order)
+    {
+        if($order === 'asc')
+        {
+            return uasort($posts, function($a, $b) {
+                return ($a['points'] < $b['points']) ? -1 : 1;
+            });
+        }
+
+        return uasort($posts, function($a, $b) {
+            return ($a['points'] > $b['points']) ? -1 : 1;
+        });
+    }
+
+
+    /**
+     * @description Method gets post ids from array of posts.
+     * @param $posts | array | The array of post objects.
+     * @return array | Array of post ids.
+     */
+    private static function getPostIdsFromArray($posts)
+    {
+        return array_map((function ($post) { return $post->ID; }), $posts);
+    }
+}
