@@ -63,7 +63,7 @@ class WpBoojRelated {
             $relatedPosts[ $row->ID ]['points'] = $relatedPosts[$row->ID]['points'] - $datePenalty;
 		}
 
-		$posts = self::getFinalPosts($relatedPosts);
+		$posts = self::getFinalPosts($relatedPosts, $count);
 
 		// store a cached version if we found content
 		if( count($posts) === $count ) WpBoojCache::store( $post_id = $post_id, $post_type = 'WpBoojRelated', $posts );
@@ -74,8 +74,8 @@ class WpBoojRelated {
 
     /**
      * @description Method gets related posts from term ids and the post.
-     * @param $post | integer | The post ID.
-     * @param $termIds | array | The term ids associated with the post.
+     * @param integer | $post | The post ID.
+     * @param array | $termIds | The term ids associated with the post.
      * @return array|null|object
      */
     private static function getRelatedPosts($post, $termIds)
@@ -128,10 +128,11 @@ class WpBoojRelated {
 
     /**
      * @description Method orders final posts by system setting and gets posts object.
-     * @param $posts
+     * @param array | $posts | The posts to sort.
+     * @param integer | $count | The number of posts to return.
      * @return array
      */
-    private static function getFinalPosts($posts)
+    private static function getFinalPosts($posts, $count)
     {
         self::orderRelatedPosts($posts);
 
@@ -140,7 +141,7 @@ class WpBoojRelated {
         // Loop through and get the actual post objects for display.
         foreach ($posts as $id => $post) { $out[] = get_post( $id ); }
 
-        return $out;
+        return array_slice($out, 0, $count);
     }
 
 
