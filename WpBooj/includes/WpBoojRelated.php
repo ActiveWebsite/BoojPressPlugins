@@ -49,7 +49,7 @@ class WpBoojRelated {
 		$rows  = $wpdb->get_results( $query, ARRAY_N );
 		$termIds = array_map((function ($item) { return (integer)$item[0]; }), $rows);
 
-        $rows = self::getRelatedPosts($post_id, $termIds, $count);
+        $rows = self::getRelatedPosts($post_id, $termIds);
 
         // Get more posts if we don't have 4.
         if(count($rows) < $count) $rows = self::getMoreRelatedPosts($rows, $count);
@@ -63,7 +63,7 @@ class WpBoojRelated {
             $relatedPosts[ $row->ID ]['points'] = $relatedPosts[$row->ID]['points'] - $datePenalty;
 		}
 
-		$posts = self::getFinalPosts($relatedPosts);
+		$posts = self::getFinalPosts($relatedPosts, $count);
 
 		// store a cached version if we found content
 		if( count($posts) === $count ) WpBoojCache::store( $post_id = $post_id, $post_type = 'WpBoojRelated', $posts );
@@ -76,10 +76,9 @@ class WpBoojRelated {
      * @description Method gets related posts from term ids and the post.
      * @param integer | $post | The post ID.
      * @param array | $termIds | The term ids associated with the post.
-     * @param integer | $count | The number of posts to get.
      * @return array|null|object
      */
-    private static function getRelatedPosts($post, $termIds, $count)
+    private static function getRelatedPosts($post, $termIds)
     {
         global $wpdb;
         $terms = implode($termIds, ",");
@@ -94,7 +93,7 @@ class WpBoojRelated {
 				AND p.post_type   = \"post\"
 			GROUP BY 1
 			ORDER BY 2 DESC
-			LIMIT {$count}";
+			LIMIT 50";
 
         return $wpdb->get_results($query);
     }
@@ -102,8 +101,8 @@ class WpBoojRelated {
 
     /**
      * @description Method gets related posts from term ids and the post.
-     * @param array | $posts | The related posts already pulled.
-     * @param integer | $count | The number of posts we need.
+     * @param $posts | array | The related posts already pulled.
+     * @param $count | integer | The number of posts we need.
      * @return array|null|object
      */
     private static function getMoreRelatedPosts($posts, $count)
@@ -129,10 +128,11 @@ class WpBoojRelated {
 
     /**
      * @description Method orders final posts by system setting and gets posts object.
-     * @param $posts
+     * @param array | $posts | The posts to sort.
+     * @param integer | $count | The number of posts to return.
      * @return array
      */
-    private static function getFinalPosts($posts)
+    private static function getFinalPosts($posts, $count)
     {
         self::orderRelatedPosts($posts);
 
@@ -141,7 +141,7 @@ class WpBoojRelated {
         // Loop through and get the actual post objects for display.
         foreach ($posts as $id => $post) { $out[] = get_post( $id ); }
 
-        return $out;
+        return array_slice($out, 0, $count);
     }
 
 
