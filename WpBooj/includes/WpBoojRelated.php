@@ -49,7 +49,7 @@ class WpBoojRelated {
 		$rows  = $wpdb->get_results( $query, ARRAY_N );
 		$termIds = array_map((function ($item) { return (integer)$item[0]; }), $rows);
 
-        $rows = self::getRelatedPosts($post_id, $termIds, $count);
+        $rows = self::getRelatedPosts($post_id, $termIds);
 
         // Get more posts if we don't have 4.
         if(count($rows) < $count) $rows = self::getMoreRelatedPosts($rows, $count);
@@ -74,12 +74,11 @@ class WpBoojRelated {
 
     /**
      * @description Method gets related posts from term ids and the post.
-     * @param integer | $post | The post ID.
-     * @param array | $termIds | The term ids associated with the post.
-     * @param integer | $count | The number of posts to get.
+     * @param $post | integer | The post ID.
+     * @param $termIds | array | The term ids associated with the post.
      * @return array|null|object
      */
-    private static function getRelatedPosts($post, $termIds, $count)
+    private static function getRelatedPosts($post, $termIds)
     {
         global $wpdb;
         $terms = implode($termIds, ",");
@@ -94,7 +93,7 @@ class WpBoojRelated {
 				AND p.post_type   = \"post\"
 			GROUP BY 1
 			ORDER BY 2 DESC
-			LIMIT {$count}";
+			LIMIT 50";
 
         return $wpdb->get_results($query);
     }
@@ -102,8 +101,8 @@ class WpBoojRelated {
 
     /**
      * @description Method gets related posts from term ids and the post.
-     * @param array | $posts | The related posts already pulled.
-     * @param integer | $count | The number of posts we need.
+     * @param $posts | array | The related posts already pulled.
+     * @param $count | integer | The number of posts we need.
      * @return array|null|object
      */
     private static function getMoreRelatedPosts($posts, $count)
