@@ -30,6 +30,7 @@ Developer Notes
 define( 'WP_BOOJ_PATH', plugin_dir_path( __FILE__ ) );
 require WP_BOOJ_PATH . 'includes/WpBooj.php';
 require WP_BOOJ_PATH . 'includes/WpBoojCache.php';
+require WP_BOOJ_PATH . 'includes/settings/WpBoojSettings.php';
 
 $WpBooj_options = get_option( 'wp-booj' );
 
@@ -69,7 +70,7 @@ function WpBooj_activate(){
   wp_schedule_event(time(), 'daily', 'WpBooj_daily');
 }
 
-function WpBooj_deactivate(){ 
+function WpBooj_deactivate(){
   global $wpdb;
   $WpBoojCache_table_sql = "DROP TABLE {$wpdb->prefix}WpBoojCache;";
   $wpdb->get_results( $WpBoojCache_table_sql );
@@ -102,7 +103,7 @@ if (! function_exists( 'wp_redirect' ) && $WpBooj_options['proxy_admin_urls'] ==
       $location = '/blog' . $location;
     }
     header("Location: $location", true, $status);
-  } 
+  }
 }
 
 function WpBoojFindURISegment(){
