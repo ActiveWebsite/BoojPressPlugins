@@ -31,6 +31,7 @@ define( 'WP_BOOJ_PATH', plugin_dir_path( __FILE__ ) );
 require WP_BOOJ_PATH . 'includes/WpBooj.php';
 require WP_BOOJ_PATH . 'includes/WpBoojCache.php';
 require WP_BOOJ_PATH . 'includes/settings/WpBoojSettings.php';
+require WP_BOOJ_PATH . 'includes/ThemeHelper.php';
 
 $WpBooj_options = get_option( 'wp-booj' );
 
