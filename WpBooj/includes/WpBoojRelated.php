@@ -113,10 +113,10 @@ class WpBoojRelated {
         $postsNeeded = $count - count($posts);
 
         $query = "SELECT ID, 0, `post_date` as `count` FROM `{$wpdb->prefix}posts` 
-				    WHERE `post_status` = 'publish'  
+                    WHERE `post_status` = 'publish'  
                     AND `post_type` = 'post'";
 
-        if(empty($ids)) $query .= " AND `ID` NOT IN({$ids})";
+        if(!empty($ids)) $query .= " AND `ID` NOT IN({$ids})";
 
         $query .= "ORDER BY `post_date` DESC LIMIT {$postsNeeded}";
 
