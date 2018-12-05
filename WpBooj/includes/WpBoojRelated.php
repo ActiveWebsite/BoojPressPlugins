@@ -116,7 +116,7 @@ class WpBoojRelated {
 				    WHERE `post_status` = 'publish'  
                     AND `post_type` = 'post'";
 
-        if(empty($ids)) $query .= " AND `ID` NOT IN({$ids})";
+        if(!empty($ids)) $query .= " AND `ID` NOT IN({$ids})";
 
         $query .= "ORDER BY `post_date` DESC LIMIT {$postsNeeded}";
 
