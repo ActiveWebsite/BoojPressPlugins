@@ -113,20 +113,12 @@ class WpBoojRelated {
         $postsNeeded = $count - count($posts);
 
         $query = "SELECT ID, 0, `post_date` as `count` FROM `{$wpdb->prefix}posts` 
-<<<<<<< Updated upstream
-				WHERE `ID` NOT IN({$ids})
-					AND `post_status` = 'publish'  
-					AND `post_type` = 'post'
-				ORDER BY `post_date` DESC
-				LIMIT {$postsNeeded}";
-=======
-				    WHERE `post_status` = 'publish'  
+                    WHERE `post_status` = 'publish'  
                     AND `post_type` = 'post'";
 
         if(!empty($ids)) $query .= " AND `ID` NOT IN({$ids})";
 
         $query .= "ORDER BY `post_date` DESC LIMIT {$postsNeeded}";
->>>>>>> Stashed changes
 
         $result = $wpdb->get_results($query);
 
